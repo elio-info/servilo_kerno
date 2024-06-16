@@ -1,0 +1,15 @@
+[{
+  "_id": {
+    "$oid": "666a00f24d1a4ab9cb5d8e27"
+  },
+  "name": "Mantua",
+  "isDeleted": false,
+  "province": "6669ff90079184e73863190a",
+  "createdAt": {
+    "$date": "2024-06-12T20:11:30.048Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T20:11:30.048Z"
+  },
+  "__v": 0
+}]

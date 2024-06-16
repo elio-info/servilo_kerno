@@ -1,0 +1,43 @@
+[
+  {
+  "_id": {
+    "$oid": "666a2f452e6bbcc4b00916f4"
+  },
+  "nombre_categoria_manifestacion": "Danza",
+  "apoyo_categoria_manifestacion": false,
+  "createdAt": {
+    "$date": "2024-06-12T23:29:09.722Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T23:29:09.722Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a2f9d001740325f7923d4"
+  },
+  "nombre_categoria_manifestacion": "Musica",
+  "apoyo_categoria_manifestacion": false,
+  "createdAt": {
+    "$date": "2024-06-12T23:30:37.678Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T23:30:37.678Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a35f186d1671c99397ad0"
+  },
+  "nombre_categoria_manifestacion": "Luces",
+  "apoyo_categoria_manifestacion": true,
+  "createdAt": {
+    "$date": "2024-06-12T23:57:37.424Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T23:57:37.424Z"
+  },
+  "__v": 0
+}]

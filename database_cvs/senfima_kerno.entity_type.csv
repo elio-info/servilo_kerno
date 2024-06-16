@@ -1,0 +1,8 @@
+_id,name,hierarchy,isDeleted,createdAt,updatedAt,__v
+666a19b1ae9360d13df57417,Direccion Provincial,0,false,2024-06-12T21:57:05.083Z,2024-06-12T21:57:05.083Z,0
+666a1a1cae9360d13df57419,Direccion Municipal,1,false,2024-06-12T21:58:52.828Z,2024-06-12T21:58:52.828Z,0
+666a1adcae9360d13df5741b,Empresa Cultural,1,false,2024-06-12T22:02:04.065Z,2024-06-12T22:02:04.065Z,0
+666a1afdae9360d13df5741d,Centro Cultural Provincial,1,false,2024-06-12T22:02:37.793Z,2024-06-12T22:02:37.793Z,0
+666a1b28ae9360d13df5741f,Consejo Cultural Provincial,1,false,2024-06-12T22:03:20.163Z,2024-06-12T22:03:20.163Z,0
+666a1b57ae9360d13df57421,Asociacion Cultural Provincial,1,false,2024-06-12T22:04:07.479Z,2024-06-12T22:04:07.479Z,0
+666a1b80ae9360d13df57423,Institucion Cultural,2,false,2024-06-12T22:04:48.470Z,2024-06-12T22:04:48.470Z,0

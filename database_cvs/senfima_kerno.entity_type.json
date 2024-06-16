@@ -1,0 +1,105 @@
+[{
+  "_id": {
+    "$oid": "666a19b1ae9360d13df57417"
+  },
+  "name": "Direccion Provincial",
+  "hierarchy": 0,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T21:57:05.083Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T21:57:05.083Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a1a1cae9360d13df57419"
+  },
+  "name": "Direccion Municipal",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T21:58:52.828Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T21:58:52.828Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a1adcae9360d13df5741b"
+  },
+  "name": "Empresa Cultural",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T22:02:04.065Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T22:02:04.065Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a1afdae9360d13df5741d"
+  },
+  "name": "Centro Cultural Provincial",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T22:02:37.793Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T22:02:37.793Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a1b28ae9360d13df5741f"
+  },
+  "name": "Consejo Cultural Provincial",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T22:03:20.163Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T22:03:20.163Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a1b57ae9360d13df57421"
+  },
+  "name": "Asociacion Cultural Provincial",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T22:04:07.479Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T22:04:07.479Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a1b80ae9360d13df57423"
+  },
+  "name": "Institucion Cultural",
+  "hierarchy": 2,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T22:04:48.470Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T22:04:48.470Z"
+  },
+  "__v": 0
+}]

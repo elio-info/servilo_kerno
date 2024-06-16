@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "6669ff90079184e73863190a"
+  },
+  "name": "Pinar del Rio",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T20:05:36.859Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T20:05:36.859Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a04ba9f24939016ee506c"
+  },
+  "name": "Santiago de Cuba",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T20:27:38.324Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T20:27:38.324Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a04f69f24939016ee506e"
+  },
+  "name": "Centro",
+  "isDeleted": true,
+  "createdAt": {
+    "$date": "2024-06-12T20:28:38.821Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T20:28:38.821Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "666a0823a17fe9845feff8ae"
+  },
+  "name": "la lohasstring",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2024-06-12T20:42:11.716Z"
+  },
+  "updatedAt": {
+    "$date": "2024-06-12T20:42:11.716Z"
+  },
+  "__v": 0
+}]
