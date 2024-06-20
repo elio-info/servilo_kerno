@@ -1,33 +1,41 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { ApiProperty } from "@nestjs/swagger";
 import { Document, Types } from "mongoose";
+import { Nomencla_Categorias_ContratacionManifestacion_Especialidad } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.schema";
+import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores";
+import { Entity } from "src/modules/entity/domain/entities/entity.entity";
+
 
 @Schema({
     timestamps:true,
     validateBeforeSave:true,
-    collection:'Nomencla_Categorias_ContratacionManifestacion'
+    collection:'Talento_Artistico'
 })
-export class Nomencla_Categorias_ContratacionManifestacion {
-    _id: Types.ObjectId;
+export class Talento_Artistico_Model {
+    _id: Types.ObjectId;    
     
-    @ApiProperty({
-        type:String,
-        description:'Nombre del Nomenclador. Ej: música, danza, audio, transporte, luces, etc.'
-    })
+    @Prop({ required:true    })
+    nombre_Talento_Artistico :string
+   
     @Prop({
-        required:true,
-        unique: true
+        type: Types.ObjectId, ref: Nomencla_Categorias_ContratacionManifestacion_Especialidad.name
     })
-    nombre_categoria_manifestacion :string
+    manifest_esp:Nomencla_Categorias_ContratacionManifestacion_Especialidad
 
-    @ApiProperty({
-        type:Boolean,
-        description:'Si: luces, transporte.	No: danza, teatro',default:false
-    })
+    @Prop({  default:true })
+    persona_TalentoArtistico:boolean
+
     @Prop({
-        default:false
+        type: Types.ObjectId, ref: Nomenclador_Clasifica_ContratoTalento
     })
-    apoyo_categoria_manifestacion:boolean
+    contrato_talento:Nomenclador_Clasifica_ContratoTalento
+
+    @Prop({
+        type: Types.ObjectId, ref: Entity.name
+    })
+    entidad_talento:Nomencla_Categorias_ContratacionManifestacion_Especialidad
+
+     @Prop({  default:false })
+    isDeleted:boolean
 
     @Prop({ default: Date.now })
     createdAt: Date;
@@ -36,8 +44,8 @@ export class Nomencla_Categorias_ContratacionManifestacion {
     updatedAt: Date;
 }
 
-export const Nomencla_Categorias_ContratacionManifestacion_Schema=
-SchemaFactory.createForClass(Nomencla_Categorias_ContratacionManifestacion)
+export const Talento_Artistico_Schema=
+SchemaFactory.createForClass(Talento_Artistico_Model)
 
-export type Nomencla_Categorias_ContratacionManifestacion_Document =
-Nomencla_Categorias_ContratacionManifestacion & Document
+export type Talento_Artistico_Document =
+Talento_Artistico_Model & Document

@@ -1,9 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
-import { Type } from "class-transformer";
 import { Document, Types } from "mongoose";
 import { Nomencla_Categorias_ContratacionManifestacion } from "../../n_catgcont-m/schemas/n_catgcont-m.schema";
-import { IsBoolean, IsOptional } from "class-validator";
+import { IsOptional } from "class-validator";
 
 @Schema({
     timestamps:true,
