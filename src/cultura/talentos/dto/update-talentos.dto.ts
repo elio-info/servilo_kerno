@@ -28,8 +28,12 @@ export class Update_Talento_Artistico_Dto extends Create_Talento_Artistico_Dto{
 
     //Nomenclador_Clasifica_ContratoTalento
     @IsOptional()
-    @ApiProperty({  default:'A',type:Nomenclador_Clasifica_ContratoTalento })
-    contrato_talento:Nomenclador_Clasifica_ContratoTalento
+    @ApiProperty({  
+        default:'A',
+        type: String,
+        enum:Object.keys(Nomenclador_Clasifica_ContratoTalento) })
+    contrato_talento:string
+    
     //Entity
     @IsOptional()
     @ApiProperty({  type:'ObjectID.Entity' })

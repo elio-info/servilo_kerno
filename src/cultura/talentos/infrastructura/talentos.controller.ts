@@ -24,11 +24,11 @@ export class Talento_Artistico_Controller {
     return this.talento_Srv.findAll();
   }
 
-  /* This code snippet is defining a GET endpoint in a NestJS controller. 
+  /* This code snippet is defining a GET endpoint in a NestJS controller. */
   @Get(':id')  
   findById(@Param('id') id: string) {
     return this.talento_Srv.findId(id);
-  }*/
+  }
 
   @Get('/find/:name')
   findByName(@Param('name') name: string) {

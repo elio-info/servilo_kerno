@@ -25,9 +25,11 @@ export class Talento_Artistico_Model {
     persona_TalentoArtistico:boolean
 
     @Prop({
-        type: Types.ObjectId, ref: Nomenclador_Clasifica_ContratoTalento
+        type: String, //
+        enum: Object.keys(Nomenclador_Clasifica_ContratoTalento) ,
+       default:'A'
     })
-    contrato_talento:Nomenclador_Clasifica_ContratoTalento
+    contrato_talento:string
 
     @Prop({
         type: Types.ObjectId, ref: Entity.name

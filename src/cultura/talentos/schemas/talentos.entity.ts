@@ -17,7 +17,7 @@ export class Talento_Artistico {
     persona_TalentoArtistico:boolean
     //Nomenclador_Clasifica_ContratoTalento
     @Prop({  default:'A' })
-    contrato_talento:Nomenclador_Clasifica_ContratoTalento
+    contrato_talento: Nomenclador_Clasifica_ContratoTalento
     @Prop({  default:false })
     isDeleted:boolean
     createdAt: Date;  

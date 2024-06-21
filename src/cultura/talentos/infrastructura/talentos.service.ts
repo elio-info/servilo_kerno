@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Talento_Artistico_Document, Talento_Artistico_Model } from '../schemas/talentos.schema';
-import { privateDecrypt } from 'crypto';
 import { Model, Query } from 'mongoose';
 import { Create_Talento_Artistico_Dto } from '../dto/create-talentos.dto';
 import { Update_Talento_Artistico_Dto } from '../dto/update-talentos.dto';
@@ -20,9 +19,9 @@ export class Talento_Artistico_Service {
         return await this.talento_Model.find();
       }
     async findByName(buscarNombre?:string): Promise< Talento_Artistico_Document[]> {
-        let buscar={ nombre_Talento_Artistico: { $regex: `%${buscarNombre}%`, $options: 'i' } }
+        let buscar={ "nombre_Talento_Artistico": { $regex: `${buscarNombre}` ,$options:"i"} }
         console.log(buscar)
-        return await this.talento_Model.find(  buscar )
+        return await this.talento_Model.find(buscar)
       }
     
       async findId(id:string) {

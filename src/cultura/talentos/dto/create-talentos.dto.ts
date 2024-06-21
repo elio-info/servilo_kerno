@@ -11,7 +11,7 @@ export class Create_Talento_Artistico_Dto{
     @ApiProperty({example:'Pedro Prieto'})
     @IsString()
     @MinLength(3)
-    nombre_TalentoArtistico :string
+    nombre_Talento_Artistico :string
 
     //Nomencla_Categorias_ContratacionManifestacion_Clss.id
     @ApiProperty({example:'666b7d6e80597b171ef1495d Danza Folklorica', type: 'ObjectID:Nomencla_Categorias_ContratacionManifestacion_Especialidad'})
@@ -23,14 +23,17 @@ export class Create_Talento_Artistico_Dto{
     persona_Talento_Artistico:boolean
 
     //Nomenclador_Clasifica_ContratoTalento
-    @ApiProperty({  default:'A',type:Nomenclador_Clasifica_ContratoTalento })
-    contrato_talento:Nomenclador_Clasifica_ContratoTalento
+    @ApiProperty({  default:'A',
+        type:String,
+        enum: Object.keys(Nomenclador_Clasifica_ContratoTalento)  })
+    contrato_talento:string
     //Entity
-    @ApiProperty({  type:'ObjectID.Entity' })
+    @ApiProperty({  type:'ObjectID.Entity', example:'666c39bd57d4be9254cb5741' })
     @IsMongoId()
     entidad_talento:string
 
     @ApiProperty({  default:false })
+    @IsOptional()
     isDeleted:boolean
 
     @IsOptional()

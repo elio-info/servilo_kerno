@@ -82,8 +82,27 @@ cult/entity
   "reeup": "",
   "commercialRegister": ""
 }
+
 cult/Nomencla_Categorias_ContratacionManifestacion_Especialidad
-{"_id":ObjectID('666b7d6e80597b171ef1495d'),
+{
+  "_id":ObjectID('666b7d6e80597b171ef1495d'),
 "nombre_categoria_manifestacion_especialidad":"Folklorica",
 "ID_categoria_manifestacion":"666c29e7a2fc5ad817ef44c4",
-"isDeleted":false}
+"isDeleted":false
+}
+
+cult/talento
+[
+  {
+    "_id": "6674bba60c094c02c3a5bef1",
+    "nombre_Talento_Artistico": "Pedro Prieto",
+    "manifest_esp": "666b7d6e80597b171ef1495d",
+    "persona_TalentoArtistico": true,
+    "contrato_talento": "A",
+    "entidad_talento": "666c39bd57d4be9254cb5741",
+    "isDeleted": false,
+    "createdAt": "2024-06-20T23:30:46.868Z",
+    "updatedAt": "2024-06-20T23:30:46.868Z",
+    "__v": 0
+  }
+]
