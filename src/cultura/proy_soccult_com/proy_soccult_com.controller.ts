@@ -1,0 +1,36 @@
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Proyecto_Sociocultural_Comunitario_Service } from './proy_soccult_com.service';
+import { CreateProySoccultComDto } from './dto/create-proy_soccult_com.dto';
+import { UpdateProySoccultComDto } from './dto/update-proy_soccult_com.dto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Proyecto Sociocultural Comunitario')
+@Controller('proy-soccult-com')
+export class Proyecto_Sociocultural_Comunitario_Controller {
+  constructor(private readonly proySoccultComService: Proyecto_Sociocultural_Comunitario_Service) {}
+
+  @Post()
+  create(@Body() createProySoccultComDto: CreateProySoccultComDto) {
+    return this.proySoccultComService.create(createProySoccultComDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.proySoccultComService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.proySoccultComService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateProySoccultComDto: UpdateProySoccultComDto) {
+    return this.proySoccultComService.update(+id, updateProySoccultComDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.proySoccultComService.remove(+id);
+  }
+}
