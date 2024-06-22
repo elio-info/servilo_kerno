@@ -2,8 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Type } from "class-transformer";
 import { Types } from "mongoose";
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto";
-import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema";
-import { ProvinceModel } from "src/modules/province/infrastructure/province.schema";
+import { ConsejoPopular_Municipality_Model } from "src/cultura/consejo_popular/infrastructure/consejo_popular.schema";
 
 @Schema({
     timestamps:true,
@@ -18,13 +17,13 @@ export class Proyecto_Sociocultural_Comunitario_Model{
     })
     nombre:string
 
-    @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
-    @Type(() => MunicipalityModel)
-    municipality: MunicipalityModel;
+    @Prop({ type: Types.ObjectId, ref: ConsejoPopular_Municipality_Model.name })
+    @Type(() => ConsejoPopular_Municipality_Model)
+    consejopopular_municipality: ConsejoPopular_Municipality_Model;
 
-    @Prop({ type: Types.ObjectId, ref: ProvinceModel.name })
-    @Type(() => ProvinceModel)
-    province:string
+    // @Prop({ type: Types.ObjectId, ref: ProvinceModel.name })
+    // @Type(() => ProvinceModel)
+    // province:string
     
     @Prop({required:true})
     responsable:string

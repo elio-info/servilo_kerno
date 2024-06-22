@@ -16,20 +16,20 @@ export class UpdateProySoccultComDto extends PartialType(Create_Proyecto_Sociocu
     nombre:string
     
     @IsOptional()
-    @ApiProperty({ type: 'ObjectId.Province' })
+    @ApiProperty({ type: 'ObjectId.ConsejoPopular_Municipality' })
     @IsMongoId()
-    @IsString({ message: 'The Id of the province must be a String' })
+    @IsString({ message: 'The Id of the consejo popular must be a String' })
     // @IsRelationShipWith(MunicipalityModel)
-    @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
-    municipality:string
+    @IsNotEmpty({ message: 'The Consejo Popular ID cannot be empty' })  
+    consejopopular_municipality:string
 
-    @IsOptional()
-    @ApiProperty({ type: 'ObjectId.Province' })
-    @IsMongoId()
-    @IsString({ message: 'The Id of the province must be a String' })
-    // @IsRelationShipWith(ProvinceModel)
-    @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
-    province:string
+    // @IsOptional()
+    // @ApiProperty({ type: 'ObjectId.Province' })
+    // @IsMongoId()
+    // @IsString({ message: 'The Id of the province must be a String' })
+    // // @IsRelationShipWith(ProvinceModel)
+    // @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
+    // province:string
 
     @IsOptional()
     @ApiProperty({example:'La casa de Pedro Prieto'})
@@ -38,7 +38,9 @@ export class UpdateProySoccultComDto extends PartialType(Create_Proyecto_Sociocu
     responsable:string
 
     @IsOptional()
-    @ApiProperty({example:'{cell:12345678,fijo:12345678,trabajo:12345678} uno o los 3'})
-    @IsObject()
+    @ApiProperty({
+        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`,
+        type: Telefonos_Type_Dto
+    })
     telefonos:Telefonos_Type_Dto
 }

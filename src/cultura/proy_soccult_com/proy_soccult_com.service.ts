@@ -23,11 +23,12 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     return await this.pscc_Model.find({_id:id});
   }
 
-  update(id: number, updateProySoccultComDto: UpdateProySoccultComDto) {
-    return `This action updates a #${id} proySoccultCom`;
+  update(id: string, updateProySoccultComDto: UpdateProySoccultComDto):Promise<Proyecto_Sociocultural_Comunitario_Document> {
+    console.log(updateProySoccultComDto)
+    return this.pscc_Model.findByIdAndUpdate(id,updateProySoccultComDto,{new :true })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} proySoccultCom`;
+  async remove(id: string):Promise<void> {
+    return await this.pscc_Model.findByIdAndDelete(id)
   }
 }

@@ -26,11 +26,11 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProySoccultComDto: UpdateProySoccultComDto) {
-    return this.proySoccultComService.update(+id, updateProySoccultComDto);
+    return this.proySoccultComService.update(id, updateProySoccultComDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.proySoccultComService.remove(+id);
+    return this.proySoccultComService.remove(id);
   }
 }

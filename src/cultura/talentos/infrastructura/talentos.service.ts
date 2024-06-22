@@ -35,6 +35,6 @@ export class Talento_Artistico_Service {
       }
     
       async remove(id: string) {
-        return await this.talento_Model.findOneAndDelete({_id:id});
+        return await this.talento_Model.findByIdAndDelete({_id:id});
       }
 }
