@@ -2,6 +2,7 @@ import { ApiProperty } from "@nestjs/swagger"
 import { Type } from "class-transformer"
 import { IsMongoId, IsNotEmpty, IsObject, IsString, MinLength } from "class-validator"
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
+import { ConsejoPopular_Municipality_Model } from "src/cultura/consejo_popular/infrastructure/consejo_popular.schema"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
 import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema"
 import { ProvinceModel } from "src/modules/province/infrastructure/province.schema"
@@ -19,7 +20,7 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @IsString({ message: 'The Id of the consejo popular must be a String' })
     // @IsRelationShipWith(MunicipalityModel)
     @IsNotEmpty({ message: 'The consejo ppopular ID cannot be empty' })  
-    consejopopular_municipality:string
+    consejopopular_municipality:ConsejoPopular_Municipality_Model
 
     // @ApiProperty({ type: 'ObjectId.Province' })
     // @IsMongoId()

@@ -6,6 +6,7 @@ import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExis
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 import { Telefonos_Type_Dto } from 'src/cultura/codificadores-cult/infrastructure/telefonos.dto';
+import { ConsejoPopular_Municipality_Model } from 'src/cultura/consejo_popular/infrastructure/consejo_popular.schema';
 
 export class UpdateProySoccultComDto extends PartialType(Create_Proyecto_Sociocultural_Comunitario_Dto) {
     @IsOptional()
@@ -16,12 +17,14 @@ export class UpdateProySoccultComDto extends PartialType(Create_Proyecto_Sociocu
     nombre:string
     
     @IsOptional()
-    @ApiProperty({ type: 'ObjectId.ConsejoPopular_Municipality' })
+    @ApiProperty({ 
+        type: 'ObjectId.ConsejoPopular_Municipality', 
+        example:'66763c9511dbc2cb96b53d4d'})
     @IsMongoId()
     @IsString({ message: 'The Id of the consejo popular must be a String' })
     // @IsRelationShipWith(MunicipalityModel)
     @IsNotEmpty({ message: 'The Consejo Popular ID cannot be empty' })  
-    consejopopular_municipality:string
+    consejopopular_municipality:ConsejoPopular_Municipality_Model
 
     // @IsOptional()
     // @ApiProperty({ type: 'ObjectId.Province' })
