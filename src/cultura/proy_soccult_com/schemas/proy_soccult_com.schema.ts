@@ -1,6 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Type } from "class-transformer";
 import { Types } from "mongoose";
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto";
+import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema";
+import { ProvinceModel } from "src/modules/province/infrastructure/province.schema";
 
 @Schema({
     timestamps:true,
@@ -10,16 +13,23 @@ import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructur
 export class Proyecto_Sociocultural_Comunitario_Model{
     _id:Types.ObjectId
 
-    @Prop({required:true})
+    @Prop({required:true,
+        unique:true
+    })
     nombre:string
 
-    municipality:string
+    @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
+    @Type(() => MunicipalityModel)
+    municipality: MunicipalityModel;
 
+    @Prop({ type: Types.ObjectId, ref: ProvinceModel.name })
+    @Type(() => ProvinceModel)
     province:string
     
     @Prop({required:true})
     responsable:string
 
+    @Prop()
     telefonos:Telefonos_Type_Dto
 
     @Prop({ default: Date.now })

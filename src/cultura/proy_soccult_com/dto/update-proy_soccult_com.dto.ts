@@ -19,7 +19,7 @@ export class UpdateProySoccultComDto extends PartialType(Create_Proyecto_Sociocu
     @ApiProperty({ type: 'ObjectId.Province' })
     @IsMongoId()
     @IsString({ message: 'The Id of the province must be a String' })
-    @IsRelationShipWith(MunicipalityModel)
+    // @IsRelationShipWith(MunicipalityModel)
     @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
     municipality:string
 
@@ -27,7 +27,7 @@ export class UpdateProySoccultComDto extends PartialType(Create_Proyecto_Sociocu
     @ApiProperty({ type: 'ObjectId.Province' })
     @IsMongoId()
     @IsString({ message: 'The Id of the province must be a String' })
-    @IsRelationShipWith(ProvinceModel)
+    // @IsRelationShipWith(ProvinceModel)
     @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
     province:string
 

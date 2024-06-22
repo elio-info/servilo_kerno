@@ -19,7 +19,7 @@ export class EntityModel {
   @Type(() => EntityModel)
   parentId: EntityModel;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique:true })
   name: string;
 
   @Prop({ default: '' })

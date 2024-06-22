@@ -7,8 +7,10 @@ export const IsRelationShipWith =
     ModelClass: Type<TModel>,
     options?: ValidationOptions,
   ) =>
-  (object: object, propertyName: string) =>
-    registerDecorator({
+  (object: object, propertyName: string) =>{
+
+    console.log(object,propertyName)
+     registerDecorator({
       name: `IsRelationShip`,
       target: object.constructor,
       propertyName,
@@ -16,3 +18,5 @@ export const IsRelationShipWith =
       constraints: [ModelClass],
       validator: IsRelationshipProvider,
     });
+  }
+   

@@ -9,20 +9,22 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @ApiProperty({example:'La casa de Pedro Prieto'})
     @IsNotEmpty()
     @IsString()
-    @MinLength(3)
+    @MinLength(3)    
     nombre:string
     
     @ApiProperty({ type: 'ObjectId.Municipality' })
     @IsMongoId()
     @IsString({ message: 'The Id of the province must be a String' })
-    @IsRelationShipWith(MunicipalityModel)
-    @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
+    // @IsRelationShipWith(MunicipalityModel)
+    @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })  
     municipality:string
 
     @ApiProperty({ type: 'ObjectId.Province' })
     @IsMongoId()
     @IsString({ message: 'The Id of the province must be a String' })
-    @IsRelationShipWith(ProvinceModel)
+    /* The line `// @IsRelationShipWith(ProvinceModel)` is a commented-out decorator in the TypeScript
+    class `Create_Proyecto_Sociocultural_Comunitario_Dto`. */
+    // @IsRelationShipWith(ProvinceModel)
     @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
     province:string
 
