@@ -1,19 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProySoccultComDto } from './dto/create-proy_soccult_com.dto';
+import { Create_Proyecto_Sociocultural_Comunitario_Dto } from './dto/create-proy_soccult_com.dto';
 import { UpdateProySoccultComDto } from './dto/update-proy_soccult_com.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Proyecto_Sociocultural_Comunitario_Document, Proyecto_Sociocultural_Comunitario_Model } from './schemas/proy_soccult_com.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class Proyecto_Sociocultural_Comunitario_Service {
-  create(createProySoccultComDto: CreateProySoccultComDto) {
-    return 'This action adds a new proySoccultCom';
+  constructor(
+    @InjectModel(Proyecto_Sociocultural_Comunitario_Model.name) private readonly pscc_Model:Model<Proyecto_Sociocultural_Comunitario_Document>
+  ){}
+
+  async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto):Promise<void> {
+    this.pscc_Model.create(createProySoccultComDto)
   }
 
-  findAll() {
-    return `This action returns all proySoccultCom`;
+  findAll():Promise<Proyecto_Sociocultural_Comunitario_Document[]> {
+    return this.pscc_Model.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} proySoccultCom`;
+  async findOne(id: string) :Promise<Proyecto_Sociocultural_Comunitario_Document[]>{
+    return await this.pscc_Model.find({_id:id});
   }
 
   update(id: number, updateProySoccultComDto: UpdateProySoccultComDto) {

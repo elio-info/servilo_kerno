@@ -60,3 +60,4 @@ export enum Nomenclador_Clasifrica_ProgramasSociales{
     "Prior" = "Programa Social Priorizado " ,   
     "Espc" = "Programa Social Provinciales " 
 }
+

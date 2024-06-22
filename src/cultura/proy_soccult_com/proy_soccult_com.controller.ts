@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { Proyecto_Sociocultural_Comunitario_Service } from './proy_soccult_com.service';
-import { CreateProySoccultComDto } from './dto/create-proy_soccult_com.dto';
+import { Create_Proyecto_Sociocultural_Comunitario_Dto } from './dto/create-proy_soccult_com.dto';
 import { UpdateProySoccultComDto } from './dto/update-proy_soccult_com.dto';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -10,7 +10,7 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   constructor(private readonly proySoccultComService: Proyecto_Sociocultural_Comunitario_Service) {}
 
   @Post()
-  create(@Body() createProySoccultComDto: CreateProySoccultComDto) {
+  create(@Body(new ValidationPipe()) createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto) {
     return this.proySoccultComService.create(createProySoccultComDto);
   }
 
@@ -21,7 +21,7 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.proySoccultComService.findOne(+id);
+    return this.proySoccultComService.findOne(id);
   }
 
   @Patch(':id')

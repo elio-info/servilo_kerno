@@ -28,7 +28,7 @@ import {
 import { ApiUnauthorizedCustomErrorResponse } from 'src/modules/common/doc/api-unauthorized-custom-error-response.decorator';
 import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-custom-error-response.decorator';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
-import { ConsejoPopular_Municipality_Entity } from '../domain/entities/consejo_popular.entity';
+import { ConsejoPopular_Municipality_Entity } from '../domain/schemas/consejo_popular.entity';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
 import { DataList } from 'src/modules/common/data-list';
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';

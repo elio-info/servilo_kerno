@@ -3,9 +3,9 @@ import { Inject, Injectable, UsePipes, ValidationPipe } from '@nestjs/common';
 import { InvalidPaginationError } from 'src/modules/common/errors/invalid-pagination.error';
 import { DataList } from 'src/modules/common/data-list';
 import { Mongoose_ConsejoPopular_Municipality_Repository } from '../infrastructure/mongoose-consejopopular_municipality.repository';
-import { MunicipalityRepository } from '../domain/repository/consejopopular_municipality.repository';
+import { ConsejoPopular_Municipality_Repository } from '../domain/repository/consejopopular_municipality.repository';
 import { Create_ConsejoPopular_Municipality_Dto } from '../domain/dto/create-consejopopular_municipality.dto';
-import { ConsejoPopular_Municipality_Entity } from '../domain/entities/consejo_popular.entity';
+import { ConsejoPopular_Municipality_Entity } from '../domain/schemas/consejo_popular.entity';
 import { Update_ConsejoPopular_Municipality_Dto } from '../domain/dto/update-consejopopular_municipality.dto';
 import SearchMunicipalityDto from '../domain/dto/search-consejopopular_municipality.dto';
 
@@ -13,11 +13,11 @@ import SearchMunicipalityDto from '../domain/dto/search-consejopopular_municipal
 export class ConsejoPopular_Municipality_Service {
   constructor(
     @Inject(Mongoose_ConsejoPopular_Municipality_Repository)
-    private repository: MunicipalityRepository,
+    private repository: ConsejoPopular_Municipality_Repository,
   ) {}
 
-  create(createMunicipalityDto: Create_ConsejoPopular_Municipality_Dto): Promise<void> {
-    return this.repository.create(createMunicipalityDto);
+  create(create_CPMunicipalityDto: Create_ConsejoPopular_Municipality_Dto): Promise<void> {
+    return this.repository.create(create_CPMunicipalityDto);
   }
 
   findAll(page = 1, pageSize = 15): Promise<DataList<ConsejoPopular_Municipality_Entity>> {
