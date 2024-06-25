@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Create_Proyecto_Sociocultural_Comunitario_Dto } from './dto/create-proy_soccult_com.dto';
-import { UpdateProySoccultComDto } from './dto/update-proy_soccult_com.dto';
+import { Update_Proyecto_Sociocultural_Comunitario_Dto } from './dto/update-proy_soccult_com.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Proyecto_Sociocultural_Comunitario_Document, Proyecto_Sociocultural_Comunitario_Model } from './schemas/proy_soccult_com.schema';
 import { Model } from 'mongoose';
@@ -23,7 +23,7 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     return await this.pscc_Model.find({_id:id});
   }
 
-  update(id: string, updateProySoccultComDto: UpdateProySoccultComDto):Promise<Proyecto_Sociocultural_Comunitario_Document> {
+  update(id: string, updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto):Promise<Proyecto_Sociocultural_Comunitario_Document> {
     console.log(updateProySoccultComDto)
     return this.pscc_Model.findByIdAndUpdate(id,updateProySoccultComDto,{new :true })
   }

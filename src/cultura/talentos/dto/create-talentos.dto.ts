@@ -23,7 +23,7 @@ export class Create_Talento_Artistico_Dto{
     persona_Talento_Artistico:boolean
 
     //Nomenclador_Clasifica_ContratoTalento
-    @ApiProperty({  default:'A',
+    @ApiProperty({  default:Nomenclador_Clasifica_ContratoTalento.A,
         type:String,
         enum: Object.keys(Nomenclador_Clasifica_ContratoTalento)  })
     contrato_talento:string

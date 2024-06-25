@@ -55,9 +55,15 @@ export enum Nomenclador_GrupoEtareo{
     'PG' = 'Público General (PG)'
 }
 
-export enum Nomenclador_Clasifrica_ProgramasSociales{
+export enum Nomenclador_Clasifica_ProgramasSociales{
     "Prov" = "Programa Social Provincial" ,  
     "Prior" = "Programa Social Priorizado " ,   
-    "Espc" = "Programa Social Provinciales " 
+    "Espc" = "Programa Social Especiales " 
 }
 
+
+export enum Clasifica_Nivel_EntidadCultural{
+    "Prov" = "Nivel Provincial" ,  
+    "Mnpl" = "Nivel Municipal " ,   
+    "Ncnl" = "Nivel Nacional " 
+}

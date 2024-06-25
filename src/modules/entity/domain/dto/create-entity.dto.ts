@@ -9,6 +9,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
@@ -30,6 +31,16 @@ export class CreateEntityDto {
   @MaxLength(64)
   @IsNotEmpty()
   name: string;
+
+  @ApiProperty({ 
+    type: String, 
+    enum:Object.keys(Clasifica_Nivel_EntidadCultural),
+    default:Clasifica_Nivel_EntidadCultural.Mnpl,
+    example: 'Mnpl'
+   })
+  @IsOptional()
+  nivel?: string;
+
 
   @IsString()
   @MinLength(6)
@@ -58,7 +69,7 @@ export class CreateEntityDto {
   @IsOptional()
   domicilie: string;
 
-  @ApiProperty({ type: 'ObjectID.Municipality' })
+  @ApiProperty({ type: 'ObjectID.Municipality' , example:'666a00f24d1a4ab9cb5d8e27'})
   @IsMongoId({ message: 'Municipality Id must be valid' })
   @IsOptional()
   @IsRelationShipWith(MunicipalityModel)

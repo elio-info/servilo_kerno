@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { Proyecto_Sociocultural_Comunitario_Service } from './proy_soccult_com.service';
 import { Create_Proyecto_Sociocultural_Comunitario_Dto } from './dto/create-proy_soccult_com.dto';
-import { UpdateProySoccultComDto } from './dto/update-proy_soccult_com.dto';
+import { Update_Proyecto_Sociocultural_Comunitario_Dto } from './dto/update-proy_soccult_com.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Proyecto Sociocultural Comunitario')
@@ -25,7 +25,7 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProySoccultComDto: UpdateProySoccultComDto) {
+  update(@Param('id') id: string, @Body() updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto) {
     return this.proySoccultComService.update(id, updateProySoccultComDto);
   }
 

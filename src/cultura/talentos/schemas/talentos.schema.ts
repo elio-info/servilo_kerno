@@ -27,7 +27,7 @@ export class Talento_Artistico_Model {
     @Prop({
         type: String, //
         enum: Object.keys(Nomenclador_Clasifica_ContratoTalento) ,
-       default:'A'
+       default:Nomenclador_Clasifica_ContratoTalento.A
     })
     contrato_talento:string
 

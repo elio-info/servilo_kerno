@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { Create_Proyecto_Sociocultural_Comunitario_Dto } from './create-proy_soccult_com.dto';
+import { Create_Comunidad_Transformacion_Dto } from './create-comun_transf.dto';
 import { IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
@@ -8,7 +8,7 @@ import { ProvinceModel } from 'src/modules/province/infrastructure/province.sche
 import { Telefonos_Type_Dto } from 'src/cultura/codificadores-cult/infrastructure/telefonos.dto';
 import { ConsejoPopular_Municipality_Model } from 'src/cultura/consejo_popular/infrastructure/consejo_popular.schema';
 
-export class Update_Proyecto_Sociocultural_Comunitario_Dto extends PartialType(Create_Proyecto_Sociocultural_Comunitario_Dto) {
+export class Update_Comunidad_Transformacion_Dto extends PartialType(Create_Comunidad_Transformacion_Dto) {
     @IsOptional()
     @ApiProperty({example:'La casa de Pedro Prieto'})
     @IsNotEmpty()

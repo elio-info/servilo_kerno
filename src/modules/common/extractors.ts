@@ -8,6 +8,8 @@ import { EntityModel } from '../entity/infrastructure/entity.schema';
 import { Entity } from '../entity/domain/entities/entity.entity';
 import { PlaceModel } from '../place/infrastructure/places.schema';
 import { Place } from '../place/domain/entities/place.entity';
+import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
+import { Nomencladores_Generales } from 'src/cultura/codificadores-cult/infrastructure/codificadores_nomencladores.controller';
 
 export function extractMunicipality(
   municipality: MunicipalityModel,
@@ -62,6 +64,7 @@ export function extractEntity(entity: EntityModel): Entity {
     entityType: extractEntityType(entity.entityType),
     parentId: entity.parentId ? entity.parentId._id.toString() : null,
     name: entity.name,
+    nivel: entity.nivel,
     nitCode: entity.nitCode,
     abbreviation: entity.abbreviation,
     resolution: entity.resolution,

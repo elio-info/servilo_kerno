@@ -136,6 +136,7 @@ export class MongooseEntityRepository implements EntityRepository {
       entityType: extractEntityType(entity.entityType),
       parentId: entity.parentId ? entity.parentId._id.toString() : null,
       name: entity.name,
+      nivel: entity.nivel,
       nitCode: entity.nitCode,
       abbreviation: entity.abbreviation,
       resolution: entity.resolution,

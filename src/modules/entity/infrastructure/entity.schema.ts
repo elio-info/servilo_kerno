@@ -4,6 +4,7 @@ import { Type } from 'class-transformer';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
 import { PlaceModel } from 'src/modules/place/infrastructure/places.schema';
+import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
 
 export type EntityDocument = HydratedDocument<EntityModel>;
 
@@ -22,6 +23,11 @@ export class EntityModel {
   @Prop({ required: true, unique:true })
   name: string;
 
+  @Prop({ type: String,
+    enum: Object.keys(Clasifica_Nivel_EntidadCultural), 
+    default: Clasifica_Nivel_EntidadCultural.Mnpl})
+  nivel: string;
+  
   @Prop({ default: '' })
   nitCode: string;
 
