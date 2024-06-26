@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Type } from "class-transformer";
 import { Types } from "mongoose";
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto";
-import { ConsejoPopular_Municipality_Model } from "src/cultura/consejo_popular/infrastructure/consejo_popular.schema";
+import { ConsejoPopular_Municipality_Model } from "../../consejo_popular/domain/schemas/consejo_popular.schema";
 
 @Schema({
     timestamps:true,

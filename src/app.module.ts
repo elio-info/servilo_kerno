@@ -19,7 +19,9 @@ import { BankAccountModule } from './modules/bank_account/bank-account.module';
 import { IsRelationshipProvider } from './modules/common/helpers/customIdValidation';
 import { SanitizePipe } from './modules/common/pipes/Sanitize.pipe';
 import { CulturaModule } from './cultura/cultura.module';
-
+import { Control_ActividadCultural_Module } from './cultura/control_actcult/control_actcult.module';
+import { AppController } from './app.controller';
+ 
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -49,7 +51,9 @@ import { CulturaModule } from './cultura/cultura.module';
     EntityModule,
     BankAccountModule,
     // mio
-    CulturaModule
+    CulturaModule,
+    Control_ActividadCultural_Module,
+    
   ],
   providers: [
     AllExceptionFilter,
@@ -58,5 +62,8 @@ import { CulturaModule } from './cultura/cultura.module';
     IsRelationshipProvider,
     SanitizePipe,
   ],
+  controllers:[
+    AppController
+  ]
 })
 export class AppModule {}

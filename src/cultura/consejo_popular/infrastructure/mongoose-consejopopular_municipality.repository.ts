@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { DataList } from 'src/modules/common/data-list';
 import { ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { ConsejoPopular_Municipality_Repository as ConsejoPopular_MunicipalityRepository } from '../domain/repository/consejopopular_municipality.repository';
-import { ConsejoPopular_Municipality_Document, ConsejoPopular_Municipality_Model } from './consejo_popular.schema';
+import { ConsejoPopular_Municipality_Document, ConsejoPopular_Municipality_Model } from '../domain/schemas/consejo_popular.schema';
 import { ConsejoPopular_Municipality_Entity } from '../domain/schemas/consejo_popular.entity';
 import { Create_ConsejoPopular_Municipality_Dto } from '../domain/dto/create-consejopopular_municipality.dto';
 import { Update_ConsejoPopular_Municipality_Dto } from '../domain/dto/update-consejopopular_municipality.dto';

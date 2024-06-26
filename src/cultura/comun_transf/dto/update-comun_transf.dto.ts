@@ -6,7 +6,7 @@ import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExis
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 import { Telefonos_Type_Dto } from 'src/cultura/codificadores-cult/infrastructure/telefonos.dto';
-import { ConsejoPopular_Municipality_Model } from 'src/cultura/consejo_popular/infrastructure/consejo_popular.schema';
+import { ConsejoPopular_Municipality_Model } from '../../consejo_popular/domain/schemas/consejo_popular.schema';
 
 export class Update_Comunidad_Transformacion_Dto extends PartialType(Create_Comunidad_Transformacion_Dto) {
     @IsOptional()

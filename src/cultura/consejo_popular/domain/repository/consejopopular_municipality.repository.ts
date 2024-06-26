@@ -2,7 +2,7 @@ import { DataList } from 'src/modules/common/data-list';
 import { ConsejoPopular_Municipality_Entity } from '../schemas/consejo_popular.entity';
 import { Create_ConsejoPopular_Municipality_Dto } from '../dto/create-consejopopular_municipality.dto';
 import { Update_ConsejoPopular_Municipality_Dto } from '../dto/update-consejopopular_municipality.dto';
-import { ConsejoPopular_Municipality_Model } from '../../infrastructure/consejo_popular.schema';
+import { ConsejoPopular_Municipality_Model } from '../schemas/consejo_popular.schema';
 
 export interface ConsejoPopular_Municipality_Repository {
   findAll: (page: number, pageSize: number) => Promise<DataList<ConsejoPopular_Municipality_Entity>>;

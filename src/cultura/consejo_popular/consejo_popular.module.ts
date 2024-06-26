@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   ConsejoPopular_Municipality_Model,
   ConsejoPopular_Municipality_Schema,
-} from './infrastructure/consejo_popular.schema';
+} from './domain/schemas/consejo_popular.schema';
 import { ErrorModule } from '../../modules/common/errors/error.module';
 import { ProvinceModule } from '../../modules/province/province.module';
 
