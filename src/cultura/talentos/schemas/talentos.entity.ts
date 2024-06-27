@@ -3,11 +3,9 @@ import { Nomencla_CategoriasContratacionManifestacion_Especialidad_Clss } from "
 import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores";
 import { Entity } from "src/modules/entity/domain/entities/entity.entity";
 
-export class Talento_Artistico {
+export class Talento_Artistico_Entity {
     id:string
     nombre_TalentoArtistico :string
-    //Nomencla_Categorias_ContratacionManifestacion_Clss.id
-   //Nomencla_CategoriasContratacionManifestacion_Especialidad_Clss.id
     
     manifest_esp:Nomencla_CategoriasContratacionManifestacion_Especialidad_Clss
 

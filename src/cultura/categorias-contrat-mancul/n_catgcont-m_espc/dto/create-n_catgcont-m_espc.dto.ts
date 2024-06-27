@@ -18,7 +18,7 @@ export class Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dt
     @ApiProperty({ example: '666a2f9d001740325f7923d4' })
     @IsMongoId()
     @IsString({ message: 'The Id of the Manifestacion must be a String' })
-    // @IsRelationShipWith(Nomencla_Categorias_ContratacionManifestacion)
+    @IsRelationShipWith(Nomencla_Categorias_ContratacionManifestacion)    
     @IsNotEmpty({ message: 'The Province ID cannot be empty' })
     ID_categoria_manifestacion: string
        

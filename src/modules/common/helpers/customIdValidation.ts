@@ -9,6 +9,7 @@ import { Connection } from 'mongoose';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
+//aqui se valida si el elemento pertenece a la clase que se llama
 export class IsRelationshipProvider implements ValidatorConstraintInterface {
   constructor(@InjectConnection() private readonly connection: Connection) {}
   async validate(value: any, args: ValidationArguments): Promise<boolean> {
@@ -24,6 +25,6 @@ export class IsRelationshipProvider implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args?: ValidationArguments): string {
-    return `${args.property} field must refer to existing ${args.constraints[0].name} document`;
+    return `${args.property} field must refer to existing ${args.constraints[0].name} document.`;
   }
 }

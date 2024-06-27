@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Types } from "mongoose";
-import { Talento_Artistico } from "src/cultura/talentos/schemas/talentos.entity";
+import { Talento_Artistico_Contratado_Entity } from "../../talentos/talento_contratado/talento_contratado.entity";
 
 @Schema({ timestamps:true, collection:'Control_ActividadCultural'})
 export  class Control_ActividadCultural_Model{
@@ -15,8 +15,8 @@ export  class Control_ActividadCultural_Model{
     @Prop()
     hora_actcult:string  //Timestamp
 
-    @Prop([Talento_Artistico])
-    talentos_y_apoyos?:Talento_Artistico[]
+    @Prop([Talento_Artistico_Contratado_Entity])
+    talentos_y_apoyos?:Talento_Artistico_Contratado_Entity[]
 }
 
 export const Control_ActividadCultural_Schema=SchemaFactory.createForClass(Control_ActividadCultural_Model)

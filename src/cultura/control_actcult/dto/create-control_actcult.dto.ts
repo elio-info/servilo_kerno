@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { Talento_Artistico } from "../../talentos/schemas/talentos.entity"
+import { Talento_Artistico_Entity } from "../../talentos/schemas/talentos.entity"
 
 export class Create_Control_ActividadCultural_Dto {
     @ApiProperty({
@@ -35,7 +35,7 @@ export class Create_Control_ActividadCultural_Dto {
     "contrato_talento": "A",
     "entidad_talento": "666c39bd57d4be9254cb5741"    
     }]` })
-    talentos_y_apoyos?:Talento_Artistico[]
+    talentos_y_apoyos?:Talento_Artistico_Entity[]
 
     
 }
