@@ -51,7 +51,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
 
   async create(municipality: CreateMunicipalityDto): Promise<void> {
     console.log(municipality.province)
-    let pr=municipality.province._id.toString()
+    let pr=municipality.province
     validateId(pr, 'province');
    // await new this.municipalityModel(municipality).save();
   }
@@ -77,7 +77,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   ): Promise<Municipality> {
     validateId(id), MODULE;
     if (municipality.province) {
-      validateId(municipality.province._id.toString(), 'province');
+      validateId(municipality.province, 'province');
     }
 
     const updated = await this.municipalityModel.findOneAndUpdate(
