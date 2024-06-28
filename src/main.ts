@@ -23,14 +23,16 @@ async function bootstrap() {
 
    if (configService.get<string>('NODE_ENV') !== 'local') {//
   app.useGlobalGuards(app.get(JwtAuthGuard), app.get(RolesGuard));
-  app.useGlobalPipes(
+   }//
+   app.useGlobalPipes(
     new ValidationPipe({
       skipMissingProperties: true,
+      whitelist:true,
       transform: true,
     }),
   );
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-   }//
+  
 
   app.useGlobalFilters(
     // app.get(AllExceptionFilter),

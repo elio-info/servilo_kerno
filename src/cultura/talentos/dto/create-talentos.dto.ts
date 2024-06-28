@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsMongoId, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator"
+import { IsEnum, IsMongoId, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator"
 import { Nomencla_CategoriasContratacionManifestacion_Especialidad_Clss } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.entity"
 import { Nomencla_Categorias_ContratacionManifestacion_Especialidad } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.schema"
 import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores"
@@ -26,6 +26,7 @@ export class Create_Talento_Artistico_Dto{
     @ApiProperty({  default:Nomenclador_Clasifica_ContratoTalento.A,
         type:String,
         enum: Object.keys(Nomenclador_Clasifica_ContratoTalento)  })
+    @IsEnum(Nomenclador_Clasifica_ContratoTalento)
     contrato_talento:string
     //Entity
     @ApiProperty({  type:'ObjectID.Entity', example:'666c39bd57d4be9254cb5741' })
