@@ -13,8 +13,8 @@ export const IsRelationShipWith =
     options?: ValidationOptions,
   ) =>
   (object: object, propertyName: string) =>{  
-    console.log(object)  
-    console.log(ModelClass)
+    // console.log(object)  
+    // console.log(ModelClass)
      registerDecorator({
       name: `IsRelationShip`,
       target: object.constructor,

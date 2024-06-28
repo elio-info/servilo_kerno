@@ -9,9 +9,9 @@ export class CreateMunicipalityDto {
   name: string;
 
   @ApiProperty({ type: 'ObjectId.Province' })
-  @IsMongoId()
+  //@IsMongoId({message:'No es formato valido'})
   @IsString({ message: 'The Id of the province must be a String' })
-  @IsRelationShipWith(ProvinceModel)
+  //@IsRelationShipWith(ProvinceModel)
   @IsNotEmpty({ message: 'The Province ID cannot be empty' })
   province: string;
 }

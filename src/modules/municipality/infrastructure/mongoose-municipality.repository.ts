@@ -10,6 +10,12 @@ import { Municipality } from '../domain/entities/municipality.entity';
 import { CreateMunicipalityDto } from '../domain/dto/create-municipality.dto';
 import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import { validateId } from 'src/modules/common/helpers/id-validator';
+import { ProvinceService } from 'src/modules/province/application/province.service';
+import { ProvinceRepository } from 'src/modules/province/domain/repository/province.repository';
+import { MongooseProvinceRepository } from 'src/modules/province/infrastructure/mongoose-province.repository';
+import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
+import { ProgramaSocial_Controller } from 'src/cultura/programas/prog_socl/infrastructure/prog_socl.controller';
+import { ProgramaSocial_Service } from 'src/cultura/programas/prog_socl/infrastructure/prog_socl.service';
 
 const MODULE = 'Municipality';
 const IS_NOT_DELETED = { isDeleted: false };
@@ -51,8 +57,10 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
 
   async create(municipality: CreateMunicipalityDto): Promise<void> {
     console.log(municipality.province)
-    let pr=municipality.province
-    validateId(pr, 'province');
+    // let mp= new ProgramaSocial_Service(new ProvinceModel()).findById(municipality.province)
+    // console.log(mp)//
+    //let pr=new ProvinceService(@Inject(MongooseProvinceRepository)).
+    // validateId(pr, 'province');
    // await new this.municipalityModel(municipality).save();
   }
 
