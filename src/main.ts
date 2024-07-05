@@ -21,9 +21,9 @@ async function bootstrap() {
 
   app.enableCors();
 
-   if (configService.get<string>('NODE_ENV') !== 'local') {//
+   if (configService.get<string>('NODE_ENV') !== 'local') {}////
   app.useGlobalGuards(app.get(JwtAuthGuard), app.get(RolesGuard));
-   }//
+   
    app.useGlobalPipes(
     new ValidationPipe({
       skipMissingProperties: true,

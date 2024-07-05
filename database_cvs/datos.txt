@@ -106,3 +106,17 @@ cult/talento
     "__v": 0
   }
 ]
+
+person {
+   "municipality": "666a00f24d1a4ab9cb5d8e27",
+  "entity": "666c39bd57d4be9254cb5741",
+  "name": "Perico admin",  
+  "ci": "12345678901",
+  "email": "p@p.com",
+
+  "skinColor": "Negro",
+  
+  "username": "admin",
+  "password": "Qwerty.123456",
+  "role": "ADMIN"
+}'
