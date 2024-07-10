@@ -42,14 +42,29 @@ export class AuthService {
     return this.makeToken(user);
   }
 
-  async getUserInfo(token: string): Promise<Person> {
+  async getUserInfo(token: string)  {//:Promise<Person>
     type PayloadType = {
       sub: string;
       username: string;
     };
 
     const payload = this.jwtService.decode(token.split(' ')[1]) as PayloadType;
-    return await this.personService.findOne(payload.sub);
+    let data_ret=  await this.personService.findOne(payload.sub);
+    let prsn= {
+      id_usr: data_ret.id,
+      name_usr:data_ret.name,
+      role_usr: data_ret.role,
+      img_usr:data_ret.image,
+      pertenece:{
+          id_ent:data_ret.entity.id,
+          nivel_ent:data_ret.entity.entityType.hierarchy,
+          name_ent:data_ret.entity.name
+        },
+      tiempoExpiraToken:Date.now()+ 3600
+    // const entidad_ertenece={id:user.entity_id}
+
+    }
+    return prsn
   }
 
   async changePassword(user, oldPassword, newPassword): Promise<void> {
@@ -66,9 +81,15 @@ export class AuthService {
   }
 
   private async makeToken(user: PersonAuth) {
-    const payload = { sub: user.id, username: user.username };
+//  id,username,role,entitidad{id,nivel,nombre},tiempoExpiraToken
+    // const entidad_ertenece={id:user.entity_id}
+    const payload = { sub: user.id, username: user.username, 
+      // exp = expire session In: unix time
+      tiempoExpiraToken:Date.now()+3600  };
+    const token  =await this.jwtService.signAsync(payload);
+    console.log(token);
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: token,
     };
   }
 }

@@ -2,9 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Quer
 import { Nomencla_Categorias_ContratacionManifestacion_Service } from './n_catgcont-m.service';
 import { Create_Nomencla_CategoriasContratacionManifestacion_Dto } from '../dto/create-n_catgcont-m.dto';
 import { Update_Nomencla_CategoriasContratacionManifestacion_Dto } from '../dto/update-n_catgcont-m.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiHeader, ApiTags } from '@nestjs/swagger';
 import { Query as ExpressQuery } from 'express-serve-static-core';
 
+@ApiHeader({
+  name: 'Authorization',
+  description: 'Bearer theJsonWebToken',
+})
+@ApiBearerAuth()
 @Controller('nomencla-categorias-contratacion-manifestacion')
 @ApiTags( 'Nomenclador de Categorias de Contratacion de Manifestacion Artistica')
 export class Nomencla_Categorias_ContratacionManifestacion_Controller {

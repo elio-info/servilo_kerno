@@ -1,11 +1,16 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags,ApiHeader,ApiBearerAuth } from '@nestjs/swagger';
 import { Query as ExpressQuery } from 'express-serve-static-core';
 import { ProgramaSocial_Especial_Service } from './prog_socl_espc.service';
 import { Create_ProgramaSocial_Especial_Dto } from '../dto/create-prog_socl_espc.dto';
 import { Update_ProgramaSocial_Especialidad_Dto } from '../dto/update-prog_socl_espc.dto';
 
 @Controller('progsocl-especial')
+@ApiHeader({
+  name: 'Authorization',
+  description: 'Bearer theJsonWebToken',
+})
+@ApiBearerAuth()
 @ApiTags( 'Programa Social Especial de Manifestacion Artistica')
 export class ProgramaSocial_Especial_Controller {
   constructor(private readonly ps_Esp_Service: 

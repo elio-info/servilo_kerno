@@ -1,11 +1,16 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query } from '@nestjs/common';
 import { ProgramaSocial_Service } from './prog_socl.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags,ApiBearerAuth,ApiHeader } from '@nestjs/swagger';
 import { Query as ExpressQuery } from 'express-serve-static-core';
 import { Create_ProgramaSocial_Dto } from '../dto/create-prog_socl.dto';
 import { Update_ProgramaSocial_Dto } from '../dto/update-prog_socl.dto';
 
 @Controller('prog-social')
+@ApiHeader({
+  name: 'Authorization',
+  description: 'Bearer theJsonWebToken',
+})
+@ApiBearerAuth()
 @ApiTags( 'Programa Social de Manifestacion Artistica')
 export class ProgramaSocial_Controller {
   constructor(private readonly ProgramaSocialService: 

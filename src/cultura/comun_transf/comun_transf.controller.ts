@@ -2,9 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } fro
 import { Comunidad_Transformacion_Service } from './comun_transf.service';
 import { Create_Comunidad_Transformacion_Dto } from './dto/create-comun_transf.dto';
 import { Update_Comunidad_Transformacion_Dto } from './dto/update-comun_transf.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiHeader, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Comunidad en Transformacion')
+@ApiHeader({
+  name: 'Authorization',
+  description: 'Bearer theJsonWebToken',
+})
+@ApiBearerAuth()
 @Controller('com-transf')
 export class Comunidad_Transformacion_Controller {
   constructor(private readonly comtransfService: Comunidad_Transformacion_Service) {}
