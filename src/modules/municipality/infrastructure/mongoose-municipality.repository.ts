@@ -16,6 +16,7 @@ import { MongooseProvinceRepository } from 'src/modules/province/infrastructure/
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 import { ProgramaSocial_Controller } from 'src/cultura/programas/prog_socl/infrastructure/prog_socl.controller';
 import { ProgramaSocial_Service } from 'src/cultura/programas/prog_socl/infrastructure/prog_socl.service';
+import { log } from 'console';
 
 const MODULE = 'Municipality';
 const IS_NOT_DELETED = { isDeleted: false };
@@ -60,8 +61,8 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     // let mp= new ProgramaSocial_Service(new ProvinceModel()).findById(municipality.province)
     // console.log(mp)//
     //let pr=new ProvinceService(@Inject(MongooseProvinceRepository)).
-    // validateId(pr, 'province');
-   // await new this.municipalityModel(municipality).save();
+    validateId(municipality.province, 'province');
+   await new this.municipalityModel(municipality).save();
   }
 
   async findOne(id: string): Promise<Municipality> {
@@ -117,6 +118,8 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   }
 
   async search(query) {
+    console.log(query);
+    
     const municipalities = await this.municipalityModel
       .find(query)
       .populate('province');

@@ -35,6 +35,10 @@ import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchQuery } from 'src/modules/search/domain/dto/query.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 import SearchController from 'src/modules/common/abstracts/SearchAbstracts';
+import { SearchProvinceDto } from 'src/modules/province/domain/dto/search-province.dto';
+import { MongooseProvinceRepository } from 'src/modules/province/infrastructure/mongoose-province.repository';
+import { validateId } from 'src/modules/common/helpers/id-validator';
+import { ProvinceModule } from 'src/modules/province/province.module';
 
 @ApiTags(`municipality`)
 @ApiHeader({
@@ -127,7 +131,7 @@ export class MunicipalityController {
     return this.service.remove(id);
   }
 
-  //TODO Making Search Endpoint By Query
+ //TODO Making Search Endpoint By Query
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Municipality')
   @ApiQuery({
@@ -149,4 +153,5 @@ export class MunicipalityController {
   search(@Query() query) {
     return this.service.search(query);
   }
+
 }

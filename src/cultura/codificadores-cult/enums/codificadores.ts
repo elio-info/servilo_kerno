@@ -1,3 +1,10 @@
+export enum Nomenclador_Roles_EntidadCultural{
+    'PC'= 'Programador Cultural',
+    'DIC'= 'Director Institución Cultural', 
+    'EEC' = 'Economico Institución Cultural',
+    'ASC' = 'Administrador Sistema Cultura'
+}
+
 /* 
 Aqui se referencian los 'Tipos de Actividad Cultural' en los que se le definiran las actividades culturales. Esto se referencia para usarlos como guia en las planificaciones que se realizan en cultura.
 Valor = Descripcion.
