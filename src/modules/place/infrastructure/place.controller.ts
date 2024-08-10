@@ -32,7 +32,7 @@ import { Place } from '../domain/entities/place.entity';
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchPlaceDto } from '../domain/dto/search-place.dto';
 
-@ApiTags(`place`)
+@ApiTags(`Lugares`)
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',

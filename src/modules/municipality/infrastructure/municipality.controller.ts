@@ -45,7 +45,7 @@ import { ProvinceModel } from 'src/modules/province/infrastructure/province.sche
 import { ProvinceController } from 'src/modules/province/infrastructure/province.controller';
 import { ProvinceService } from 'src/modules/province/application/province.service';
 
-@ApiTags(`municipality`)
+@ApiTags(`Municipios`)
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',

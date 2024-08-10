@@ -31,7 +31,7 @@ import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-f
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 
-@ApiTags(`province`)
+@ApiTags(`Provincia`)
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',

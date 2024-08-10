@@ -33,7 +33,7 @@ import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchEntityTypeDto } from '../domain/dto/search-entity-type.dto';
 import { SanitizePipe } from 'src/modules/common/pipes/Sanitize.pipe';
 
-@ApiTags(`entity-type`)
+@ApiTags(`Tipos de Entidad`)
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',
