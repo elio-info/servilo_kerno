@@ -39,6 +39,11 @@ import { SearchProvinceDto } from 'src/modules/province/domain/dto/search-provin
 import { MongooseProvinceRepository } from 'src/modules/province/infrastructure/mongoose-province.repository';
 import { validateId } from 'src/modules/common/helpers/id-validator';
 import { ProvinceModule } from 'src/modules/province/province.module';
+import { query } from 'express';
+import { isObjectIdOrHexString, ObjectId } from 'mongoose';
+import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
+import { ProvinceController } from 'src/modules/province/infrastructure/province.controller';
+import { ProvinceService } from 'src/modules/province/application/province.service';
 
 @ApiTags(`municipality`)
 @ApiHeader({
@@ -131,7 +136,7 @@ export class MunicipalityController {
     return this.service.remove(id);
   }
 
- //TODO Making Search Endpoint By Query
+  //TODO Making Search Endpoint By Query
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Municipality')
   @ApiQuery({
@@ -154,4 +159,39 @@ export class MunicipalityController {
     return this.service.search(query);
   }
 
+  @ApiParam({
+    name: 'idP',
+    description: 'The id name for the search',
+    type: 'string',
+    required: false,
+  })
+  // @ApiParam({
+  //   name: 'name',
+  //   description: 'The name for the search',
+  //   type: 'string',
+  //   required: false,
+  // })
+  @Get('munc4prov/:idP')//:name
+  muninicipiosProv(@Param('idP') idP: string
+  //, @Param('name') name: string
+) {
+    console.log(idP);//,name
+    let buscar
+    if (isObjectIdOrHexString (idP)) {
+      // es ObjId
+      validateId(idP,ProvinceModule.name)
+      buscar=this.service.search4prov(idP)  ;
+    } 
+    else {// no ObjId
+      // busco x nombre
+      let name=ProvinceService
+      console.log(name);
+      
+      if (name) {
+        return name;
+      }
+    }
+    let en={ name: { '$regex': /${buscar}/, '$options': 'i' } }
+    return buscar
+  }
 }

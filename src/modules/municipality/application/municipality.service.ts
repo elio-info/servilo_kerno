@@ -5,9 +5,10 @@ import { DataList } from 'src/modules/common/data-list';
 import { MongooseMunicipalityRepository } from '../infrastructure/mongoose-municipality.repository';
 import { MunicipalityRepository } from '../domain/repository/municipality.repository';
 import { CreateMunicipalityDto } from '../domain/dto/create-municipality.dto';
-import { Municipality } from '../domain/entities/municipality.entity';
+import { miniMunicipality, Municipality } from '../domain/entities/municipality.entity';
 import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
+import { ObjectId } from 'mongoose';
 
 @Injectable()
 export class MunicipalityService {
@@ -44,5 +45,9 @@ export class MunicipalityService {
 
   search(query: SearchMunicipalityDto): Promise<Municipality[]> {
     return this.repository.search(query);
+  }
+
+  search4prov(provId: string): Promise<miniMunicipality[]> {
+    return this.repository.search4Prov(provId);
   }
 }

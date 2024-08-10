@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 
 import { DataList } from 'src/modules/common/data-list';
 import { ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { MunicipalityRepository } from '../domain/repository/municipality.repository';
 import { MunicipalityDocument, MunicipalityModel } from './municipality.schema';
-import { Municipality } from '../domain/entities/municipality.entity';
+import { miniMunicipality, Municipality } from '../domain/entities/municipality.entity';
 import { CreateMunicipalityDto } from '../domain/dto/create-municipality.dto';
 import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import { validateId } from 'src/modules/common/helpers/id-validator';
@@ -118,13 +118,29 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   }
 
   async search(query) {
-    console.log(query);
+   // console.log(query);
     
     const municipalities = await this.municipalityModel
       .find(query)
       .populate('province');
     const municipalityCollection = municipalities.map((municipality) =>
       this.toEntity(municipality),
+    );
+    return municipalityCollection;
+  }
+
+  async search4Prov(idP:string) {
+   // console.log(idP);
+    
+    const municipalities = await this.municipalityModel
+      .find({province:idP})
+     .populate('province');
+    console.log('municipalidades por id prov');
+    
+     console.log(municipalities);
+     
+    const municipalityCollection = municipalities.map((municipality) =>
+      this.toSimpleEntity(municipality),
     );
     return municipalityCollection;
   }
@@ -142,6 +158,18 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
         updatedAt: municipality.province.updatedAt,
         createdAt: municipality.province.createdAt,
       },
+    };
+  }
+  
+  private toSimpleEntity(municipality: MunicipalityDocument): miniMunicipality {
+    return {
+      id: municipality._id.toString(),
+      name: municipality.name,
+      province: {
+        id: municipality.province._id.toString(),
+        name: municipality.province.name,
+        isDeleted:municipality.province.isDeleted,
+        },
     };
   }
 }

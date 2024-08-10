@@ -8,3 +8,9 @@ export class Province {
   @Prop({default:false})
   isDeleted:boolean
 }
+export class miniProvince {
+  id: string;
+  name: string;
+  @Prop({default:false})
+  isDeleted:boolean
+}

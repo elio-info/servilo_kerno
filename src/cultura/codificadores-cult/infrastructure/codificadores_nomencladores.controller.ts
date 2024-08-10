@@ -1,17 +1,27 @@
 import { Controller, Get } from "@nestjs/common";
-import { ApiHeader, ApiTags } from "@nestjs/swagger";
-import { Clasifica_Nivel_EntidadCultural, Nomenclador_Clasifica_ContratoTalento, Nomenclador_EstadosDeActividadCultural, Nomenclador_GrupoEtareo, Nomenclador_TiposDeActividadCultural } from "../enums/codificadores";
+import { ApiBearerAuth, ApiHeader, ApiTags } from "@nestjs/swagger";
+import { Clasifica_Nivel_EntidadCultural, Nomenclador_Clasifica_ContratoTalento, Nomenclador_EstadosDeActividadCultural, Nomenclador_GrupoEtareo, Nomenclador_Roles_EntidadCultural, Nomenclador_TiposDeActividadCultural } from "../enums/codificadores";
 import { Anonymous } from "src/modules/authz/decorators/anonymous.decorator";
 
-@Controller('nomenclador')
 @ApiTags('Nomencladores generales')
 @Anonymous()
+@Controller('nomenclador')
+@ApiHeader({
+    name: 'Authorization',
+    description: 'Bearer theJsonWebToken',
+  })
+  @ApiBearerAuth()
+  
 export class Nomencladores_Generales{  
+    @Get('rol-cultural')
+    rolEntidadCultural() {
+        return Nomenclador_Roles_EntidadCultural
+    }
+
     @Get('tipo-actvcultural')
     tipoActividadCultural() {
         return Nomenclador_TiposDeActividadCultural
     }
-
     @Get('tipo-grupoetareo')
     tipoGrupoEtareo() {
         return Nomenclador_GrupoEtareo

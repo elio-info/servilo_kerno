@@ -1,8 +1,9 @@
 import { DataList } from 'src/modules/common/data-list';
-import { Municipality } from '../entities/municipality.entity';
+import { miniMunicipality, Municipality } from '../entities/municipality.entity';
 import { CreateMunicipalityDto } from '../dto/create-municipality.dto';
 import { UpdateMunicipalityDto } from '../dto/update-municipality.dto';
 import { MunicipalityModel } from '../../infrastructure/municipality.schema';
+import { ObjectId } from 'mongoose';
 
 export interface MunicipalityRepository {
   findAll: (page: number, pageSize: number) => Promise<DataList<Municipality>>;
@@ -14,4 +15,5 @@ export interface MunicipalityRepository {
   ) => Promise<Municipality>;
   remove: (id: string) => Promise<void>;
   search: (query) => Promise<Municipality[]>;
+  search4Prov:(ipProv:string)=>Promise<miniMunicipality[]>;
 }

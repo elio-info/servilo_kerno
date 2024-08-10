@@ -18,6 +18,6 @@ import { ErrorModule } from '../common/errors/error.module';
   ],
   controllers: [ProvinceController],
   providers: [ProvinceService, MongooseProvinceRepository],
-  exports:[MongooseProvinceRepository]
+  exports:[ProvinceService]
 })
 export class ProvinceModule {}
