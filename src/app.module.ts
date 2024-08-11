@@ -21,6 +21,7 @@ import { SanitizePipe } from './modules/common/pipes/Sanitize.pipe';
 import { CulturaModule } from './cultura/cultura.module';
 import { Control_ActividadCultural_Module } from './cultura/control_actcult/control_actcult.module';
 import { AppController } from './app.controller';
+import { ApplicationConfig } from '@nestjs/core';
  
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { AppController } from './app.controller';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
         return {
-          uri: configService.get<string>('LOCAL_MONGO_DEV'), //DB_URL  LOCAL_MONGO_DEV
+          uri: configService.get<string>((configService.get('NODE_ENV') =='local'?'LOCAL':'SERV')+'_MONGO_DEV'), //DB_URL  LOCAL_MONGO_DEV
           dbName: configService.get<string>('DB_NAME'),
           autoIndex: true,
         };
