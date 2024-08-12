@@ -68,6 +68,13 @@ export class MongooseEntityRepository implements EntityRepository {
     }
   }
 
+  async createMany(entities: CreateEntityDto[]): Promise<void> {
+    try {
+      await new this.entityModel(entities).save();
+    } catch (e) {
+      throw new DuplicatedValueError(e.message);
+    }
+  }
   async findOne(id: string): Promise<Entity> {
     validateId(id, MODULE);
 

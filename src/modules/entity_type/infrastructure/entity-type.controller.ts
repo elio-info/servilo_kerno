@@ -58,6 +58,21 @@ export class EntityTypeController {
     return this.entTypeService.create(createEntityTypeDto);
   }
 
+  @ApiBody({
+    description: 'The entities type an object array',
+    type: CreateEntityTypeDto,
+  })
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiCreatedResponse({
+    description: 'Returns 201 when entities type are successfully created',
+  })
+  @ApiCustomErrorResponse()
+  @Post('arr')
+  @ErrorHandler()
+  createMany(@Body() createEntityTypeDto: CreateEntityTypeDto[]) {
+    return this.entTypeService.createMany(createEntityTypeDto);
+  }
+
   @ApiQuery({
     name: 'page',
     description: 'The current page. 1 by default',

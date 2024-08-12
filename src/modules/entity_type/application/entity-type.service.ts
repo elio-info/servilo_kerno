@@ -19,6 +19,10 @@ export class EntityTypeService {
     return this.repository.create(createEntityTypeDto);
   }
 
+  createMany(createEntityTypeDto: CreateEntityTypeDto[]): Promise<void> {
+    return this.repository.createMany(createEntityTypeDto);
+  }
+
   findAll(page = 1, pageSize = 15): Promise<DataList<EntityType>> {
     if (page <= 0 || pageSize <= 0) {
       throw new InvalidPaginationError();

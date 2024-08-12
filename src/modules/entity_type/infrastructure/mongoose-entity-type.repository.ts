@@ -56,6 +56,23 @@ export class MongooseEntityTypeRepository implements EntityTypeRepository {
     }
   }
 
+  async createMany(entType: CreateEntityTypeDto[]): Promise<void> {
+    
+      entType.map(
+        async data =>{
+          try {
+          await new this.entTypeModel(data).save();
+        } catch (e) {
+      if (e instanceof Error.CastError) {
+        throw new WrongIdFormat(this.MODULE);
+      }
+      throw new DuplicatedValueError(this.MODULE);
+    }
+  }
+      )
+      
+    
+  }
   async findOne(id: string): Promise<EntityType> {
     validateId(id, this.MODULE);
 
