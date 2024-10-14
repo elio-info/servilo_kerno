@@ -23,6 +23,7 @@ export class Talento_Artistico_Model {
     @Prop({
         type: Types.ObjectId, ref: Nomencla_Categorias_ContratacionManifestacion_Especialidad.name
     })
+    @Type(()=>Nomencla_Categorias_ContratacionManifestacion_Especialidad )
     manifest_esp:Nomencla_Categorias_ContratacionManifestacion_Especialidad
 
     @Prop({  default:true })

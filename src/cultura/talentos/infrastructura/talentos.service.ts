@@ -16,7 +16,10 @@ export class Talento_Artistico_Service {
     }
 
     async findAll():Promise< Talento_Artistico_Document[]> {
-        return await this.talento_Model.find();
+        return await this.talento_Model
+        .find()
+        .populate('manifest_esp')
+        .populate('entidad_talento');
       }
     async findByName(buscarNombre?:string): Promise< Talento_Artistico_Document[]> {
         let buscar={ "nombre_Talento_Artistico": { $regex: `${buscarNombre}` ,$options:"i"} }
