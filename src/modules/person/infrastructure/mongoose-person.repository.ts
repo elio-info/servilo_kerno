@@ -144,6 +144,9 @@ export class MongoosePersonRepository implements PersonRepository {
       id: document._id.toString(),
       username: document.username,
       hashPassword: document.hashPassword,
+      // rol:document.role,
+      // entt:document.entity.name,
+      // munc_entt:document.entity.municipality.name
     };
   }
 

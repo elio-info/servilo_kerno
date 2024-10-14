@@ -70,8 +70,9 @@ export enum Nomenclador_Clasifica_ProgramasSociales{
 
 
 export enum Clasifica_Nivel_EntidadCultural{
+    "Ncnl" = "Nivel Nacional o Ministarial " ,
     "Prov" = "Nivel Provincial" ,  
     "Mnpl" = "Nivel Municipal " ,   
-    "Ncnl" = "Nivel Nacional " ,
+    "Lcl" = "Nivel Local " ,
     "Otra" = "Otra Institución" //ejemplo Domicilio
 }

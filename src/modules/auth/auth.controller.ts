@@ -34,8 +34,10 @@ export class AuthController {
   @Post('login')
   @Anonymous()
   @ErrorHandler()
-  login(@Body() login: LoginDto) {
-    return this.authService.signIn(login.username, login.password);
+  login(@Body() login_uss: LoginDto) {
+    console.log('log.us ',login_uss);
+    
+    return this.authService.signIn(login_uss.username, login_uss.password);
   }
 
   @ApiUnauthorizedCustomErrorResponse('Invalid or expired Token')

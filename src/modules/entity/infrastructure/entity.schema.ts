@@ -5,6 +5,7 @@ import { MunicipalityModel } from 'src/modules/municipality/infrastructure/munic
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
 import { PlaceModel } from 'src/modules/place/infrastructure/places.schema';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
+import { IsOptional } from 'class-validator';
 
 export type EntityDocument = HydratedDocument<EntityModel>;
 
@@ -12,7 +13,11 @@ export type EntityDocument = HydratedDocument<EntityModel>;
 export class EntityModel {
   _id: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: EntityTypeModel.name, required: true })
+  @Prop({
+    type: Types.ObjectId,
+    ref: EntityTypeModel.name, 
+    required: true     
+  })
   @Type(() => EntityTypeModel)
   entityType: EntityTypeModel;
 
@@ -50,6 +55,7 @@ export class EntityModel {
   @Type(() => MunicipalityModel)
   municipality: MunicipalityModel;
 
+  @IsOptional()
   @Prop({ type: Types.ObjectId, ref: PlaceModel.name })
   @Type(() => PlaceModel)
   place: PlaceModel;

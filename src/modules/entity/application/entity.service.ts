@@ -20,6 +20,10 @@ export class EntityService {
     return this.entityRepository.create(createEntityDto);
   }
 
+  async createMany(createEntitiesDto: CreateEntityDto[]): Promise<void> {
+    return this.entityRepository.createMany(createEntitiesDto);
+  }
+
   findAll(page = 1, pageSize = 15): Promise<DataList<Entity>> {
     if (page <= 0 || pageSize <= 0) {
       throw new InvalidPaginationError();
@@ -38,6 +42,8 @@ export class EntityService {
   remove(id: string): Promise<void> {
     return this.entityRepository.remove(id);
   }
+  
+
   search(query: SearchEntityDto): Promise<Entity[]> {
     return this.entityRepository.search(query);
   }

@@ -22,12 +22,17 @@ export class AuthService {
 
   //TODO Clan this function
   async signIn(username: string, pass: string) {
+    console.log("lets: %s y %s ",username,pass);
+    
     //TODO-------Delete This After proper testing------
     if (username === 'test' && pass === 'test') {
       const fakeUser: PersonAuth = {
         id: 'fakeID',
         username,
-        hashPassword: 'fakePASs',
+        hashPassword: 'fakePASs'
+        // ,rol:"admin",
+        // entt:"casa",
+        // munc_entt:"0123456789"
       };
       return this.makeToken(fakeUser);
     }
@@ -66,7 +71,9 @@ export class AuthService {
   }
 
   private async makeToken(user: PersonAuth) {
-    const payload = { sub: user.id, username: user.username };
+    let prsn=await this.personService.findOne(user.id)
+    const payload = { sub: user.id, username: user.username,
+      rol :prsn.role, entt:prsn.entity, munc_entt:prsn.municipality };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };

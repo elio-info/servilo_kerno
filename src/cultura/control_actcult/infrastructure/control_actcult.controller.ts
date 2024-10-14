@@ -2,10 +2,16 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } fro
 import { Control_ActividadCultural_Service } from './control_actcult.service';
 import { Create_Control_ActividadCultural_Dto } from '../dto/create-control_actcult.dto';
 import { Update_Control_ActividadCultural_Dto } from '../dto/update-control_actcult.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiHeader, ApiTags } from '@nestjs/swagger';
 
 @Controller('control-actcult')
 @ApiTags('Control que se tiene de las Actividades Culturales')
+@ApiHeader({
+  name: 'Authorization',
+  description: 'Bearer theJsonWebToken',
+})
+@ApiBearerAuth()
+
 export class Control_ActividadCultural_Controller {
   constructor(private readonly controlActcultService: Control_ActividadCultural_Service) {}
 

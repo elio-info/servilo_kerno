@@ -161,9 +161,9 @@ export class MunicipalityController {
 
   @ApiParam({
     name: 'idP',
-    description: 'The id name for the search',
+    description: 'The id of the province to search',
     type: 'string',
-    required: false,
+    required: true,
   })
   // @ApiParam({
   //   name: 'name',

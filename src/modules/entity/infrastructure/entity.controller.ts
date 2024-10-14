@@ -58,6 +58,21 @@ export class EntityController {
     return this.service.create(createEntityDto);
   }
 
+@ApiBody({
+    description: "The entities object's array",
+    type: CreateEntityDto,
+  })
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiCreatedResponse({
+    description: 'Returns 201 when entities were successfully created',
+  })
+  @ApiCustomErrorResponse()
+  @Post()
+  @ErrorHandler()
+  createMany(@Body() createEntitiesDto: CreateEntityDto[]) {
+    return this.service.createMany(createEntitiesDto);
+  }
+
   @ApiQuery({
     name: 'page',
     description: 'The current page. 1 by default',
@@ -127,6 +142,8 @@ export class EntityController {
   remove(@Param('id') id: string) {
     return this.service.remove(id);
   }
+
+    
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Entity')
   @ApiQuery({

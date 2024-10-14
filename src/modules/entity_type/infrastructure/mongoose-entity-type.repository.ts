@@ -69,10 +69,10 @@ export class MongooseEntityTypeRepository implements EntityTypeRepository {
       throw new DuplicatedValueError(this.MODULE);
     }
   }
-      )
-      
-    
+      )   
   }
+
+
   async findOne(id: string): Promise<EntityType> {
     validateId(id, this.MODULE);
 
@@ -86,6 +86,8 @@ export class MongooseEntityTypeRepository implements EntityTypeRepository {
 
     return this.toEntity(entType);
   }
+
+  
 
   async update(id: string, entType: UpdateEntityTypeDto): Promise<EntityType> {
     validateId(id, this.MODULE);

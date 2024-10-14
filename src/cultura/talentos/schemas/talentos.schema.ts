@@ -1,8 +1,12 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Type } from "class-transformer";
+import { IsOptional } from "class-validator";
 import { Document, Types } from "mongoose";
 import { Nomencla_Categorias_ContratacionManifestacion_Especialidad } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.schema";
 import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores";
 import { Entity } from "src/modules/entity/domain/entities/entity.entity";
+import { EntityModel } from "src/modules/entity/infrastructure/entity.schema";
+import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema";
 
 
 @Schema({
@@ -31,11 +35,17 @@ export class Talento_Artistico_Model {
     })
     contrato_talento:string
 
-    @Prop({
-        type: Types.ObjectId, ref: Entity.name
-    })
-    entidad_talento:Nomencla_Categorias_ContratacionManifestacion_Especialidad
+    @IsOptional()
+    @Prop({ type: Types.ObjectId, ref: EntityModel.name })
+    @Type(() => EntityModel)
+    entidad_talento:EntityModel
 
+   
+    @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
+    @Type(() => MunicipalityModel)
+    municipio: MunicipalityModel;
+    
+    
      @Prop({  default:false })
     isDeleted:boolean
 

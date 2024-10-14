@@ -1,13 +1,18 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiHeader, ApiTags } from '@nestjs/swagger';
 import { Talento_Artistico_Service } from './talentos.service';
 import { Create_Talento_Artistico_Dto } from '../dto/create-talentos.dto';
 import { Update_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto } from 'src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/dto/update-n_catgcont-m_espc.dto';
 import { Query as ExpressQuery} from 'express-serve-static-core'
 import { Update_Talento_Artistico_Dto } from '../dto/update-talentos.dto';
 
-@Controller('talentos')
 @ApiTags('Talentos Artisticos y de Apoyo')
+@ApiHeader({
+  name: 'Authorization',
+  description: 'Bearer theJsonWebToken',
+})
+@ApiBearerAuth()
+@Controller('talentos')
 export class Talento_Artistico_Controller {
     constructor(
         private readonly talento_Srv:Talento_Artistico_Service

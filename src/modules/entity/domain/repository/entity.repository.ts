@@ -6,6 +6,7 @@ import { UpdateEntityDto } from '../dto/update-entity.dto';
 export interface EntityRepository {
   findAll: (page: number, pageSize: number) => Promise<DataList<Entity>>;
   create: (entity: CreateEntityDto) => Promise<void>;
+  createMany: (entities: CreateEntityDto[]) => Promise<void>;
   findOne: (id: string) => Promise<Entity>;
   update: (id: string, entity: UpdateEntityDto) => Promise<Entity>;
   remove: (id: string) => Promise<void>;
