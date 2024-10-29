@@ -48,6 +48,7 @@ export class CreatePersonDto {
   skinColor: string;
 
   @IsPhoneNumber()
+  @IsOptional()
   phone: string;
 
   @IsBoolean()

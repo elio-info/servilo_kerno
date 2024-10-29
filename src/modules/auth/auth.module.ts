@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PersonModule } from '../person/person.module';
 import { ErrorModule } from '../common/errors/error.module';
 import { readFileSync } from 'fs';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 const privateKey = readFileSync('cert/key.pem', 'utf8');
 const publicKey = readFileSync('cert/public.pem', 'utf8');
@@ -20,13 +21,17 @@ const publicKey = readFileSync('cert/public.pem', 'utf8');
       useFactory: (configService: ConfigService) => ({
         publicKey: publicKey,
         privateKey: privateKey,
-        signOptions: { expiresIn: '10h', algorithm: 'RS256' },
+        signOptions: { expiresIn: '4h', algorithm: 'RS256' },
       }),
       imports: [ConfigModule],
       inject: [ConfigService],
     }),
+   
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    TrazasService
+  ],
   controllers: [AuthController],
   exports: [AuthService],
 })

@@ -8,6 +8,7 @@ import { ConsejoPopular_Municipality_Module } from "./consejo_popular/consejo_po
 import { Comunidad_Transformacion_Module } from "./comun_transf/comun_transf.module";
 import { ProgramaSocial_Module } from "./programas/prog_socl/prog_socl.module";
 import { ProgramaSocial_Especial_Module } from "./programas/prog_socl_esp/prog_socl_espc.module";
+import { TrazasModule } from './trazas/trazas.module';
 
 @Module({
     imports:[
@@ -18,8 +19,10 @@ import { ProgramaSocial_Especial_Module } from "./programas/prog_socl_esp/prog_s
         Comunidad_Transformacion_Module,
         ProgramaSocial_Module,ProgramaSocial_Especial_Module,
         Talento_Artistico_Module,
-        Proyecto_Sociocultural_Comunitario_Module
+        Proyecto_Sociocultural_Comunitario_Module,
+        TrazasModule
         
-    ]
+    ],
+    exports:[TrazasModule]
 })
 export class CulturaModule {}

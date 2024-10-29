@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
-import { ApiTags, ApiHeader,ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiHeader,ApiBearerAuth, ApiParam, ApiBody } from '@nestjs/swagger';
 import { Talento_Artistico_Service } from './talentos.service';
 import { Create_Talento_Artistico_Dto } from '../dto/create-talentos.dto';
 import { Update_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto } from 'src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/dto/update-n_catgcont-m_espc.dto';
@@ -30,6 +30,14 @@ export class Talento_Artistico_Controller {
   }
 
   /* This code snippet is defining a GET endpoint in a NestJS controller. */
+  @ApiParam(
+    {
+      name:'id',
+      description:' Este es ekl tiopo',
+      required: true,
+      example:"01245879631"
+    }
+  )  
   @Get(':id')  
   findById(@Param('id') id: string) {
     return this.talento_Srv.findId(id);

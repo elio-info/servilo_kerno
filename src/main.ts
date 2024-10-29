@@ -10,6 +10,7 @@ import { ValidationExceptionFilter } from './filters/validation-exception.filter
 import { useContainer } from 'class-validator';
 import { SanitizePipe } from './modules/common/pipes/Sanitize.pipe';
 import { GlobalInterceptor } from './modules/common/interceptors/Global.interceptor';
+import { AllExceptionFilter } from './filters/all-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,7 +25,7 @@ async function bootstrap() {
    if (configService.get<string>('NODE_ENV') !== 'local') {}////
   app.useGlobalGuards(app.get(JwtAuthGuard), app.get(RolesGuard));
    
-   app.useGlobalPipes(
+  app.useGlobalPipes(
     new ValidationPipe({
       skipMissingProperties: true,
       whitelist:true,
@@ -35,15 +36,18 @@ async function bootstrap() {
   
 
   app.useGlobalFilters(
-    // app.get(AllExceptionFilter),
+    app.get(AllExceptionFilter),
     app.get(ValidationExceptionFilter),
     app.get(HttpExceptionFilter),
   );
 
+  /**
+   * Aqui empieza la API Documentacion de Swagger
+   */
   const config = new DocumentBuilder()
     
-    .setTitle('Gestión Empresarial')
-    .setDescription('The cats API description')
+    .setTitle('Cultura: Gestión Empresarial')
+    .setDescription('La API de Cultura patra trabajar.')
     .setVersion('0.1')
     .addBearerAuth()
     .build();

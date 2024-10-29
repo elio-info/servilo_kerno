@@ -21,6 +21,7 @@ import { SanitizePipe } from './modules/common/pipes/Sanitize.pipe';
 import { CulturaModule } from './cultura/cultura.module';
 import { Control_ActividadCultural_Module } from './cultura/control_actcult/control_actcult.module';
 import { AppController } from './app.controller';
+
  
 @Module({
   imports: [
