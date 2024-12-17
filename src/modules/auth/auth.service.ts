@@ -32,6 +32,9 @@ export class AuthService {
   //TODO Clan this function
   async signIn(username: string, pass: string) {
 
+    console.log(`u:${username}`);
+    
+
     this.myTraza.user=username
     this.myTraza.metodo='SignIn'
     this.myTraza.accion='Autenticarse'
