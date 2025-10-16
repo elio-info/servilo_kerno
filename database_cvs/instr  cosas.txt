@@ -1,4 +1,12 @@
+ejemplos 
+https://github.com/nestjs/nest/blob/master
+
+
+
+
 Prov Document insert 
+
+
 db('senfima_kerno').collection('provinces').insertOne({name:"Pinar del Rio"});
 //ObjectID('67b8a9a8d25b39fdef54409a')
             update
