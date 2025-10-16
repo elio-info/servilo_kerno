@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "67be578cf2fddeb300b12007"
+  },
+  "name": "Perico admin",
+  "ci": "12345678901",
+  "email": "p@p.com",
+  "skinColor": "Negro",
+  "isActive": true,
+  "passwordMustChange": false,
+  "username": "admin",
+  "hashPassword": "$2b$04$biQf8Gy8tPRPPMxBxWiuLe8SeKQVUz9DgInGG2OGW5qjoq1Ohbiaq",
+  "entity": "67be568cf2fddeb300b11ffb",
+  "role": "ADMIN",
+  "isDeleted": false,
+  "municipality": "67b8abc8d25b39fdef54409c",
+  "createdAt": {
+    "$date": "2025-02-25T23:51:40.161Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-25T23:51:40.161Z"
+  },
+  "__v": 0
+}]

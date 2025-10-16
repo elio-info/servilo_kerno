@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "67be568cf2fddeb300b11ffb"
+  },
+  "entityType": "67be5467bc9c79983bba1dbf",
+  "parentId": null,
+  "name": "Direccion Prov de Cult",
+  "nivel": "Prov",
+  "nitCode": "",
+  "abbreviation": "DPC",
+  "resolution": "",
+  "issuedBy": "",
+  "domicilie": "",
+  "municipality": "67b8abc8d25b39fdef54409c",
+  "place": "67be5509f2fddeb300b11ff6",
+  "reeup": "",
+  "commercialRegister": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-02-25T23:47:24.567Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-25T23:47:24.567Z"
+  },
+  "__v": 0
+}]

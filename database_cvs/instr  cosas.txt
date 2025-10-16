@@ -1,0 +1,46 @@
+Prov Document insert 
+db('senfima_kerno').collection('provinces').insertOne({name:"Pinar del Rio"});
+//ObjectID('67b8a9a8d25b39fdef54409a')
+            update
+db('senfima_kerno').collection('provinces').updateOne({name:"Pinar del Rio"},{ $set:{ isDeleted: false }});
+db('senfima_kerno').collection('provinces').updateOne({name:"Pinar del Rio"},{ $set:{ 
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }});
+
+Muncps Document insert 
+db('senfima_kerno').collection('municipalities').insertOne({name:"Pinar del Rio",province:'67b8a9a8d25b39fdef54409c', isDeleted: false});
+//ObjectID('67b8a9a8d25b39fdef54409c')
+
+db('senfima_kerno').collection('provinces').updateOne({name:"Pinar del Rio"},{ $set:{ 
+    createdAt: new Date(),
+  updatedAt: new Date(),
+}});
+db('senfima_kerno').collection('municipalities').insertOne({name:"Pinar del Rio",province:'67b8a9a8d25b39fdef54409a'});
+//ObjectID('67b8a9a8d25b39fdef54409a')
+db('senfima_kerno').collection('municipalities').updateOne({name:"Pinar del Rio"},{ $set:{ 
+    isDeleted: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+}});
+
+
+para insertar un Proy Cultural Comunitario [ya hecho]
+antes:
+  - municipio
+  - consejo popular del municipio (depende del municipio)
+guardo
+  * nombre
+  * responsable
+  * telefono
+  + observacion
+
+para insertar un Comunidad tranformacion [ya hecho] igual alsuperior, una copia perra
+antes:
+  - municipio
+  - consejo popular del municipio (depende del municipio)
+guardo
+  * nombre
+  * responsable
+  * telefono
+  + observacion
