@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { Create_Comunidad_Transformacion_Dto } from './create-comun_transf.dto';
+import { Create_Comunidad_Transformacion_Dto } from './create_comun_transf.dto';
 import { IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';

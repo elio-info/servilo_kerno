@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { Comunidad_Transformacion_Service } from './comun_transf.service';
-import { Create_Comunidad_Transformacion_Dto } from './dto/create-comun_transf.dto';
+import { Create_Comunidad_Transformacion_Dto } from './dto/create_comun_transf.dto';
 import { Update_Comunidad_Transformacion_Dto } from './dto/update_comun_transf.dto';
 import { ApiBearerAuth, ApiHeader, ApiTags } from '@nestjs/swagger';
 
