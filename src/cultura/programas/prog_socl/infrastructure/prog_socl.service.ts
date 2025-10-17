@@ -15,12 +15,13 @@ export class ProgramaSocial_Service {
   async create(createProgramaSocialDto: Create_ProgramaSocial_Dto) {
     let nomb=createProgramaSocialDto.nombre_programasocial
     console.log(' estoy en creat '+ nomb)
-    let dep= await this.findFirstName(nomb)
-    console.log(' estoy encontrando '+nomb+' en create '+ dep)
+    let dep=await this.findFirstName(nomb)
+    
     if ( dep!=null
     )
-     { return {
-        message:' estoy en create '+'ya existe '+dep.createdAt
+     { console.log(' estoy encontrando '+nomb+' en create '+ dep.createdAt)
+      return {
+        message:'Ya existe '+dep.createdAt
       }}
      else         
    { console.log(' estoy en create '+'no existe '+nomb)
@@ -37,13 +38,10 @@ export class ProgramaSocial_Service {
   async findId(id:string) {
     return await this.progsocl_Model.findById({_id:id});
   }
-  async findFirstName (id_nom_cat_contman: string): Promise <ProgramaSocial> {
-    console.log(id_nom_cat_contman)
-    const ll=await this.progsocl_Model.findOne({
-      nombre_programasocial:id_nom_cat_contman
-    })
-    console.log(ll)
-    return ll;
+  // :Promise <ProgramaSocial_Document>
+  async findFirstName(nombre_programasocial: string): Promise<ProgramaSocial>  {
+    console.log(nombre_programasocial);    
+    return await this.progsocl_Model.findOne({nombre_programasocial});
   }
 
   async update(id: string, updateDto: Update_ProgramaSocial_Dto) {

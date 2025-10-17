@@ -3,7 +3,7 @@ import { SetMetadata, applyDecorators } from '@nestjs/common';
 export function CustomFunctionality(name: string): MethodDecorator {
   return function (
     _target: any,
-    _propertyKey: string,
+    _propertyKey: string | symbol,
     _descriptor: PropertyDescriptor,
   ) {};
 }

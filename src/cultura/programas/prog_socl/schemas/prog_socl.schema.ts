@@ -8,7 +8,6 @@ import { Document, Types } from "mongoose";
     collection:'ProgramaSocial'
 })
 export class ProgramaSocial {
-    _id: Types.ObjectId;
     
     @ApiProperty({
         type:String,

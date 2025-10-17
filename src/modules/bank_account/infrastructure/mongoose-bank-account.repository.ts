@@ -68,8 +68,11 @@ export class MongooseBankAccountRepository implements BankAccountRepository {
     validateId(bankAccount.municipality, 'municipality');
     try {
       await new this.bankAccountModel(bankAccount).save();
-    } catch (e) {
-      throw new DuplicatedValueError(e.message);
+    } catch (error) {
+       if (error instanceof Error)
+          throw new DuplicatedValueError(error.message);
+
+        throw error;
     }
   }
 

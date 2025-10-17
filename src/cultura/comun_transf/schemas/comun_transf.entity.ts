@@ -7,5 +7,5 @@ export class Comunidad_Transformacion_Entity {
     municipio:string
     observacion:string
     responsable:string
-    telefonos:Telefonos_Type_Dto
+    telefonos:string
 }
