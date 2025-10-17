@@ -13,22 +13,23 @@ export class ProgramaSocial_Especial_Service {
   ){ }
 // :Promise <void>
   async create(create_ps_Espec_Dto: Create_ProgramaSocial_Especial_Dto) {
-    console.log('salio esto'+Types.ObjectId.isValid(create_ps_Espec_Dto.prog_socl))
+    // console.log('salio esto'+Types.ObjectId.isValid(create_ps_Espec_Dto.prog_socl))
     /**/
-    let nomb=create_ps_Espec_Dto.nombre_programasocial_especial
-    console.log(' estoy en creat '+ nomb)
-    let dep= await this.findFirstName(nomb)
+    let nomb=create_ps_Espec_Dto.nombre_programasocial_especial;
+    console.log(' estoy en creat '+ nomb);
+    let dep= await this.findFirstName(nomb);
     
     if ( dep!=null )
-     { console.log(' estoy encontrando '+nomb+' en create '+ dep.createdAt)
-      return {
-        message:'ya existe '+dep.createdAt
-      }}
+     { console.log(' estoy encontrando '+nomb+' en create '+ dep.createdAt);
+      return {    message:'ya existe '+dep.createdAt }
+    }
      else         
-   { console.log(' estoy en create '+'no existe '+nomb)
-   return this.ps_Espec_Model.create(
+   { 
+    console.log(' estoy en create '+'no existe '+nomb)
+      return this.ps_Espec_Model.create(
       create_ps_Espec_Dto
-      );} 
+      );
+    } 
   }
 
  async findAll() {

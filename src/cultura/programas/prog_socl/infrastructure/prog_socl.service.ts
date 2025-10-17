@@ -14,12 +14,12 @@ export class ProgramaSocial_Service {
 
   async create(createProgramaSocialDto: Create_ProgramaSocial_Dto) {
     let nomb=createProgramaSocialDto.nombre_programasocial
-    console.log(' estoy en creat '+ nomb)
-    let dep=await this.findFirstName(nomb)
+    console.log(' estoy en creat '+ nomb);
+    let dep=await this.findFirstName(nomb);
     
     if ( dep!=null
     )
-     { console.log(' estoy encontrando '+nomb+' en create '+ dep.createdAt)
+     { console.log(' estoy encontrando '+nomb+' en create '+ dep.createdAt);
       return {
         message:'Ya existe '+dep.createdAt
       }}

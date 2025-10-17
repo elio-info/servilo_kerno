@@ -18,8 +18,8 @@ export class ProgramaSocial_Especial_Controller {
 
   @Post()
   create(@Body(new ValidationPipe()) create_ps_esp_Dto: Create_ProgramaSocial_Especial_Dto) {
-    this.ps_Esp_Service.create(create_ps_esp_Dto);
-    //return 
+  return  this.ps_Esp_Service.create(create_ps_esp_Dto);
+    // 
   }
 
   @Get()
