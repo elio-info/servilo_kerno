@@ -16,16 +16,19 @@ import { MongooseProvinceRepository } from 'src/modules/province/infrastructure/
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 import { ProgramaSocial_Controller } from 'src/cultura/programas/prog_socl/infrastructure/prog_socl.controller';
 import { ProgramaSocial_Service } from 'src/cultura/programas/prog_socl/infrastructure/prog_socl.service';
+import { log } from 'console';
+import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
 
 const MODULE = 'Municipality';
 const IS_NOT_DELETED = { isDeleted: false };
 
 @Injectable()
-export class MongooseMunicipalityRepository implements MunicipalityRepository {
+export class MongooseMunicipalityRepository implements MunicipalityRepository {  
+  
   constructor(
     @InjectModel(MunicipalityModel.name)
-    private municipalityModel: Model<MunicipalityModel>,
-  ) {}
+    private municipalityModel: Model<MunicipalityModel>        
+  ) { }
 
   async findAll(
     page: number,
@@ -54,14 +57,11 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     };
     return dataList;
   }
-
-  async create(municipality: CreateMunicipalityDto): Promise<void> {
-    console.log(municipality.province)
-    // let mp= new ProgramaSocial_Service(new ProvinceModel()).findById(municipality.province)
-    // console.log(mp)//
-    //let pr=new ProvinceService(@Inject(MongooseProvinceRepository)).
-    // validateId(pr, 'province');
-   // await new this.municipalityModel(municipality).save();
+//: Promise<Municipality>
+  async create(municipality: CreateMunicipalityDto) {
+    console.log('creando municipio'+ municipality.province)   
+    return await new this.municipalityModel(municipality).save();
+    
   }
 
   async findOne(id: string): Promise<Municipality> {
@@ -83,22 +83,37 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     id: string,
     municipality: UpdateMunicipalityDto,
   ): Promise<Municipality> {
-    validateId(id), MODULE;
-    if (municipality.province) {
-      validateId(municipality.province, 'province');
-    }
+    validateId(id, MODULE);
+   
+      let mismo= await this.search({"name":municipality.name});
+      console.log(mismo);
+      
+      if (mismo.length=0) {
+          const updated = await this.municipalityModel.findOneAndUpdate(
+          { _id: id, ...IS_NOT_DELETED },
+          municipality,
+          { new: true, populate: 'province' },
+        );
 
-    const updated = await this.municipalityModel.findOneAndUpdate(
-      { _id: id, ...IS_NOT_DELETED },
-      municipality,
-      { new: true, populate: 'province' },
-    );
+        if (!updated) {
+          throw new ObjectNotFound(MODULE);
+        }
+        return this.toEntity(updated);
+      }
+   
+     throw new DuplicatedValueError(' name '+municipality.name);
 
-    if (!updated) {
-      throw new ObjectNotFound(MODULE);
-    }
+    // const updated = await this.municipalityModel.findOneAndUpdate(
+    //   { _id: id, ...IS_NOT_DELETED },
+    //   municipality,
+    //   { new: true, populate: 'province' },
+    // );
 
-    return this.toEntity(updated);
+    // if (!updated) {
+    //   throw new ObjectNotFound(MODULE);
+    // }
+
+    // return this.toEntity(updated);
   }
 
   async remove(id: string): Promise<void> {
@@ -130,6 +145,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     return {
       id: municipality._id.toString(),
       name: municipality.name,
+      isDeleted:municipality.province.isDeleted,
       updatedAt: municipality.updatedAt,
       createdAt: municipality.createdAt,
       province: {

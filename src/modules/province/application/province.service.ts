@@ -7,6 +7,9 @@ import { InvalidPaginationError } from 'src/modules/common/errors/invalid-pagina
 import { DataList } from 'src/modules/common/data-list';
 import { Province } from '../domain/entities/province.entity';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
+import { ProvinceModel } from '../infrastructure/province.schema';
+import { data } from 'jquery';
+import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
 
 @Injectable()
 export class ProvinceService {
@@ -15,16 +18,19 @@ export class ProvinceService {
     private repository: ProvinceRepository,
   ) {}
 
-  create(createProvinceDto: CreateProvinceDto): Promise<void> {
+  create(createProvinceDto: CreateProvinceDto): Promise<ProvinceModel> {
+    
     return this.repository.create(createProvinceDto);
   }
 
   findAll(page = 1, pageSize = 15): Promise<DataList<Province>> {
-    if (page <= 0 || pageSize <= 0) {
-      console.log('hay error de cant pages');
+    page= ( isNaN(page) || page<= 0)? 1: page;
+    pageSize= ( isNaN(pageSize) || pageSize<= 0)? 1: pageSize;
+    // if (page  || pageSize <= 0) {
+    //   console.log('hay error de cant pages');
       
-      throw new InvalidPaginationError();
-    }
+    //   throw new InvalidPaginationError();
+    // }
     return this.repository.findAll(page, pageSize);
   }
 

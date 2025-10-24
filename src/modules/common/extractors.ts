@@ -17,6 +17,7 @@ export function extractMunicipality(
   return {
     id: municipality._id.toString(),
     name: municipality.name,
+    isDeleted:municipality.isDeleted,
     createdAt: municipality.createdAt,
     updatedAt: municipality.updatedAt,
     province: extractProvince(municipality.province),

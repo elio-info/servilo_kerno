@@ -41,7 +41,74 @@ cult/place
         }
       }
     }
-  
+
+cult/entity_type
+  [
+  {
+    "_id": "67be5467bc9c79983bba1dbf",
+    "name": "Direccion Provincial",
+    "hierarchy": 0,
+    "isDeleted": false,
+    "createdAt": "2024-06-12T21:57:05.083Z",
+    "updatedAt": "2024-06-12T21:57:05.083Z",
+    "__v": 0
+  },
+  {
+    "_id": "67be5467bc9c79983bba1dc0",
+    "name": "Direccion Municipal",
+    "hierarchy": 1,
+    "isDeleted": false,
+    "createdAt": "2024-06-12T21:58:52.828Z",
+    "updatedAt": "2024-06-12T21:58:52.828Z",
+    "__v": 0
+  },
+  {
+    "_id": "67be5467bc9c79983bba1dc1",
+    "name": "Empresa Cultural",
+    "hierarchy": 1,
+    "isDeleted": false,
+    "createdAt": "2024-06-12T22:02:04.065Z",
+    "updatedAt": "2024-06-12T22:02:04.065Z",
+    "__v": 0
+  },
+  {
+    "_id": "67be5467bc9c79983bba1dc2",
+    "name": "Centro Cultural Provincial",
+    "hierarchy": 1,
+    "isDeleted": false,
+    "createdAt": "2024-06-12T22:02:37.793Z",
+    "updatedAt": "2024-06-12T22:02:37.793Z",
+    "__v": 0
+  },
+  {
+    "_id": "67be5467bc9c79983bba1dc3",
+    "name": "Consejo Cultural Provincial",
+    "hierarchy": 1,
+    "isDeleted": false,
+    "createdAt": "2024-06-12T22:03:20.163Z",
+    "updatedAt": "2024-06-12T22:03:20.163Z",
+    "__v": 0
+  },
+  {
+    "_id": "67be5467bc9c79983bba1dc4",
+    "name": "Asociacion Cultural Provincial",
+    "hierarchy": 1,
+    "isDeleted": false,
+    "createdAt": "2024-06-12T22:04:07.479Z",
+    "updatedAt": "2024-06-12T22:04:07.479Z",
+    "__v": 0
+  },
+  {
+    "_id": "67be5467bc9c79983bba1dc5",
+    "name": "Institucion Cultural",
+    "hierarchy": 2,
+    "isDeleted": false,
+    "createdAt": "2024-06-12T22:04:48.470Z",
+    "updatedAt": "2024-06-12T22:04:48.470Z",
+    "__v": 0
+  }
+]
+
 cult/entity
 {
   "id": "666c39bd57d4be9254cb5741",
@@ -82,14 +149,27 @@ cult/entity
   "reeup": "",
   "commercialRegister": ""
 }
+cult/Nomencla_Categorias_ContratacionManifestacion
+{
+  "_id":ObjectID('666c29e7a2fc5ad817ef44c4'),
+  "nombre_categoria_manifestacion_especialidad":"Danza",
+  "apoyo_categoria_manifestacion":false,
+  "isDeleted":false
+}
 
 cult/Nomencla_Categorias_ContratacionManifestacion_Especialidad
-{
-  "_id":ObjectID('666b7d6e80597b171ef1495d'),
-"nombre_categoria_manifestacion_especialidad":"Folklorica",
-"ID_categoria_manifestacion":"666c29e7a2fc5ad817ef44c4",
-"isDeleted":false
-}
+[
+  {
+    "_id": "68f80d36c12a6518e58538ec",
+    "nombre_categoria_manifestacion_especialidad": "Folklorica",
+    "ID_categoria_manifestacion": "68f7ca9433a05f2e284fef69"
+  },
+  {
+    "_id": "68f812b3c12a6518e58538ee",
+    "nombre_categoria_manifestacion_especialidad": "Cont",
+    "ID_categoria_manifestacion": "68f7ca9433a05f2e284fef69"
+  }
+]
 
 cult/talento
 [
@@ -107,14 +187,104 @@ cult/talento
   }
 ]
 
-person {
-   "municipality": "666a00f24d1a4ab9cb5d8e27",
-  "entity": "666c39bd57d4be9254cb5741",
-  "name": "Perico admin",  
-  "ci": "12345678901",
-  "email": "p@p.com",
-  "skinColor": "Negro",  
-  "username": "admin",
-  "password": "Qwerty.123456",
-  "role": "ADMIN"
-}'
+cult/person 
+[
+  { 
+    "_id": "67be578cf2fddeb300b12007",
+    "name": "Perico admin",
+    "ci": 12345678901,
+    "email": "p@p.com",
+    "skinColor": "Negro",
+    "isActive": true,
+    "passwordMustChange": false,
+    "username": "admin",// Qwerty.123456 de clave
+    "hashPassword": "$2b$04$biQf8Gy8tPRPPMxBxWiuLe8SeKQVUz9DgInGG2OGW5qjoq1Ohbiaq",
+    "entity": "67be568cf2fddeb300b11ffb",
+    "role": "ADMIN",
+    "isDeleted": false,
+    "municipality": "67b8abc8d25b39fdef54409c",
+    "createdAt": "2025-02-25T23:51:40.161Z",
+    "updatedAt": "2025-02-25T23:51:40.161Z",
+    "__v": 0
+  }
+]
+
+cult/comun transf
+[
+  {
+    "_id": "68f04da29a5350f5891e5c45",
+    "nombre": "la guarida",
+    "consejopopular_municipality": "68f03ee31c59f86602d853d4",
+    "responsable": "Un Prieto",
+    "createdAt": "2025-10-16T01:42:58.089Z",
+    "updatedAt": "2025-10-17T16:59:50.639Z",
+    "__v": 0,
+    "observacion": "La casa de Pedro Prieto",
+    "telefonos": "cell:12345678,fijo:12345678,trabajo:12345678"
+  }
+]
+
+cult/CnsjPpl
+[
+  {
+    "_id": "68f03ee31c59f86602d853d4",
+    "name": "carlos manuel",
+    "isDeleted": false,
+    "municipality": "67b8abc8d25b39fdef54409c",
+    "province": "67b8a9a8d25b39fdef54409a",
+    "createdAt": "2025-10-16T00:40:03.741Z",
+    "updatedAt": "2025-10-16T00:40:03.741Z",
+    "__v": 0
+  },
+  {
+    "_id": "68f03f6d1c59f86602d853f0",
+    "name": "calero",
+    "isDeleted": false,
+    "municipality": "67b8abc8d25b39fdef54409c",
+    "province": "67b8a9a8d25b39fdef54409a",
+    "createdAt": "2025-10-16T00:42:21.230Z",
+    "updatedAt": "2025-10-16T00:42:21.230Z",
+    "__v": 0
+  }
+]
+
+cult/ contrl_actClt
+[]
+
+cult/PrgScl
+[
+  {
+    "_id": "68f1a82d0a688b0bf494738d",
+    "nombre_programasocial": "Bellezas",
+    "priorizado": true,
+    "createdAt": "2025-10-17T02:21:33.776Z",
+    "updatedAt": "2025-10-17T02:21:33.776Z",
+    "__v": 0
+  },
+  {
+    "_id": "68f1a8760a688b0bf494739a",
+    "nombre_programasocial": "No tan Bellezas",
+    "priorizado": false,
+    "createdAt": "2025-10-17T02:22:46.396Z",
+    "updatedAt": "2025-10-17T02:22:46.396Z",
+    "__v": 0
+  }
+]
+
+cult/PrgSclEsp
+[
+  {
+    "_id": "68f1bf2ffc115ebe4cbc645e",
+    "nombre_programasocial_especial": "Folklorica",
+    "createdAt": "2025-10-17T03:59:43.985Z",
+    "updatedAt": "2025-10-17T03:59:43.985Z",
+    "__v": 0
+  },
+  {
+    "_id": "68f1c88ede2163dc030341a5",
+    "nombre_programasocial_especial": "Campesina",
+    "createdAt": "2025-10-17T04:39:42.837Z",
+    "updatedAt": "2025-10-17T04:42:01.486Z",
+    "__v": 0
+  }
+]

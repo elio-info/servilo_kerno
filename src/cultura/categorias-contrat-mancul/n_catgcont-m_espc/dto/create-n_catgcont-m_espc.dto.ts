@@ -15,7 +15,7 @@ export class Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dt
     @MinLength(3)
     nombre_categoria_manifestacion_especialidad :string
 
-    @ApiProperty({ example: '666a2f9d001740325f7923d4' })
+    @ApiProperty({ example: '666a2f9d001740325f7923d4', type:'ObjectId.Nomencla_Categorias_ContratacionManifestacion' })
     @IsMongoId()
     @IsString({ message: 'The Id of the Manifestacion must be a String' })
     @IsRelationShipWith(Nomencla_Categorias_ContratacionManifestacion)    

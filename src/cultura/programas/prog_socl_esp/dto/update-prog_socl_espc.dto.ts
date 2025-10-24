@@ -1,6 +1,8 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsOptional, IsBoolean, IsDate, MinLength, IsMongoId } from 'class-validator';
 import { Create_ProgramaSocial_Especial_Dto } from './create-prog_socl_espc.dto';
+import { ProgramaSocial } from '../../prog_socl/schemas/prog_socl.schema';
+import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 
 export class Update_ProgramaSocial_Especialidad_Dto extends PartialType(Create_ProgramaSocial_Especial_Dto) {
     // @ApiProperty({
@@ -11,8 +13,8 @@ export class Update_ProgramaSocial_Especialidad_Dto extends PartialType(Create_P
     // _id:string
     
     @ApiProperty({
-        example:'Folklorica', 
-        description:'Nombre del Nomenclador especialidad que depende del ProgramaSocial.'        
+        example:'Pape', 
+        description:'Nombre del Nomenclador especialidad que depende del ProgramaSocial especialidal.'        
     })
     @IsOptional()
     @IsNotEmpty({message:'El tipo de categoria no puede ser vacio.'})
@@ -20,12 +22,12 @@ export class Update_ProgramaSocial_Especialidad_Dto extends PartialType(Create_P
     @MinLength(3)
     nombre_programasocial_especial :string
 
-    @ApiProperty({ example: '666a2f9d001740325f7923d4' })
+    @ApiProperty({type:'ObjectId.ProgramaSocial', example: '666a2f9d001740325f7923d4' })
     @IsMongoId()
     @IsString({ message: 'The Id of the Manifestacion must be a String' })
-    // @IsRelationShipWith(ProgramaSocial)
+    @IsRelationShipWith(ProgramaSocial)
     @IsNotEmpty({ message: 'The Province ID cannot be empty' })
-    prog_socl: string
+    prog_socl: ProgramaSocial
 
     @IsOptional()
     @ApiProperty({

@@ -8,6 +8,7 @@ import { CreateMunicipalityDto } from '../domain/dto/create-municipality.dto';
 import { Municipality } from '../domain/entities/municipality.entity';
 import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
+import { MunicipalityDocument } from '../infrastructure/municipality.schema';
 
 @Injectable()
 export class MunicipalityService {
@@ -15,8 +16,8 @@ export class MunicipalityService {
     @Inject(MongooseMunicipalityRepository)
     private repository: MunicipalityRepository,
   ) {}
-
-  create(createMunicipalityDto: CreateMunicipalityDto): Promise<void> {
+// : Promise<Municipality>
+  create(createMunicipalityDto: CreateMunicipalityDto) {
     return this.repository.create(createMunicipalityDto);
   }
 

@@ -30,6 +30,7 @@ import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-respo
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
+import { PassThrough } from 'stream';
 
 @ApiTags(`province`)
 @ApiHeader({
@@ -60,13 +61,14 @@ export class ProvinceController {
     name: 'page',
     description: 'The current page. 1 by default',
     type: 'number',
-    required: false,
+    required: false,    
   })
   @ApiQuery({
     name: 'pageSize',
     description: 'The amount of items in the current page. 15 by default',
     type: 'number',
     required: false,
+    
   })
   @ApiPaginatedResponse(Province)
   @ApiCustomErrorResponse('Invalid page or pageSize')
@@ -74,7 +76,7 @@ export class ProvinceController {
   @Get()
   @ErrorHandler()
   findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
-    console.log('all');
+    console.log('all',page,pageSize);
     
     return this.service.findAll(page, pageSize);
   }

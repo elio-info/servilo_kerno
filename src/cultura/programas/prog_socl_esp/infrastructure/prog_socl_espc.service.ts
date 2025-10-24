@@ -13,7 +13,7 @@ export class ProgramaSocial_Especial_Service {
   ){ }
 // :Promise <void>
   async create(create_ps_Espec_Dto: Create_ProgramaSocial_Especial_Dto) {
-    // console.log('salio esto'+Types.ObjectId.isValid(create_ps_Espec_Dto.prog_socl))
+    console.log('salio esto'+Types.ObjectId.isValid(create_ps_Espec_Dto.prog_socl._id))
     /**/
     let nomb=create_ps_Espec_Dto.nombre_programasocial_especial;
     console.log(' estoy en creat '+ nomb);

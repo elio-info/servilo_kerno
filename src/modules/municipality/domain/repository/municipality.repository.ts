@@ -6,7 +6,7 @@ import { MunicipalityModel } from '../../infrastructure/municipality.schema';
 
 export interface MunicipalityRepository {
   findAll: (page: number, pageSize: number) => Promise<DataList<Municipality>>;
-  create: (municipality: CreateMunicipalityDto) => Promise<void>;
+  create: (municipality: CreateMunicipalityDto)=>any ;//=> Promise<Municipality>
   findOne: (id: string) => Promise<Municipality>;
   update: (
     id: string,

@@ -3,6 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Document, Types } from "mongoose";
 import { IsOptional } from "class-validator";
 import { ProgramaSocial } from "../../prog_socl/schemas/prog_socl.schema";
+import { Type } from "class-transformer";
 
 @Schema({
     timestamps:true,
@@ -10,6 +11,8 @@ import { ProgramaSocial } from "../../prog_socl/schemas/prog_socl.schema";
     collection:'ProgramaSocial_Especial'
 })
 export class ProgramaSocial_Especial {
+    _id: Types.ObjectId;
+
     @ApiProperty({
         type:String,
         description:'Nombre del Nomenclador del tipo de especialidad dentro del Programa Social'
@@ -23,8 +26,8 @@ export class ProgramaSocial_Especial {
     @Prop({
         type: Types.ObjectId, ref: ProgramaSocial.name        
     })
-    //@Type(()=> ProgramaSocial)
-    ID_categoria_manifestacion: ProgramaSocial
+    @Type(()=> ProgramaSocial)
+    programa: ProgramaSocial
 
     @IsOptional()
     @ApiProperty({

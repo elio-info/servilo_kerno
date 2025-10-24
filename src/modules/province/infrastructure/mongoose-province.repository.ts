@@ -56,13 +56,25 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     return dataList;
   }
 
-  async create(province: CreateProvinceDto): Promise<void> {
-    try {
+  async create(province: CreateProvinceDto): Promise<ProvinceModel> {
       console.log(province)
-      await new this.provinceModel(province).save();
-    } catch (e) {
-      throw new DuplicatedValueError(MODULE);
-    }
+      let todos= await Promise.all(
+                            [this.provinceModel
+                            .find({})
+                            .exec()]
+                          )
+      let us= todos[0].map((data) =>{
+                let dt=data.name.trim().toLowerCase()
+                    ,dt_c=province.name.trim().toLowerCase();
+                console.log(dt,dt_c);
+                if (dt==dt_c) {
+                  throw new DuplicatedValueError( data.name + ' -> ' + MODULE);
+                }
+              })
+      console.log(us);
+              
+      return await new this.provinceModel(province).save();
+     
   }
 
   async findOne(id: string): Promise<Province> {
