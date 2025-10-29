@@ -13,4 +13,4 @@ npm install # instalar node .
 copy ./dist ./src
 
 #correr
-cmd ["node","src/main.ts"]
+cmd ["node","src/main.js"]
