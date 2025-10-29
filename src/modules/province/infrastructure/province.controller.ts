@@ -19,6 +19,7 @@ import {
   ApiCreatedResponse,
   ApiHeader,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiQuery,
   ApiTags,
@@ -32,7 +33,7 @@ import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { PassThrough } from 'stream';
 
-@ApiTags(`province`)
+@ApiTags(`Province`)
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',
@@ -51,6 +52,7 @@ export class ProvinceController {
     description: 'Returns 201 when province is successfully created',
   })
   @ApiCustomErrorResponse()
+  @ApiOperation({ summary:'Crear provincia'})
   @Post()
   @ErrorHandler()
   create(@Body() createProvinceDto: CreateProvinceDto) {
@@ -73,6 +75,7 @@ export class ProvinceController {
   @ApiPaginatedResponse(Province)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
+  @ApiOperation({ summary:'Recuperar todas las provincias'})
   @Get()
   @ErrorHandler()
   findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {

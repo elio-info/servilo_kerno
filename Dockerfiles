@@ -1,0 +1,16 @@
+# Pull the Node.js Docker image:
+from node:22.12
+
+# trabajando en directorio de trabajo
+workdir /app
+
+# copio la carpeta
+copy  package.json . # Should print "v24.10.0".
+
+# instalar:
+npm install # instalar node .
+
+copy ./dist ./src
+
+#correr
+cmd ["node","src/main.ts"]

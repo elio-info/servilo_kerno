@@ -11,6 +11,7 @@ import { useContainer } from 'class-validator';
 import { SanitizePipe } from './modules/common/pipes/Sanitize.pipe';
 import { GlobalInterceptor } from './modules/common/interceptors/Global.interceptor';
 import { AllExceptionFilter } from './filters/all-exception.filter';
+import { filter } from 'rxjs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -53,7 +54,12 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  let quizas={customSiteTitle:`My ${configService.get<string>('NODE_ENV')} Cultura API Documentation`}
+  let quizas={
+      customSiteTitle:`My ${configService.get<string>('NODE_ENV')} Cultura API Documentation`
+      , swaggerOptions:{
+          filter: true
+      }
+    }
 
   SwaggerModule.setup('api/docs', app, document,quizas);
 
