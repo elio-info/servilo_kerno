@@ -1,13 +1,18 @@
-import { IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 
-export class SearchProvinceDto {
-  constructor() {
-    this.name = '';
-    //this.isDeleted=true
-  }
+export class SearchProvinceDto  {
+  
   @IsString()
   @MinLength(3)
   @IsNotEmpty()
   name: string;
+
+  @IsOptional()
+  @IsBoolean()
+  exactName: boolean=true;
+
+  @IsOptional()
+  @IsBoolean()
+  isDeleted: boolean = true;
 
 }

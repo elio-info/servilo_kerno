@@ -32,6 +32,7 @@ import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-f
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { PassThrough } from 'stream';
+import { query } from 'express';
 
 @ApiTags(`Province`)
 @ApiHeader({
@@ -130,24 +131,18 @@ export class ProvinceController {
   }
 
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiNotFoundCustomErrorResponse('Province')
-  @ApiQuery({
-    name: 'key',
-    description: 'The key name for the search',
-    type: 'string',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'value',
-    description: 'The value for the search',
-    type: 'string',
-    required: false,
+  @ApiNotFoundCustomErrorResponse('Province')  
+  @ApiBody({
+    description: 'The province object',
+    type: SearchProvinceDto,
   })
   @ApiCustomErrorResponse()
   @UsePipes(new SearchValidate(SearchProvinceDto))
   @Get('api/search')
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query:SearchProvinceDto ) {
+    console.log(query);
+    
     return this.service.search(query);
   }
 }

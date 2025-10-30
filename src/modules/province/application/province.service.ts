@@ -25,7 +25,10 @@ export class ProvinceService {
 
   findAll(page = 1, pageSize = 15): Promise<DataList<Province>> {
     page= ( isNaN(page) || page<= 0)? 1: page;
-    pageSize= ( isNaN(pageSize) || pageSize<= 0)? 1: pageSize;
+    console.log('page',page);
+    
+    pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
+    console.log('pagesz',pageSize);
     // if (page  || pageSize <= 0) {
     //   console.log('hay error de cant pages');
       
@@ -46,6 +49,8 @@ export class ProvinceService {
     return this.repository.remove(id);
   }
   search(query: SearchProvinceDto): Promise<Province[]> {
+    console.log(query);
+    
     return this.repository.search(query);
   }
 }

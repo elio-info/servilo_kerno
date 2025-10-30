@@ -1,4 +1,4 @@
-version: "3.9"
+#version: "3.9"
 
 services:
 
@@ -7,30 +7,32 @@ services:
     container_name: servilo_kerno
     build: 
       context: ./
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     env_file:
       - .env
     ports:
       - 3300:3300
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongodb
     restart: always
     networks:
       - servilo_kerno_nst
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    restart: always
-    environment:
-      - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/dev/null
-    volumes:
-      - mongodb/data/db
-    expose:      
-      - 27017:27017
-    networks:
-      - servilo_kerno_nst
-volumes:
-  mongodb:
+  # mongodb:
+  #   image: mongo:latest
+  #   container_name: mongodb
+  #   restart: always
+  #   environment:
+  #     - MONGO_DATA_DIR=/data/db
+  #     - MONGO_LOG_DIR=/dev/null
+  #     - MONGO_INITDB_ROOT_USERNAME: root
+  #     - MONGO_INITDB_ROOT_PASSWORD: example
+  #   volumes:
+  #     - mongodb/data/db
+  #   expose:      
+  #     - 27017:27017
+  #   networks:
+  #     - servilo_kerno_nst
+# volumes:
+  # mongodb:
 networks:
  servilo_kerno_nst:
