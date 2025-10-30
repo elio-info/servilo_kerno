@@ -1,3 +1,4 @@
+import { ApiOperation } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class SearchProvinceDto  {
@@ -13,6 +14,6 @@ export class SearchProvinceDto  {
 
   @IsOptional()
   @IsBoolean()
-  isDeleted: boolean = true;
+  isDeleted: boolean = false;
 
 }

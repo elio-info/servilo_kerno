@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UsePipes,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ProvinceService } from '../application/province.service';
 import { CreateProvinceDto } from '.././domain/dto/create-province.dto';
@@ -33,6 +34,7 @@ import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { PassThrough } from 'stream';
 import { query } from 'express';
+import { GlobalInterceptor } from 'src/modules/common/interceptors/Global.interceptor';
 
 @ApiTags(`Province`)
 @ApiHeader({
@@ -40,6 +42,7 @@ import { query } from 'express';
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
+@UseInterceptors(GlobalInterceptor)
 @Controller('province')
 export class ProvinceController {
   constructor(private readonly service: ProvinceService) {}
@@ -107,7 +110,7 @@ export class ProvinceController {
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Province')
   @ApiBody({
-    type: CreateProvinceDto,
+    type: UpdateProvinceDto,
   })
   @ApiParam({ name: 'id' })
   @Patch(':id')
@@ -133,16 +136,15 @@ export class ProvinceController {
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Province')  
   @ApiBody({
-    description: 'The province object',
+    description: 'se buca a partir de : nombre de provincia, si buscas el nombre completo, si buscas borrados o no',
     type: SearchProvinceDto,
-  })
+  })  
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchProvinceDto))
-  @Get('api/search')
+  // @UsePipes(new SearchValidate(SearchProvinceDto))
+  @Post('api/search')
   @ErrorHandler()
   search(@Body() query:SearchProvinceDto ) {
-    console.log(query);
-    
+    console.log(query);    
     return this.service.search(query);
   }
 }

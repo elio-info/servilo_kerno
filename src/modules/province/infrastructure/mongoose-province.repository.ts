@@ -116,7 +116,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     };
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: string): Promise<Province> {
     try {
       const document = await this.provinceModel
         .findById(id)
@@ -124,20 +124,25 @@ export class MongooseProvinceRepository implements ProvinceRepository {
       if (!document) {
         throw new ObjectNotFound();
       }
-      await document.updateOne({ isDeleted: true });
+    return  await document.updateOne({ isDeleted: true });
     } catch (e) {
       if (e instanceof Error.CastError) {
         throw new WrongIdFormat(MODULE);
       }
+      else
       throw e;
     }
   }
-  async search(query) {
-    const provinces = await this.provinceModel.find(query);
-    const provinceCollection = provinces.map((municipality) =>
-      this.toEntity(municipality),
-    );
-    return provinceCollection;
+  async search(query) : Promise<Province> {
+
+    let buscar= query.exactName? { name:query.exactName, isDeleted: query.isDeleted} :  { name: '/'.concat(query.exactName,'/i') };
+    console.log(buscar);
+    
+    return await Promise.all([this.provinceModel.find(buscar).exec()])[0] ;
+    // const provinceCollection = provinces.map((municipality) =>
+    //   this.toEntity(municipality),
+    // );
+    //return provinces;
   }
 
   toEntity(prov): Province {

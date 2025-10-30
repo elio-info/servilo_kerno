@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  CanActivate,
   HttpException,
   HttpStatus,
   Injectable,
@@ -16,7 +17,7 @@ import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { Traza } from 'src/cultura/trazas/entities/traza.entity';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements CanActivate {
 
   private myTraza:Traza
 

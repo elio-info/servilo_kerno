@@ -12,6 +12,9 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class GlobalInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    return next.handle().pipe(tap(() => console.log(`After... `)));
+    const nw= Date.now()
+    console.log('Before...'+nw.toLocaleString());
+    
+    return next.handle().pipe(tap(() => console.log(`After...${Date.now().toLocaleString()}  ${Date.now() -nw}ms`)));
   }
 }

@@ -9,6 +9,6 @@ export interface ProvinceRepository {
   create: (province: CreateProvinceDto) => Promise<ProvinceModel>;
   findOne: (id: string) => Promise<Province>;
   update: (id: string, province: UpdateProvinceDto) => Promise<Province>;
-  remove: (id: string) => Promise<void>;
-  search: (query) => Promise<Province[]>;
+  remove: (id: string) => Promise<Province>;
+  search: (query) => Promise<Province>;
 }

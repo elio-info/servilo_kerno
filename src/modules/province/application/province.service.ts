@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { CanActivate, Inject, Injectable } from '@nestjs/common';
 import { CreateProvinceDto } from '../domain/dto/create-province.dto';
 import { UpdateProvinceDto } from '../domain/dto/update-province.dto';
 import { ProvinceRepository } from '../domain/repository/province.repository';
@@ -10,16 +10,34 @@ import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { ProvinceModel } from '../infrastructure/province.schema';
 import { data } from 'jquery';
 import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
+import { Traza } from 'src/cultura/trazas/entities/traza.entity';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { AuthService } from 'src/modules/auth/auth.service';
+import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host';
+import { JwtAuthGuard } from 'src/modules/authz/guards/jwt-auth.guard';
+import { GlobalInterceptor } from 'src/modules/common/interceptors/Global.interceptor';
 
 @Injectable()
-export class ProvinceService {
+export class ProvinceService   {
+
+  private myTraza : Traza;
+
   constructor(
     @Inject(MongooseProvinceRepository)
     private repository: ProvinceRepository,
-  ) {}
+    private readonly userLog: JwtAuthGuard,
+    private traz:TrazasService
+  ) {
+    
+    this.myTraza= new Traza();
+    this.myTraza.modulo='Province'
+
+    //const request = userLog.canActivate();
+
+  }
 
   create(createProvinceDto: CreateProvinceDto): Promise<ProvinceModel> {
-    
+    // this.myTraza.user=this.userLog.
     return this.repository.create(createProvinceDto);
   }
 
@@ -45,10 +63,10 @@ export class ProvinceService {
     return this.repository.update(id, updateProvinceDto);
   }
 
-  remove(id: string): Promise<void> {
+  remove(id: string): Promise<Province> {
     return this.repository.remove(id);
   }
-  search(query: SearchProvinceDto): Promise<Province[]> {
+  search(query: SearchProvinceDto): Promise<Province> {
     console.log(query);
     
     return this.repository.search(query);
