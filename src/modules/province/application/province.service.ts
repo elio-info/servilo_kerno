@@ -16,6 +16,8 @@ import { AuthService } from 'src/modules/auth/auth.service';
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host';
 import { JwtAuthGuard } from 'src/modules/authz/guards/jwt-auth.guard';
 import { GlobalInterceptor } from 'src/modules/common/interceptors/Global.interceptor';
+import { AppController } from 'src/app.controller';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Injectable()
 export class ProvinceService   {
@@ -25,19 +27,18 @@ export class ProvinceService   {
   constructor(
     @Inject(MongooseProvinceRepository)
     private repository: ProvinceRepository,
-    private readonly userLog: JwtAuthGuard,
+    // private readonly userLog: GlobalInterceptor,
     private traz:TrazasService
   ) {
     
     this.myTraza= new Traza();
     this.myTraza.modulo='Province'
-
-    //const request = userLog.canActivate();
-
+    
   }
 
   create(createProvinceDto: CreateProvinceDto): Promise<ProvinceModel> {
-    // this.myTraza.user=this.userLog.
+    
+    
     return this.repository.create(createProvinceDto);
   }
 
@@ -47,6 +48,7 @@ export class ProvinceService   {
     
     pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
     console.log('pagesz',pageSize);
+    // this.myTraza.user=this.userLog.
     // if (page  || pageSize <= 0) {
     //   console.log('hay error de cant pages');
       
@@ -66,6 +68,7 @@ export class ProvinceService   {
   remove(id: string): Promise<Province> {
     return this.repository.remove(id);
   }
+
   search(query: SearchProvinceDto): Promise<Province> {
     console.log(query);
     

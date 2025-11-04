@@ -25,6 +25,8 @@ async function bootstrap() {
 
    if (configService.get<string>('NODE_ENV') !== 'local') {}////
   app.useGlobalGuards(app.get(JwtAuthGuard), app.get(RolesGuard));
+
+ // app.useGlobalInterceptors(new GlobalInterceptor());//agregar interceptos para saber quien esta
    
   app.useGlobalPipes(
     new ValidationPipe({

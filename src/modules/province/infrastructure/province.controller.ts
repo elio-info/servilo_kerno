@@ -9,6 +9,7 @@ import {
   Query,
   UsePipes,
   UseInterceptors,
+  RequestMethod,
 } from '@nestjs/common';
 import { ProvinceService } from '../application/province.service';
 import { CreateProvinceDto } from '.././domain/dto/create-province.dto';
@@ -35,6 +36,9 @@ import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { PassThrough } from 'stream';
 import { query } from 'express';
 import { GlobalInterceptor } from 'src/modules/common/interceptors/Global.interceptor';
+import { ClientRequest } from 'http';
+import { JwtAuthGuard } from 'src/modules/authz/guards/jwt-auth.guard';
+import { Http2ServerRequest } from 'http2';
 
 @ApiTags(`Province`)
 @ApiHeader({
@@ -42,7 +46,7 @@ import { GlobalInterceptor } from 'src/modules/common/interceptors/Global.interc
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
-@UseInterceptors(GlobalInterceptor)
+// @UseInterceptors(GlobalInterceptor)
 @Controller('province')
 export class ProvinceController {
   constructor(private readonly service: ProvinceService) {}
@@ -60,6 +64,8 @@ export class ProvinceController {
   @Post()
   @ErrorHandler()
   create(@Body() createProvinceDto: CreateProvinceDto) {
+    
+       
     return this.service.create(createProvinceDto);
   }
 
@@ -84,6 +90,7 @@ export class ProvinceController {
   @ErrorHandler()
   findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
     console.log('all',page,pageSize);
+    console.log();
     
     return this.service.findAll(page, pageSize);
   }

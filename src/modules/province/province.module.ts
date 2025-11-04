@@ -8,6 +8,7 @@ import {
   ProvinceModel,
 } from './infrastructure/province.schema';
 import { ErrorModule } from '../common/errors/error.module';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Module({
   imports: [
@@ -17,6 +18,8 @@ import { ErrorModule } from '../common/errors/error.module';
     ErrorModule,
   ],
   controllers: [ProvinceController],
-  providers: [ProvinceService, MongooseProvinceRepository],
+  providers: [ProvinceService, MongooseProvinceRepository
+    //,TrazasService
+  ],
 })
 export class ProvinceModule {}

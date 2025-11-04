@@ -17,7 +17,7 @@ import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { Traza } from 'src/cultura/trazas/entities/traza.entity';
 
 @Injectable()
-export class AuthService implements CanActivate {
+export class AuthService  {
 
   private myTraza:Traza
 

@@ -30,6 +30,7 @@ const publicKey = readFileSync('cert/public.pem', 'utf8');
   ],
   providers: [
     AuthService,
+    // mio
     TrazasService
   ],
   controllers: [AuthController],
