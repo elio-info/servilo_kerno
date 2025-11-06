@@ -10,6 +10,8 @@ import {
   UsePipes,
   UseInterceptors,
   RequestMethod,
+  Head,
+  Headers,
 } from '@nestjs/common';
 import { ProvinceService } from '../application/province.service';
 import { CreateProvinceDto } from '.././domain/dto/create-province.dto';
@@ -39,6 +41,7 @@ import { GlobalInterceptor } from 'src/modules/common/interceptors/Global.interc
 import { ClientRequest } from 'http';
 import { JwtAuthGuard } from 'src/modules/authz/guards/jwt-auth.guard';
 import { Http2ServerRequest } from 'http2';
+import { JwtService } from '@nestjs/jwt';
 
 @ApiTags(`Province`)
 @ApiHeader({
@@ -88,11 +91,13 @@ export class ProvinceController {
   @ApiOperation({ summary:'Recuperar todas las provincias'})
   @Get()
   @ErrorHandler()
-  findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
+  findAll(@Query('page') page: number, @Query('pageSize') pageSize: number,@Headers('authorization') hds) {
     console.log('all',page,pageSize);
-    console.log();
-    
-    return this.service.findAll(page, pageSize);
+    console.log(hds);
+    let hds_jwtk=hds.split(' ')[1];
+    let hds_uss= new JwtService().decode(hds_jwtk)['username'];
+    console.log(hds_uss);
+    return this.service.findAll(page, pageSize,hds_uss);
   }
 
   @ApiOkResponse({

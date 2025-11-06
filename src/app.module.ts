@@ -58,6 +58,7 @@ import { TrazasService } from './cultura/trazas/trazas.service';
     CulturaModule,
     Control_ActividadCultural_Module,
     
+    
   ],
   providers: [
     AllExceptionFilter,

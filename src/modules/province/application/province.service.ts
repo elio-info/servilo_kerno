@@ -27,7 +27,6 @@ export class ProvinceService   {
   constructor(
     @Inject(MongooseProvinceRepository)
     private repository: ProvinceRepository,
-    // private readonly userLog: GlobalInterceptor,
     private traz:TrazasService
   ) {
     
@@ -42,7 +41,10 @@ export class ProvinceService   {
     return this.repository.create(createProvinceDto);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Province>> {
+  findAll(page = 1, pageSize = 15,tkhds:string): Promise<DataList<Province>> {
+    this.myTraza.user=tkhds;
+    this.myTraza.metodo='fall';this.myTraza.accion='Buscar';
+
     page= ( isNaN(page) || page<= 0)? 1: page;
     console.log('page',page);
     
@@ -54,6 +56,9 @@ export class ProvinceService   {
       
     //   throw new InvalidPaginationError();
     // }
+    this.myTraza.estadoConsulta='OK';
+    this.traz.create(this.myTraza);
+    
     return this.repository.findAll(page, pageSize);
   }
 

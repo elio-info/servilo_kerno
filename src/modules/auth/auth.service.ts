@@ -44,9 +44,12 @@ export class AuthService  {
     
     if (username === 'test' && pass === 'test') {
       const fakeUser: PersonAuth = {
-        id: 'fakeID',
+        sub: 'fakeID',
         username,
         hashPassword: 'fakePASs',
+        // municipality: 'string',
+        // entity: 'sdfsdfgsdfg',
+        // role: 'fake'
       };
       this.myTraza.estadoConsulta='Ok'
       this.traz.create(this.myTraza);    
@@ -54,6 +57,8 @@ export class AuthService  {
       return this.makeToken(fakeUser);
     }
     //--------------------------------------------------
+    console.log('no fake');
+    
     const user: PersonAuth = await this.personService.byUserName(username);
 
     const isMatch = await compare(pass, user.hashPassword);
@@ -70,12 +75,35 @@ export class AuthService  {
     return this.makeToken(user);
   }
   
+  async getTokenHeadersInfo(token: string)  {//:Promise<Person>
+    let tk=token.split(' ')[1];
+    
+    const payload = this.jwtService.decode(token.split(' ')[1]) as PersonAuth;
+    let data_ret=  await this.personService.findOne(payload.sub);
+    
+    let prsn= {
+      id_usr: data_ret.id,
+      name_usr:data_ret.name,
+      role_usr: data_ret.role,
+      img_usr:data_ret.image,
+      pertenece:{
+          id_ent:data_ret.entity.id,
+          nivel_ent:data_ret.entity.entityType.hierarchy,
+          name_ent:data_ret.entity.name
+        },
+     // tiempoExpiraToken:Date.now()+ 3600
+    // const entidad_ertenece={id:user.entity_id}
+
+    }
+    return prsn
+  }
+
   async getUserInfo(token: string)  {//:Promise<Person>
     type PayloadType = {
       sub: string;
       username: string;
     };
-    const payload = this.jwtService.decode(token.split(' ')[1]) as PayloadType;
+    const payload = this.jwtService.decode(token.split(' ')[1]) as PersonAuth;
     let data_ret=  await this.personService.findOne(payload.sub);
     
     let prsn= {
@@ -100,7 +128,7 @@ export class AuthService  {
       user.username,
     );
     if (await compare(oldPassword, userRec.hashPassword)) {
-      this.personService.update(userRec.id, {
+      this.personService.update(userRec.sub, {
         hashPassword: await hash(newPassword),
       });
     } else {
@@ -111,11 +139,14 @@ export class AuthService  {
   private async makeToken(user: PersonAuth) {
 //  id,username,role,entitidad{id,nivel,nombre},tiempoExpiraToken
     // const entidad_ertenece={id:user.entity_id}
-    const payload = { sub: user.id, username: user.username, 
+    const payload = { 
+        sub: user.sub
+        , username: user.username      
+
       // exp = expire session In: unix time
       //tiempoExpiraToken:Date.now()+36000 
      };
-    const token  =await this.jwtService.signAsync(payload);
+    const token  =await this.jwtService.signAsync(user);
     return {
       access_token: token,
     };

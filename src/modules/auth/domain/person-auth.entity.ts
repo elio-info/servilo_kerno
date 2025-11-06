@@ -1,5 +1,8 @@
+import { ObjectId } from "mongoose";
+
 export interface PersonAuth {
-  id: string;
+  sub: string;
   username: string;
   hashPassword: string;
+  
 }

@@ -37,9 +37,8 @@ export class MongooseProvinceRepository implements ProvinceRepository {
       this.provinceModel.countDocuments(this.whereQuery).exec(),
     ]);
 
-    console.log('dentro del F-all', provinces);
-    
-
+    // console.log('dentro del F-all', provinces);
+   
     const provinceCollection = provinces.map((province) => ({
       id: province._id.toString(),
       name: province.name,
