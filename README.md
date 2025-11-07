@@ -8,15 +8,14 @@ Business management system developed by the **MasUnoSRL** team.
 
 ```bash
 $ git clone https://github.com/elio-info/servilo_kerno.git
-```
-```bash
+
 $ gh repo clone elio-ifo/servilo_kerno
 ```
 
 📂Open the folder
 
 ```bash
-$ cd gestion-emprezarial-backend
+$ cd gestion-cultura-backend
 ```
 
 🛠️ Install the dependencies
