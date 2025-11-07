@@ -11,6 +11,7 @@ import { WrongIdFormat } from 'src/modules/common/errors/wrong-id-format.error';
 import { ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { validateId } from 'src/modules/common/helpers/id-validator';
 import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 // const SELECT_QUERY: string = 'isDeleted name createdAt updatedAt';
 const MODULE = 'Province';
@@ -55,8 +56,11 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     return dataList;
   }
 
-  async create(province: CreateProvinceDto): Promise<ProvinceModel> {
-      console.log(province)
+  async create(province: CreateProvinceDto,traza:TrazasService): Promise<ProvinceModel> {
+      // console.log(province)
+
+      traza.traza_Consulta= 'create '+province.name
+
       let todos= await Promise.all(
                             [this.provinceModel
                             .find({})
@@ -67,11 +71,15 @@ export class MongooseProvinceRepository implements ProvinceRepository {
                     ,dt_c=province.name.trim().toLowerCase();
                 console.log(dt,dt_c);
                 if (dt==dt_c) {
+
+                  traza.traza_EstadoConsulta='DuplicatedValueError '+ data.name + ' -> ' + MODULE
+                  traza.traza_logg();
                   throw new DuplicatedValueError( data.name + ' -> ' + MODULE);
                 }
               })
-      console.log(us);
-              
+      // console.log(us);
+             traza.traza_EstadoConsulta='Ok' ;
+             traza.traza_logg();
       return await new this.provinceModel(province).save();
      
   }

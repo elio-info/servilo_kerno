@@ -4,5 +4,5 @@ export interface PersonAuth {
   sub: string;
   username: string;
   hashPassword: string;
-  
+  rol:string;
 }

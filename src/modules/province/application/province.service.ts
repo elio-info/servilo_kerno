@@ -21,43 +21,33 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Injectable()
 export class ProvinceService   {
-
-  private myTraza : Traza;
-
+ 
   constructor(
     @Inject(MongooseProvinceRepository)
     private repository: ProvinceRepository,
     private traz:TrazasService
-  ) {
+  ) {    
     
-    this.myTraza= new Traza();
-    this.myTraza.modulo='Province'
+    this.traz.traza_Modulo='Province'
     
   }
 
-  create(createProvinceDto: CreateProvinceDto): Promise<ProvinceModel> {
+  create(createProvinceDto: CreateProvinceDto,tkhds:string): Promise<ProvinceModel> {
+    this.traz.traza_Usr=tkhds;    
+    this.traz.traza_Accion='create';   
+    this.traz.traza_Metodo='POST';   
     
-    
-    return this.repository.create(createProvinceDto);
+    return this.repository.create(createProvinceDto,this.traz);
   }
 
-  findAll(page = 1, pageSize = 15,tkhds:string): Promise<DataList<Province>> {
-    this.myTraza.user=tkhds;
-    this.myTraza.metodo='fall';this.myTraza.accion='Buscar';
-
+  findAll(page = 1, pageSize = 15): Promise<DataList<Province>> {
+    
     page= ( isNaN(page) || page<= 0)? 1: page;
     console.log('page',page);
     
     pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
     console.log('pagesz',pageSize);
-    // this.myTraza.user=this.userLog.
-    // if (page  || pageSize <= 0) {
-    //   console.log('hay error de cant pages');
-      
-    //   throw new InvalidPaginationError();
-    // }
-    this.myTraza.estadoConsulta='OK';
-    this.traz.create(this.myTraza);
+    
     
     return this.repository.findAll(page, pageSize);
   }

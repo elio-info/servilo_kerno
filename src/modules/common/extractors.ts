@@ -10,6 +10,15 @@ import { PlaceModel } from '../place/infrastructure/places.schema';
 import { Place } from '../place/domain/entities/place.entity';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
 import { Nomencladores_Generales } from 'src/cultura/codificadores-cult/infrastructure/codificadores_nomencladores.controller';
+import { JwtService } from '@nestjs/jwt/dist/jwt.service';
+
+export function getUserHTTP_JWTS(hds_tk:string): string {
+  // console.log(hds_tk);
+      let hds_jwtk=hds_tk.split(' ')[1];
+      let hds_uss= new JwtService().decode(hds_jwtk)['username'];
+      // console.log(hds_uss);
+      return hds_uss;
+}
 
 export function extractMunicipality(
   municipality: MunicipalityModel,

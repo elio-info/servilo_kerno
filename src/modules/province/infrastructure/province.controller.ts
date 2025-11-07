@@ -42,6 +42,7 @@ import { ClientRequest } from 'http';
 import { JwtAuthGuard } from 'src/modules/authz/guards/jwt-auth.guard';
 import { Http2ServerRequest } from 'http2';
 import { JwtService } from '@nestjs/jwt';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 @ApiTags(`Province`)
 @ApiHeader({
@@ -66,10 +67,11 @@ export class ProvinceController {
   @ApiOperation({ summary:'Crear provincia'})
   @Post()
   @ErrorHandler()
-  create(@Body() createProvinceDto: CreateProvinceDto) {
-    
+  create(@Body() createProvinceDto: CreateProvinceDto,@Headers('authorization') hds) {
+    let hds_uss= getUserHTTP_JWTS(hds);
+    // console.log(hds_uss);
        
-    return this.service.create(createProvinceDto);
+    return this.service.create(createProvinceDto,hds_uss);
   }
 
   @ApiQuery({
@@ -91,13 +93,9 @@ export class ProvinceController {
   @ApiOperation({ summary:'Recuperar todas las provincias'})
   @Get()
   @ErrorHandler()
-  findAll(@Query('page') page: number, @Query('pageSize') pageSize: number,@Headers('authorization') hds) {
-    console.log('all',page,pageSize);
-    console.log(hds);
-    let hds_jwtk=hds.split(' ')[1];
-    let hds_uss= new JwtService().decode(hds_jwtk)['username'];
-    console.log(hds_uss);
-    return this.service.findAll(page, pageSize,hds_uss);
+  findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
+    console.log('all',page,pageSize);    
+    return this.service.findAll(page, pageSize);
   }
 
   @ApiOkResponse({

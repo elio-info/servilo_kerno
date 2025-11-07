@@ -19,15 +19,15 @@ import { Traza } from 'src/cultura/trazas/entities/traza.entity';
 @Injectable()
 export class AuthService  {
 
-  private myTraza:Traza
+  // private myTraza:Traza
 
   constructor(
     private personService: PersonService,
     private jwtService: JwtService,
     private traz:TrazasService
   ) {
-    this.myTraza=new Traza()
-    this.myTraza.modulo='AuthModule'      
+    // this.myTraza=new Traza()
+    this.traz.traza_Modulo='AuthModule'      
   }
 
   //TODO Clan this function
@@ -36,9 +36,10 @@ export class AuthService  {
     console.log(`u:${username}`);
     
 
-    this.myTraza.user=username
-    this.myTraza.metodo='SignIn'
-    this.myTraza.accion='Autenticarse'
+    this.traz.traza_Usr=username
+    this.traz.traza_Modulo='SignIn'
+    this.traz.traza_Metodo='POST'
+    this.traz.traza_Accion='Autenticarse'
 
     //TODO-------Delete This After proper testing------
     
@@ -49,10 +50,11 @@ export class AuthService  {
         hashPassword: 'fakePASs',
         // municipality: 'string',
         // entity: 'sdfsdfgsdfg',
-        // role: 'fake'
+        rol: 'fake'
       };
-      this.myTraza.estadoConsulta='Ok'
-      this.traz.create(this.myTraza);    
+      this.traz.traza_EstadoConsulta='Ok'
+      this.traz.traza_Usr +='fake'
+      this.traz.traza_logg();    
     
       return this.makeToken(fakeUser);
     }
@@ -65,13 +67,14 @@ export class AuthService  {
 
     if (!isMatch) {
       let nopasa=new UnauthorizedException();
-      this.myTraza.estadoConsulta=nopasa.getStatus()+nopasa.getResponse().toString()
-      this.traz.create(this.myTraza );    
+      this.traz.traza_EstadoConsulta=nopasa.getStatus()+nopasa.getResponse().toString()
+      this.traz.traza_logg();    
       throw nopasa
     }
 
-    this.myTraza.estadoConsulta='Ok'
-     this.traz.create(this.myTraza );
+    this.traz.traza_EstadoConsulta='Ok'
+    this.traz.traza_Usr += user.rol
+     this.traz.traza_logg();
     return this.makeToken(user);
   }
   
