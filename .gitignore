@@ -39,3 +39,4 @@ node_modules
 
 # mio
 package-lock.json
+.env
