@@ -21,7 +21,14 @@ async function bootstrap() {
   // fin de crear ruta
   const configService = app.get(ConfigService);
 
-  app.enableCors();
+  // Configurar CORS para permitir peticiones desde cualquier origen
+  app.enableCors({
+    origin: true, // Permite cualquier origen
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    exposedHeaders: ['Authorization'],
+  });
 
    if (configService.get<string>('NODE_ENV') !== 'local') {}////
   app.useGlobalGuards(app.get(JwtAuthGuard), app.get(RolesGuard));

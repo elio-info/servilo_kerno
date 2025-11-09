@@ -8,7 +8,6 @@ import { DataList } from 'src/modules/common/data-list';
 import { Province } from '../domain/entities/province.entity';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { ProvinceModel } from '../infrastructure/province.schema';
-import { data } from 'jquery';
 import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
 import { Traza } from 'src/cultura/trazas/entities/traza.entity';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
