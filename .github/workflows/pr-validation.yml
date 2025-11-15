@@ -185,6 +185,7 @@ jobs:
         run: |
           echo "🔍 Ejecutando linter..."
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           # Ejecutar linter sin --fix primero para verificar solo errores
           # Usar npx eslint directamente para tener más control
           set +e  # No fallar inmediatamente
@@ -194,11 +195,16 @@ jobs:
           
           # Contar errores y warnings
 =======
+=======
+>>>>>>> Stashed changes
           set +e
           npx eslint "{src,apps,libs,test}/**/*.ts" --format=compact 2>&1 | tee /tmp/lint-output.txt
           LINT_EXIT=$?
           set -e
           
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
           ERROR_COUNT=$(grep -c "error" /tmp/lint-output.txt || echo "0")
           WARNING_COUNT=$(grep -c "warning" /tmp/lint-output.txt || echo "0")
@@ -210,7 +216,10 @@ jobs:
           echo ""
           
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           # Solo fallar si hay errores reales
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
           if [ "$ERROR_COUNT" -gt 0 ]; then
@@ -228,10 +237,16 @@ jobs:
           fi
           
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
           # Ahora ejecutar con --fix para corregir automáticamente lo que se pueda
           echo ""
           echo "🔧 Aplicando correcciones automáticas..."
           npm run lint || true  # No fallar si hay warnings después del fix
+=======
+          echo ""
+          echo "🔧 Aplicando correcciones automáticas..."
+          npm run lint || true
+>>>>>>> Stashed changes
 =======
           echo ""
           echo "🔧 Aplicando correcciones automáticas..."
