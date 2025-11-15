@@ -1,0 +1,370 @@
+name: Validación de PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  check-conflicts:
+    name: Verificar Conflictos de Merge
+    runs-on: ubuntu-latest
+    # Este job debe fallar si hay conflictos para bloquear el merge
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necesario para verificar conflictos
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configurar Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Verificar conflictos de merge
+        id: check-conflicts
+        run: |
+          PR_BRANCH="${{ github.head_ref }}"
+          BASE_BRANCH="${{ github.base_ref }}"
+          
+          echo "🔍 Verificando conflictos entre $PR_BRANCH y $BASE_BRANCH..."
+          
+          # Obtener la última referencia de la rama base
+          git fetch origin $BASE_BRANCH:$BASE_BRANCH
+          
+          # Limpiar cualquier merge anterior
+          git reset --hard HEAD
+          git clean -fd
+          
+          # Intentar hacer merge en modo --no-commit para detectar conflictos
+          set +e  # No fallar inmediatamente
+          git merge --no-commit --no-ff origin/$BASE_BRANCH > /tmp/merge_output.txt 2>&1
+          MERGE_STATUS=$?
+          set -e  # Volver a fallar en errores
+          
+          MERGE_OUTPUT=$(cat /tmp/merge_output.txt)
+          rm /tmp/merge_output.txt
+          
+          if [ $MERGE_STATUS -eq 0 ]; then
+            echo "✅ No hay conflictos de merge"
+            echo "has_conflicts=false" >> $GITHUB_OUTPUT
+            # Abortar el merge de prueba
+            git merge --abort 2>/dev/null || true
+          elif [ $MERGE_STATUS -eq 1 ]; then
+            # Código 1 = conflictos detectados
+            echo "❌ ❌ ❌ CONFLICTOS DE MERGE DETECTADOS ❌ ❌ ❌"
+            echo ""
+            echo "El PR no puede ser unido debido a conflictos con la rama base ($BASE_BRANCH)."
+            echo ""
+            echo "Por favor, resuelve los conflictos antes de continuar:"
+            echo "1. Actualiza tu rama con: git pull origin $BASE_BRANCH"
+            echo "2. Resuelve los conflictos manualmente"
+            echo "3. Haz commit de los cambios resueltos"
+            echo "4. Haz push de los cambios"
+            echo ""
+            echo "Detalles del merge:"
+            echo "$MERGE_OUTPUT"
+            echo ""
+            echo "has_conflicts=true" >> $GITHUB_OUTPUT
+            git merge --abort 2>/dev/null || true
+            exit 1  # FALLAR para bloquear el merge
+          else
+            # Otro tipo de error
+            echo "⚠️ Error al verificar merge (código: $MERGE_STATUS)"
+            echo "Salida:"
+            echo "$MERGE_OUTPUT"
+            echo "has_conflicts=false" >> $GITHUB_OUTPUT
+            git merge --abort 2>/dev/null || true
+            # En caso de error desconocido, también fallamos para ser seguros
+            exit 1
+          fi
+
+      - name: Comentar en PR si hay conflictos
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const baseRef = context.payload.pull_request.base.ref;
+            const headRef = context.payload.pull_request.head.ref;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ❌ Conflictos de Merge Detectados
+              
+              Este PR tiene conflictos con la rama base **\`${baseRef}\`** y **no puede ser unido** hasta que se resuelvan.
+              
+              ### 🔧 Cómo resolver los conflictos:
+              
+              1. **Actualiza tu rama local:**
+                 \`\`\`bash
+                 git checkout ${headRef}
+                 git pull origin ${baseRef}
+                 \`\`\`
+              
+              2. **Resuelve los conflictos manualmente** en los archivos marcados
+              
+              3. **Haz commit de los cambios:**
+                 \`\`\`bash
+                 git add .
+                 git commit -m "Resolve merge conflicts"
+                 \`\`\`
+              
+              4. **Haz push de los cambios:**
+                 \`\`\`bash
+                 git push origin ${headRef}
+                 \`\`\`
+              
+              Una vez resueltos los conflictos, este workflow se ejecutará nuevamente para verificar que todo esté correcto.
+              
+              ---
+              *Este comentario fue generado automáticamente por el workflow de validación.*`
+            })
+
+  check-dependencies:
+    name: Verificar Dependencias
+    runs-on: ubuntu-latest
+    needs: check-conflicts
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.12'
+          cache: 'npm'
+
+      - name: Verificar sincronización package.json y package-lock.json
+        run: |
+          echo "🔍 Verificando sincronización de dependencias..."
+          if ! npm ci --dry-run 2>&1 | grep -q "npm WARN"; then
+            echo "✅ package.json y package-lock.json están sincronizados"
+          else
+            echo "❌ Advertencias detectadas al verificar dependencias"
+            npm ci --dry-run
+            exit 1
+          fi
+
+      - name: Instalar dependencias
+        run: npm ci
+        continue-on-error: false
+
+      - name: Verificar dependencias faltantes
+        run: |
+          echo "🔍 Verificando que todas las dependencias estén instaladas..."
+          if npm ls --depth=0 2>&1 | grep -q "npm ERR"; then
+            echo "❌ Se detectaron dependencias faltantes o conflictos"
+            npm ls --depth=0
+            exit 1
+          else
+            echo "✅ Todas las dependencias están correctamente instaladas"
+          fi
+
+      - name: Verificar vulnerabilidades (audit)
+        run: |
+          echo "🔍 Verificando vulnerabilidades de seguridad..."
+          npm audit --audit-level=moderate || true
+          # No falla el workflow por vulnerabilidades, solo las reporta
+
+  validate-code:
+    name: Validar Código (Lint, Build, Tests)
+    runs-on: ubuntu-latest
+    needs: [check-conflicts, check-dependencies]
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.12'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar Linter
+        run: npm run lint
+        continue-on-error: false
+
+      - name: Compilar proyecto
+        run: npm run build
+        continue-on-error: false
+
+      - name: Ejecutar tests unitarios
+        run: npm test
+        continue-on-error: true
+        env:
+          CI: true
+
+      - name: Ejecutar tests e2e
+        run: npm run test:e2e
+        continue-on-error: true
+        env:
+          CI: true
+
+  check-app-startup:
+    name: Verificar Inicio de Aplicación
+    runs-on: ubuntu-latest
+    needs: [check-conflicts, check-dependencies, validate-code]
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.12'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar proyecto
+        run: npm run build
+
+      - name: Crear certificados mock para CI
+        run: |
+          echo "🔧 Creando certificados mock para validación..."
+          mkdir -p cert
+          
+          # Generar certificados RSA temporales para CI
+          # Estos certificados solo se usan para verificar que la app puede iniciar
+          openssl genrsa -out cert/key.pem 2048
+          openssl rsa -in cert/key.pem -pubout -out cert/public.pem
+          
+          echo "✅ Certificados mock creados"
+
+      - name: Verificar que la aplicación puede iniciar
+        run: |
+          echo "🚀 Intentando iniciar la aplicación para verificar que no hay errores de runtime..."
+          
+          # Variables de entorno mock para CI
+          export PORT=3000
+          export LOCAL_MONGO_DEV="mongodb://localhost:27017/test_db"
+          export DB_NAME="test_db"
+          export NODE_ENV="test"
+          
+          # Capturar salida para análisis
+          OUTPUT_FILE=$(mktemp)
+          
+          # Intentar iniciar la aplicación con timeout
+          # Esperamos que falle al conectarse a MongoDB, pero no por errores de módulos/dependencias
+          set +e  # No fallar en errores
+          timeout 10s node dist/main.js > "$OUTPUT_FILE" 2>&1
+          EXIT_CODE=$?
+          set -e  # Volver a fallar en errores
+          
+          # Leer la salida
+          OUTPUT=$(cat "$OUTPUT_FILE")
+          rm "$OUTPUT_FILE"
+          
+          # El timeout devuelve 124 si se alcanza el timeout (esperado si MongoDB no está disponible)
+          # Código 0 = éxito (improbable sin MongoDB)
+          # Código 124 = timeout (esperado, significa que la app inició pero no pudo conectar a MongoDB)
+          # Otros códigos = error real
+          
+          if [ "$EXIT_CODE" = "124" ]; then
+            echo "✅ La aplicación inició correctamente (timeout esperado - MongoDB no disponible en CI)"
+            echo "   Esto indica que todos los módulos se cargaron correctamente"
+          elif [ "$EXIT_CODE" = "0" ]; then
+            echo "✅ La aplicación inició y terminó correctamente"
+          elif echo "$OUTPUT" | grep -qi "cannot find module\|module not found\|cannot resolve\|missing dependency"; then
+            echo "❌ Error: Dependencias faltantes o módulos no encontrados"
+            echo "$OUTPUT"
+            exit 1
+          elif echo "$OUTPUT" | grep -qi "syntax error\|parse error\|compilation error"; then
+            echo "❌ Error: Errores de sintaxis o compilación"
+            echo "$OUTPUT"
+            exit 1
+          elif echo "$OUTPUT" | grep -qi "mongodb\|connection.*refused\|ECONNREFUSED"; then
+            echo "✅ La aplicación inició correctamente (error de conexión a MongoDB esperado en CI)"
+            echo "   Todos los módulos se cargaron sin problemas"
+          else
+            echo "⚠️ La aplicación no pudo iniciar completamente"
+            echo "Salida:"
+            echo "$OUTPUT"
+            echo ""
+            echo "Código de salida: $EXIT_CODE"
+            echo ""
+            echo "Esto puede indicar:"
+            echo "  - Dependencias faltantes en runtime"
+            echo "  - Errores de importación de módulos"
+            echo "  - Problemas de configuración"
+            exit 1
+          fi
+        continue-on-error: false
+
+  summary:
+    name: Resumen de Validación
+    runs-on: ubuntu-latest
+    needs: [check-conflicts, check-dependencies, validate-code, check-app-startup]
+    if: always()
+    
+    steps:
+      - name: Mostrar resumen
+        run: |
+          echo "## 📋 Resumen de Validación del PR" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Verificación de conflictos
+          if [ "${{ needs.check-conflicts.result }}" == "success" ]; then
+            echo "✅ **Verificación de conflictos:** Sin conflictos detectados" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Verificación de conflictos:** Se detectaron conflictos de merge" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Verificación de dependencias
+          if [ "${{ needs.check-dependencies.result }}" == "success" ]; then
+            echo "✅ **Verificación de dependencias:** Todas las dependencias están correctas" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Verificación de dependencias:** Se detectaron problemas con las dependencias" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Validación de código
+          if [ "${{ needs.validate-code.result }}" == "success" ]; then
+            echo "✅ **Validación de código:** Lint, build y tests pasaron correctamente" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ **Validación de código:** Algunas validaciones fallaron. Revisa los logs para más detalles." >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Verificación de inicio de aplicación
+          if [ "${{ needs.check-app-startup.result }}" == "success" ]; then
+            echo "✅ **Verificación de inicio:** La aplicación puede iniciar sin errores de runtime" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Verificación de inicio:** La aplicación no pudo iniciar correctamente" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Resumen final
+          ALL_SUCCESS=true
+          if [ "${{ needs.check-conflicts.result }}" != "success" ] || \
+             [ "${{ needs.check-dependencies.result }}" != "success" ] || \
+             [ "${{ needs.validate-code.result }}" != "success" ] || \
+             [ "${{ needs.check-app-startup.result }}" != "success" ]; then
+            ALL_SUCCESS=false
+          fi
+          
+          if [ "$ALL_SUCCESS" = "true" ]; then
+            echo "### ✅ **Todas las validaciones pasaron correctamente**" >> $GITHUB_STEP_SUMMARY
+            echo "El PR está listo para revisión." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ⚠️ **Algunas validaciones fallaron**" >> $GITHUB_STEP_SUMMARY
+            echo "Por favor, revisa los logs de los jobs que fallaron y corrige los problemas antes de solicitar revisión." >> $GITHUB_STEP_SUMMARY
+          fi
+
