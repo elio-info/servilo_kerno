@@ -31,16 +31,13 @@ jobs:
           
           # Obtener la última referencia de la rama base
           git fetch origin $BASE_BRANCH:$BASE_BRANCH
-          
-          # Limpiar cualquier merge anterior
           git reset --hard HEAD
           git clean -fd
           
-          # Intentar hacer merge en modo --no-commit para detectar conflictos
-          set +e  # No fallar inmediatamente
+          set +e
           git merge --no-commit --no-ff origin/$BASE_BRANCH > /tmp/merge_output.txt 2>&1
           MERGE_STATUS=$?
-          set -e  # Volver a fallar en errores
+          set -e
           
           MERGE_OUTPUT=$(cat /tmp/merge_output.txt)
           rm /tmp/merge_output.txt
@@ -48,10 +45,8 @@ jobs:
           if [ $MERGE_STATUS -eq 0 ]; then
             echo "✅ No hay conflictos de merge"
             echo "has_conflicts=false" >> $GITHUB_OUTPUT
-            # Abortar el merge de prueba
             git merge --abort 2>/dev/null || true
           elif [ $MERGE_STATUS -eq 1 ]; then
-            # Código 1 = conflictos detectados
             echo "❌ ❌ ❌ CONFLICTOS DE MERGE DETECTADOS ❌ ❌ ❌"
             echo ""
             echo "El PR no puede ser unido debido a conflictos con la rama base ($BASE_BRANCH)."
@@ -67,15 +62,13 @@ jobs:
             echo ""
             echo "has_conflicts=true" >> $GITHUB_OUTPUT
             git merge --abort 2>/dev/null || true
-            exit 1  # FALLAR para bloquear el merge
+            exit 1
           else
-            # Otro tipo de error
             echo "⚠️ Error al verificar merge (código: $MERGE_STATUS)"
             echo "Salida:"
             echo "$MERGE_OUTPUT"
             echo "has_conflicts=false" >> $GITHUB_OUTPUT
             git merge --abort 2>/dev/null || true
-            # En caso de error desconocido, también fallamos para ser seguros
             exit 1
           fi
 
@@ -191,6 +184,7 @@ jobs:
       - name: Ejecutar Linter
         run: |
           echo "🔍 Ejecutando linter..."
+<<<<<<< Updated upstream
           # Ejecutar linter sin --fix primero para verificar solo errores
           # Usar npx eslint directamente para tener más control
           set +e  # No fallar inmediatamente
@@ -199,6 +193,13 @@ jobs:
           set -e  # Volver a fallar en errores
           
           # Contar errores y warnings
+=======
+          set +e
+          npx eslint "{src,apps,libs,test}/**/*.ts" --format=compact 2>&1 | tee /tmp/lint-output.txt
+          LINT_EXIT=$?
+          set -e
+          
+>>>>>>> Stashed changes
           ERROR_COUNT=$(grep -c "error" /tmp/lint-output.txt || echo "0")
           WARNING_COUNT=$(grep -c "warning" /tmp/lint-output.txt || echo "0")
           
@@ -208,7 +209,10 @@ jobs:
           echo "   Advertencias: $WARNING_COUNT"
           echo ""
           
+<<<<<<< Updated upstream
           # Solo fallar si hay errores reales
+=======
+>>>>>>> Stashed changes
           if [ "$ERROR_COUNT" -gt 0 ]; then
             echo "❌ Se encontraron $ERROR_COUNT error(es) en el linter"
             echo "Por favor, corrige los errores antes de continuar:"
@@ -223,10 +227,16 @@ jobs:
             echo "✅ Linter pasó sin errores ni advertencias"
           fi
           
+<<<<<<< Updated upstream
           # Ahora ejecutar con --fix para corregir automáticamente lo que se pueda
           echo ""
           echo "🔧 Aplicando correcciones automáticas..."
           npm run lint || true  # No fallar si hay warnings después del fix
+=======
+          echo ""
+          echo "🔧 Aplicando correcciones automáticas..."
+          npm run lint || true
+>>>>>>> Stashed changes
           
           rm -f /tmp/lint-output.txt
         continue-on-error: false
