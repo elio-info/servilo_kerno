@@ -159,7 +159,10 @@ export class PersonController {
   postPhoto(
     @Param('id') id: string,
     @UploadedFile(CustomFileValidator()) photo: Express.Multer.File,
-  ) {}
+  ) {
+    // TODO: Implement photo upload functionality
+    throw new Error('Not implemented yet');
+  }
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Province')
   @ApiQuery({
