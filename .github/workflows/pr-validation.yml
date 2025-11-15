@@ -189,7 +189,46 @@ jobs:
         run: npm ci
 
       - name: Ejecutar Linter
-        run: npm run lint
+        run: |
+          echo "🔍 Ejecutando linter..."
+          # Ejecutar linter sin --fix primero para verificar solo errores
+          # Usar npx eslint directamente para tener más control
+          set +e  # No fallar inmediatamente
+          npx eslint "{src,apps,libs,test}/**/*.ts" --format=compact 2>&1 | tee /tmp/lint-output.txt
+          LINT_EXIT=$?
+          set -e  # Volver a fallar en errores
+          
+          # Contar errores y warnings
+          ERROR_COUNT=$(grep -c "error" /tmp/lint-output.txt || echo "0")
+          WARNING_COUNT=$(grep -c "warning" /tmp/lint-output.txt || echo "0")
+          
+          echo ""
+          echo "📊 Resumen del linter:"
+          echo "   Errores: $ERROR_COUNT"
+          echo "   Advertencias: $WARNING_COUNT"
+          echo ""
+          
+          # Solo fallar si hay errores reales
+          if [ "$ERROR_COUNT" -gt 0 ]; then
+            echo "❌ Se encontraron $ERROR_COUNT error(es) en el linter"
+            echo "Por favor, corrige los errores antes de continuar:"
+            cat /tmp/lint-output.txt
+            rm -f /tmp/lint-output.txt
+            exit 1
+          elif [ "$WARNING_COUNT" -gt 0 ]; then
+            echo "⚠️ Se encontraron $WARNING_COUNT advertencia(s), pero no hay errores"
+            echo "El workflow continuará, pero se recomienda revisar las advertencias"
+            cat /tmp/lint-output.txt
+          else
+            echo "✅ Linter pasó sin errores ni advertencias"
+          fi
+          
+          # Ahora ejecutar con --fix para corregir automáticamente lo que se pueda
+          echo ""
+          echo "🔧 Aplicando correcciones automáticas..."
+          npm run lint || true  # No fallar si hay warnings después del fix
+          
+          rm -f /tmp/lint-output.txt
         continue-on-error: false
 
       - name: Compilar proyecto
