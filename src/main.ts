@@ -15,22 +15,23 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // crear ruta base global
-  app.setGlobalPrefix('/cult')
+  app.setGlobalPrefix('/cult');
   // fin de crear ruta
   const configService = app.get(ConfigService);
 
   app.enableCors();
 
-   if (configService.get<string>('NODE_ENV') !== 'local') {//
-  app.useGlobalGuards(app.get(JwtAuthGuard), app.get(RolesGuard));
-  app.useGlobalPipes(
-    new ValidationPipe({
-      skipMissingProperties: true,
-      transform: true,
-    }),
-  );
-  useContainer(app.select(AppModule), { fallbackOnErrors: true });
-   }//
+  if (configService.get<string>('NODE_ENV') !== 'local') {
+    //
+    app.useGlobalGuards(app.get(JwtAuthGuard), app.get(RolesGuard));
+    app.useGlobalPipes(
+      new ValidationPipe({
+        skipMissingProperties: true,
+        transform: true,
+      }),
+    );
+    useContainer(app.select(AppModule), { fallbackOnErrors: true });
+  } //
 
   app.useGlobalFilters(
     // app.get(AllExceptionFilter),
@@ -39,7 +40,7 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    
+
     .setTitle('Gestión Empresarial')
     .setDescription('The cats API description')
     .setVersion('0.1')
@@ -47,9 +48,13 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  let quizas={customSiteTitle:`My ${configService.get<string>('NODE_ENV')} Cultura API Documentation`}
+  const quizas = {
+    customSiteTitle: `My ${configService.get<string>(
+      'NODE_ENV',
+    )} Cultura API Documentation`,
+  };
 
-  SwaggerModule.setup('api/docs', app, document,quizas);
+  SwaggerModule.setup('api/docs', app, document, quizas);
 
   const port = configService.get<number>('PORT');
   await app.listen(port, () => {
