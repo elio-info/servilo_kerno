@@ -10,19 +10,25 @@ import {
 import { ErrorModule } from '../common/errors/error.module';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { AuthService } from '../auth/auth.service';
+import { TrazasModule } from 'src/cultura/trazas/trazas.module';
+import { MunicipalityModule } from '../municipality/municipality.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: ProvinceModel.name, schema: ProvinceSchema },
     ]),
+   TrazasModule,  
+   
     ErrorModule,
   ],
   controllers: [ProvinceController],
   providers: [ProvinceService, MongooseProvinceRepository
     //mio
     ,TrazasService
-    // ,AuthService
+    
+
+    //,AuthService
   ],
 })
 export class ProvinceModule {}

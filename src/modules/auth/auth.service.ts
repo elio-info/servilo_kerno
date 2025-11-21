@@ -14,32 +14,33 @@ import { hashPassword as hash } from 'src/modules/common/helpers/password.hasher
 import { PersonAuth } from './domain/person-auth.entity';
 import { PasswordDontMatchError } from '../common/errors/password-dont-match.error';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
-import { Traza } from 'src/cultura/trazas/entities/traza.entity';
+import { TrazaEntity } from 'src/cultura/trazas/entities/traza.entity';
+import { CreateTrazaDto } from 'src/cultura/trazas/dto/create-traza.dto';
 
 @Injectable()
 export class AuthService  {
 
-  // private myTraza:Traza
+  private trazaDTO:CreateTrazaDto
 
   constructor(
     private personService: PersonService,
     private jwtService: JwtService,
     private traz:TrazasService
   ) {
-    // this.myTraza=new Traza()
-    this.traz.traza_Modulo='AuthModule'      
+    // this.myTraza=new Traza(){'user':'fake','collection':'Person','operation':'SignIn','error':'ok'}
+    this.trazaDTO = new CreateTrazaDto();
+    this.trazaDTO.collection='persons';       
   }
 
   //TODO Clan this function
   async signIn(username: string, pass: string) {
 
     console.log(`u:${username}`);
-    
-
-    this.traz.traza_Usr=username
-    this.traz.traza_Modulo='SignIn'
-    this.traz.traza_Metodo='POST'
-    this.traz.traza_Accion='Autenticarse'
+    this.trazaDTO.user=username;
+    this.trazaDTO.error='ok';      
+    this.trazaDTO.operation='SignIn'
+    let pss=await crypto.subtle.digest('SHA-512',new TextEncoder().encode (pass))
+    this.trazaDTO.filter={'username': username, 'pass': pss }    
 
     //TODO-------Delete This After proper testing------
     
@@ -52,9 +53,8 @@ export class AuthService  {
         // entity: 'sdfsdfgsdfg',
         rol: 'fake'
       };
-      this.traz.traza_EstadoConsulta='Ok'
-      this.traz.traza_Usr +='fake'
-      this.traz.traza_logg();    
+      this.trazaDTO.update=JSON.stringify(fakeUser);
+      this.traz.create(this.trazaDTO);
     
       return this.makeToken(fakeUser);
     }
@@ -67,14 +67,13 @@ export class AuthService  {
 
     if (!isMatch) {
       let nopasa=new UnauthorizedException();
-      this.traz.traza_EstadoConsulta=nopasa.getStatus()+nopasa.getResponse().toString()
-      this.traz.traza_logg();    
+      this.trazaDTO.error=nopasa.getStatus()+'=> '+nopasa.getResponse().toString()
+      this.traz.create(this.trazaDTO);
       throw nopasa
     }
 
-    this.traz.traza_EstadoConsulta='Ok'
-    this.traz.traza_Usr += user.rol
-     this.traz.traza_logg();
+    this.trazaDTO.user += ' ['+ user.rol+']'
+     this.traz.create(this.trazaDTO);
     return this.makeToken(user);
   }
   

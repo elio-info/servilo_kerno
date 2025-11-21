@@ -1,9 +1,13 @@
-export class Traza {
-    modulo:string //a donde se accedio
-    accion:string //que se hizo
-    consulta?: string //HTTP Request
-    estadoConsulta?: string //statusCode
-    metodo?:string //method
-    user?:string //nombre y rol
-    fecha?:Date //fecha hora
+export class TrazaEntity {
+    user:string //nombre y rol
+    collection:string //a donde se accedio
+    operation:string //que se hizo
+    error?:Object // error
+    filter?: Object //HTTP Request
+    before?: Object //status antes
+    update?:Object //despues   
+    
 }
+
+
+

@@ -7,10 +7,10 @@ import { UpdateTrazaDto } from './dto/update-traza.dto';
 export class TrazasController {
   constructor(private readonly trazasService: TrazasService) {}
 
-  @Post()
-  create(@Body() createTrazaDto: CreateTrazaDto) {
-    return this.trazasService.create(createTrazaDto);
-  }
+  // @Post()
+  // create(@Body() createTrazaDto: CreateTrazaDto) {
+  //   return this.trazasService.create(createTrazaDto);
+  // }
 
   @Get()
   findAll() {
@@ -22,13 +22,13 @@ export class TrazasController {
     return this.trazasService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTrazaDto: UpdateTrazaDto) {
-    return this.trazasService.update(+id, updateTrazaDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateTrazaDto: UpdateTrazaDto) {
+  //   return this.trazasService.update(+id, updateTrazaDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.trazasService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.trazasService.remove(+id);
+  // }
 }

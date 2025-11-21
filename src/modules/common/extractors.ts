@@ -14,8 +14,9 @@ import { JwtService } from '@nestjs/jwt/dist/jwt.service';
 
 export function getUserHTTP_JWTS(hds_tk:string): string {
   // console.log(hds_tk);
-      let hds_jwtk=hds_tk.split(' ')[1];
-      let hds_uss= new JwtService().decode(hds_jwtk)['username'];
+      let hds_jwtk= new JwtService().decode(hds_tk.split(' ')[1]);
+
+      let hds_uss=hds_jwtk['username']+' ['+ hds_jwtk.rol+']';
       // console.log(hds_uss);
       return hds_uss;
 }
@@ -37,7 +38,7 @@ export function extractProvince(province: ProvinceModel): Province {
   return {
     id: province._id.toString(),
     name: province.name,
-    isDeleted:province.isDeleted,
+    isDeleted:province.isDeleted,is_Deleted:province.is_Deleted,
     createdAt: province.createdAt,
     updatedAt: province.updatedAt,
   };

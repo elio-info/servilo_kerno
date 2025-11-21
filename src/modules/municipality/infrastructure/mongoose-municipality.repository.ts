@@ -151,7 +151,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
       province: {
         id: municipality.province._id.toString(),
         name: municipality.province.name,
-        isDeleted:municipality.province.isDeleted,
+        isDeleted:municipality.province.isDeleted,is_Deleted:municipality.province.is_Deleted,
         updatedAt: municipality.province.updatedAt,
         createdAt: municipality.province.createdAt,
       },

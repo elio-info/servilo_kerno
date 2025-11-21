@@ -24,6 +24,7 @@ import { AppController } from './app.controller';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { GlobalInterceptor } from './modules/common/interceptors/Global.interceptor';
 import { TrazasService } from './cultura/trazas/trazas.service';
+import { TrazasModule } from './cultura/trazas/trazas.module';
 
  
 @Module({
@@ -44,9 +45,12 @@ import { TrazasService } from './cultura/trazas/trazas.service';
     }),
     AuthZModule,
     AuthModule,
-    ErrorModule,
+    // mio modulos ----------------
+    TrazasModule,
+    // fin mio modulos ----------------
+    ErrorModule,MunicipalityModule,
     ProvinceModule,
-    MunicipalityModule,
+    
     PlaceModule,
     PersonModule,
     ChargeModule,

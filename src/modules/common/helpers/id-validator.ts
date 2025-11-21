@@ -6,8 +6,7 @@ import { IsRelationshipProvider } from './customIdValidation';
 export function validateId(id: string, moduleName?: string) {
   if (!Types.ObjectId.isValid(id)) {
     throw new WrongIdFormat(moduleName);
-  } else{ 
-  // let pp= new Repos().validateId(id,moduleName) 
-    console.log('valido id:',id,' con modulo:',moduleName)
+  } else{   
+    console.log('valido format id:',id,' con modulo:',moduleName)
   }
 }

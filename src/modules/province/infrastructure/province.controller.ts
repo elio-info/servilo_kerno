@@ -7,10 +7,6 @@ import {
   Param,
   Delete,
   Query,
-  UsePipes,
-  UseInterceptors,
-  RequestMethod,
-  Head,
   Headers,
 } from '@nestjs/common';
 import { ProvinceService } from '../application/province.service';
@@ -33,15 +29,7 @@ import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-c
 import { Province } from '../domain/entities/province.entity';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
-import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
-import { PassThrough } from 'stream';
-import { query } from 'express';
-import { GlobalInterceptor } from 'src/modules/common/interceptors/Global.interceptor';
-import { ClientRequest } from 'http';
-import { JwtAuthGuard } from 'src/modules/authz/guards/jwt-auth.guard';
-import { Http2ServerRequest } from 'http2';
-import { JwtService } from '@nestjs/jwt';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 @ApiTags(`Province`)
@@ -127,9 +115,10 @@ export class ProvinceController {
   @ErrorHandler()
   update(
     @Param('id') id: string,
-    @Body() updateProvinceDto: UpdateProvinceDto,
+    @Body() updateProvinceDto: UpdateProvinceDto
+    ,@Headers('authorization') hds,
   ) {
-    return this.service.update(id, updateProvinceDto);
+    return this.service.update(id, updateProvinceDto,getUserHTTP_JWTS(hds));
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -139,8 +128,8 @@ export class ProvinceController {
   @ApiParam({ name: 'id' })
   @Delete(':id')
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.service.remove(id);
+  remove(@Param('id') id: string,@Headers('authorization') hds) {
+    return this.service.remove(id,getUserHTTP_JWTS(hds));
   }
 
   @ApiUnauthorizedCustomErrorResponse()

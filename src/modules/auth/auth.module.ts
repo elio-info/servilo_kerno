@@ -8,6 +8,7 @@ import { ErrorModule } from '../common/errors/error.module';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { TrazasModule } from 'src/cultura/trazas/trazas.module';
 
 // Cargar certificados - REQUERIDOS
 // Usar process.cwd() para que funcione tanto en Docker como en desarrollo local
@@ -74,6 +75,8 @@ try {
       imports: [ConfigModule],
       inject: [ConfigService],
     }),
+    //mio
+    TrazasModule,
    
   ],
   providers: [

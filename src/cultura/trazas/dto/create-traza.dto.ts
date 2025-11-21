@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsString } from "class-validator";
-import { Traza } from "../entities/traza.entity";
+import { IsNotEmpty, isObject, IsObject, IsString } from "class-validator";
+import { TrazaEntity } from "../entities/traza.entity";
 
 /**
  * Valores que posee 
@@ -11,20 +11,29 @@ import { Traza } from "../entities/traza.entity";
  *   user?:string //nombre y rol
  *  fecha?:Date //fecha hora
  */
-export class CreateTrazaDto extends Traza {
+export class CreateTrazaDto extends TrazaEntity {
     @IsString()
     @IsNotEmpty()
-    modulo:string //a donde se accedio
+    user:string //nombre y rol
+    
     @IsString()
     @IsNotEmpty()
-    accion:string //que se hizo
+    collection:string //a donde se accedio
 
-    @IsString()    
-    consulta?: string //HTTP Request
-    @IsString() 
-    estadoConsulta?: string //statusCode
-    @IsString() 
-    metodo?:string //method
-    user?:string //nombre y rol
-    fecha?:Date //fecha hora
+    @IsString()
+    @IsNotEmpty()
+    operation:string //que se hizo
+
+    @IsObject()
+    error?:Object //error
+
+    @IsObject()    
+    filter?: Object //condiciones
+
+    @IsObject()    
+    before?: Object //condiciones
+
+    @IsObject() 
+    update?: Object //despues
+    
 }
