@@ -58,13 +58,15 @@ export enum Nomenclador_GrupoEtareo{
 export enum Nomenclador_Clasifica_ProgramasSociales{
     "Prov" = "Programa Social Provincial" ,  
     "Prior" = "Programa Social Priorizado " ,   
-    "Espc" = "Programa Social Especiales " 
+    "Espc" = "Programa Social Provinciales " 
 }
 
-
+/**
+ * Clasificación por nivel de la Entidad Cultural
+ * Define los niveles jerárquicos de las entidades culturales
+ */
 export enum Clasifica_Nivel_EntidadCultural{
-    "Prov" = "Nivel Provincial" ,  
-    "Mnpl" = "Nivel Municipal " ,   
-    "Ncnl" = "Nivel Nacional " ,
-    "Otra" = "Otra Institución" //ejemplo Domicilio
+    "Mnpl" = "Municipal",
+    "Prov" = "Provincial",
+    "Nac" = "Nacional"
 }

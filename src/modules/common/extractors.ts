@@ -8,7 +8,6 @@ import { EntityModel } from '../entity/infrastructure/entity.schema';
 import { Entity } from '../entity/domain/entities/entity.entity';
 import { PlaceModel } from '../place/infrastructure/places.schema';
 import { Place } from '../place/domain/entities/place.entity';
-import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
 import { Nomencladores_Generales } from 'src/cultura/codificadores-cult/infrastructure/codificadores_nomencladores.controller';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
 
