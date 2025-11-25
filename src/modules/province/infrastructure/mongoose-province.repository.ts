@@ -27,7 +27,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
 
   async findAll(page: number, pageSize: number): Promise<DataList<Province>> {
     const skipCount = (page - 1) * pageSize;
-    
+
     const [provinces, count] = await Promise.all([
       this.provinceModel
         .find(this.whereQuery)
@@ -38,8 +38,6 @@ export class MongooseProvinceRepository implements ProvinceRepository {
       this.provinceModel.countDocuments(this.whereQuery).exec(),
     ]);
 
-    // console.log('dentro del F-all', provinces);
-   
     const provinceCollection = provinces.map((province) => ({
       id: province._id.toString(),
       name: province.name,
@@ -56,32 +54,14 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     return dataList;
   }
 
-  async create(province: CreateProvinceDto,traza:TrazasService): Promise<ProvinceModel> {
-      // console.log(province)
-
-      traza.traza_Consulta= 'create '+province.name
-
-      let todos= await Promise.all(
-                            [this.provinceModel
-                            .find({})
-                            .exec()]
-                          )
-      let us= todos[0].map((data) =>{
-                let dt=data.name.trim().toLowerCase()
-                    ,dt_c=province.name.trim().toLowerCase();
-                console.log(dt,dt_c);
-                if (dt==dt_c) {
-
-                  traza.traza_EstadoConsulta='DuplicatedValueError '+ data.name + ' -> ' + MODULE
-                  traza.traza_logg();
-                  throw new DuplicatedValueError( data.name + ' -> ' + MODULE);
-                }
-              })
-      // console.log(us);
-             traza.traza_EstadoConsulta='Ok' ;
-             traza.traza_logg();
-      return await new this.provinceModel(province).save();
-     
+  async create(province: CreateProvinceDto, traza: TrazasService): Promise<ProvinceModel> {
+    try {
+      console.log(province)
+      const newProvince = await new this.provinceModel(province).save();
+      return newProvince;
+    } catch (e) {
+      throw new DuplicatedValueError(MODULE);
+    }
   }
 
   async findOne(id: string): Promise<Province> {
@@ -131,25 +111,21 @@ export class MongooseProvinceRepository implements ProvinceRepository {
       if (!document) {
         throw new ObjectNotFound();
       }
-    return  await document.updateOne({ isDeleted: true });
+      await document.updateOne({ isDeleted: true });
+      return this.toEntity(document);
     } catch (e) {
       if (e instanceof Error.CastError) {
         throw new WrongIdFormat(MODULE);
       }
-      else
       throw e;
     }
   }
-  async search(query) : Promise<Province> {
-
-    let buscar= query.exactName? { name:query.exactName, isDeleted: query.isDeleted} :  { name: '/'.concat(query.exactName,'/i') };
-    console.log(buscar);
-    
-    return await Promise.all([this.provinceModel.find(buscar).exec()])[0] ;
-    // const provinceCollection = provinces.map((municipality) =>
-    //   this.toEntity(municipality),
-    // );
-    //return provinces;
+  async search(query): Promise<Province> {
+    const province = await this.provinceModel.findOne(query);
+    if (!province) {
+      throw new ObjectNotFound(MODULE);
+    }
+    return this.toEntity(province);
   }
 
   toEntity(prov): Province {
