@@ -71,14 +71,12 @@ export class RelationshipValidator {
   }
   async validateCondition_onTable (table_name:string, value_condition: {}, args={ isDeleted: false }): Promise<boolean> {
     console.log('validateCondition_onTable ',table_name,value_condition,args);
-    let perra = await this.cnn.db.collection(table_name).estimatedDocumentCount(value_condition);
-    
+    let perra = await this.cnn.db.collection(table_name).estimatedDocumentCount(value_condition);    
     console.log('perra', perra);
     return perra>0;
   }
 
-  async recoverCondition_onTable (table_name:string, value_condition: {}, args={ isDeleted: false }): Promise<Object> {
-    
+  async recoverCondition_onTable (table_name:string, value_condition: {}, args={ isDeleted: false }): Promise<Object> {    
     let perra = await this.cnn.db.collection(table_name).find(value_condition).limit(100).toArray();
     console.log(table_name,value_condition,args);
     console.log('perra', perra);
