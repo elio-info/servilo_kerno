@@ -16,7 +16,7 @@ export function getUserHTTP_JWTS(hds_tk:string): string {
   // console.log(hds_tk);
       let hds_jwtk= new JwtService().decode(hds_tk.split(' ')[1]);
 
-      let hds_uss=hds_jwtk['username']+' ['+ hds_jwtk.rol+']';
+      let hds_uss=hds_jwtk['username']+' ['+ hds_jwtk['rol']+']';
       // console.log(hds_uss);
       return hds_uss;
 }
