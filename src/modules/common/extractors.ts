@@ -38,7 +38,7 @@ export function extractProvince(province: ProvinceModel): Province {
   return {
     id: province._id.toString(),
     name: province.name,
-    isDeleted:province.isDeleted,is_Deleted:province.is_Deleted,
+    isDeleted:province.isDeleted,
     createdAt: province.createdAt,
     updatedAt: province.updatedAt,
   };

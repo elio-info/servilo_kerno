@@ -6,5 +6,4 @@ export class Province {
   isDeleted:boolean; // @Prop({default:false})
   createdAt: Date;
   updatedAt: Date;
- is_Deleted:boolean;
 }

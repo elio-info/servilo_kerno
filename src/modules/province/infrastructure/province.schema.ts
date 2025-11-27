@@ -13,11 +13,8 @@ export class ProvinceModel {
   name: string;
 
   @Prop({ default: false, select: false })
-  isDeleted: boolean;
+  isDeleted: boolean; 
   
-  @Prop({ default: false, select: false })
-  is_Deleted: boolean;
-
   @Prop()
   createdAt: Date;
 
