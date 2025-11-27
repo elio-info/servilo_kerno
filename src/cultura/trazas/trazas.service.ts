@@ -7,13 +7,21 @@ import { Model } from 'mongoose';
 @Injectable()
 export class TrazasService {
   
-  trazaDTO: CreateTrazaDto
+  private _trazaDTO: CreateTrazaDto;
+  public get trazaDTO(): CreateTrazaDto {
+    return this._trazaDTO;
+  }
+  public set trazaDTO(value: CreateTrazaDto) {
+    this._trazaDTO = value;
+  }
 
   constructor( 
     // @InjectModel(TrazaClass.name) private trazaModel:Model<Traza>   , 
    // private jwtService: JwtService
   ) {
     this.trazaDTO=new CreateTrazaDto()
+    this.trazaDTO.before='';
+    this.trazaDTO.update='';
   }
   
   async logOperation(data: {
@@ -45,7 +53,7 @@ export class TrazasService {
   */
  traza_log(trz:CreateTrazaDto):string {
     //return
-    return `${new Date().toISOString()} - [${trz.collection}] {Persona:${trz.user}} ${trz.operation} / ${trz.error.toString()} /${trz.filter} / ${trz.before} =>${trz.update}`
+    return `${new Date().toISOString()} - [${trz.collection}] {Persona:${trz.user}} ${trz.operation} / ${trz.error} /${trz.filter} / ${trz.before} =>${trz.update}`
      
   }
 

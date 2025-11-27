@@ -20,7 +20,7 @@ import { CreateTrazaDto } from 'src/cultura/trazas/dto/create-traza.dto';
 @Injectable()
 export class AuthService  {
 
-  private trazaDTO:CreateTrazaDto
+  // private trazaDTO:CreateTrazaDto
 
   constructor(
     private personService: PersonService,
@@ -28,35 +28,41 @@ export class AuthService  {
     private traz:TrazasService
   ) {
     // this.myTraza=new Traza(){'user':'fake','collection':'Person','operation':'SignIn','error':'ok'}
-    this.trazaDTO = new CreateTrazaDto();
-    this.trazaDTO.collection='persons';       
+    // this.traz.trazaDTO = new CreateTrazaDto();
+    this.traz.trazaDTO.collection='persons';       
   }
 
   //TODO Clan this function
   async signIn(username: string, pass: string) {
 
     console.log(`u:${username}`);
-    this.trazaDTO.user=username;
-    this.trazaDTO.error='ok';      
-    this.trazaDTO.operation='SignIn'
+    this.traz.trazaDTO.user=username;
+    this.traz.trazaDTO.error='ok';      
+    this.traz.trazaDTO.operation='SignIn'
     let pss=await crypto.subtle.digest('SHA-512',new TextEncoder().encode (pass))
-    this.trazaDTO.filter={'username': username, 'pass': pss }    
+    this.traz.trazaDTO.filter={'username': username, 'pass': pss }    
 
     //TODO-------Delete This After proper testing------
     
-    if (username === 'test' && pass === 'test') {
-      const fakeUser: PersonAuth = {
-        sub: 'fakeID',
-        username,
-        hashPassword: 'fakePASs',
-        // municipality: 'string',
-        // entity: 'sdfsdfgsdfg',
-        rol: 'fake'
-      };
-      this.trazaDTO.update=JSON.stringify(fakeUser);
-      this.traz.create(this.trazaDTO);
-    
-      return this.makeToken(fakeUser);
+    if (username === 'test' )
+      if(pass === 'test') {
+        const fakeUser: PersonAuth = {
+          sub: 'fakeID',
+          username,
+          hashPassword: 'fakePASs',
+          // municipality: 'string',
+          // entity: 'sdfsdfgsdfg',
+          rol: 'fake'
+        };
+        this.traz.trazaDTO.update=JSON.stringify(fakeUser);
+        this.traz.create(this.traz.trazaDTO);    
+        return this.makeToken(fakeUser);
+    }
+    else {
+        let nopasa=new UnauthorizedException();
+        this.traz.trazaDTO.error=nopasa.getStatus()+'=> '+nopasa.getResponse().toString()
+        this.traz.create(this.traz.trazaDTO);
+        throw nopasa
     }
     //--------------------------------------------------
     console.log('no fake');
@@ -67,13 +73,13 @@ export class AuthService  {
 
     if (!isMatch) {
       let nopasa=new UnauthorizedException();
-      this.trazaDTO.error=nopasa.getStatus()+'=> '+nopasa.getResponse().toString()
-      this.traz.create(this.trazaDTO);
+      this.traz.trazaDTO.error=nopasa.getStatus()+'=> '+nopasa.getResponse().toString()
+      this.traz.create(this.traz.trazaDTO);
       throw nopasa
     }
 
-    this.trazaDTO.user += ' ['+ user.rol+']'
-     this.traz.create(this.trazaDTO);
+    this.traz.trazaDTO.user += ' ['+ user.rol+']'
+     this.traz.create(this.traz.trazaDTO);
     return this.makeToken(user);
   }
   

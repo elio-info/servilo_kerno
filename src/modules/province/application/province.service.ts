@@ -27,7 +27,7 @@ export class ProvinceService   {
     return this.repository.create(createProvinceDto,this.traza);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Province>> {
+  findAll(page = 1, pageSize = 15): Promise<DataList<ProvinceModel>> {
     
     page= ( isNaN(page) || page<= 0)? 1: page;
     console.log('page',page);
@@ -39,23 +39,23 @@ export class ProvinceService   {
     return this.repository.findAll(page, pageSize);
   }
 
-  findOne(id: string): Promise<Province> {
+  findOne(id: string): Promise<ProvinceModel> {
     return this.repository.findOne(id);
   }
 
-  update(id: string, updateProvinceDto: UpdateProvinceDto,tkhds:string): Promise<Province> {
+  update(id: string, updateProvinceDto: UpdateProvinceDto,tkhds:string): Promise<ProvinceModel> {
     this.traza.trazaDTO.user=tkhds;     
     this.traza.trazaDTO.operation='update';this.traza.trazaDTO.error='Ok' ; 
     return this.repository.update(id, updateProvinceDto, this.traza);
   }
 
-  remove(id: string,tkhds:string): Promise<Province> {
+  remove(id: string,tkhds:string): Promise<ProvinceModel> {
     this.traza.trazaDTO.user=tkhds;    
     this.traza.trazaDTO.operation='remove';this.traza.trazaDTO.error='Ok' ; 
     return this.repository.remove(id,this.traza);
   }
 
-  search(query: SearchProvinceDto): Promise<Province[]> {
+  search(query: SearchProvinceDto): Promise<ProvinceModel[]> {
     console.log(query);
     
     return this.repository.search(query);

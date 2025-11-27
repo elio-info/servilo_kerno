@@ -6,10 +6,10 @@ import { ProvinceDocument, ProvinceModel } from '../../infrastructure/province.s
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 export interface ProvinceRepository {
-  findAll: (page: number, pageSize: number) => Promise<DataList<Province>>;
+  findAll: (page: number, pageSize: number) => Promise<DataList<ProvinceModel>>;
   create: (province: CreateProvinceDto,traza:TrazasService) => Promise<ProvinceModel>;
-  findOne: (id: string) => Promise<Province>;
-  update: (id: string, province: UpdateProvinceDto,traza:TrazasService) => Promise<Province>;
-  remove: (id: string,traza:TrazasService) => Promise<Province>;
-  search: (query) => Promise<Province[]>;
+  findOne: (id: string) => Promise<ProvinceModel>;
+  update: (id: string, province: UpdateProvinceDto,traza:TrazasService) => Promise<ProvinceModel>;
+  remove: (id: string,traza:TrazasService) => Promise<ProvinceModel>;
+  search: (query) => Promise<ProvinceModel[]>;
 }
