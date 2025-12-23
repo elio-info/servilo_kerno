@@ -31,9 +31,9 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   @ApiCreatedResponse({
       description: 'Returns 201 when consejo is successfully created',
     })
-  @ApiCustomErrorResponse()
-  @ErrorHandler()
+  @ApiCustomErrorResponse()  
   @Post()
+  @ErrorHandler()
   create(@Body() createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto, @Headers('authorization') hds) {
     return this.proySoccultComService.create(createProySoccultComDto, getUserHTTP_JWTS(hds));
   }
