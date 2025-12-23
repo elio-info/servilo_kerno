@@ -8,7 +8,7 @@ import {
   Delete,
   Query,
   UsePipes,
-  ValidationPipe,
+  Headers,
 } from '@nestjs/common';
 import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
 import { ConsejoPopular_Municipality_Service } from '../application/consejo_popular.service';
@@ -35,6 +35,7 @@ import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchQuery } from 'src/modules/search/domain/dto/query.dto';
 import SearchMunicipalityDto from '../domain/dto/search-consejopopular_municipality.dto';
 import SearchController from 'src/modules/common/abstracts/SearchAbstracts';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 @ApiTags(`Consejo Popular Municipal`)
 @ApiHeader({
@@ -57,8 +58,8 @@ export class ConsejoPopular_Municipality_Controller {
   @ApiCustomErrorResponse()
   @Post()
   @ErrorHandler()
-  create(@Body() createCOMunicipalityDto: Create_ConsejoPopular_Municipality_Dto) {
-    return this.service.create(createCOMunicipalityDto);
+  create(@Body() createCOMunicipalityDto: Create_ConsejoPopular_Municipality_Dto,@Headers('authorization') hds) {
+    return this.service.create(createCOMunicipalityDto, getUserHTTP_JWTS(hds));
   }
 
   @ApiQuery({
@@ -112,8 +113,9 @@ export class ConsejoPopular_Municipality_Controller {
   update(
     @Param('id') id: string,
     @Body() updateCOMunicipalityDto: Update_ConsejoPopular_Municipality_Dto,
+    @Headers('authorization') hds
   ) {
-    return this.service.update(id, updateCOMunicipalityDto);
+    return this.service.update(id, updateCOMunicipalityDto,getUserHTTP_JWTS(hds));
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -123,8 +125,8 @@ export class ConsejoPopular_Municipality_Controller {
   @ApiParam({ name: 'id' })
   @Delete(':id')
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.service.remove(id);
+  remove(@Param('id') id: string, @Headers('authorization') hds) {
+    return this.service.remove(id,getUserHTTP_JWTS(hds));
   }
 
   //TODO Making Search Endpoint By Query

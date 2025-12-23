@@ -9,6 +9,7 @@ import {
   Query,
   UsePipes,
   ValidationPipe,
+  Headers,
 } from '@nestjs/common';
 import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
 import { MunicipalityService } from '../application/municipality.service';
@@ -35,6 +36,7 @@ import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchQuery } from 'src/modules/search/domain/dto/query.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 import SearchController from 'src/modules/common/abstracts/SearchAbstracts';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 @ApiTags(`municipality`)
 @ApiHeader({
@@ -57,8 +59,8 @@ export class MunicipalityController {
   @ApiCustomErrorResponse()
   @Post()
   @ErrorHandler()
-  create(@Body() createMunicipalityDto: CreateMunicipalityDto) {
-    return this.service.create(createMunicipalityDto);
+  create(@Body() createMunicipalityDto: CreateMunicipalityDto,@Headers('authorization') hds) {
+    return this.service.create(createMunicipalityDto,getUserHTTP_JWTS(hds));
   }
 
   @ApiQuery({
@@ -111,9 +113,9 @@ export class MunicipalityController {
   @ErrorHandler()
   update(
     @Param('id') id: string,
-    @Body() updateMunicipalityDto: UpdateMunicipalityDto,
+    @Body() updateMunicipalityDto: UpdateMunicipalityDto,@Headers('authorization') hds
   ) {
-    return this.service.update(id, updateMunicipalityDto);
+    return this.service.update(id, updateMunicipalityDto,getUserHTTP_JWTS(hds));
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -123,30 +125,25 @@ export class MunicipalityController {
   @ApiParam({ name: 'id' })
   @Delete(':id')
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.service.remove(id);
+  remove(@Param('id') id: string,@Headers('authorization') hds) {
+    return this.service.remove(id,getUserHTTP_JWTS(hds));
   }
 
   //TODO Making Search Endpoint By Query
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Municipality')
-  @ApiQuery({
-    name: 'key',
+  @ApiBody({
     description: 'The key name for the search',
-    type: 'string',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'value',
-    description: 'The value for the search',
-    type: 'string',
-    required: false,
-  })
+    type: SearchMunicipalityDto,
+    required: true,
+  })  
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchMunicipalityDto))
-  @Get('api/search')
+  //@UsePipes(new SearchValidate(SearchMunicipalityDto))
+  @Post('search')
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query) {
+    console.log(query);
+    
     return this.service.search(query);
   }
 }

@@ -8,17 +8,20 @@ import { CreateMunicipalityDto } from '../domain/dto/create-municipality.dto';
 import { Municipality } from '../domain/entities/municipality.entity';
 import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
-import { MunicipalityDocument } from '../infrastructure/municipality.schema';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { privateDecrypt } from 'crypto';
 
 @Injectable()
 export class MunicipalityService {
   constructor(
     @Inject(MongooseMunicipalityRepository)
     private repository: MunicipalityRepository,
-  ) {}
-// : Promise<Municipality>
-  create(createMunicipalityDto: CreateMunicipalityDto) {
-    return this.repository.create(createMunicipalityDto);
+    @Inject(TrazasService) private traza:TrazasService
+  ) { traza.trazaDTO.collection='Municipality'}
+
+  create(createMunicipalityDto: CreateMunicipalityDto,tkhds:string): Promise<Municipality> {
+        this.traza.trazaDTO.user=tkhds; 
+    return this.repository.create(createMunicipalityDto,this.traza);
   }
 
   findAll(page = 1, pageSize = 15): Promise<DataList<Municipality>> {
@@ -32,15 +35,14 @@ export class MunicipalityService {
     return this.repository.findOne(id);
   }
 
-  update(
-    id: string,
-    updateMunicipalityDto: UpdateMunicipalityDto,
-  ): Promise<Municipality> {
-    return this.repository.update(id, updateMunicipalityDto);
+  update( id: string, updateMunicipalityDto: UpdateMunicipalityDto, tkhds:string ): Promise<Municipality> {
+        this.traza.trazaDTO.user=tkhds;    
+    return this.repository.update(id, updateMunicipalityDto,this.traza);
   }
 
-  remove(id: string): Promise<void> {
-    return this.repository.remove(id);
+  remove(id: string,tkhds:string): Promise<Municipality> {
+        this.traza.trazaDTO.user=tkhds;    
+    return this.repository.remove(id,this.traza);
   }
 
   search(query: SearchMunicipalityDto): Promise<Municipality[]> {

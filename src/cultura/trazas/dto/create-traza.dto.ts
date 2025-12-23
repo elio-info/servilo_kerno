@@ -1,5 +1,6 @@
 import { IsNotEmpty, isObject, IsObject, IsString } from "class-validator";
 import { TrazaEntity } from "../entities/traza.entity";
+import { Type } from "class-transformer";
 
 /**
  * Valores que posee 
@@ -12,9 +13,9 @@ import { TrazaEntity } from "../entities/traza.entity";
  *  fecha?:Date //fecha hora
  */
 export class CreateTrazaDto extends TrazaEntity {
-    @IsString()
+    @IsObject()
     @IsNotEmpty()
-    user:string //nombre y rol
+    user:Object //nombre y rol
     
     @IsString()
     @IsNotEmpty()

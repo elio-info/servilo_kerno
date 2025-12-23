@@ -27,14 +27,23 @@ export class Proyecto_Sociocultural_Comunitario_Model{
     municipio:string
     
     @Prop({required:true})
-    responsable:string
-
-    @Prop()
-    observacion:string
+    direccion:string
     
+    @Prop({required:true})
+    gestor:string
+
     @Prop({required:true})
     telefonos:string
 
+    @Prop()
+    actividades:string
+    
+    @Prop()
+    aprobado:string
+    
+    @Prop()
+    cancelado:string
+    
     @Prop({ default: Date.now })
     createdAt: Date;
   

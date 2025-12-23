@@ -29,7 +29,8 @@ export class AuthService  {
   ) {
     // this.myTraza=new Traza(){'user':'fake','collection':'Person','operation':'SignIn','error':'ok'}
     // this.traz.trazaDTO = new CreateTrazaDto();
-    this.traz.trazaDTO.collection='persons';       
+    this.traz.trazaDTO.collection='persons';   
+    this.traz.trazaDTO.before={};     
   }
 
   //TODO Clan this function
@@ -39,48 +40,64 @@ export class AuthService  {
     this.traz.trazaDTO.user=username;
     this.traz.trazaDTO.error='ok';      
     this.traz.trazaDTO.operation='SignIn'
-    let pss=await crypto.subtle.digest('SHA-512',new TextEncoder().encode (pass))
-    this.traz.trazaDTO.filter={'username': username, 'pass': pss }    
+    let pss=await hash (pass)
+    this.traz.trazaDTO.filter=JSON.stringify( {'username': username, 'pass': pss+'.'+Date.now() }  )  ;
 
     //TODO-------Delete This After proper testing------
     
-    if (username === 'test' )
-      if(pass === 'test') {
-        const fakeUser: PersonAuth = {
-          sub: 'fakeID',
-          username,
-          hashPassword: 'fakePASs',
-          // municipality: 'string',
-          // entity: 'sdfsdfgsdfg',
-          rol: 'fake'
-        };
-        this.traz.trazaDTO.update=JSON.stringify(fakeUser);
-        this.traz.create(this.traz.trazaDTO);    
-        return this.makeToken(fakeUser);
+    if (username === 'test' )//test user 
+    {    if(pass === 'test') {
+          const fakeUser: PersonAuth = {
+            sub: 'fakeID',
+            username,
+            hashPassword: 'fakePASs',
+            // municipality: 'string',
+            // entity: 'sdfsdfgsdfg',
+            rol: 'fake'
+          };
+          this.traz.trazaDTO.user=fakeUser;
+          this.traz.trazaDTO.update=JSON.stringify(fakeUser);
+          this.traz.save()
+          // this.traz.create(this.traz.trazaDTO);    
+          return this.makeToken(fakeUser);
+      }
+      else {
+
+          let nopasa=new UnauthorizedException();
+          this.traz.traza_error(nopasa.name,nopasa.message)
+          this.traz.save();
+          // this.traz.create(this.traz.trazaDTO);
+          throw nopasa
+      }
     }
-    else {
-        let nopasa=new UnauthorizedException();
-        this.traz.trazaDTO.error=nopasa.getStatus()+'=> '+nopasa.getResponse().toString()
-        this.traz.create(this.traz.trazaDTO);
-        throw nopasa
-    }
-    //--------------------------------------------------
+   else  //--------------------------------------------------
+   {
     console.log('no fake');
+    let user: PersonAuth = null;
+    try {
+      user = await this.personService.byUserName(username);
+     // console.log(user);    
+    } catch (nopasa ) {
+       this.traz.traza_error('The user can not be found')
+          this.traz.save();
+          // this.traz.create(this.traz.trazaDTO);
+          throw nopasa
+    }
     
-    const user: PersonAuth = await this.personService.byUserName(username);
-
     const isMatch = await compare(pass, user.hashPassword);
-
+    console.log(isMatch);
     if (!isMatch) {
       let nopasa=new UnauthorizedException();
-      this.traz.trazaDTO.error=nopasa.getStatus()+'=> '+nopasa.getResponse().toString()
-      this.traz.create(this.traz.trazaDTO);
+      this.traz.traza_error(nopasa.name,nopasa.message,'Password no match')
+      this.traz.save();
+    //this.traz.create(this.traz.trazaDTO);
       throw nopasa
     }
-
-    this.traz.trazaDTO.user += ' ['+ user.rol+']'
-     this.traz.create(this.traz.trazaDTO);
+    this.traz.trazaDTO.user=user;// += ' ['+ user.rol+']';
+    this.traz.save();
+    //  this.traz.create(this.traz.trazaDTO);
     return this.makeToken(user);
+   } 
   }
   
   async getTokenHeadersInfo(token: string)  {//:Promise<Person>
@@ -132,15 +149,28 @@ export class AuthService  {
   }
 
   async changePassword(user, oldPassword, newPassword): Promise<void> {
+    console.log(`u:${user.username}`);
+    this.traz.trazaDTO.user=user.username +' ['+ user.rol+']';
+    this.traz.trazaDTO.error='ok';      
+    this.traz.trazaDTO.operation='changePassword'
+    let oldpss= new TextEncoder().encode (oldPassword),
+        newpss= new TextEncoder().encode (newPassword);
+    this.traz.trazaDTO.filter={'username': user.username, 'oldPsswrd': oldpss, 'nwPsswrd':newpss }   ;
+
     const userRec: PersonAuth = await this.personService.byUserName(
       user.username,
     );
     if (await compare(oldPassword, userRec.hashPassword)) {
-      this.personService.update(userRec.sub, {
+      let nw= await this.personService.update(userRec.sub, {
         hashPassword: await hash(newPassword),
       });
+      this.traz.trazaDTO.before=userRec;
+      this.traz.trazaDTO.update=nw;
+      this.traz.save();
     } else {
-      throw new BadRequestException('Password did not Match!!!');
+      let nopasa=new BadRequestException('Password did not Match!!!');
+      this.traz.traza_error(nopasa.name,nopasa.message,nopasa.cause.toString())
+      throw nopasa
     }
   }
 
@@ -155,6 +185,8 @@ export class AuthService  {
       //tiempoExpiraToken:Date.now()+36000 
      };
     const token  =await this.jwtService.signAsync(user);
+    // console.log(token);
+    
     return {
       access_token: token,
     };

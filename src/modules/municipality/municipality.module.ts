@@ -9,16 +9,21 @@ import {
 } from './infrastructure/municipality.schema';
 import { ErrorModule } from '../common/errors/error.module';
 import { ProvinceModule } from '../province/province.module';
+import { TrazasModule } from 'src/cultura/trazas/trazas.module';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: MunicipalityModel.name, schema: MunicipalitySchema },
     ]),
+    TrazasModule,
     ErrorModule,
     ProvinceModule,
   ],
   controllers: [MunicipalityController],
-  providers: [MunicipalityService, MongooseMunicipalityRepository],
+  providers: [MunicipalityService, MongooseMunicipalityRepository,
+    TrazasService
+  ],
 })
 export class MunicipalityModule {}

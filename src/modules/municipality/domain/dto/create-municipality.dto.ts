@@ -23,7 +23,6 @@ export class CreateMunicipalityDto {
   @IsString({ message: 'The Id of the province must be a String' })
   @IsRelationShipWith(ProvinceModel)
   @IsNotEmpty({ message: 'The Province ID cannot be empty' })
-  province: ProvinceModel;
-
+  province: string;
   
 }

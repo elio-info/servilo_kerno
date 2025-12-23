@@ -1,6 +1,6 @@
 import { Prop } from "@nestjs/mongoose";
 
-export class Province {
+export class ProvinceEntity {
   id: string;
   name: string; 
   isDeleted:boolean; // @Prop({default:false})

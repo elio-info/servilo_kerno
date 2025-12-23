@@ -8,16 +8,19 @@ import { Create_ConsejoPopular_Municipality_Dto } from '../domain/dto/create-con
 import { ConsejoPopular_Municipality_Entity } from '../domain/schemas/consejo_popular.entity';
 import { Update_ConsejoPopular_Municipality_Dto } from '../domain/dto/update-consejopopular_municipality.dto';
 import SearchMunicipalityDto from '../domain/dto/search-consejopopular_municipality.dto';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Injectable()
 export class ConsejoPopular_Municipality_Service {
   constructor(
     @Inject(Mongoose_ConsejoPopular_Municipality_Repository)
     private repository: ConsejoPopular_Municipality_Repository,
+    @Inject(TrazasService) private traza:TrazasService
   ) {}
 
-  create(create_CPMunicipalityDto: Create_ConsejoPopular_Municipality_Dto): Promise<void> {
-    return this.repository.create(create_CPMunicipalityDto);
+  create(create_CPMunicipalityDto: Create_ConsejoPopular_Municipality_Dto,tkhds:string): Promise<ConsejoPopular_Municipality_Entity> {
+    this.traza.trazaDTO.user=tkhds;
+    return this.repository.create(create_CPMunicipalityDto,this.traza);
   }
 
   findAll(page = 1, pageSize = 15): Promise<DataList<ConsejoPopular_Municipality_Entity>> {
@@ -34,12 +37,14 @@ export class ConsejoPopular_Municipality_Service {
   update(
     id: string,
     updateMunicipalityDto: Update_ConsejoPopular_Municipality_Dto,
+    tkhds:string
   ): Promise<ConsejoPopular_Municipality_Entity> {
-    return this.repository.update(id, updateMunicipalityDto);
+    this.traza.trazaDTO.user=tkhds;
+    return this.repository.update(id, updateMunicipalityDto,this.traza);
   }
 
-  remove(id: string): Promise<void> {
-    return this.repository.remove(id);
+  remove(id: string,tkhds:string): Promise<ConsejoPopular_Municipality_Entity> {
+    return this.repository.remove(id,this.traza);
   }
 
   search(query: SearchMunicipalityDto): Promise<ConsejoPopular_Municipality_Entity[]> {

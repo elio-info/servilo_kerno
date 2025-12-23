@@ -1,6 +1,6 @@
 import { Municipality } from 'src/modules/municipality/domain/entities/municipality.entity';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
-import { Province } from 'src/modules/province/domain/entities/province.entity';
+import { ProvinceEntity } from 'src/modules/province/domain/entities/province.entity';
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 import { EntityType } from '../entity_type/domain/entities/entity-type.entity';
 import { EntityTypeModel } from '../entity_type/infrastructure/entity-type.schema';
@@ -34,7 +34,7 @@ export function extractMunicipality(
   };
 }
 
-export function extractProvince(province: ProvinceModel): Province {
+export function extractProvince(province: ProvinceModel): ProvinceEntity {
   return {
     id: province._id.toString(),
     name: province.name,

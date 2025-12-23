@@ -10,8 +10,9 @@ import { ConsejoPopular_Municipality_Entity } from '../domain/schemas/consejo_po
 import { Create_ConsejoPopular_Municipality_Dto } from '../domain/dto/create-consejopopular_municipality.dto';
 import { Update_ConsejoPopular_Municipality_Dto } from '../domain/dto/update-consejopopular_municipality.dto';
 import { validateId } from 'src/modules/common/helpers/id-validator';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
-const MODULE = 'Municipality';
+const MODULE = 'Consejo_Popular_Municipal';
 const IS_NOT_DELETED = { isDeleted: false };
 
 @Injectable()
@@ -51,10 +52,11 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
     return dataList;
   }
 
-  async create(cp_municipality: Create_ConsejoPopular_Municipality_Dto): Promise<void> {
+  async create(cp_municipality: Create_ConsejoPopular_Municipality_Dto,trazas:TrazasService): Promise<ConsejoPopular_Municipality_Entity> {
+    
     validateId(cp_municipality.province, 'province');
     validateId(cp_municipality.municipality, 'municipality');
-    await new this.consejopopular_municipality_Model(cp_municipality).save();
+    return this.toEntity( await new this.consejopopular_municipality_Model(cp_municipality).save());
   }
 
   async findOne(id: string): Promise<ConsejoPopular_Municipality_Entity> {
@@ -97,7 +99,7 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
     return this.toEntity(updated);
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: string,traza:TrazasService): Promise<ConsejoPopular_Municipality_Entity> {
     validateId(id, MODULE);
 
     const document = await this.consejopopular_municipality_Model.findOneAndUpdate(
@@ -110,6 +112,7 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
     if (!document) {
       throw new ObjectNotFound();
     }
+    return this.toEntity(document);
   }
 
   async search(query) {

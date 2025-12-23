@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateTrazaDto } from './dto/create-traza.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Traza, TrazaClass } from './trazas.schema';
@@ -8,13 +8,7 @@ import { Model } from 'mongoose';
 export class TrazasService {
   
   private _trazaDTO: CreateTrazaDto;
-  public get trazaDTO(): CreateTrazaDto {
-    return this._trazaDTO;
-  }
-  public set trazaDTO(value: CreateTrazaDto) {
-    this._trazaDTO = value;
-  }
-
+  
   constructor( 
     // @InjectModel(TrazaClass.name) private trazaModel:Model<Traza>   , 
    // private jwtService: JwtService
@@ -22,24 +16,17 @@ export class TrazasService {
     this.trazaDTO=new CreateTrazaDto()
     this.trazaDTO.before='';
     this.trazaDTO.update='';
+    this.trazaDTO.error='';
+  } 
+  public get trazaDTO(): CreateTrazaDto {
+    return this._trazaDTO;
   }
-  
-  async logOperation(data: {
-    collection: string;
-    operation: 'create' | 'update' | 'remove';
-    filter: any;
-    before?: any;
-    update?: any;
-    user?: string;
-  }) {
-    try {
-      // const log = new this.trazaModel(data);
-      // await log.save();
-    } catch (error) {
-      console.error('Failed to save log:', error);
-    }
+  public set trazaDTO(value: CreateTrazaDto) {
+    this._trazaDTO = value;
   }
-
+  public traza_error(nm: string,msg='',cause='') {
+    this._trazaDTO.error = nm+'=> '+msg +' '+cause;
+  }
  /**
   * The function `traza_logg` logs a message with timestamp, module, method, user, action, querystatus, and query details
   * @modulo que llama
@@ -53,7 +40,7 @@ export class TrazasService {
   */
  traza_log(trz:CreateTrazaDto):string {
     //return
-    return `${new Date().toISOString()} - [${trz.collection}] {Persona:${trz.user}} ${trz.operation} / ${trz.error} /${trz.filter} / ${trz.before} =>${trz.update}`
+    return `${new Date().toISOString()} - [${trz.collection}] {Persona:${trz.user['username']}} ${trz.operation} / ${trz.error} /${trz.filter} / ${trz.before} =>${trz.update}`
      
   }
 

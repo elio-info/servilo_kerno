@@ -7,13 +7,13 @@ import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExis
 import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema"
 import { ProvinceModel } from "src/modules/province/infrastructure/province.schema"
 
-export class Create_Proyecto_Sociocultural_Comunitario_Dto {
+export class Search_Proyecto_Sociocultural_Comunitario_Dto {
     @ApiProperty({example:'La casa de Pedro Prieto'})
     @IsNotEmpty()
     @IsString()
     @MinLength(3)    
     nombre:string
-    
+    /*
     @ApiProperty({ type: 'ObjectId.ConsejoPopular_Municipality',
         example:'66763c9511dbc2cb96b53d4d' })
     @IsMongoId()
@@ -63,5 +63,5 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     // @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
     // // @MinLength(3)
     // cancelado:string
-
+*/
 }

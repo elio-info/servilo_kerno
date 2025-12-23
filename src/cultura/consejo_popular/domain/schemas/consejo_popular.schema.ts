@@ -22,11 +22,11 @@ export class ConsejoPopular_Municipality_Model {
   @Prop()
   updatedAt: Date;
 @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
- // @Type(() => MunicipalityModel)
+ @Type(() => MunicipalityModel)
   municipality:string // ProvinceModel;
 
   @Prop({ type: Types.ObjectId, ref: ProvinceModel.name })
- // @Type(() => ProvinceModel)
+ @Type(() => ProvinceModel)
   province:string // ProvinceModel;
 }
 

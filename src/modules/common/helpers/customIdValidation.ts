@@ -6,7 +6,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { error } from 'console';
-import { Condition, Connection, ObjectId } from 'mongoose';
+import mongoose, { Condition, Connection, Mongoose, ObjectId } from 'mongoose';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
@@ -32,13 +32,40 @@ export class IsRelationshipProvider implements ValidatorConstraintInterface {
     return `${args.property} field must refer to existing ${args.constraints[0].name} document.`;
   }
 
-  async validate_onTable(table_name:string, value_condition: {}, args={ isDeleted: false }): Promise<boolean> {
+  async validateId_onTable(table_name:string, value_condition: string): Promise<number> {
     let ssn=this.connection.startSession();
+    //let all_condition=value_condition;//uniendo
     try {
-      console.log(table_name,value_condition,args);
+      console.log(table_name,value_condition);
       (await ssn).startTransaction()
       const result = await this.connection.db.collection(table_name)
-        .find(value_condition).limit(100).toArray()
+        .find({_id: new mongoose.Types.ObjectId( value_condition), isDeleted: false }).limit(100).toArray()
+        // .where(args)
+        // .exec();
+        console.log('validateId_onTable  **************** dentro **************');        
+        console.log(result);
+        console.log('validateId_onTable  ****************** dentro ************');   
+        (await ssn).commitTransaction();
+        (await ssn).endSession();
+      return result.length;
+    } catch (e) {
+        console.log('validateId_onTable  ************     error  on   ******************');        
+        console.log(e);
+        console.log('validateId_onTable  **********     error  on   ********************');
+      (await ssn).abortTransaction();
+      (await ssn).endSession();
+      return -1;
+    }
+    
+  }
+  async validate_onTable(table_name:string, value_condition: {}, args={ isDeleted: false }): Promise<number> {
+    let ssn=this.connection.startSession();
+    let all_condition=value_condition;//uniendo
+    try {
+      console.log(table_name,value_condition,args,all_condition);
+      (await ssn).startTransaction()
+      const result = await this.connection.db.collection(table_name)
+        .find(all_condition).limit(100).toArray()
         // .where(args)
         // .exec();
         console.log('validate_onTable  **************** dentro **************');        
@@ -46,18 +73,17 @@ export class IsRelationshipProvider implements ValidatorConstraintInterface {
         console.log('validate_onTable  ****************** dentro ************');   
         (await ssn).commitTransaction();
         (await ssn).endSession();
-      return !!result;
+      return result.length;
     } catch (e) {
         console.log('validate_onTable  ************     error  on   ******************');        
         console.log(e);
         console.log('validate_onTable  **********     error  on   ********************');
       (await ssn).abortTransaction();
       (await ssn).endSession();
-      return false;
+      return -1;
     }
     
   }
-
 }
 /**
  * 

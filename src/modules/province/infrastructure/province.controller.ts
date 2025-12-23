@@ -26,7 +26,7 @@ import {
 } from '@nestjs/swagger';
 import { ApiUnauthorizedCustomErrorResponse } from 'src/modules/common/doc/api-unauthorized-custom-error-response.decorator';
 import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-custom-error-response.decorator';
-import { Province } from '../domain/entities/province.entity';
+import { ProvinceEntity } from '../domain/entities/province.entity';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
@@ -75,7 +75,7 @@ export class ProvinceController {
     required: false,
     
   })
-  @ApiPaginatedResponse(Province)
+  @ApiPaginatedResponse(ProvinceEntity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
   @ApiOperation({ summary:'Recuperar todas las provincias'})
@@ -88,7 +88,7 @@ export class ProvinceController {
 
   @ApiOkResponse({
     description: 'The province object',
-    type: Province,
+    type: ProvinceEntity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
@@ -102,7 +102,7 @@ export class ProvinceController {
 
   @ApiOkResponse({
     description: 'The updated Province Object',
-    type: Province,
+    type: ProvinceEntity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()

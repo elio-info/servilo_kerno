@@ -1,5 +1,5 @@
 export class TrazaEntity {
-    user:string //nombre y rol
+    user:Object //nombre y rol PersonAuth
     collection:string //a donde se accedio
     operation:string //que se hizo
     error?:Object // error
