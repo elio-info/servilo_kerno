@@ -10,6 +10,7 @@ import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { privateDecrypt } from 'crypto';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 @Injectable()
 export class MunicipalityService {
@@ -20,7 +21,7 @@ export class MunicipalityService {
   ) { traza.trazaDTO.collection='Municipality'}
 
   create(createMunicipalityDto: CreateMunicipalityDto,tkhds:string): Promise<Municipality> {
-        this.traza.trazaDTO.user=tkhds; 
+        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds); 
     return this.repository.create(createMunicipalityDto,this.traza);
   }
 
@@ -36,12 +37,12 @@ export class MunicipalityService {
   }
 
   update( id: string, updateMunicipalityDto: UpdateMunicipalityDto, tkhds:string ): Promise<Municipality> {
-        this.traza.trazaDTO.user=tkhds;    
+        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);    
     return this.repository.update(id, updateMunicipalityDto,this.traza);
   }
 
   remove(id: string,tkhds:string): Promise<Municipality> {
-        this.traza.trazaDTO.user=tkhds;    
+        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);    
     return this.repository.remove(id,this.traza);
   }
 

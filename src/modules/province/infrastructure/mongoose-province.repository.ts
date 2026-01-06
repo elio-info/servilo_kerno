@@ -7,11 +7,13 @@ import { CreateProvinceDto } from '../domain/dto/create-province.dto';
 import { UpdateProvinceDto } from '../domain/dto/update-province.dto';
 import { ProvinceEntity } from '../domain/entities/province.entity';
 import { ProvinceDocument, ProvinceModel } from './province.schema';
-import { ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
+import { ObjectCanNotDeleted, ObjectId_NotFound, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { validateId_Format } from 'src/modules/common/helpers/id-validator';
 import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
+import { SearchProvinceDto } from '../domain/dto/search-province.dto';
+import { extractProvince } from 'src/modules/common/extractors';
 
 // const SELECT_QUERY: string = 'isDeleted name createdAt updatedAt';
 const MODULE = 'Province';
@@ -27,42 +29,32 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     // @Inject() 
   ) {  this.cstvldt=new IsRelationshipProvider(this.cnn)    }
 
-  async findAll(page: number, pageSize: number): Promise<DataList<ProvinceEntity>> {
+  async findAll(page: number, pageSize: number): Promise<DataList<ProvinceEntity>| string> {
     const skipCount = (page - 1) * pageSize;
     
-    const [provinces, count] = await Promise.all([
-      this.provinceModel
+    const provinces = await this.provinceModel
         .find(this.whereQuery)
         .skip(skipCount)
         .limit(pageSize)
         .lean()
-        .exec(),
-      this.provinceModel.countDocuments(this.whereQuery).exec(),
-    ]);
+        .exec()
+      ;
 
-    // console.log('dentro del F-all', provinces);
-   
     const provinceCollection = provinces.map(province => 
-     {return this.toEntity(province)}
-      /*({
-      id: province._id.toString(),
-      name: province.name,
-      isDeleted:province.isDeleted,
-      
-      createdAt: province.createdAt,
-      updatedAt: province.updatedAt,
-    })*/
+     {
+      return this.toEntity(province);
+     }    
    );
 
     const dataList: DataList<ProvinceEntity> = {
       data: provinceCollection,
-      totalPages: Math.ceil(count / pageSize),
+      totalPages: Math.ceil(provinceCollection.length / pageSize),
       currentPage: page,
     };
     return dataList;
   }
 
-  async create(province: CreateProvinceDto,traza:TrazasService): Promise<ProvinceEntity> {
+  async create(province: CreateProvinceDto,traza:TrazasService): Promise<ProvinceEntity | string> {
       let crt=null;
 
       traza.trazaDTO.filter= JSON.stringify(province);
@@ -80,23 +72,23 @@ export class MongooseProvinceRepository implements ProvinceRepository {
                   let err=new DuplicatedValueError( data.name + ' -> ' + MODULE);
                   traza.traza_error(err.name,err.message);
                   traza.save();
-                  throw err;
+                  return err;
                 }
               })
       try {
         crt= this.toEntity ( await new this.provinceModel(province).save());
         traza.trazaDTO.update= crt.toString();
         traza.save();
-        // this.prv_trazaSrv.create(province,crt,traza.traza_Usr)
+        
       } catch (error) {
-          traza.trazaDTO.error= error.toString() ;
+          traza.trazaDTO.error= error ;
           traza.save();
-          throw error;
+          return error.toString();
       }            
       return crt;     
   }
 
-  async findOne(id: string): Promise<ProvinceEntity> {
+  async findOne(id: string): Promise<ProvinceEntity | string> {
     validateId_Format(id, MODULE);
 
     const province = await this.provinceModel
@@ -104,36 +96,30 @@ export class MongooseProvinceRepository implements ProvinceRepository {
       .where(this.whereQuery);
 
     if (!province) {
-      throw new ObjectNotFound(MODULE);
+      return (new ObjectNotFound(MODULE)).toString();
     }
 
     return this.toEntity (province)
-    /*{
-      id: province._id.toString(),
-      name: province.name,
-      isDeleted:province.isDeleted,
-      updatedAt: province.updatedAt,
-      createdAt: province.createdAt,
-    };*/
+    
   }
 
-  async update(id: string, province: UpdateProvinceDto, traza:TrazasService): Promise<ProvinceEntity> {
-    validateId_Format(id, MODULE);
-    let dco_find=  await this.provinceModel.findById({ _id: id, ...this.whereQuery });
+  async update(province: UpdateProvinceDto, traza:TrazasService): Promise<ProvinceEntity | string> {
+    validateId_Format(province.id, MODULE);
+    let dco_find=  await this.provinceModel.findById({ _id: province.id, ...this.whereQuery });
 
     let ee=null;
     let upd=null;
     if (!dco_find) {
-      ee='No existe documento id'+id;
+      ee='No existe documento id'+province.id;
       
       traza.trazaDTO.error= ee ;
       traza.save();
-      throw ee;
+      return ee;
     } else {
       traza.trazaDTO.filter= JSON.stringify(province);    
       try {
               upd=  await this.provinceModel.findByIdAndUpdate(
-                { _id: id, ...this.whereQuery} ,
+                { _id: province.id, ...this.whereQuery} ,
                 province,
                 {
                   new: true,
@@ -145,38 +131,40 @@ export class MongooseProvinceRepository implements ProvinceRepository {
         } catch (error) {
           traza.trazaDTO.error= JSON.stringify(error) ;
           traza.save();
-          throw error;
+          return error.toString();
         }  
     }      
     return this.toEntity (upd) ;  // 
   }
 
-   async remove(id: string, traza:TrazasService): Promise<ProvinceEntity> {
-   //no se porque no funciona
+   async remove(id: string, traza:TrazasService): Promise< ProvinceEntity | string>  {
+   console.log('remove ', traza);
+   
+    //no se porque no funciona
     // validateId_OnTable(this.cnn,'provinces','{_id:$oid:{{'+id+'}}}',this.whereQuery)
-    // let pp=await validateId_OnTable(this.cnn,'municipalities','{province:'+id+'}}',this.whereQuery)
+    // let pp=await this.cstvldt.validateId_onTable('provinces',id);
     // console.log('pp',pp); 
      traza.trazaDTO.filter= JSON.stringify ({_id:id}) ;
 /* si existes */
     let dco_find=null;
     let upd=null;
     try {
-      dco_find=await this.findOne(id);
+      dco_find=await this.cstvldt.validateId_onTable('provinces',id);
       console.log(dco_find); 
     } catch (error) {
-      let pp=new ObjectNotFound(MODULE);
-      traza.traza_error(pp.name , pp.message +'  id@ '+id  );
+      let pp=new ObjectId_NotFound(MODULE,id);
+      traza.trazaDTO.error=pp;
       traza.save();
-      throw error;
+      return pp.toString();
     }      
 //Id_OnTable buscar por hijos
     let mnc= await this.cstvldt.validate_onTable('municipalities',{'province':id},this.whereQuery)// si esta en BD 
     console.log(mnc);
     if (mnc) { //tienes hijos no te borras  
-      let error='Error: This object'+Module+'  id@ '+id+' has actives childs' ;
+      let error=new ObjectCanNotDeleted(MODULE,id,mnc) ;
       traza.trazaDTO.error= error ;
       traza.save();
-      throw error;
+      return error.toString();
     } else {
       // no tienes hijos no te borras 
       traza.trazaDTO.filter= JSON.stringify({ isDeleted: true });    
@@ -195,31 +183,27 @@ export class MongooseProvinceRepository implements ProvinceRepository {
         } catch (error) {
           traza.trazaDTO.error= JSON.stringify (error) ;
           traza.save();
-          throw error;
+          return traza.trazaDTO.error.toString();
         }// end try            
     }//end if check childs    
   }
 
-  async search(query) : Promise<ProvinceEntity[]> {
+  async search(query:SearchProvinceDto) : Promise<ProvinceEntity[] | string> {
 
-    let buscar= query.exactName? { name:query.exactName, isDeleted: query.isDeleted} :  { name: '/'.concat(query.exactName,'/i') };
+    let buscar= query.exactName? { name:query.exactName, isDeleted: query.isDeleted} :  { name: { $regex:query.name , $options:'i'}, isDeleted: query.isDeleted };
     console.log(buscar);
     
-     let result=null;
-    const provinceCollection =await Promise.all([this.provinceModel.find(buscar).exec()])[0] ;
+     let result=[];
+    const provinceCollection =await this.provinceModel.find(buscar).exec();
+    //console.log(provinceCollection);
+    
      provinceCollection.map((item) =>
-      result.add( item)//this.toEntity()
+      result.push(this.toEntity(item))//
     );
     return result;
   }
 
   toEntity(prov:ProvinceModel): ProvinceEntity {
-    return {
-      id: prov._id.toString(),
-      name: prov.name,
-      isDeleted:prov.isDeleted,
-      createdAt: prov.createdAt,
-      updatedAt: prov.updatedAt
-    };
+    return extractProvince(prov) ;
   }
 }

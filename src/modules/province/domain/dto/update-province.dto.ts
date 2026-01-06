@@ -1,8 +1,13 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateProvinceDto } from './create-province.dto';
 import { IsBoolean, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
+import { ObjectId } from 'mongoose';
 
 export class UpdateProvinceDto extends PartialType(CreateProvinceDto) {
+    @IsNotEmpty()
+    @IsString()
+    id:string;
+
     @IsOptional()
     @IsString()
     @MinLength(3)

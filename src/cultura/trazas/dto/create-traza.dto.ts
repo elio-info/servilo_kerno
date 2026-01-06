@@ -1,6 +1,5 @@
-import { IsNotEmpty, isObject, IsObject, IsString } from "class-validator";
+import { IsNotEmpty, IsObject, IsString } from "class-validator";
 import { TrazaEntity } from "../entities/traza.entity";
-import { Type } from "class-transformer";
 
 /**
  * Valores que posee 

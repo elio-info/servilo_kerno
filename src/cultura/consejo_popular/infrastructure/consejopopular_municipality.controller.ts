@@ -23,19 +23,15 @@ import {
   ApiParam,
   ApiQuery,
   ApiTags,
-  getSchemaPath,
 } from '@nestjs/swagger';
 import { ApiUnauthorizedCustomErrorResponse } from 'src/modules/common/doc/api-unauthorized-custom-error-response.decorator';
 import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-custom-error-response.decorator';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
 import { ConsejoPopular_Municipality_Entity } from '../domain/schemas/consejo_popular.entity';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
-import { DataList } from 'src/modules/common/data-list';
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
-import { SearchQuery } from 'src/modules/search/domain/dto/query.dto';
 import SearchMunicipalityDto from '../domain/dto/search-consejopopular_municipality.dto';
-import SearchController from 'src/modules/common/abstracts/SearchAbstracts';
-import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import Search_ConsejoPopular_MunicipalityDto from '../domain/dto/search-consejopopular_municipality.dto';
 
 @ApiTags(`Consejo Popular Municipal`)
 @ApiHeader({
@@ -59,7 +55,7 @@ export class ConsejoPopular_Municipality_Controller {
   @Post()
   @ErrorHandler()
   create(@Body() createCOMunicipalityDto: Create_ConsejoPopular_Municipality_Dto,@Headers('authorization') hds) {
-    return this.service.create(createCOMunicipalityDto, getUserHTTP_JWTS(hds));
+    return this.service.create(createCOMunicipalityDto, hds);
   }
 
   @ApiQuery({
@@ -105,48 +101,36 @@ export class ConsejoPopular_Municipality_Controller {
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Municipality')
   @ApiBody({
-    type: Create_ConsejoPopular_Municipality_Dto,
+    type: Create_ConsejoPopular_Municipality_Dto
   })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  @Patch()
   @ErrorHandler()
   update(
-    @Param('id') id: string,
     @Body() updateCOMunicipalityDto: Update_ConsejoPopular_Municipality_Dto,
     @Headers('authorization') hds
   ) {
-    return this.service.update(id, updateCOMunicipalityDto,getUserHTTP_JWTS(hds));
+    return this.service.update( updateCOMunicipalityDto,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiNotFoundCustomErrorResponse('Municipality')
+  @ApiNotFoundCustomErrorResponse('ConsejoPopular_Municipality')
   @ApiCustomErrorResponse()
-  @ApiOkResponse({ description: 'The municipality successfully deleted' })
+  @ApiOkResponse({ description: 'The Consejo Popular municipality successfully deleted' })
   @ApiParam({ name: 'id' })
   @Delete(':id')
   @ErrorHandler()
   remove(@Param('id') id: string, @Headers('authorization') hds) {
-    return this.service.remove(id,getUserHTTP_JWTS(hds));
+    return this.service.remove(id,hds);
   }
 
   //TODO Making Search Endpoint By Query
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiNotFoundCustomErrorResponse('Municipality')
-  @ApiQuery({
-    name: 'key',
-    description: 'The key name for the search',
-    type: 'string',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'value',
-    description: 'The value for the search',
-    type: 'string',
-    required: false,
+  @ApiNotFoundCustomErrorResponse('ConsejoPopular_Municipality')
+  @ApiBody({    
+    type: Search_ConsejoPopular_MunicipalityDto
   })
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchMunicipalityDto))
-  @Get('api/search')
+ @Post('search')
   @ErrorHandler()
   search(@Query() query) {
     return this.service.search(query);

@@ -40,7 +40,7 @@ export class TrazasService {
   */
  traza_log(trz:CreateTrazaDto):string {
     //return
-    return `${new Date().toISOString()} - [${trz.collection}] {Persona:${trz.user['username']}} ${trz.operation} / ${trz.error} /${trz.filter} / ${trz.before} =>${trz.update}`
+    return `${new Date().toISOString()} - [${trz.collection}] {Persona:${trz.user['username']+' ['+ trz.user['rol']+']'}} ${trz.operation} / ${trz.error} /${trz.filter} / ${trz.before} =>${trz.update}`
      
   }
 

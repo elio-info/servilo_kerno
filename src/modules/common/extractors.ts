@@ -12,13 +12,24 @@ import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/
 import { Nomencladores_Generales } from 'src/cultura/codificadores-cult/infrastructure/codificadores_nomencladores.controller';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
 
-export function getUserHTTP_JWTS(hds_tk:string): string {
+export function getUserHTTP_JWTS(hds_tk:string): Object {
   // console.log(hds_tk);
       let hds_jwtk= new JwtService().decode(hds_tk.split(' ')[1]);
 
       let hds_uss=hds_jwtk['username']+' ['+ hds_jwtk['rol']+']';
       // console.log(hds_uss);
-      return hds_uss;
+      return hds_jwtk;
+}
+
+/**
+ * The function `bool` takes a boolean parameter and returns true if the parameter is true, otherwise
+ * it returns false.
+ * @param {boolean} params - The parameter `params` in the `bool` function is a boolean value.
+ * @returns The function `bool` takes a boolean parameter and returns `true` if the parameter is
+ * `true`, otherwise it returns `false`.
+ */
+export function bool(params:boolean) {
+  return params?true:false
 }
 
 export function extractMunicipality(
@@ -27,7 +38,7 @@ export function extractMunicipality(
   return {
     id: municipality._id.toString(),
     name: municipality.name,
-    isDeleted:municipality.isDeleted,
+    isDeleted: bool(municipality.isDeleted),
     createdAt: municipality.createdAt,
     updatedAt: municipality.updatedAt,
     province: extractProvince(municipality.province),
@@ -38,7 +49,7 @@ export function extractProvince(province: ProvinceModel): ProvinceEntity {
   return {
     id: province._id.toString(),
     name: province.name,
-    isDeleted:province.isDeleted,
+    isDeleted: bool(province.isDeleted),
     createdAt: province.createdAt,
     updatedAt: province.updatedAt,
   };

@@ -37,7 +37,7 @@ export class AuthService  {
   async signIn(username: string, pass: string) {
 
     console.log(`u:${username}`);
-    this.traz.trazaDTO.user=username;
+    this.traz.trazaDTO.user={username};
     this.traz.trazaDTO.error='ok';      
     this.traz.trazaDTO.operation='SignIn'
     let pss=await hash (pass)
@@ -49,11 +49,11 @@ export class AuthService  {
     {    if(pass === 'test') {
           const fakeUser: PersonAuth = {
             sub: 'fakeID',
-            username,
+            username:'fakeName',
             hashPassword: 'fakePASs',
             // municipality: 'string',
             // entity: 'sdfsdfgsdfg',
-            rol: 'fake'
+            rol: 'fakeRol'
           };
           this.traz.trazaDTO.user=fakeUser;
           this.traz.trazaDTO.update=JSON.stringify(fakeUser);

@@ -6,8 +6,9 @@ import { MongooseProvinceRepository } from '../infrastructure/mongoose-province.
 import { DataList } from 'src/modules/common/data-list';
 import { ProvinceEntity } from '../domain/entities/province.entity';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
-import { ProvinceDocument, ProvinceModel } from '../infrastructure/province.schema';
+import { ProvinceModel } from '../infrastructure/province.schema';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 @Injectable()
 export class ProvinceService   {
@@ -21,13 +22,15 @@ export class ProvinceService   {
     
      }
 
-  create(createProvinceDto: CreateProvinceDto,tkhds:string): Promise<ProvinceEntity> {
-    this.traza.trazaDTO.user=tkhds;    
+  create(createProvinceDto: CreateProvinceDto,tkhds:string): Promise<ProvinceEntity| string> {
+    console.log(tkhds);
+    
+    this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);    
     this.traza.trazaDTO.operation='save';this.traza.trazaDTO.error='Ok' ; 
     return this.repository.create(createProvinceDto,this.traza);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<ProvinceEntity>> {
+  findAll(page = 1, pageSize = 15): Promise<DataList<ProvinceEntity>| string> {
     
     page= ( isNaN(page) || page<= 0)? 1: page;
     console.log('page',page);
@@ -39,25 +42,26 @@ export class ProvinceService   {
     return this.repository.findAll(page, pageSize);
   }
 
-  findOne(id: string): Promise<ProvinceEntity> {
+  findOne(id: string): Promise<ProvinceEntity| string> {
     return this.repository.findOne(id);
   }
 
-  update(id: string, updateProvinceDto: UpdateProvinceDto,tkhds:string): Promise<ProvinceEntity> {
-    this.traza.trazaDTO.user=tkhds;     
+  update( updateProvinceDto: UpdateProvinceDto,tkhds:string): Promise<ProvinceEntity| string> {
+    console.log('service '+ tkhds);
+    this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);     
     this.traza.trazaDTO.operation='update';this.traza.trazaDTO.error='Ok' ; 
-    return this.repository.update(id, updateProvinceDto, this.traza);
+    return this.repository.update( updateProvinceDto, this.traza);
   }
 
-  remove(id: string,tkhds:string): Promise<ProvinceEntity> {
-    this.traza.trazaDTO.user=tkhds;    
+  remove(id: string,tkhds:string): Promise<ProvinceEntity|string >{
+    console.log('service '+ tkhds);
+    this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);    
     this.traza.trazaDTO.operation='remove';this.traza.trazaDTO.error='Ok' ; 
     return this.repository.remove(id,this.traza);
   }
 
-  search(query: SearchProvinceDto): Promise<ProvinceEntity[]> {
-    console.log(query);
-    
+  search(query: SearchProvinceDto): Promise<ProvinceEntity[]| string> {
+    // console.log(query);    
     return this.repository.search(query);
   }
 }

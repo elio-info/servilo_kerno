@@ -57,9 +57,8 @@ export class ProvinceController {
   @ErrorHandler()
   create(@Body() createProvinceDto: CreateProvinceDto,@Headers('authorization') hds) {
     let hds_uss= getUserHTTP_JWTS(hds);
-    // console.log(hds_uss);
-       
-    return this.service.create(createProvinceDto,hds_uss);
+    // console.log(hds_uss);       
+    return this.service.create(createProvinceDto,hds);
   }
 
   @ApiQuery({
@@ -82,7 +81,7 @@ export class ProvinceController {
   @Get()
   @ErrorHandler()
   findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
-    console.log('all',page,pageSize);    
+    // console.log('all',page,pageSize);    
     return this.service.findAll(page, pageSize);
   }
 
@@ -109,16 +108,14 @@ export class ProvinceController {
   @ApiNotFoundCustomErrorResponse('Province')
   @ApiBody({
     type: UpdateProvinceDto,
-  })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  })  
+  @Patch()
   @ErrorHandler()
-  update(
-    @Param('id') id: string,
+  update(    
     @Body() updateProvinceDto: UpdateProvinceDto
     ,@Headers('authorization') hds,
   ) {
-    return this.service.update(id, updateProvinceDto,getUserHTTP_JWTS(hds));
+    return this.service.update(updateProvinceDto,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -129,7 +126,9 @@ export class ProvinceController {
   @Delete(':id')
   @ErrorHandler()
   remove(@Param('id') id: string,@Headers('authorization') hds) {
-    return this.service.remove(id,getUserHTTP_JWTS(hds));
+    console.log(getUserHTTP_JWTS(hds));
+    
+    return this.service.remove(id,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -140,7 +139,7 @@ export class ProvinceController {
   })  
   @ApiCustomErrorResponse()
   // @UsePipes(new SearchValidate(SearchProvinceDto))
-  @Post('api/search')
+  @Post('search')
   @ErrorHandler()
   search(@Body() query:SearchProvinceDto ) {
     console.log(query);    

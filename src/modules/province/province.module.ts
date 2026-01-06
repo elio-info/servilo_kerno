@@ -3,32 +3,23 @@ import { ProvinceService } from './application/province.service';
 import { ProvinceController } from './infrastructure/province.controller';
 import { MongooseProvinceRepository } from './infrastructure/mongoose-province.repository';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  ProvinceSchema,
-  ProvinceModel,
-} from './infrastructure/province.schema';
+import { ProvinceSchema, ProvinceModel } from './infrastructure/province.schema';
 import { ErrorModule } from '../common/errors/error.module';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
-import { AuthService } from '../auth/auth.service';
 import { TrazasModule } from 'src/cultura/trazas/trazas.module';
-import { MunicipalityModule } from '../municipality/municipality.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: ProvinceModel.name, schema: ProvinceSchema },
     ]),
-   TrazasModule,  
-   
+   TrazasModule,     
     ErrorModule,
   ],
   controllers: [ProvinceController],
   providers: [ProvinceService, MongooseProvinceRepository
     //mio
     ,TrazasService
-    
-
-    //,AuthService
   ],
 })
 export class ProvinceModule {}

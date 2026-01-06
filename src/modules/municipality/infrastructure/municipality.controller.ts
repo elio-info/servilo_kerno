@@ -60,7 +60,7 @@ export class MunicipalityController {
   @Post()
   @ErrorHandler()
   create(@Body() createMunicipalityDto: CreateMunicipalityDto,@Headers('authorization') hds) {
-    return this.service.create(createMunicipalityDto,getUserHTTP_JWTS(hds));
+    return this.service.create(createMunicipalityDto,hds);
   }
 
   @ApiQuery({
@@ -115,7 +115,7 @@ export class MunicipalityController {
     @Param('id') id: string,
     @Body() updateMunicipalityDto: UpdateMunicipalityDto,@Headers('authorization') hds
   ) {
-    return this.service.update(id, updateMunicipalityDto,getUserHTTP_JWTS(hds));
+    return this.service.update(id, updateMunicipalityDto,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -126,7 +126,7 @@ export class MunicipalityController {
   @Delete(':id')
   @ErrorHandler()
   remove(@Param('id') id: string,@Headers('authorization') hds) {
-    return this.service.remove(id,getUserHTTP_JWTS(hds));
+    return this.service.remove(id,hds);
   }
 
   //TODO Making Search Endpoint By Query
