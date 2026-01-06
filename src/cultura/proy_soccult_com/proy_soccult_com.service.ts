@@ -10,6 +10,7 @@ import { Proyecto_Socioculturale_Comunitario_Entity } from './schemas/proy_soccu
 import { DataList } from 'src/modules/common/data-list';
 import { Search_Proyecto_Sociocultural_Comunitario_Dto } from './dto/search_proy_soccult_com.dto';
 import { ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 const MODULE='Proyecto_Sociocultural_Comunitario';
 const IS_NOT_DELETED = { isDeleted: false };
@@ -22,7 +23,7 @@ export class Proyecto_Sociocultural_Comunitario_Service {
   ){ traza.trazaDTO.collection=MODULE}
 
   async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity> {
-    this.traza.trazaDTO.user=tkhds;
+    this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
     this.traza.trazaDTO.operation='save';
     this.traza.trazaDTO.filter=createProySoccultComDto;
 
@@ -89,14 +90,14 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     return this.toEntity(cpp);    
   }
 
-  update(id: string, updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto, tkhds:string):Promise<Proyecto_Sociocultural_Comunitario_Document> {
+  update( updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto, tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity> {
     console.log(updateProySoccultComDto);
-    this.traza.trazaDTO.user=tkhds;
-    return this.pscc_Model.findByIdAndUpdate(id,updateProySoccultComDto,{new :true })
+    this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
+    return this.pscc_Model.findByIdAndUpdate(updateProySoccultComDto,{new :true })
   }
 
   async remove(id: string,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity> {
-    this.traza.trazaDTO.user=tkhds;
+    this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
     let traza=this.traza;
 
     traza.trazaDTO.filter= JSON.stringify ({_id:id}) ;

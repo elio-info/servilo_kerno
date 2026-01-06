@@ -20,33 +20,33 @@ export class MunicipalityService {
     @Inject(TrazasService) private traza:TrazasService
   ) { traza.trazaDTO.collection='Municipality'}
 
-  create(createMunicipalityDto: CreateMunicipalityDto,tkhds:string): Promise<Municipality> {
+  create(createMunicipalityDto: CreateMunicipalityDto,tkhds:string): Promise<Municipality |string> {
         this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds); 
     return this.repository.create(createMunicipalityDto,this.traza);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Municipality>> {
+  findAll(page = 1, pageSize = 15): Promise<DataList<Municipality> |string> {
     if (page <= 0 || pageSize <= 0) {
       throw new InvalidPaginationError();
     }
     return this.repository.findAll(page, pageSize);
   }
 
-  findOne(id: string): Promise<Municipality> {
+  findOne(id: string): Promise<Municipality |string> {
     return this.repository.findOne(id);
   }
 
-  update( id: string, updateMunicipalityDto: UpdateMunicipalityDto, tkhds:string ): Promise<Municipality> {
+  update( updateMunicipalityDto: UpdateMunicipalityDto, tkhds:string ): Promise<Municipality | string> {
         this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);    
-    return this.repository.update(id, updateMunicipalityDto,this.traza);
+    return this.repository.update( updateMunicipalityDto,this.traza);
   }
 
-  remove(id: string,tkhds:string): Promise<Municipality> {
+  remove(id: string,tkhds:string): Promise<Municipality | string> {
         this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);    
     return this.repository.remove(id,this.traza);
   }
 
-  search(query: SearchMunicipalityDto): Promise<Municipality[]> {
+  search(query: SearchMunicipalityDto): Promise<Municipality[] | string> {
     return this.repository.search(query);
   }
 }

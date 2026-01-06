@@ -107,15 +107,13 @@ export class MunicipalityController {
   @ApiNotFoundCustomErrorResponse('Municipality')
   @ApiBody({
     type: CreateMunicipalityDto,
-  })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  })  
+  @Post()
   @ErrorHandler()
   update(
-    @Param('id') id: string,
     @Body() updateMunicipalityDto: UpdateMunicipalityDto,@Headers('authorization') hds
   ) {
-    return this.service.update(id, updateMunicipalityDto,hds);
+    return this.service.update( updateMunicipalityDto,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()

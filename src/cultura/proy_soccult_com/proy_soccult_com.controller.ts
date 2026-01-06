@@ -35,7 +35,7 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   @Post()
   @ErrorHandler()
   create(@Body() createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto, @Headers('authorization') hds) {
-    return this.proySoccultComService.create(createProySoccultComDto, getUserHTTP_JWTS(hds));
+    return this.proySoccultComService.create(createProySoccultComDto, hds);
   }
 
    @ApiQuery({
@@ -84,12 +84,11 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   @ApiBody({
     type: Create_Proyecto_Sociocultural_Comunitario_Dto,
   })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  @Post()
   @ErrorHandler()
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto , @Headers('authorization') hds) {
-    return this.proySoccultComService.update(id, updateProySoccultComDto, getUserHTTP_JWTS(hds));
+  @Patch()
+  update( @Body() updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto , @Headers('authorization') hds) {
+    return this.proySoccultComService.update( updateProySoccultComDto, hds);
   }
 
   
@@ -101,7 +100,7 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   @Delete(':id')
   @ErrorHandler()
   remove(@Param('id') id: string, @Headers('authorization') hds) {
-    return this.proySoccultComService.remove(id,getUserHTTP_JWTS(hds));
+    return this.proySoccultComService.remove(id,hds);
   }
 
   //TODO Making Search Endpoint By Query
