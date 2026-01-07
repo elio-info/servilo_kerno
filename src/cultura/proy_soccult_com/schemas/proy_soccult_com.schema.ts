@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto";
 import { ConsejoPopular_Municipality_Model } from "../../consejo_popular/domain/schemas/consejo_popular.schema";
 import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema";
+import { Gestor_Entity } from "./proy_soccult_com.entity";
 
 @Schema({
     timestamps:true,
@@ -30,10 +31,7 @@ export class Proyecto_Sociocultural_Comunitario_Model{
     direccion:string
     
     @Prop({required:true})
-    gestor:string
-
-    @Prop({required:true})
-    telefonos:string
+    gestor:Gestor_Entity[]
 
     @Prop()
     actividades:string

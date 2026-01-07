@@ -4,6 +4,7 @@ import { CreateMunicipalityDto } from '../dto/create-municipality.dto';
 import { UpdateMunicipalityDto } from '../dto/update-municipality.dto';
 import { MunicipalityModel } from '../../infrastructure/municipality.schema';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import SearchMunicipalityDto from '../dto/search-municipality.dto';
 
 export interface MunicipalityRepository {
   findAll: (page: number, pageSize: number) => Promise<DataList<Municipality>|string>;
@@ -11,5 +12,5 @@ export interface MunicipalityRepository {
   findOne: (id: string) => Promise<Municipality|string>;
   update: (municipality: UpdateMunicipalityDto,traza:TrazasService) => Promise<Municipality|string>;
   remove: (id: string,traza:TrazasService) => Promise<Municipality|string>;
-  search: (query) => Promise<Municipality[]|string>;
+  search: (query:SearchMunicipalityDto) => Promise<Municipality[]|string>;
 }

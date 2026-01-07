@@ -6,11 +6,12 @@ import { Proyecto_Sociocultural_Comunitario_Document, Proyecto_Sociocultural_Com
 import { Model } from 'mongoose';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { TrazasService } from '../trazas/trazas.service';
-import { Proyecto_Socioculturale_Comunitario_Entity } from './schemas/proy_soccult_com.entity';
+import { Gestor_Entity, Proyecto_Socioculturale_Comunitario_Entity } from './schemas/proy_soccult_com.entity';
 import { DataList } from 'src/modules/common/data-list';
 import { Search_Proyecto_Sociocultural_Comunitario_Dto } from './dto/search_proy_soccult_com.dto';
 import { ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { ObjectDoesNotExist } from 'src/modules/domain/errors/object-doesnt-exist.error';
 
 const MODULE='Proyecto_Sociocultural_Comunitario';
 const IS_NOT_DELETED = { isDeleted: false };
@@ -22,12 +23,12 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     @Inject(TrazasService) private traza:TrazasService
   ){ traza.trazaDTO.collection=MODULE}
 
-  async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity> {
+  async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity |string> {
     this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
     this.traza.trazaDTO.operation='save';
     this.traza.trazaDTO.filter=createProySoccultComDto;
 
-    let crt = await this.cstvldt.validateId_onTable('Consejo_Popular_Municipal',createProySoccultComDto.consejopopular_municipality);
+    let crt = await this.cstvldt.validateId_onTable('consejopopular_municipal',createProySoccultComDto.consejopopular_municipality);
     console.log('existe '+createProySoccultComDto.consejopopular_municipality+' ?'+crt);
 
     if (crt>0) { 
@@ -38,53 +39,49 @@ export class Proyecto_Sociocultural_Comunitario_Service {
         this.traza.trazaDTO.error='Ok';
         this.traza.save();        
         return this.toEntity(mnc );        
-      } catch (error) {
-      let err=new Error('Problema al crear el proy '+createProySoccultComDto)
-        this.traza.trazaDTO.error=err.name+' => '+err.message;
+      } catch (error) {      
+        this.traza.trazaDTO.error=error;
         this.traza.save()
-        throw err;  
+        return error.toString();  
       }           
     } else {
       let err=new Error('Problema con consejo popular dada '+createProySoccultComDto.consejopopular_municipality)
         this.traza.trazaDTO.error=err.name+' => '+err.message;
         this.traza.save()
-        throw err;
+        return err.toString();
       }
   }
 
-  async findAll(page = 1, pageSize = 15):Promise<DataList<Proyecto_Socioculturale_Comunitario_Entity>> {
+  async findAll(page = 1, pageSize = 15):Promise<DataList<Proyecto_Socioculturale_Comunitario_Entity>| string> {
     const skipCount = (page - 1) * pageSize;
 
-    const [cp, count] = await Promise.all([
-      this.pscc_Model
+    const cp= await  this.pscc_Model
         .find(IS_NOT_DELETED)
         .skip(skipCount)
         .limit(pageSize)
        .populate('consejopopular_municipality')
-        .exec(),
-      this.pscc_Model.countDocuments(IS_NOT_DELETED).exec(),
-    ]);
+        .exec();
     const cpCollection = cp.map((cpp) =>
       this.toEntity(cpp),
     );
 
     const dataList: DataList<Proyecto_Socioculturale_Comunitario_Entity> = {
       data: cpCollection,
-      totalPages: Math.ceil(count / pageSize),
+      totalPages: Math.ceil(cpCollection.length / pageSize),
       currentPage: page,
     };
     return dataList;
     
   }
 
-  async findOne(id: string) :Promise<Proyecto_Socioculturale_Comunitario_Entity>{
+  async findOne(id: string) :Promise<Proyecto_Socioculturale_Comunitario_Entity | string>{
     const cpp = await this.pscc_Model
       .findById(id)
       .where(IS_NOT_DELETED)
       .populate('consejopopular_municipality');
 
     if (!cpp) {
-      throw new ObjectNotFound(MODULE);
+      return new ObjectNotFound(MODULE).toString();
     }
 
     return this.toEntity(cpp);    
@@ -138,6 +135,13 @@ export class Proyecto_Sociocultural_Comunitario_Service {
   }
 
   private toEntity(pry: Proyecto_Sociocultural_Comunitario_Document): Proyecto_Socioculturale_Comunitario_Entity {
+    let gestores=[];
+    pry.gestor.map( gstr => {
+      let prsn= new Gestor_Entity();
+      let mygestor=  (gstr as Gestor_Entity)
+      gestores.concat(mygestor)
+    })
+    
     return {
       id:pry._id.toString(),
       nombre:pry.nombre,
@@ -145,8 +149,7 @@ export class Proyecto_Sociocultural_Comunitario_Service {
       municipio:pry.municipio,
       direccion:pry.direccion,
     // province:string
-      gestor:pry.gestor,
-      telefonos:pry.telefonos,
+      gestor:gestores,
       actividades:pry.actividades,
       aprobado:pry.aprobado,
       cancelado:pry.cancelado

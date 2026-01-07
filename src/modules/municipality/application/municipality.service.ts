@@ -26,9 +26,11 @@ export class MunicipalityService {
   }
 
   findAll(page = 1, pageSize = 15): Promise<DataList<Municipality> |string> {
-    if (page <= 0 || pageSize <= 0) {
-      throw new InvalidPaginationError();
-    }
+    page= ( isNaN(page) || page<= 0)? 1: page;
+    console.log('page',page);
+    
+    pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
+    console.log('pagesz',pageSize);
     return this.repository.findAll(page, pageSize);
   }
 
@@ -37,12 +39,14 @@ export class MunicipalityService {
   }
 
   update( updateMunicipalityDto: UpdateMunicipalityDto, tkhds:string ): Promise<Municipality | string> {
-        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);    
+        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);  
+        this.traza.trazaDTO.operation='update';this.traza.trazaDTO.error='Ok' ;  
     return this.repository.update( updateMunicipalityDto,this.traza);
   }
 
   remove(id: string,tkhds:string): Promise<Municipality | string> {
-        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);    
+        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);   
+        this.traza.trazaDTO.operation='remove';this.traza.trazaDTO.error='Ok' ; 
     return this.repository.remove(id,this.traza);
   }
 

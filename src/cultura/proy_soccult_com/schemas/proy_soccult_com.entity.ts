@@ -7,9 +7,15 @@ export class Proyecto_Socioculturale_Comunitario_Entity {
     municipio:string
     direccion:string;
     // province:string
-    gestor:string;
-    telefonos:string;
+    gestor:Gestor_Entity[];
     actividades:string
     aprobado:string;
     cancelado:string;
+}
+
+export class Gestor_Entity{
+    nombre: string;
+    titulos_profesiones: string;
+    telefonos:string;
+    
 }

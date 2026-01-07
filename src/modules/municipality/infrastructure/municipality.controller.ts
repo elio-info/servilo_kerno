@@ -106,13 +106,15 @@ export class MunicipalityController {
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Municipality')
   @ApiBody({
-    type: CreateMunicipalityDto,
+    type: UpdateMunicipalityDto,
   })  
-  @Post()
+  @Patch()
   @ErrorHandler()
   update(
     @Body() updateMunicipalityDto: UpdateMunicipalityDto,@Headers('authorization') hds
   ) {
+    console.log('control',updateMunicipalityDto);
+    
     return this.service.update( updateMunicipalityDto,hds);
   }
 

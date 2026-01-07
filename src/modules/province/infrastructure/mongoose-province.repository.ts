@@ -70,9 +70,9 @@ export class MongooseProvinceRepository implements ProvinceRepository {
                 console.log(dt,dt_c);
                 if (dt==dt_c) {
                   let err=new DuplicatedValueError( data.name + ' -> ' + MODULE);
-                  traza.traza_error(err.name,err.message);
+                  traza.trazaDTO.error=err;
                   traza.save();
-                  return err;
+                  return err.toString();
                 }
               })
       try {
@@ -139,7 +139,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
 
    async remove(id: string, traza:TrazasService): Promise< ProvinceEntity | string>  {
    console.log('remove ', traza);
-   
+    traza.trazaDTO.update='';
     //no se porque no funciona
     // validateId_OnTable(this.cnn,'provinces','{_id:$oid:{{'+id+'}}}',this.whereQuery)
     // let pp=await this.cstvldt.validateId_onTable('provinces',id);
@@ -150,16 +150,16 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     let upd=null;
     try {
       dco_find=await this.cstvldt.validateId_onTable('provinces',id);
-      console.log(dco_find); 
+      console.log('prov exis', dco_find); 
     } catch (error) {
       let pp=new ObjectId_NotFound(MODULE,id);
-      traza.trazaDTO.error=pp;
+      traza.trazaDTO.error=pp;      
       traza.save();
       return pp.toString();
     }      
 //Id_OnTable buscar por hijos
     let mnc= await this.cstvldt.validate_onTable('municipalities',{'province':id},this.whereQuery)// si esta en BD 
-    console.log(mnc);
+    console.log('hjos prv ',mnc);
     if (mnc) { //tienes hijos no te borras  
       let error=new ObjectCanNotDeleted(MODULE,id,mnc) ;
       traza.trazaDTO.error= error ;
@@ -169,15 +169,18 @@ export class MongooseProvinceRepository implements ProvinceRepository {
       // no tienes hijos no te borras 
       traza.trazaDTO.filter= JSON.stringify({ isDeleted: true });    
       try {
-              upd=  await this.provinceModel.findByIdAndUpdate(
+            let bf= this.findOne(id) ; 
+            console.log('antes', bf)
+            upd=  await this.provinceModel.findByIdAndUpdate(
                 { _id: id, ...this.whereQuery} ,
                 { isDeleted: true },
                 {
                   new: true,
                 },
-              );            
-            traza.trazaDTO.before=JSON.stringify(dco_find);
-            traza.trazaDTO.update=JSON.stringify(upd);            
+              );
+            console.log('antes', upd)              
+            traza.trazaDTO.before=JSON.stringify(bf);
+            traza.trazaDTO.update=JSON.stringify(this.toEntity (upd));            
             traza.save() ; 
             return this.toEntity (upd) // 
         } catch (error) {

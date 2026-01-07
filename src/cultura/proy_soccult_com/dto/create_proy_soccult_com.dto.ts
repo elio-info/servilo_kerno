@@ -1,16 +1,17 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Type } from "class-transformer"
-import { IsMongoId, IsNotEmpty, IsObject, IsOptional, isString, IsString, MinLength } from "class-validator"
+import { IsMongoId, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, isString, IsString, MinLength } from "class-validator"
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
 import { ConsejoPopular_Municipality_Model } from "../../consejo_popular/domain/schemas/consejo_popular.schema"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
 import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema"
 import { ProvinceModel } from "src/modules/province/infrastructure/province.schema"
+import { Gestor_Entity } from "../schemas/proy_soccult_com.entity"
 
 export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @ApiProperty({example:'La casa de Pedro Prieto'})
-    @IsNotEmpty()
-    @IsString()
+    @IsNotEmpty({message:'No vacio'})
+    @IsString({message:'Minimo 3 letras'})
     @MinLength(3)    
     nombre:string
     
@@ -34,28 +35,22 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @MinLength(3)
     direccion:string
 
-    @ApiProperty({example:'Pedro Prieto'})
-    @IsString({ message: 'Mas de 3 letras' })
-    @MinLength(3)
-    gestor:string
-
-    @ApiProperty({
-        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`
-    })
-    // @Type()
-    @IsString()
-    telefonos:string
+    @ApiProperty({example:'[{nombre: Pedro Prieto, titulos_profesiones:Miembro de la UNEAC,telefonos:{cell:12345678,fijo:12345678,trabajo:12345678} uno o los 3},{nombre: Alejandro Perez, titulos_profesiones:Profesor de Arte,Miembro de la UNEAC,Repentista,telefonos:}]'})
+    @IsObject({ message: '{nombre,titulos_profesiones,telefonos}' })
+    // @MinLength(3)
+    @IsNotEmptyObject()
+    gestor:Gestor_Entity[]   
     
     @ApiProperty({example:'Se pone que actividades se realizan en el '})
-    // @IsOptional()
+    @IsNotEmpty({ message: 'Mas de 3 letras' })
     @IsString({ message: 'Mas de 3 letras' })
-    // @MinLength(3)
+    @MinLength(3)
     actividades:string
 
     @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
     // @IsOptional()
     @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
-    // @MinLength(3)
+    @MinLength(3)
     aprobado:string
 
     // @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})

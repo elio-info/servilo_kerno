@@ -54,7 +54,7 @@ export class ProvinceService   {
   }
 
   remove(id: string,tkhds:string): Promise<ProvinceEntity|string >{
-    console.log('service '+ tkhds);
+    //console.log('service '+ tkhds);
     this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);    
     this.traza.trazaDTO.operation='remove';this.traza.trazaDTO.error='Ok' ; 
     return this.repository.remove(id,this.traza);

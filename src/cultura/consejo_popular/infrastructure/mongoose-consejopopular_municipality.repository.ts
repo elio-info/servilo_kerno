@@ -68,6 +68,7 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
         return 'Error en Provincia o municipio';  
     }
     let cpm=  await new this.consejopopular_municipality_Model(cp_municipality).save();
+    
      traza.trazaDTO.update=JSON.stringify (cpm);//cp_municipality
         traza.trazaDTO.before=''
         traza.trazaDTO.error='Ok';

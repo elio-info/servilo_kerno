@@ -8,7 +8,11 @@ import { ProvinceModel } from 'src/modules/province/infrastructure/province.sche
 import { Telefonos_Type_Dto } from 'src/cultura/codificadores-cult/infrastructure/telefonos.dto';
 import { ConsejoPopular_Municipality_Model } from '../../consejo_popular/domain/schemas/consejo_popular.schema';
 
-export class Update_Proyecto_Sociocultural_Comunitario_Dto extends PartialType(Create_Proyecto_Sociocultural_Comunitario_Dto) {
+export class Update_Proyecto_Sociocultural_Comunitario_Dto {
+    @IsNotEmpty()
+    @IsString()
+    id:string;
+
     @IsOptional()
     @ApiProperty({example:'La casa de Pedro Prieto'})
     @IsNotEmpty()

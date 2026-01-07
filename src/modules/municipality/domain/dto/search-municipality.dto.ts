@@ -1,17 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 
 export default class SearchMunicipalityDto {
-  constructor() {
-    this.name = '';
-    this.province = '';
-  }
+  
   @IsString({ message: 'The name of the municipality must be a String' })
   @IsNotEmpty({ message: 'The name of the municipality cannot be empty' })
   @IsOptional()
   name: string;
+
+  @IsOptional()
+  @IsBoolean()
+  exactName: boolean=true;
+  
 
   @ApiProperty({ type: 'ObjectId.Province' })
   @IsMongoId()
@@ -20,4 +22,8 @@ export default class SearchMunicipalityDto {
   @IsNotEmpty({ message: 'The Province ID cannot be empty' })
   @IsOptional()
   province: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isDeleted: boolean=false;
 }
