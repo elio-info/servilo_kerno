@@ -110,11 +110,7 @@ export class MunicipalityController {
   })  
   @Patch()
   @ErrorHandler()
-  update(
-    @Body() updateMunicipalityDto: UpdateMunicipalityDto,@Headers('authorization') hds
-  ) {
-    console.log('control',updateMunicipalityDto);
-    
+  update(  @Body() updateMunicipalityDto: UpdateMunicipalityDto,@Headers('authorization') hds ) {
     return this.service.update( updateMunicipalityDto,hds);
   }
 

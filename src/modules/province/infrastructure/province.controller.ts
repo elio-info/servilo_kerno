@@ -111,10 +111,7 @@ export class ProvinceController {
   })  
   @Patch()
   @ErrorHandler()
-  update(    
-    @Body() updateProvinceDto: UpdateProvinceDto
-    ,@Headers('authorization') hds,
-  ) {
+  update(    @Body() updateProvinceDto: UpdateProvinceDto,@Headers('authorization') hds ) {
     return this.service.update(updateProvinceDto,hds);
   }
 

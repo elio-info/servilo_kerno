@@ -119,8 +119,9 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   }
 
   async update( municipality: UpdateMunicipalityDto,traza:TrazasService ): Promise<Municipality |string> {
-    console.log( 'entrando update ',municipality);
-    
+    // console.log( 'entrando update ',municipality);
+    let bf=await this.findOne(municipality.id);
+
     traza.trazaDTO.filter=municipality;
     traza.trazaDTO.operation='update';
     let crt = await this.cstvldt.validateId_onTable('province',municipality.province);//,IS_NOT_DELETED
@@ -130,7 +131,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
         traza.save()
         return err.toString();  
       }
-    let bf=this.findOne(municipality.id);
+    
     console.log('lo veo antes ',bf);
     console.log('su dto ',municipality);
     traza.trazaDTO.before=bf;  
