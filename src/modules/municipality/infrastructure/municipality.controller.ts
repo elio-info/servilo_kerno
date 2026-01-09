@@ -10,6 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
   Headers,
+  Put,
 } from '@nestjs/common';
 import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
 import { MunicipalityService } from '../application/municipality.service';
@@ -37,6 +38,7 @@ import { SearchQuery } from 'src/modules/search/domain/dto/query.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 import SearchController from 'src/modules/common/abstracts/SearchAbstracts';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { RemoveMunicipalityDto } from '../domain/dto/remove-municipality.dto';
 
 @ApiTags(`municipality`)
 @ApiHeader({
@@ -118,11 +120,13 @@ export class MunicipalityController {
   @ApiNotFoundCustomErrorResponse('Municipality')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The municipality successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @ApiBody({
+    type: RemoveMunicipalityDto,
+  }) 
+  @Put()
   @ErrorHandler()
-  remove(@Param('id') id: string,@Headers('authorization') hds) {
-    return this.service.remove(id,hds);
+  remove(@Body() remo: RemoveMunicipalityDto,@Headers('authorization') hds) {
+    return this.service.remove(remo.id,hds);
   }
 
   //TODO Making Search Endpoint By Query

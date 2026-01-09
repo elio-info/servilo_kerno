@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   Headers,
+  Put,
 } from '@nestjs/common';
 import { ProvinceService } from '../application/province.service';
 import { CreateProvinceDto } from '.././domain/dto/create-province.dto';
@@ -31,6 +32,7 @@ import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-respo
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { RemoveProvinceDto } from '../domain/dto/remove-province.dto';
 
 @ApiTags(`Province`)
 @ApiHeader({
@@ -119,13 +121,15 @@ export class ProvinceController {
   @ApiNotFoundCustomErrorResponse('Province')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The province successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @ApiBody({
+    type: RemoveProvinceDto,
+  })  
+  @Put()
   @ErrorHandler()
-  remove(@Param('id') id: string,@Headers('authorization') hds) {
+  remove(@Body() remo: RemoveProvinceDto,@Headers('authorization') hds) {
     console.log(getUserHTTP_JWTS(hds));
     
-    return this.service.remove(id,hds);
+    return this.service.remove(remo.id,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
