@@ -28,10 +28,11 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     this.traza.trazaDTO.operation='save';
     this.traza.trazaDTO.filter=createProySoccultComDto;
 
-    let crt = await this.cstvldt.validateId_onTable('consejopopular_municipal',createProySoccultComDto.consejopopular_municipality);
+    let crt = await this.cstvldt.validateId_onTable('consejopopular_municipal',createProySoccultComDto.consejopopular_municipality,this.traza);
     console.log('existe '+createProySoccultComDto.consejopopular_municipality+' ?'+crt);
-
-    if (crt>0) { 
+    if (crt.trazaDTO.error!='Ok' )       
+        return crt.trazaDTO.error.toString();  
+     
       try {
         let mnc=await new this.pscc_Model(createProySoccultComDto).save();
         this.traza.trazaDTO.update=JSON.stringify (createProySoccultComDto);
@@ -44,12 +45,7 @@ export class Proyecto_Sociocultural_Comunitario_Service {
         this.traza.save()
         return error.toString();  
       }           
-    } else {
-      let err=new Error('Problema con consejo popular dada '+createProySoccultComDto.consejopopular_municipality)
-        this.traza.trazaDTO.error=err.name+' => '+err.message;
-        this.traza.save()
-        return err.toString();
-      }
+   
   }
 
   async findAll(page = 1, pageSize = 15):Promise<DataList<Proyecto_Socioculturale_Comunitario_Entity>| string> {
