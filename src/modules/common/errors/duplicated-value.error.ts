@@ -21,17 +21,17 @@ export class DuplicatedValueError extends Error {
  * `false`.
  * aqui estoy entrando los datos y verificar que no dupliquen
  */
-export async function SearchDuplicateValue(mod ,att_2_compare,value_2_compare, traza:TrazasService):Promise <TrazasService>{
+export async function SearchDuplicateValue(module,model ,att_2_compare,value_2_compare, traza:TrazasService):Promise <TrazasService>{
   let		qwerty={};
   att_2_compare.map((data,indx)=>{ qwerty[data]=value_2_compare[indx]; console.log('json',qwerty);})
-  let todos= await Promise.all([mod
+  let todos= await Promise.all([model
                               .find(qwerty)
                               .exec()]
                             )
   // console.log('buscar -',todos);  
   if(todos.length>0)  
     { 
-      let err=new DuplicatedValueError(  + ' -> ' + mod.name);
+      let err=new DuplicatedValueError( module);
       traza.trazaDTO.error=err;
       traza.trazaDTO.before='';
       traza.trazaDTO.update='';

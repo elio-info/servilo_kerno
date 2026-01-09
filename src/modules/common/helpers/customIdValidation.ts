@@ -15,8 +15,6 @@ import { ObjectId_NotFound, ObjectNotFound } from '../errors/object-not-found.er
 @Injectable()
 //aqui se valida si el elemento pertenece a la clase que se llama
 export class IsRelationshipProvider implements ValidatorConstraintInterface {
-
-
   constructor(
     @InjectConnection() private readonly connection: Connection) {}
   async validate(value: any, args: ValidationArguments): Promise<boolean> {

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import mongoose, { Connection, Model, Mongoose } from 'mongoose';
+import { Connection, Model } from 'mongoose';
 
 import { DataList } from 'src/modules/common/data-list';
-import { ObjectCanNotDeleted, ObjectId_NotFound, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
+import { ObjectCanNotDeleted, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { MunicipalityRepository } from '../domain/repository/municipality.repository';
 import { MunicipalityDocument, MunicipalityModel } from './municipality.schema';
 import { Municipality } from '../domain/entities/municipality.entity';
@@ -12,10 +12,8 @@ import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import { validateId } from 'src/modules/common/helpers/id-validator';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
-import { table } from 'console';
 import { extractMunicipality } from 'src/modules/common/extractors';
-import { DuplicatedValueError, SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
-import { isNull } from 'util';
+import { SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 
 const MODULE = 'Municipality';
@@ -62,7 +60,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     if (crt_prv.trazaDTO.error !='Ok')       
       return crt_prv.trazaDTO.error.toString();
 
-    let crt_dual=await SearchDuplicateValue(this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
+    let crt_dual=await SearchDuplicateValue(MODULE,this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
 
     if (crt_dual.trazaDTO.error !='Ok')       
       return crt_dual.trazaDTO.error.toString();   
