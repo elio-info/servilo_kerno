@@ -6,7 +6,10 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { error } from 'console';
-import mongoose, { Condition, Connection, Mongoose, ObjectId } from 'mongoose';
+import mongoose, { Condition, Connection, Mongoose, MongooseError, ObjectId } from 'mongoose';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { ObjectDoesNotExist } from 'src/modules/domain/errors/object-doesnt-exist.error';
+import { ObjectId_NotFound, ObjectNotFound } from '../errors/object-not-found.error';
 
 @ValidatorConstraint({ async: true })
 @Injectable()
@@ -32,7 +35,38 @@ export class IsRelationshipProvider implements ValidatorConstraintInterface {
     return `${args.property} field must refer to existing ${args.constraints[0].name} document.`;
   }
 
-  async validateId_onTable(table_name:string, value_condition: string): Promise<number> {
+  async validateId_onTable(table_name:string, value_condition: string,traza:TrazasService): Promise<TrazasService> {
+    let ssn=this.connection.startSession();
+    //let all_condition=value_condition;//uniendo
+    try {
+      console.log(table_name,value_condition);
+      (await ssn).startTransaction()
+      const result = await this.connection.db.collection(table_name)
+        .find({_id: new mongoose.Types.ObjectId( value_condition), isDeleted: false }).limit(100).toArray()
+        // .where(args)
+        // .exec();
+        console.log('validateId_onTable  **************** dentro **************');        
+        console.log(result);
+        console.log('validateId_onTable  ****************** dentro ************');   
+        (await ssn).commitTransaction();
+        (await ssn).endSession();
+        traza.trazaDTO.error= result.length? 'Ok' : new ObjectId_NotFound(table_name,value_condition);
+      return traza;
+    } catch (e) {
+        console.log('validateId_onTable  ************     error  on   ******************');        
+        console.log(e);
+        console.log('validateId_onTable  **********     error  on   ********************');
+      (await ssn).abortTransaction();
+      (await ssn).endSession();
+      traza.trazaDTO.error= e;
+      traza.trazaDTO.before='';
+      traza.trazaDTO.update='';
+      return traza;
+    }
+    
+  }
+
+  async IdeaVieja_validateId_onTable(table_name:string, value_condition: string): Promise<number> {
     let ssn=this.connection.startSession();
     //let all_condition=value_condition;//uniendo
     try {

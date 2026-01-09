@@ -1,4 +1,5 @@
 import { Model } from "mongoose";
+import { TrazasService } from "src/cultura/trazas/trazas.service";
 
 export class DuplicatedValueError extends Error {
   constructor(message: string) {
@@ -18,8 +19,27 @@ export class DuplicatedValueError extends Error {
  * @returns The function `SearchDuplicateValue` is returning a `Promise` that resolves to either a
  * `Document` or a boolean value. In the provided code snippet, the function is currently returning
  * `false`.
+ * aqui estoy entrando los datos y verificar que no dupliquen
  */
-export async function SearchDuplicateValue(mod ,att_2_compare,value_2_compare):Promise <Document[]>{
+export async function SearchDuplicateValue(mod ,att_2_compare,value_2_compare, traza:TrazasService):Promise <TrazasService>{
+  let		qwerty={};
+  att_2_compare.map((data,indx)=>{ qwerty[data]=value_2_compare[indx]; console.log('json',qwerty);})
+  let todos= await Promise.all([mod
+                              .find(qwerty)
+                              .exec()]
+                            )
+  // console.log('buscar -',todos);  
+  if(todos.length>0)  
+    { 
+      let err=new DuplicatedValueError(  + ' -> ' + mod.name);
+      traza.trazaDTO.error=err;
+      traza.trazaDTO.before='';
+      traza.trazaDTO.update='';
+      traza.save();      
+    }
+    return traza;     
+}
+export async function IdeaVieja_SearchDuplicateValue(mod ,att_2_compare,value_2_compare, traza:TrazasService):Promise <TrazasService>{
   let todos= await Promise.all([mod
                               .find({})
                               .exec()]
@@ -27,6 +47,25 @@ export async function SearchDuplicateValue(mod ,att_2_compare,value_2_compare):P
   // console.log('buscar -',todos);  
   return todos[0].filter((data)=> {
       // console.log('buscar - todos ',data,att_2_compare,data[att_2_compare]);
-    return (data[att_2_compare].trim().toLowerCase() ==value_2_compare.trim().toLowerCase());
+    // moverme por los elementos a comparar, al primero me voy
+    let coincidencias=0;
+    att_2_compare.map((att_2_compar,indx) =>{
+      if (data[att_2_compar].trim().toLowerCase() ==value_2_compare[indx].trim().toLowerCase()) {
+        // comparando todo lo que tengo que comparar
+        console.log('att_2_compar',att_2_compar);
+        console.log('value_2_compare',value_2_compare[indx]);      
+        coincidencias++
+      };
+    } )
+    if(coincidencias==att_2_compare.length)  
+    { 
+      let err=new DuplicatedValueError(  + ' -> ' + mod.name);
+      traza.trazaDTO.error=err;
+      traza.trazaDTO.before='';
+      traza.trazaDTO.update='';
+      traza.save();
+      
+    }
+    return traza;     
 })
 }

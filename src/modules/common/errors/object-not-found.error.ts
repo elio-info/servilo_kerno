@@ -7,7 +7,7 @@ export class ObjectId_NotFound extends Error {
   constructor(module_owner: string,module_id: string) {
     super();
     this.name='Objeto no se encuentra';
-    this.message=`${module_owner} no contiene id ${module_id}`;
+    this.message=`${module_owner} no contiene ese elemento ${module_id}`;
   }
 }
 export class ObjectCanNotDeleted extends Error {

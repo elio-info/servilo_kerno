@@ -57,30 +57,16 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   async create(municipality: CreateMunicipalityDto,traza:TrazasService): Promise<Municipality |string> {
     traza.trazaDTO.operation='save';
     traza.trazaDTO.filter=municipality;
+    //existe prov
+    let crt_prv = await this.cstvldt.validateId_onTable('provinces',municipality.province,traza);
+    if (crt_prv.trazaDTO.error !='Ok')       
+      return crt_prv.trazaDTO.error.toString();
 
-    let dup=await SearchDuplicateValue(this.municipalityModel,'name',municipality.name)
+    let crt_dual=await SearchDuplicateValue(this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
 
-    if (dup.length>0) {
-      console.log('aparece fuera true -',dup);
-      let err=new DuplicatedValueError( municipality.name + ' -> ' + MODULE);
-      traza.trazaDTO.error=err;
-      traza.trazaDTO.before='';
-      traza.trazaDTO.update='';
-      traza.save();
-      return err.toString();
-    }
+    if (crt_dual.trazaDTO.error !='Ok')       
+      return crt_dual.trazaDTO.error.toString();   
     
-      console.log('aparece fuera false -',dup);
-      let crt = await this.cstvldt.validateId_onTable('provinces',municipality.province);
-      console.log('existe '+municipality.province+' ?'+crt);
-    
-      if (crt<1){
-        let err=new Error('Problema con provincia dada '+municipality.province)
-          traza.trazaDTO.error=err.name+' => '+err.message;
-          traza.save()
-          return err.toString();
-        }
-       
         try {
           let mnc=await new this.municipalityModel(municipality).save();
           traza.trazaDTO.update=JSON.stringify (municipality);
@@ -112,7 +98,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
       .exec();
 
     if (!municipality) {
-      return (new ObjectId_NotFound(MODULE,id)).toString();
+      return (new ObjectNotFound(MODULE)).toString();
     }
 
     return this.toEntity(municipality);
@@ -124,13 +110,9 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
 
     traza.trazaDTO.filter=municipality;
     traza.trazaDTO.operation='update';
-    let crt = await this.cstvldt.validateId_onTable('province',municipality.province);//,IS_NOT_DELETED
-    if (crt<=0) {
-      let err=new ObjectId_NotFound('Provincia',municipality.province);
-        traza.trazaDTO.error=err;
-        traza.save()
-        return err.toString();  
-      }
+    let crt_mn = await this.cstvldt.validateId_onTable('province',municipality.province,traza);//,IS_NOT_DELETED
+    if (crt_mn.trazaDTO.error!='Ok')       
+        return crt_mn.trazaDTO.error.toString();      
     
     console.log('lo veo antes ',bf);
     console.log('su dto ',municipality);
@@ -157,7 +139,16 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
 
   async remove(id: string , traza:TrazasService ): Promise<Municipality | string> {
     traza.trazaDTO.filter= JSON.stringify ({_id:id}) ;
+      // existes
+    let bf=await this.findOne(id);
     traza.trazaDTO.operation='remove';
+    if ( bf ! instanceof Municipality) {
+       let err=new Error('Problema con eliminacion de municipio ')
+        traza.trazaDTO.error=err;
+        traza.trazaDTO.update='';
+        traza.save()
+        return err.toString();
+    }
     let hijos=await this.cstvldt.validate_onTable('Consejo_Popular_Municipal',{'municipio':id},IS_NOT_DELETED);
     console.log('hijos',hijos);
     if (hijos!=0) { //tienes hijos no te borras  
@@ -166,7 +157,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
       traza.save();
       return error.toString();
     }
-    let bf=await this.findOne(id);
+    
     traza.trazaDTO.before=bf;      
     const munic = await this.municipalityModel.findOneAndUpdate(
       { _id: id, isDeleted: false },
@@ -176,7 +167,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     );
 
     if (!munic) {
-       let err=new Error('Problema con eliminacion de municipio '+  id)
+       let err=new Error('Problema con eliminacion de municipio ')
         traza.trazaDTO.error=err;
         traza.trazaDTO.update='';
         traza.save()
@@ -192,7 +183,9 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   async search(query:SearchMunicipalityDto): Promise<Municipality[] | string> {
     
     let dltd= query.isDeleted? { isDeleted:true} :  { };
-    let buscar= query.exactName ? { name:query.name} :  { name: { $regex:query.name , $options:'i'} };
+    let buscar= query.name? 
+           query.exactName ? { name:query.name} :  { name: { $regex:query.name , $options:'i'} }
+           : {};
     // let prvId= query.province!=''|| query.province!=undefined ? {province:query.province}: {};
     let prvId= !query.province ? {} : {province:query.province};
     let queryS={...prvId,...buscar,...dltd};
