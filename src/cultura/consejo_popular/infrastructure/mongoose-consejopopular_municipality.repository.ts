@@ -58,15 +58,14 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
   async create(cp_municipality: Create_ConsejoPopular_Municipality_Dto,traza:TrazasService): Promise<ConsejoPopular_Municipality_Entity | string> {
     
     traza.trazaDTO.filter=cp_municipality;
-    let prv=await this.cstvldt.validateId_onTable( 'provinces',cp_municipality.province);
-    let mn_prv=await this.cstvldt.validateId_onTable('municipalities',cp_municipality.municipality );
-    if (prv<0 || mn_prv <0) {
-      traza.trazaDTO.update='';
-        traza.trazaDTO.before='';
-        traza.trazaDTO.error='Error en Provincia o municipio';
-        traza.save(); 
-        return 'Error en Provincia o municipio';  
-    }
+    let prv=await this.cstvldt.validateId_onTable( 'provinces',cp_municipality.province,traza);
+    if (prv.trazaDTO.error!='Ok' )       
+        return 'Error en Provincia ';  
+    
+    let mn_prv=await this.cstvldt.validateId_onTable('municipalities',cp_municipality.municipality,traza );
+    if ( mn_prv.trazaDTO.error!='Ok')       
+        return 'Error en Municipio';  
+    
     let cpm=  await new this.consejopopular_municipality_Model(cp_municipality).save();
     
      traza.trazaDTO.update=JSON.stringify (cpm);//cp_municipality
@@ -96,30 +95,17 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
     cp_municipality: Update_ConsejoPopular_Municipality_Dto,
     traza:TrazasService
   ): Promise<ConsejoPopular_Municipality_Entity | string> {
-    let cp_municipality_prv=await this.consejopopular_municipality_Model
-			.findById(cp_municipality.id)
-			.where(IS_NOT_DELETED);
-		
-      console.log(cp_municipality_prv);	
-		if(!cp_municipality_prv){
-			traza.trazaDTO.filter=JSON.stringify(cp_municipality_prv);
-			traza.trazaDTO.before='';
-			traza.trazaDTO.update='';
-			traza.trazaDTO.error=new ObjectId_NotFound(MODULE,cp_municipality.id);
-			traza.save(); 
-			return traza.trazaDTO.error.toString();
-		}
-		let prv=await this.cstvldt.validateId_onTable( 'provinces',cp_municipality.province);
-		let mn_prv=await this.cstvldt.validateId_onTable('municipalities',cp_municipality.municipality );
-		
-		traza.trazaDTO.filter=JSON.stringify(cp_municipality_prv);
-		traza.trazaDTO.before=JSON.stringify(cp_municipality_prv);
-		traza.trazaDTO.update='';
-		if (prv<0 || mn_prv <0) {              
-			traza.trazaDTO.error=new ObjectNotFound('Error en Provincia o municipio');
-			traza.save(); 
-			throw traza.trazaDTO.error.toString();  
-		}
+    traza.trazaDTO.filter=JSON.stringify(cp_municipality);
+    let cp_municipality_prv=await this.cstvldt.validateId_onTable( 'consejopopular_municipal',cp_municipality.id,traza);
+		if (cp_municipality_prv.trazaDTO.error!='Ok' )       
+        return 'Error en Provincia ';  
+    
+		let prv=await this.cstvldt.validateId_onTable( 'provinces',cp_municipality.province,traza );
+    if (prv.trazaDTO.error!='Ok' )       
+        return 'Error en Provincia ';  
+		let mn_prv=await this.cstvldt.validateId_onTable('municipalities',cp_municipality.municipality ,traza);
+		if (mn_prv.trazaDTO.error!='Ok' )       
+        return 'Error en Municipio ';  
 		 
 		const updated = await this.consejopopular_municipality_Model.findOneAndUpdate(
 		  { _id: cp_municipality.id, ...IS_NOT_DELETED },

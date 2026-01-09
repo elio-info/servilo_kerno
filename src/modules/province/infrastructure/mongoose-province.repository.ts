@@ -148,14 +148,10 @@ export class MongooseProvinceRepository implements ProvinceRepository {
 /* si existes */
     let dco_find=null;
     let upd=null;
-    try {
-      dco_find=await this.cstvldt.validateId_onTable('provinces',id);
-      console.log('prov exis', dco_find); 
-    } catch (error) {
-      let pp=new ObjectId_NotFound(MODULE,id);
-      traza.trazaDTO.error=pp;      
-      traza.save();
-      return pp.toString();
+    
+      dco_find=await this.cstvldt.validateId_onTable('provinces',id,traza);
+    if (dco_find.trazaDTO.error!='Ok') {      
+      return dco_find.trazaDTO.error.toString();
     }      
 //Id_OnTable buscar por hijos
     let mnc= await this.cstvldt.validate_onTable('municipalities',{'province':id},this.whereQuery)// si esta en BD 
