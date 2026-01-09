@@ -7,9 +7,12 @@ import { MunicipalityModel } from 'src/modules/municipality/infrastructure/munic
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 
 export class Update_ConsejoPopular_Municipality_Dto extends PartialType(Create_ConsejoPopular_Municipality_Dto) {
-    
-    @IsOptional()
-    @IsString({ message: 'The name of the consejo popular must be a String' })
+  @IsString({ message: 'The id of the consejo popular must be a String' })
+  @IsNotEmpty({ message: 'The id of the consejo popular cannot be empty' })
+  id: string;
+  
+  @IsOptional()
+  @IsString({ message: 'The name of the consejo popular must be a String' })
   @IsNotEmpty({ message: 'The name of the consejo popular cannot be empty' })
   @MinLength(3)
   name: string;

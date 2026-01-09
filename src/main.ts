@@ -11,6 +11,7 @@ import { useContainer } from 'class-validator';
 import { SanitizePipe } from './modules/common/pipes/Sanitize.pipe';
 import { GlobalInterceptor } from './modules/common/interceptors/Global.interceptor';
 import { AllExceptionFilter } from './filters/all-exception.filter';
+import { filter } from 'rxjs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,10 +21,19 @@ async function bootstrap() {
   // fin de crear ruta
   const configService = app.get(ConfigService);
 
-  app.enableCors();
+  // Configurar CORS para permitir peticiones desde cualquier origen
+  app.enableCors({
+    origin: true, // Permite cualquier origen
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    exposedHeaders: ['Authorization'],
+  });
 
    if (configService.get<string>('NODE_ENV') !== 'local') {}////
   app.useGlobalGuards(app.get(JwtAuthGuard), app.get(RolesGuard));
+
+ // app.useGlobalInterceptors(new GlobalInterceptor());//agregar interceptos para saber quien esta
    
   app.useGlobalPipes(
     new ValidationPipe({
@@ -53,7 +63,12 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  let quizas={customSiteTitle:`My ${configService.get<string>('NODE_ENV')} Cultura API Documentation`}
+  let quizas={
+      customSiteTitle:`My ${configService.get<string>('NODE_ENV')} Cultura API Documentation`
+      , swaggerOptions:{
+          filter: true
+      }
+    }
 
   SwaggerModule.setup('api/docs', app, document,quizas);
 

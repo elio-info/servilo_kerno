@@ -1,125 +1,199 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
+import { Connection, Model } from 'mongoose';
 
 import { DataList } from 'src/modules/common/data-list';
-import { ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
+import { ObjectCanNotDeleted, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { MunicipalityRepository } from '../domain/repository/municipality.repository';
 import { MunicipalityDocument, MunicipalityModel } from './municipality.schema';
 import { Municipality } from '../domain/entities/municipality.entity';
 import { CreateMunicipalityDto } from '../domain/dto/create-municipality.dto';
 import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import { validateId } from 'src/modules/common/helpers/id-validator';
-import { ProvinceService } from 'src/modules/province/application/province.service';
-import { ProvinceRepository } from 'src/modules/province/domain/repository/province.repository';
-import { MongooseProvinceRepository } from 'src/modules/province/infrastructure/mongoose-province.repository';
-import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
-import { ProgramaSocial_Controller } from 'src/cultura/programas/prog_socl/infrastructure/prog_socl.controller';
-import { ProgramaSocial_Service } from 'src/cultura/programas/prog_socl/infrastructure/prog_socl.service';
+import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { extractMunicipality } from 'src/modules/common/extractors';
+import { SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
+import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 
 const MODULE = 'Municipality';
 const IS_NOT_DELETED = { isDeleted: false };
 
 @Injectable()
 export class MongooseMunicipalityRepository implements MunicipalityRepository {
+    private cstvldt: IsRelationshipProvider 
+  
   constructor(
     @InjectModel(MunicipalityModel.name)
     private municipalityModel: Model<MunicipalityModel>,
-  ) {}
+    @InjectConnection() private cnn: Connection,
+  ) { this.cstvldt= new IsRelationshipProvider(this.cnn)}
 
-  async findAll(
-    page: number,
-    pageSize: number,
-  ): Promise<DataList<Municipality>> {
+  async findAll( page: number, pageSize: number,): Promise<DataList<Municipality> |string> {
     const skipCount = (page - 1) * pageSize;
 
-    const [municipalities, count] = await Promise.all([
-      this.municipalityModel
+    const municipalities = await this.municipalityModel
         .find(IS_NOT_DELETED)
         .skip(skipCount)
         .limit(pageSize)
-        .populate('province')
-        .exec(),
-      this.municipalityModel.countDocuments(IS_NOT_DELETED).exec(),
-    ]);
-
+       .populate('province')
+        .exec();
+    // console.log(municipalities);
+    
     const municipalityCollection = municipalities.map((municipality) =>
       this.toEntity(municipality),
     );
 
     const dataList: DataList<Municipality> = {
       data: municipalityCollection,
-      totalPages: Math.ceil(count / pageSize),
+      totalPages: Math.ceil(municipalityCollection.length / pageSize),
       currentPage: page,
     };
     return dataList;
   }
 
-  async create(municipality: CreateMunicipalityDto): Promise<void> {
-    console.log(municipality.province)
-    // let mp= new ProgramaSocial_Service(new ProvinceModel()).findById(municipality.province)
-    // console.log(mp)//
-    //let pr=new ProvinceService(@Inject(MongooseProvinceRepository)).
-    // validateId(pr, 'province');
-   // await new this.municipalityModel(municipality).save();
+  async create(municipality: CreateMunicipalityDto,traza:TrazasService): Promise<Municipality |string> {
+    traza.trazaDTO.operation='save';
+    traza.trazaDTO.filter=municipality;
+    //existe prov
+    let crt_prv = await this.cstvldt.validateId_onTable('provinces',municipality.province,traza);
+    if (crt_prv.trazaDTO.error !='Ok')       
+      return crt_prv.trazaDTO.error.toString();
+
+    let crt_dual=await SearchDuplicateValue(MODULE,this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
+
+    if (crt_dual.trazaDTO.error !='Ok')       
+      return crt_dual.trazaDTO.error.toString();   
+    
+        try {
+          let mnc=await new this.municipalityModel(municipality).save();
+          traza.trazaDTO.update=JSON.stringify (municipality);
+          traza.trazaDTO.before=''
+          traza.trazaDTO.error='Ok';
+          traza.save();   
+          let buscar=new SearchMunicipalityDto();
+          buscar.name=municipality.name;
+          let ids=mnc._id.toString();
+          return await this.findOne(ids);                          
+        } 
+        catch (error) {
+          console.log('error salva',error);          
+        let err=new Error('Problema al crear el municipio '+municipality)
+          traza.trazaDTO.error=err.name+' => '+err.message;
+          traza.save()
+          return err.toString();  
+        }         
+      
   }
 
-  async findOne(id: string): Promise<Municipality> {
+  async findOne(id: string): Promise<Municipality |string> {
     validateId(id, MODULE);
 
     const municipality = await this.municipalityModel
       .findById(id)
       .where(IS_NOT_DELETED)
-      .populate('province');
+      .populate('province')
+      .exec();
 
     if (!municipality) {
-      throw new ObjectNotFound(MODULE);
+      return (new ObjectNotFound(MODULE)).toString();
     }
 
     return this.toEntity(municipality);
   }
 
-  async update(
-    id: string,
-    municipality: UpdateMunicipalityDto,
-  ): Promise<Municipality> {
-    validateId(id), MODULE;
-    if (municipality.province) {
-      validateId(municipality.province, 'province');
-    }
+  async update( municipality: UpdateMunicipalityDto,traza:TrazasService ): Promise<Municipality |string> {
+    // console.log( 'entrando update ',municipality);
+    let bf=await this.findOne(municipality.id);
 
-    const updated = await this.municipalityModel.findOneAndUpdate(
-      { _id: id, ...IS_NOT_DELETED },
+    traza.trazaDTO.filter=municipality;
+    traza.trazaDTO.operation='update';
+    let crt_mn = await this.cstvldt.validateId_onTable('province',municipality.province,traza);//,IS_NOT_DELETED
+    if (crt_mn.trazaDTO.error!='Ok')       
+        return crt_mn.trazaDTO.error.toString();      
+    
+    console.log('lo veo antes ',bf);
+    console.log('su dto ',municipality);
+    traza.trazaDTO.before=bf;  
+    const updated = await this.municipalityModel.findByIdAndUpdate(
+      { _id: municipality.id, ...IS_NOT_DELETED },
       municipality,
       { new: true, populate: 'province' },
     );
-
+  console.log('lo veo despues ',updated);
+      
     if (!updated) {
-      throw new ObjectNotFound(MODULE);
+      let err=new Error('Problema con actualizacion de municipio '+municipality)
+        traza.trazaDTO.error=err.name+' => '+err.message;
+        traza.trazaDTO.update='';
+        traza.save()
+        return err.toString();
     }
-
+    traza.trazaDTO.update=updated;    
+    traza.trazaDTO.error='Ok';
+    traza.save()
     return this.toEntity(updated);
   }
 
-  async remove(id: string): Promise<void> {
-    validateId(id, MODULE);
-
-    const document = await this.municipalityModel.findOneAndUpdate(
+  async remove(id: string , traza:TrazasService ): Promise<Municipality | string> {
+    traza.trazaDTO.filter= JSON.stringify ({_id:id}) ;
+      // existes
+    let bf=await this.findOne(id);
+    traza.trazaDTO.operation='remove';
+    if ( bf ! instanceof Municipality) {
+       let err=new Error('Problema con eliminacion de municipio ')
+        traza.trazaDTO.error=err;
+        traza.trazaDTO.update='';
+        traza.save()
+        return err.toString();
+    }
+    let hijos=await this.cstvldt.validate_onTable('Consejo_Popular_Municipal',{'municipio':id},IS_NOT_DELETED);
+    console.log('hijos',hijos);
+    if (hijos!=0) { //tienes hijos no te borras  
+      let error=new ObjectCanNotDeleted (MODULE,id,hijos );
+      traza.trazaDTO.error= error ;
+      traza.save();
+      return error.toString();
+    }
+    
+    traza.trazaDTO.before=bf;      
+    const munic = await this.municipalityModel.findOneAndUpdate(
       { _id: id, isDeleted: false },
       {
         isDeleted: true,
       },
     );
 
-    if (!document) {
-      throw new ObjectNotFound();
+    if (!munic) {
+       let err=new Error('Problema con eliminacion de municipio ')
+        traza.trazaDTO.error=err;
+        traza.trazaDTO.update='';
+        traza.save()
+        return err.toString();
     }
+
+    traza.trazaDTO.update=munic;    
+    traza.trazaDTO.error='Ok';
+    traza.save()
+    return this.toEntity(munic);
   }
 
-  async search(query) {
+  async search(query:SearchMunicipalityDto): Promise<Municipality[] | string> {
+    
+    let dltd= query.isDeleted? { isDeleted:true} :  { };
+    let buscar= query.name? 
+           query.exactName ? { name:query.name} :  { name: { $regex:query.name , $options:'i'} }
+           : {};
+    // let prvId= query.province!=''|| query.province!=undefined ? {province:query.province}: {};
+    let prvId= !query.province ? {} : {province:query.province};
+    let queryS={...prvId,...buscar,...dltd};
+    console.log('consl-', queryS);
     const municipalities = await this.municipalityModel
-      .find(query)
-      .populate('province');
+      .find().where(queryS)
+      .populate('province')
+      .exec();
+    console.log('busq', municipalities);
+    
     const municipalityCollection = municipalities.map((municipality) =>
       this.toEntity(municipality),
     );
@@ -127,18 +201,20 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   }
 
   private toEntity(municipality: MunicipalityDocument): Municipality {
-    return {
+    return extractMunicipality(municipality)
+    /*{
       id: municipality._id.toString(),
       name: municipality.name,
+      isDeleted:municipality.isDeleted,
       updatedAt: municipality.updatedAt,
       createdAt: municipality.createdAt,
-      province: {
-        id: municipality.province._id.toString(),
+      province: municipality.province /* {
+        _id: municipality.province._id,
         name: municipality.province.name,
         isDeleted:municipality.province.isDeleted,
         updatedAt: municipality.province.updatedAt,
         createdAt: municipality.province.createdAt,
       },
-    };
+    };*/
   }
 }

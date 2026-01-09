@@ -6,7 +6,7 @@ import { MunicipalityModel } from 'src/modules/municipality/infrastructure/munic
 
 export type ConsejoPopular_Municipality_Document = HydratedDocument<ConsejoPopular_Municipality_Model>;
 
-@Schema({ timestamps: true, collection: 'Consejo_Popular_Municipal' })
+@Schema({ timestamps: true, collection: 'consejopopular_municipal' })
 export class ConsejoPopular_Municipality_Model {
   _id: Types.ObjectId;
 
@@ -22,11 +22,11 @@ export class ConsejoPopular_Municipality_Model {
   @Prop()
   updatedAt: Date;
 @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
- // @Type(() => MunicipalityModel)
+ @Type(() => MunicipalityModel)
   municipality:string // ProvinceModel;
 
   @Prop({ type: Types.ObjectId, ref: ProvinceModel.name })
- // @Type(() => ProvinceModel)
+ @Type(() => ProvinceModel)
   province:string // ProvinceModel;
 }
 

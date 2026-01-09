@@ -4,6 +4,7 @@ import { ApiTags,ApiBearerAuth,ApiHeader } from '@nestjs/swagger';
 import { Query as ExpressQuery } from 'express-serve-static-core';
 import { Create_ProgramaSocial_Dto } from '../dto/create-prog_socl.dto';
 import { Update_ProgramaSocial_Dto } from '../dto/update-prog_socl.dto';
+import { log } from 'console';
 
 @Controller('prog-social')
 @ApiHeader({
@@ -34,8 +35,9 @@ export class ProgramaSocial_Controller {
 
   @Get('/find/:name')
   findByName(@Param('name') name: string) {
-    console.log(name)
-    return this.ProgramaSocialService.findFirstName(name);
+    console.log(name);
+    return this.ProgramaSocialService.findFirstName(name);    
+     
   }
 
   @Patch(':id')

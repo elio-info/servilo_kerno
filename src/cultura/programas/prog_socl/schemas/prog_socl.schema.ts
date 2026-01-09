@@ -8,8 +8,9 @@ import { Document, Types } from "mongoose";
     collection:'ProgramaSocial'
 })
 export class ProgramaSocial {
+    @Prop()
     _id: Types.ObjectId;
-    
+
     @ApiProperty({
         type:String,
         description:'Nombre del Nomenclador. '
@@ -20,14 +21,14 @@ export class ProgramaSocial {
     })
     nombre_programasocial :string
 
-    @ApiProperty({
-        type:Boolean,
-        description:'Si: priorizado.	No: provincial',default:true
-    })
-    @Prop({
-        default:true
-    })
-    priorizado:boolean
+    // @ApiProperty({
+    //     type:Boolean,
+    //     description:'Si: priorizado.	No: provincial',default:true
+    // })
+    // @Prop({
+    //     default:true
+    // })
+    // priorizado:boolean
 
     @Prop({ default: Date.now })
     createdAt: Date;

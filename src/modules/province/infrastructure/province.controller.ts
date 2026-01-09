@@ -7,7 +7,8 @@ import {
   Param,
   Delete,
   Query,
-  UsePipes,
+  Headers,
+  Put,
 } from '@nestjs/common';
 import { ProvinceService } from '../application/province.service';
 import { CreateProvinceDto } from '.././domain/dto/create-province.dto';
@@ -19,24 +20,27 @@ import {
   ApiCreatedResponse,
   ApiHeader,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { ApiUnauthorizedCustomErrorResponse } from 'src/modules/common/doc/api-unauthorized-custom-error-response.decorator';
 import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-custom-error-response.decorator';
-import { Province } from '../domain/entities/province.entity';
+import { ProvinceEntity } from '../domain/entities/province.entity';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
-import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { RemoveProvinceDto } from '../domain/dto/remove-province.dto';
 
-@ApiTags(`province`)
+@ApiTags(`Province`)
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
+// @UseInterceptors(GlobalInterceptor)
 @Controller('province')
 export class ProvinceController {
   constructor(private readonly service: ProvinceService) {}
@@ -50,38 +54,42 @@ export class ProvinceController {
     description: 'Returns 201 when province is successfully created',
   })
   @ApiCustomErrorResponse()
+  @ApiOperation({ summary:'Crear provincia'})
   @Post()
   @ErrorHandler()
-  create(@Body() createProvinceDto: CreateProvinceDto) {
-    return this.service.create(createProvinceDto);
+  create(@Body() createProvinceDto: CreateProvinceDto,@Headers('authorization') hds) {
+    let hds_uss= getUserHTTP_JWTS(hds);
+    // console.log(hds_uss);       
+    return this.service.create(createProvinceDto,hds);
   }
 
   @ApiQuery({
     name: 'page',
     description: 'The current page. 1 by default',
     type: 'number',
-    required: false,
+    required: false,    
   })
   @ApiQuery({
     name: 'pageSize',
     description: 'The amount of items in the current page. 15 by default',
     type: 'number',
     required: false,
+    
   })
-  @ApiPaginatedResponse(Province)
+  @ApiPaginatedResponse(ProvinceEntity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
+  @ApiOperation({ summary:'Recuperar todas las provincias'})
   @Get()
   @ErrorHandler()
   findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
-    console.log('all');
-    
+    // console.log('all',page,pageSize);    
     return this.service.findAll(page, pageSize);
   }
 
   @ApiOkResponse({
     description: 'The province object',
-    type: Province,
+    type: ProvinceEntity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
@@ -95,54 +103,47 @@ export class ProvinceController {
 
   @ApiOkResponse({
     description: 'The updated Province Object',
-    type: Province,
+    type: ProvinceEntity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Province')
   @ApiBody({
-    type: CreateProvinceDto,
-  })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+    type: UpdateProvinceDto,
+  })  
+  @Patch()
   @ErrorHandler()
-  update(
-    @Param('id') id: string,
-    @Body() updateProvinceDto: UpdateProvinceDto,
-  ) {
-    return this.service.update(id, updateProvinceDto);
+  update(    @Body() updateProvinceDto: UpdateProvinceDto,@Headers('authorization') hds ) {
+    return this.service.update(updateProvinceDto,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Province')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The province successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @ApiBody({
+    type: RemoveProvinceDto,
+  })  
+  @Put()
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.service.remove(id);
+  remove(@Body() remo: RemoveProvinceDto,@Headers('authorization') hds) {
+    console.log(getUserHTTP_JWTS(hds));
+    
+    return this.service.remove(remo.id,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiNotFoundCustomErrorResponse('Province')
-  @ApiQuery({
-    name: 'key',
-    description: 'The key name for the search',
-    type: 'string',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'value',
-    description: 'The value for the search',
-    type: 'string',
-    required: false,
-  })
+  @ApiNotFoundCustomErrorResponse('Province')  
+  @ApiBody({
+    description: 'se buca a partir de : nombre de provincia, si buscas el nombre completo, si buscas borrados o no',
+    type: SearchProvinceDto,
+  })  
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchProvinceDto))
-  @Get('api/search')
+  // @UsePipes(new SearchValidate(SearchProvinceDto))
+  @Post('search')
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query:SearchProvinceDto ) {
+    console.log(query);    
     return this.service.search(query);
   }
 }

@@ -8,7 +8,11 @@ import { ProvinceModel } from 'src/modules/province/infrastructure/province.sche
 import { Telefonos_Type_Dto } from 'src/cultura/codificadores-cult/infrastructure/telefonos.dto';
 import { ConsejoPopular_Municipality_Model } from '../../consejo_popular/domain/schemas/consejo_popular.schema';
 
-export class Update_Proyecto_Sociocultural_Comunitario_Dto extends PartialType(Create_Proyecto_Sociocultural_Comunitario_Dto) {
+export class Update_Proyecto_Sociocultural_Comunitario_Dto {
+    @IsNotEmpty()
+    @IsString()
+    id:string;
+
     @IsOptional()
     @ApiProperty({example:'La casa de Pedro Prieto'})
     @IsNotEmpty()
@@ -34,15 +38,38 @@ export class Update_Proyecto_Sociocultural_Comunitario_Dto extends PartialType(C
     @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
     municipio:string
 
-    @IsOptional()
-    @ApiProperty({example:'La casa de Pedro Prieto'})
-    @IsString()
+    @ApiProperty({example:'Calle #11 entre #8 y San Ignacio'})
+    @IsString({ message: 'Mas de 3 letras' })
     @MinLength(3)
-    responsable:string
+    direccion:string
 
-    @IsOptional()
+    @ApiProperty({example:'Pedro Prieto'})
+    @IsString({ message: 'Mas de 3 letras' })
+    @MinLength(3)
+    gestor:string
+
     @ApiProperty({
-        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`       
+        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`
     })
+    @IsOptional()
+    @IsString()
     telefonos:string
+    
+    @ApiProperty({example:'Se pone que actividades se realizan en el '})
+    @IsOptional()
+    @IsString({ message: 'Mas de 3 letras' })
+    @MinLength(3)
+    actividades:string
+
+    @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
+    @IsOptional()
+    @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
+    @MinLength(3)
+    aprobado:string
+
+    @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
+    @IsOptional()
+    @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
+    @MinLength(3)
+    cancelado:string
 }

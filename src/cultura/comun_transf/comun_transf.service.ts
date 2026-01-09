@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Update_Comunidad_Transformacion_Dto } from './dto/update_comun_transf.dto';
+import { Update_Comunidad_Transformacion_Dto } from './dto/update-comun_transf.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Comunidad_Transformacion_Document, Comunidad_Transformacion_Model } from './schemas/comun_transf.schema';
 import { Model } from 'mongoose';

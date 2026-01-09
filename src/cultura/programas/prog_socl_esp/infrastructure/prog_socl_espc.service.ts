@@ -11,26 +11,25 @@ export class ProgramaSocial_Especial_Service {
   constructor(
     @InjectModel( ProgramaSocial_Especial.name) private readonly ps_Espec_Model: Model < ProgramaSocial_Especial_Document>,
   ){ }
-
-  async create(create_ps_Espec_Dto: Create_ProgramaSocial_Especial_Dto) :Promise <void>{
-    console.log('salio esto'+Types.ObjectId.isValid(create_ps_Espec_Dto.prog_socl))
-    /*
-    let nomb=create_NomenCategContratManif_Espec_Dto.nombre_categoria_manifestacion_especialidad
-    console.log(' estoy en creat '+ nomb)
-    let dep= await this.findFirstName(nomb)
-    console.log(' estoy encontrando '+nomb+' en create '+ dep)
-    if ( dep!=null
-    )
-     { return {
-        message:' estoy en create '+'ya existe '+dep.createdAt
-      }}
+// :Promise <void>
+  async create(create_ps_Espec_Dto: Create_ProgramaSocial_Especial_Dto) {
+    console.log('salio esto'+Types.ObjectId.isValid(create_ps_Espec_Dto.prog_socl._id))
+    /**/
+    let nomb=create_ps_Espec_Dto.nombre_programasocial_especial;
+    console.log(' estoy en creat '+ nomb);
+    let dep= await this.findFirstName(nomb);
+    
+    if ( dep!=null )
+     { console.log(' estoy encontrando '+nomb+' en create '+ dep.createdAt);
+      return {    message:'ya existe '+dep.createdAt }
+    }
      else         
-   { console.log(' estoy en create '+'no existe '+nomb)
-   return  
-    }  
-      */  this.ps_Espec_Model.create(
+   { 
+    console.log(' estoy en create '+'no existe '+nomb)
+      return this.ps_Espec_Model.create(
       create_ps_Espec_Dto
       );
+    } 
   }
 
  async findAll() {

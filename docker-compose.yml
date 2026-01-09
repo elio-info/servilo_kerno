@@ -1,12 +1,42 @@
-version: "3.9"
-
 services:
-  mongo:
-    image: mongo:latest
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
-    volumes:
-      - ./db:/db/
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: production
+    container_name: servilo_kerno
+    restart: unless-stopped
+    # Variables de entorno: se cargan desde el archivo .env en la raíz del proyecto
+    env_file:
+      - .env
     ports:
-      - 27017:27017
+      - "${PORT:-3300}:3300"
+    networks:
+      - servilo_kerno_network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/cult/app/hell', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Volúmenes
+    volumes:
+      # Logs (opcional)
+      - ./logs:/app/logs
+      # Certificados JWT: monta la carpeta cert/ del host al contenedor
+      # Coloca tus archivos key.pem y public.pem en ./cert/ en tu máquina
+      # El volumen monta ./cert (host) -> /app/cert (contenedor)
+      - ./cert:/app/cert:ro
+    # Límites de recursos (opcional)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+networks:
+  servilo_kerno_network:
+    driver: bridge

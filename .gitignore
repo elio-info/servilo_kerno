@@ -36,3 +36,7 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 node_modules
+
+# mio
+package-lock.json
+.env

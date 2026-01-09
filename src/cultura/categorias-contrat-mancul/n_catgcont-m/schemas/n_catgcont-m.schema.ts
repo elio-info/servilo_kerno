@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
-import { Document, Types } from "mongoose";
+import { Document, HydratedDocument, Types } from "mongoose";
 
 @Schema({
     timestamps:true,
@@ -39,5 +39,4 @@ export class Nomencla_Categorias_ContratacionManifestacion {
 export const Nomencla_Categorias_ContratacionManifestacion_Schema=
 SchemaFactory.createForClass(Nomencla_Categorias_ContratacionManifestacion)
 
-export type Nomencla_Categorias_ContratacionManifestacion_Document =
-Nomencla_Categorias_ContratacionManifestacion & Document
+export type Nomencla_Categorias_ContratacionManifestacion_Document = HydratedDocument<Nomencla_Categorias_ContratacionManifestacion>

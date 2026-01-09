@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 export type ProvinceDocument = HydratedDocument<ProvinceModel>;
 
@@ -11,8 +12,8 @@ export class ProvinceModel {
   name: string;
 
   @Prop({ default: false, select: false })
-  isDeleted: boolean;
-
+  isDeleted: boolean; 
+  
   @Prop()
   createdAt: Date;
 
@@ -21,3 +22,4 @@ export class ProvinceModel {
 }
 
 export const ProvinceSchema = SchemaFactory.createForClass(ProvinceModel);
+//ProvinceSchema.plugin(TrazasService)

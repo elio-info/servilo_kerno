@@ -1,7 +1,7 @@
 import { DuplicatedValueError } from '../duplicated-value.error';
 
 export const DuplicationErrorHandler = (): MethodDecorator => {
-  return (target, propertyName: string, descriptor: PropertyDescriptor) => {
+  return (target: Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) => {
     const originalMethod = descriptor.value;
     descriptor.value = async function errorHandler(...args) {
       try {

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { ObjectId } from 'mongodb';
-import { IsMongoId, IsNotEmpty, IsString } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 
@@ -14,6 +14,7 @@ export class CreateMunicipalityDto {
   })
   @IsString({ message: 'The name of the municipality must be a String' })
   @IsNotEmpty({ message: 'The name of the municipality cannot be empty' })
+  @MinLength(3)
   name: string;
 
   @ApiProperty({ type: 'ObjectId.Province',
@@ -24,4 +25,5 @@ export class CreateMunicipalityDto {
   @IsRelationShipWith(ProvinceModel)
   @IsNotEmpty({ message: 'The Province ID cannot be empty' })
   province: string;
+  
 }

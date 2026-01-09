@@ -21,6 +21,10 @@ import { SanitizePipe } from './modules/common/pipes/Sanitize.pipe';
 import { CulturaModule } from './cultura/cultura.module';
 import { Control_ActividadCultural_Module } from './cultura/control_actcult/control_actcult.module';
 import { AppController } from './app.controller';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { GlobalInterceptor } from './modules/common/interceptors/Global.interceptor';
+import { TrazasService } from './cultura/trazas/trazas.service';
+import { TrazasModule } from './cultura/trazas/trazas.module';
 
  
 @Module({
@@ -41,9 +45,12 @@ import { AppController } from './app.controller';
     }),
     AuthZModule,
     AuthModule,
-    ErrorModule,
+    // mio modulos ----------------
+    TrazasModule,
+    // fin mio modulos ----------------
+    ErrorModule,MunicipalityModule,
     ProvinceModule,
-    MunicipalityModule,
+    
     PlaceModule,
     PersonModule,
     ChargeModule,
@@ -55,6 +62,7 @@ import { AppController } from './app.controller';
     CulturaModule,
     Control_ActividadCultural_Module,
     
+    
   ],
   providers: [
     AllExceptionFilter,
@@ -62,6 +70,14 @@ import { AppController } from './app.controller';
     ValidationExceptionFilter,
     IsRelationshipProvider,
     SanitizePipe,
+    /*
+    { //agregando interceptores
+      provide: APP_INTERCEPTOR,
+      useClass: GlobalInterceptor,
+    }
+      */
+     //mio
+     TrazasService,
   ],
   controllers:[
     AppController

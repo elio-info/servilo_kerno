@@ -8,41 +8,49 @@ import { CreateMunicipalityDto } from '../domain/dto/create-municipality.dto';
 import { Municipality } from '../domain/entities/municipality.entity';
 import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { privateDecrypt } from 'crypto';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 @Injectable()
 export class MunicipalityService {
   constructor(
     @Inject(MongooseMunicipalityRepository)
     private repository: MunicipalityRepository,
-  ) {}
+    @Inject(TrazasService) private traza:TrazasService
+  ) { traza.trazaDTO.collection='Municipality'}
 
-  create(createMunicipalityDto: CreateMunicipalityDto): Promise<void> {
-    return this.repository.create(createMunicipalityDto);
+  create(createMunicipalityDto: CreateMunicipalityDto,tkhds:string): Promise<Municipality |string> {
+        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds); 
+    return this.repository.create(createMunicipalityDto,this.traza);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Municipality>> {
-    if (page <= 0 || pageSize <= 0) {
-      throw new InvalidPaginationError();
-    }
+  findAll(page = 1, pageSize = 15): Promise<DataList<Municipality> |string> {
+    page= ( isNaN(page) || page<= 0)? 1: page;
+    console.log('page',page);
+    
+    pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
+    console.log('pagesz',pageSize);
     return this.repository.findAll(page, pageSize);
   }
 
-  findOne(id: string): Promise<Municipality> {
+  findOne(id: string): Promise<Municipality |string> {
     return this.repository.findOne(id);
   }
 
-  update(
-    id: string,
-    updateMunicipalityDto: UpdateMunicipalityDto,
-  ): Promise<Municipality> {
-    return this.repository.update(id, updateMunicipalityDto);
+  update( updateMunicipalityDto: UpdateMunicipalityDto, tkhds:string ): Promise<Municipality | string> {
+        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);  
+        this.traza.trazaDTO.operation='update';this.traza.trazaDTO.error='Ok' ;  
+    return this.repository.update( updateMunicipalityDto,this.traza);
   }
 
-  remove(id: string): Promise<void> {
-    return this.repository.remove(id);
+  remove(id: string,tkhds:string): Promise<Municipality | string> {
+        this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);   
+        this.traza.trazaDTO.operation='remove';this.traza.trazaDTO.error='Ok' ; 
+    return this.repository.remove(id,this.traza);
   }
 
-  search(query: SearchMunicipalityDto): Promise<Municipality[]> {
+  search(query: SearchMunicipalityDto): Promise<Municipality[] | string> {
     return this.repository.search(query);
   }
 }

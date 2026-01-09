@@ -3,19 +3,20 @@ import { ErrorMapperService } from './error-mapper.service';
 
 export const ErrorHandler = (): MethodDecorator => {
   const injectYourService = Inject(ErrorMapperService);
-  return (target, propertyName: string, descriptor: PropertyDescriptor) => {
+  return (target : Object, propertyKey: string | symbol, descriptor: PropertyDescriptor) => {
     injectYourService(target, 'mapper');
     const originalMethod = descriptor.value;
     descriptor.value = {
-      [propertyName]: async function (...args) {
+      [propertyKey]: async function (...args) {
         try {
           const result = originalMethod.apply(this, args);
           return result instanceof Promise ? await result : result;
         } catch (error) {
-          throw this.mapper.map(error);
+          // throw this.mapper.map(error);
+          throw error;
         }
       },
-    }[propertyName];
+    }[propertyKey as string];
 
     return descriptor;
   };

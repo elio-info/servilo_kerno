@@ -11,26 +11,26 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
   constructor(
     @InjectModel( Nomencla_Categorias_ContratacionManifestacion_Especialidad.name) private readonly nomencla_categ_ContrataManif_Espec_Model: Model < Nomencla_Categorias_ContratacionManifestacion_Especialidad_Document>,
   ){ }
-
-  async create(create_NomenCategContratManif_Espec_Dto: Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto) :Promise <void>{
+// :Promise <Nomencla_Categorias_ContratacionManifestacion_Especialidad>
+  async create(create_NomenCategContratManif_Espec_Dto: Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto) {
     console.log('salio esto'+Types.ObjectId.isValid(create_NomenCategContratManif_Espec_Dto.ID_categoria_manifestacion))
-    /*
+    /**/
     let nomb=create_NomenCategContratManif_Espec_Dto.nombre_categoria_manifestacion_especialidad
     console.log(' estoy en creat '+ nomb)
     let dep= await this.findFirstName(nomb)
-    console.log(' estoy encontrando '+nomb+' en create '+ dep)
+    
     if ( dep!=null
     )
-     { return {
+     { console.log(' estoy encontrando '+nomb+' en create '+ dep)
+      return {
         message:' estoy en create '+'ya existe '+dep.createdAt
       }}
      else         
    { console.log(' estoy en create '+'no existe '+nomb)
-   return  
-    }  
-      */  this.nomencla_categ_ContrataManif_Espec_Model.create(
+   return this.nomencla_categ_ContrataManif_Espec_Model.create(
       create_NomenCategContratManif_Espec_Dto
-      );
+      );    
+        } 
   }
 
  async findAll() {

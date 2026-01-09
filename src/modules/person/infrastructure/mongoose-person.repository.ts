@@ -65,8 +65,11 @@ export class MongoosePersonRepository implements PersonRepository {
     validateId(person.municipality, 'municipality');
     try {
       await new this.personModel(person).save();
-    } catch (e) {
-      throw new DuplicatedValueError(e.message);
+    } catch (error) {
+       if (error instanceof Error)
+          throw new DuplicatedValueError(error.message);
+
+        throw error;
     }
   }
 
@@ -108,7 +111,10 @@ export class MongoosePersonRepository implements PersonRepository {
 
       return this.toEntity(document);
     } catch (e) {
-      throw new DuplicatedValueError(e.message);
+       if (e instanceof Error)
+          throw new DuplicatedValueError(e.message);
+        
+        throw e;
     }
   }
 
@@ -130,7 +136,7 @@ export class MongoosePersonRepository implements PersonRepository {
   async byUserName(username: string): Promise<PersonAuth> {
     const document = await this.personModel
       .findOne({ username, ...IS_NOT_DELETED })
-      .select('_id username hashPassword salt isActive')
+      .select('_id username hashPassword salt isActive role')
       .exec();
 
     if (!document) {
@@ -141,9 +147,10 @@ export class MongoosePersonRepository implements PersonRepository {
     }
 
     return {
-      id: document._id.toString(),
+      sub: document._id.toString(),
       username: document.username,
       hashPassword: document.hashPassword,
+      rol:document.role
     };
   }
 

@@ -22,17 +22,17 @@ export class Update_Comunidad_Transformacion_Dto extends PartialType(Create_Comu
         example:'66763c9511dbc2cb96b53d4d'})
     @IsMongoId()
     @IsString({ message: 'The Id of the consejo popular must be a String' })
-    // @IsRelationShipWith(MunicipalityModel)
+    @IsRelationShipWith(ConsejoPopular_Municipality_Model)
     @IsNotEmpty({ message: 'The Consejo Popular ID cannot be empty' })  
-    consejopopular_municipality:ConsejoPopular_Municipality_Model
+    consejopopular_municipality:string
 
-    // @IsOptional()
-    // @ApiProperty({ type: 'ObjectId.Province' })
-    // @IsMongoId()
-    // @IsString({ message: 'The Id of the province must be a String' })
-    // // @IsRelationShipWith(ProvinceModel)
-    // @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
-    // province:string
+    @IsOptional()
+    @ApiProperty({ type: 'ObjectId.MunicipalityModel' })
+    @IsMongoId()
+    @IsString({ message: 'The Id of the province must be a String' })
+    @IsRelationShipWith(MunicipalityModel)
+    @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })  
+    municipio:string
 
     @IsOptional()
     @ApiProperty({example:'La casa de Pedro Prieto'})
@@ -42,8 +42,8 @@ export class Update_Comunidad_Transformacion_Dto extends PartialType(Create_Comu
 
     @IsOptional()
     @ApiProperty({
-        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`,
-        type: Telefonos_Type_Dto
+        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`
+         
     })
-    telefonos:Telefonos_Type_Dto
+    telefonos:string
 }

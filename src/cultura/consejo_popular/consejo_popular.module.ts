@@ -9,16 +9,21 @@ import {
 } from './domain/schemas/consejo_popular.schema';
 import { ErrorModule } from '../../modules/common/errors/error.module';
 import { ProvinceModule } from '../../modules/province/province.module';
+import { TrazasModule } from '../trazas/trazas.module';
+import { TrazasService } from '../trazas/trazas.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: ConsejoPopular_Municipality_Model.name, schema: ConsejoPopular_Municipality_Schema },
     ]),
+    TrazasModule,
     ErrorModule,
     ProvinceModule,
   ],
   controllers: [ConsejoPopular_Municipality_Controller],
-  providers: [ConsejoPopular_Municipality_Service, Mongoose_ConsejoPopular_Municipality_Repository],
+  providers: [ConsejoPopular_Municipality_Service, Mongoose_ConsejoPopular_Municipality_Repository,
+    TrazasService
+  ],
 })
 export class ConsejoPopular_Municipality_Module {}

@@ -1,6 +1,6 @@
 import { Municipality } from 'src/modules/municipality/domain/entities/municipality.entity';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
-import { Province } from 'src/modules/province/domain/entities/province.entity';
+import { ProvinceEntity } from 'src/modules/province/domain/entities/province.entity';
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 import { EntityType } from '../entity_type/domain/entities/entity-type.entity';
 import { EntityTypeModel } from '../entity_type/infrastructure/entity-type.schema';
@@ -10,6 +10,27 @@ import { PlaceModel } from '../place/infrastructure/places.schema';
 import { Place } from '../place/domain/entities/place.entity';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
 import { Nomencladores_Generales } from 'src/cultura/codificadores-cult/infrastructure/codificadores_nomencladores.controller';
+import { JwtService } from '@nestjs/jwt/dist/jwt.service';
+
+export function getUserHTTP_JWTS(hds_tk:string): Object {
+  // console.log(hds_tk);
+      let hds_jwtk= new JwtService().decode(hds_tk.split(' ')[1]);
+
+      let hds_uss=hds_jwtk['username']+' ['+ hds_jwtk['rol']+']';
+      // console.log(hds_uss);
+      return hds_jwtk;
+}
+
+/**
+ * The function `bool` takes a boolean parameter and returns true if the parameter is true, otherwise
+ * it returns false.
+ * @param {boolean} params - The parameter `params` in the `bool` function is a boolean value.
+ * @returns The function `bool` takes a boolean parameter and returns `true` if the parameter is
+ * `true`, otherwise it returns `false`.
+ */
+export function bool(params:boolean) {
+  return params?true:false
+}
 
 export function extractMunicipality(
   municipality: MunicipalityModel,
@@ -17,17 +38,18 @@ export function extractMunicipality(
   return {
     id: municipality._id.toString(),
     name: municipality.name,
+    isDeleted: bool(municipality.isDeleted),
     createdAt: municipality.createdAt,
     updatedAt: municipality.updatedAt,
     province: extractProvince(municipality.province),
   };
 }
 
-export function extractProvince(province: ProvinceModel): Province {
+export function extractProvince(province: ProvinceModel): ProvinceEntity {
   return {
     id: province._id.toString(),
     name: province.name,
-    isDeleted:province.isDeleted,
+    isDeleted: bool(province.isDeleted),
     createdAt: province.createdAt,
     updatedAt: province.updatedAt,
   };
