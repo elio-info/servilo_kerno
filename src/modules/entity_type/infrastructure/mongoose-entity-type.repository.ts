@@ -157,7 +157,8 @@ export class MongooseEntityTypeRepository implements EntityTypeRepository {
     let hrc= !query.hierarchy ? {} : {hierarchy:query.hierarchy};
     let queryS={...hrc,...buscar,...dltd};
     console.log('consl-', queryS);
-    const ents = await this.entTypeModel.find(query);
+    const ents = await this.entTypeModel.find(queryS).exec();
+    console.log('consl-', ents);
     const entCollection = ents.map((entType) => this.toEntity(entType));
     return entCollection;
   }
