@@ -4,4 +4,5 @@ export class EntityType {
   hierarchy: number;
   createdAt: Date;
   updatedAt: Date;
+  isDeleted:boolean;
 }

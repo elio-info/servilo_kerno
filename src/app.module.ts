@@ -50,13 +50,14 @@ import { TrazasModule } from './cultura/trazas/trazas.module';
     // fin mio modulos ----------------
     ErrorModule,MunicipalityModule,
     ProvinceModule,
-    
     PlaceModule,
+    EntityTypeModule,
+    EntityModule,
+
     PersonModule,
     ChargeModule,
     CategorieModule,
-    EntityTypeModule,
-    EntityModule,
+    
     BankAccountModule,
     // mio
     CulturaModule,

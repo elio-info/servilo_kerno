@@ -51,6 +51,7 @@ export function extractEntityType(entityType: EntityTypeModel): EntityType {
     hierarchy: entityType.hierarchy,
     createdAt: entityType.createdAt,
     updatedAt: entityType.updatedAt,
+    isDeleted: entityType.isDeleted
   };
 }
 

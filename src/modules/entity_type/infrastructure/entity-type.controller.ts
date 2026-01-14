@@ -7,8 +7,8 @@ import {
   Param,
   Delete,
   Query,
-  ParseIntPipe,
-  UsePipes,
+  Headers,
+  Put,
 } from '@nestjs/common';
 import { EntityTypeService } from '../application/entity-type.service';
 import { CreateEntityTypeDto } from '../domain/dto/create-entity-type.dto';
@@ -32,6 +32,7 @@ import { ApiNotFoundCustomErrorResponse } from '../../common/doc/api-not-found-c
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchEntityTypeDto } from '../domain/dto/search-entity-type.dto';
 import { SanitizePipe } from 'src/modules/common/pipes/Sanitize.pipe';
+import { RemoveEntityTypeDto } from '../domain/dto/remove-entity-type.dto';
 
 @ApiTags(`entity-type`)
 @ApiHeader({
@@ -54,8 +55,8 @@ export class EntityTypeController {
   @ApiCustomErrorResponse()
   @Post()
   @ErrorHandler()
-  create(@Body() createEntityTypeDto: CreateEntityTypeDto) {
-    return this.entTypeService.create(createEntityTypeDto);
+  create(@Body() createEntityTypeDto: CreateEntityTypeDto, @Headers('authorization') hds) {
+    return this.entTypeService.create(createEntityTypeDto, hds);
   }
 
   @ApiQuery({
@@ -103,45 +104,36 @@ export class EntityTypeController {
   @ApiBody({
     type: CreateEntityTypeDto,
   })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  @Patch()
   @ErrorHandler()
   update(
-    @Param('id') id: string,
+    @Headers('authorization') hds,
     @Body(SanitizePipe) updateEntityTypeDto: UpdateEntityTypeDto,
   ) {
-    return this.entTypeService.update(id, updateEntityTypeDto);
+    return this.entTypeService.update( updateEntityTypeDto,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Entity Type')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The entity type successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @Delete()
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.entTypeService.remove(id);
+  remove(@Body() remo: RemoveEntityTypeDto, @Headers('authorization') hds) {
+    return this.entTypeService.remove(remo.id,hds);
   }
+
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Entity Type')
-  @ApiQuery({
-    name: 'key',
-    description: 'The key name for the search',
-    type: 'string',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'value',
-    description: 'The value for the search',
-    type: 'string',
+  @ApiBody({
+      description: 'The key for the search',
+    type: SearchEntityTypeDto,
     required: false,
   })
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchEntityTypeDto))
-  @Get('api/search')
+  @Put()
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query) {
     return this.entTypeService.search(query);
   }
 }

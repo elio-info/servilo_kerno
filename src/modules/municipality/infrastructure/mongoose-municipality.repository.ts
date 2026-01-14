@@ -87,7 +87,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   }
 
   async findOne(id: string): Promise<Municipality |string> {
-    validateId(id, MODULE);
+    // validateId(id, MODULE);
 
     const municipality = await this.municipalityModel
       .findById(id)

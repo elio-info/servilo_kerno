@@ -13,7 +13,7 @@ export class EntityTypeModel {
   @Prop({ required: true, type: Number, default: 0 })
   hierarchy: number;
 
-  @Prop({ default: false, select: false })
+  @Prop({ default: false, select: false||true })
   isDeleted: boolean;
 
   @Prop()

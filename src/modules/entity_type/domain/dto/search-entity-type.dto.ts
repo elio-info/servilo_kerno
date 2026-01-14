@@ -1,14 +1,15 @@
-import { IsInt, IsNotEmpty, IsString, MinLength, Min } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString, MinLength, Min, IsBoolean } from 'class-validator';
 
 export class SearchEntityTypeDto {
-  constructor() {
-    this.name = '';
-  }
   @IsString()
   @MinLength(3)
   @IsNotEmpty()
-  name: string;
+  name?: string;
   @IsInt()
   @Min(0)
-  hierarchy: number;
+  hierarchy?: number;
+  @IsBoolean()
+  exactName?:boolean=true
+  @IsBoolean()
+  deleted?:boolean=false
 }

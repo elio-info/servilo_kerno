@@ -7,8 +7,6 @@ import {
   Param,
   Delete,
   Query,
-  UsePipes,
-  ValidationPipe,
   Headers,
   Put,
 } from '@nestjs/common';
@@ -25,19 +23,13 @@ import {
   ApiParam,
   ApiQuery,
   ApiTags,
-  getSchemaPath,
 } from '@nestjs/swagger';
 import { ApiUnauthorizedCustomErrorResponse } from 'src/modules/common/doc/api-unauthorized-custom-error-response.decorator';
 import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-custom-error-response.decorator';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
 import { Municipality } from '../domain/entities/municipality.entity';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
-import { DataList } from 'src/modules/common/data-list';
-import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
-import { SearchQuery } from 'src/modules/search/domain/dto/query.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
-import SearchController from 'src/modules/common/abstracts/SearchAbstracts';
-import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 import { RemoveMunicipalityDto } from '../domain/dto/remove-municipality.dto';
 
 @ApiTags(`municipality`)

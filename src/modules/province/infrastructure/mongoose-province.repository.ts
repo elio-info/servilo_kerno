@@ -16,7 +16,7 @@ import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { extractProvince } from 'src/modules/common/extractors';
 
 // const SELECT_QUERY: string = 'isDeleted name createdAt updatedAt';
-const MODULE = 'Province';
+export const MODULE = 'Province';
 
 @Injectable()
 export class MongooseProvinceRepository implements ProvinceRepository {
@@ -89,8 +89,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
   }
 
   async findOne(id: string): Promise<ProvinceEntity | string> {
-    validateId_Format(id, MODULE);
-
+    
     const province = await this.provinceModel
       .findById(id)
       .where(this.whereQuery);
@@ -144,7 +143,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     // validateId_OnTable(this.cnn,'provinces','{_id:$oid:{{'+id+'}}}',this.whereQuery)
     // let pp=await this.cstvldt.validateId_onTable('provinces',id);
     // console.log('pp',pp); 
-     traza.trazaDTO.filter= JSON.stringify ({_id:id}) ;
+     traza.trazaDTO.filter= {_id:id} ;
 /* si existes */
     let dco_find=null;
     let upd=null;
