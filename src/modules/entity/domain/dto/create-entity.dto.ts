@@ -16,12 +16,10 @@ import { MunicipalityModel } from 'src/modules/municipality/infrastructure/munic
 import { PlaceModel } from 'src/modules/place/infrastructure/places.schema';
 
 export class CreateEntityDto {
-  @ApiProperty({ type: 'ObjectID.EntityType' })
   @IsMongoId({ message: 'Entity Type Id must be valid' })
   @IsRelationShipWith(EntityTypeModel)
   entityType: string;
 
-  @ApiProperty({ type: 'ObjectID.Entity' })
   @IsMongoId({ message: 'Parent Id must be valid' })
   @IsOptional()
   parentId?: string;
@@ -69,13 +67,13 @@ export class CreateEntityDto {
   @IsOptional()
   domicilie: string;
 
-  @ApiProperty({ type: 'ObjectID.Municipality' , example:'666a00f24d1a4ab9cb5d8e27'})
+  @ApiProperty({  example:'666a00f24d1a4ab9cb5d8e27'})
   @IsMongoId({ message: 'Municipality Id must be valid' })
   @IsOptional()
   @IsRelationShipWith(MunicipalityModel)
   municipality: string;
 
-  @ApiProperty({ type: 'ObjectID.Place' })
+  
   @IsMongoId({ message: 'Place Id must be valid' })
   @IsOptional()
   @IsRelationShipWith(PlaceModel)

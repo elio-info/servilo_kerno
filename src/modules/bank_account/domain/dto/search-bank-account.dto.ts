@@ -21,7 +21,7 @@ export class SearchBankAccountDto {
     this.address = '';
     this.municipality = '';
   }
-  @ApiProperty({ type: 'ObjectID.Entity' })
+  
   @IsNotEmpty()
   @IsString()
   entity: string;
@@ -48,7 +48,6 @@ export class SearchBankAccountDto {
   @IsNotEmpty()
   @IsString()
   address: string;
-  @ApiProperty({ type: 'ObjectID.Municipality' })
   @IsNotEmpty()
   @IsMongoId()
   @IsRelationShipWith(MunicipalityModel)

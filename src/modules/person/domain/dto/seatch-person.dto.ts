@@ -77,7 +77,6 @@ export class SearchPersonDto {
   @IsStrongPassword()
   password: string;
 
-  @ApiProperty({ type: 'ObjectID.Entity' })
   @IsOptional()
   @IsRelationShipWith(EntityModel)
   entity: string;
@@ -86,7 +85,6 @@ export class SearchPersonDto {
   @IsNotEmpty()
   role: string;
 
-  @ApiProperty({ type: 'ObjectID.Municipality' })
   @IsString()
   @IsRelationShipWith(MunicipalityModel)
   @IsNotEmpty()

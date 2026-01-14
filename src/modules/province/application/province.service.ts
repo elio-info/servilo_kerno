@@ -36,8 +36,7 @@ export class ProvinceService   {
     console.log('page',page);
     
     pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
-    console.log('pagesz',pageSize);
-    
+    console.log('pagesz',pageSize);   
     
     return this.repository.findAll(page, pageSize);
   }

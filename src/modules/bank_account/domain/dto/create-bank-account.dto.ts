@@ -10,7 +10,6 @@ import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExis
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
 
 export class CreateBankAccountDto {
-  @ApiProperty({ type: 'ObjectID.Entity' })
   @IsNotEmpty()
   @IsString()
   entity: string;
@@ -37,7 +36,7 @@ export class CreateBankAccountDto {
   @IsNotEmpty()
   @IsString()
   address: string;
-  @ApiProperty({ type: 'ObjectID.Municipality' })
+  
   @IsNotEmpty()
   @IsMongoId()
   @IsRelationShipWith(MunicipalityModel)

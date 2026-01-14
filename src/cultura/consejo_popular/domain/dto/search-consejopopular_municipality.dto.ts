@@ -15,7 +15,7 @@ export default class Search_ConsejoPopular_MunicipalityDto {
   @IsOptional()
   name: string;
   
-  @ApiProperty({ type: 'ObjectId.Province' })
+  
   @IsMongoId()
   @IsString({ message: 'The Id of the province must be a String' })
   @IsRelationShipWith(ProvinceModel)
@@ -23,7 +23,6 @@ export default class Search_ConsejoPopular_MunicipalityDto {
   @IsOptional()
   provinceId: string;
 
-  @ApiProperty({ type: 'ObjectId.Municipality' })
   @IsMongoId()
   @IsString({ message: 'The Id of the municipalities must be a String' })
   @IsRelationShipWith(MunicipalityModel)

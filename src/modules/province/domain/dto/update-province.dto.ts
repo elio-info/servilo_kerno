@@ -7,7 +7,7 @@ import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExis
 import { ProvinceModel } from '../../infrastructure/province.schema';
 
 export class UpdateProvinceDto extends PartialType(CreateProvinceDto) {
-    @ApiProperty({ type: 'ObjectId.Province',
+    @ApiProperty({ 
             example:'66763c9511dbc2cb96b53d4d' })
     @IsMongoId()
     @IsRelationShipWith(ProvinceModel)

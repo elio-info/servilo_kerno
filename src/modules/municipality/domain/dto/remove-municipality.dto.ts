@@ -7,7 +7,7 @@ import { MunicipalityModel } from '../../infrastructure/municipality.schema';
 
 export class RemoveMunicipalityDto {
     
-    @ApiProperty({ type: 'ObjectId.Municipality',
+    @ApiProperty({
     example:`6669ff90079184e73863190a de Pinar del Rio`,
     required:true
     })

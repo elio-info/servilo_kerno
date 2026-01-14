@@ -17,7 +17,7 @@ export class Update_Talento_Artistico_Dto extends Create_Talento_Artistico_Dto{
 
     //Nomencla_Categorias_ContratacionManifestacion_Clss.id
      @IsOptional()
-     @ApiProperty({example:'666b7d6e80597b171ef1495d Danza Folklorica', type: 'ObjectID:Nomencla_Categorias_ContratacionManifestacion_Especialidad'})
+     @ApiProperty({example:'666b7d6e80597b171ef1495d Danza Folklorica'})
     @IsMongoId()
     @IsNotEmpty({message:'NO vacio'})
     manifest_esp:string
@@ -36,7 +36,7 @@ export class Update_Talento_Artistico_Dto extends Create_Talento_Artistico_Dto{
     
     //Entity
     @IsOptional()
-    @ApiProperty({  type:'ObjectID.Entity' })
+    
     @IsMongoId()
     entidad_talento:string
 

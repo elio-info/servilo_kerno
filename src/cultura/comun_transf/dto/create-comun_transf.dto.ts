@@ -14,15 +14,13 @@ export class Create_Comunidad_Transformacion_Dto {
     @MinLength(3)    
     nombre:string
     
-    @ApiProperty({ type: 'ObjectId.ConsejoPopular_Municipality',
-        example:'66763c9511dbc2cb96b53d4d' })
+    @ApiProperty({  example:'66763c9511dbc2cb96b53d4d' })
     @IsMongoId()
     @IsString({ message: 'The Id of the consejo popular must be a String' })
     @IsRelationShipWith(ConsejoPopular_Municipality_Model)
     @IsNotEmpty({ message: 'The consejo ppopular ID cannot be empty' })  
     consejopopular_municipality:string
-
-    @ApiProperty({ type: 'ObjectId.MunicipalityModel' })
+    
     @IsMongoId()
     @IsString({ message: 'The Id of the province must be a String' })
     @IsRelationShipWith(MunicipalityModel)

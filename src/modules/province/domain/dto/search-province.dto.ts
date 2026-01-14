@@ -1,8 +1,4 @@
-import { ApiOperation } from '@nestjs/swagger';
-import { IsBoolean, isMongoId, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
-import { isValidObjectId } from 'mongoose';
-import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
-import { ProvinceModel } from '../../infrastructure/province.schema';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class SearchProvinceDto  {
   @IsOptional()
@@ -17,5 +13,5 @@ export class SearchProvinceDto  {
 
   @IsOptional()
   @IsBoolean()
-  isDeleted: boolean = false;  
+  deleted: boolean = false;  
 }

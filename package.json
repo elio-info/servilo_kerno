@@ -1,8 +1,8 @@
 {
-  "name": " servilo_kerno_cult ",
+  "name": "admin",
   "version": "0.0.1",
-  "description": "to rules on culture",
-  "author": "Infinte plus 1",
+  "description": "",
+  "author": "",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

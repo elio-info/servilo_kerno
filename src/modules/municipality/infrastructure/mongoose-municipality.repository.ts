@@ -67,7 +67,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     
         try {
           let mnc=await new this.municipalityModel(municipality).save();
-          traza.trazaDTO.update=JSON.stringify (municipality);
+          traza.trazaDTO.update=municipality;
           traza.trazaDTO.before=''
           traza.trazaDTO.error='Ok';
           traza.save();   
@@ -108,19 +108,16 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
 
     traza.trazaDTO.filter=municipality;
     traza.trazaDTO.operation='update';
-    let crt_mn = await this.cstvldt.validateId_onTable('province',municipality.province,traza);//,IS_NOT_DELETED
-    if (crt_mn.trazaDTO.error!='Ok')       
-        return crt_mn.trazaDTO.error.toString();      
     
-    console.log('lo veo antes ',bf);
-    console.log('su dto ',municipality);
+    // console.log('lo veo antes ',bf);
+    // console.log('su dto ',municipality);
     traza.trazaDTO.before=bf;  
     const updated = await this.municipalityModel.findByIdAndUpdate(
       { _id: municipality.id, ...IS_NOT_DELETED },
       municipality,
       { new: true, populate: 'province' },
     );
-  console.log('lo veo despues ',updated);
+  // console.log('lo veo despues ',updated);
       
     if (!updated) {
       let err=new Error('Problema con actualizacion de municipio '+municipality)
@@ -136,18 +133,18 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
   }
 
   async remove(id: string , traza:TrazasService ): Promise<Municipality | string> {
-    traza.trazaDTO.filter= JSON.stringify ({_id:id}) ;
+    traza.trazaDTO.filter= {_id:id} ;
       // existes
     let bf=await this.findOne(id);
-    traza.trazaDTO.operation='remove';
-    if ( bf ! instanceof Municipality) {
-       let err=new Error('Problema con eliminacion de municipio ')
-        traza.trazaDTO.error=err;
-        traza.trazaDTO.update='';
-        traza.save()
-        return err.toString();
-    }
-    let hijos=await this.cstvldt.validate_onTable('Consejo_Popular_Municipal',{'municipio':id},IS_NOT_DELETED);
+    // traza.trazaDTO.operation='remove';
+    // if ( bf ! instanceof Municipality) {
+    //    let err=new Error('Problema con eliminacion de municipio ')
+    //     traza.trazaDTO.error=err;
+    //     traza.trazaDTO.update='';
+    //     traza.save()
+    //     return err.toString();
+    // }
+    let hijos=await this.cstvldt.validate_onTable('consejopopular_municipal',{'municipio':id},IS_NOT_DELETED);
     console.log('hijos',hijos);
     if (hijos!=0) { //tienes hijos no te borras  
       let error=new ObjectCanNotDeleted (MODULE,id,hijos );

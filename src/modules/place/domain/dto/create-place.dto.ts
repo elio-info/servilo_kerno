@@ -11,6 +11,5 @@ export class CreatePlaceDto {
   @IsString()
   @IsNotEmpty()
   @IsRelationShipWith(MunicipalityModel)
-  @ApiProperty({ type: 'ObjectID.Municipality' })
   municipality: string;
 }

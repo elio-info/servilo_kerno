@@ -12,7 +12,7 @@ export class MunicipalityModel {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ default: false, select: false })
+  @Prop({default: false, select: false || true })
   isDeleted: boolean;
 
   @Prop()

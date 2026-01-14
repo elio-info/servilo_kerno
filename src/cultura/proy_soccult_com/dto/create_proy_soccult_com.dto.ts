@@ -15,7 +15,7 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @MinLength(3)    
     nombre:string
     
-    @ApiProperty({ type: 'ObjectId.ConsejoPopular_Municipality',
+    @ApiProperty({ 
         example:'66763c9511dbc2cb96b53d4d' })
     @IsMongoId()
     @IsNotEmpty({ message: 'The consejo ppopular ID cannot be empty' })  
@@ -23,7 +23,7 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @IsRelationShipWith(ConsejoPopular_Municipality_Model)    
     consejopopular_municipality:string
 
-    @ApiProperty({ type: 'ObjectId.MunicipalityModel',example:'esta es la que selecciona el consejo' })
+    @ApiProperty({ example:'esta es la que selecciona el consejo' })
     @IsMongoId()
     @IsString({ message: 'The Id of the province must be a String' })
     @IsRelationShipWith(MunicipalityModel)

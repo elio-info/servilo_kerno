@@ -189,7 +189,13 @@ export class MongooseProvinceRepository implements ProvinceRepository {
 
   async search(query:SearchProvinceDto) : Promise<ProvinceEntity[] | string> {
 
-    let buscar= query.exactName? { name:query.exactName, isDeleted: query.isDeleted} :  { name: { $regex:query.name , $options:'i'}, isDeleted: query.isDeleted };
+    let buscar={isDeleted: query.deleted}
+
+    if (!!query.name) {//existe nombre
+      if (!!query.exactName) { buscar[' name']=query.exactName ; }
+      else
+      {buscar ['name']= { $regex:query.name , $options:'i'};}
+    } 
     console.log(buscar);
     
      let result=[];
@@ -203,6 +209,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
   }
 
   toEntity(prov:ProvinceModel): ProvinceEntity {
+    console.log(prov);
     return extractProvince(prov) ;
   }
 }

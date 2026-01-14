@@ -14,7 +14,7 @@ export class Create_Talento_Artistico_Dto{
     nombre_Talento_Artistico :string
 
     //Nomencla_Categorias_ContratacionManifestacion_Clss.id
-    @ApiProperty({example:'666b7d6e80597b171ef1495d Danza Folklorica', type: 'ObjectID:Nomencla_Categorias_ContratacionManifestacion_Especialidad'})
+    @ApiProperty({example:'666b7d6e80597b171ef1495d Danza Folklorica'})
     @IsMongoId()
     @IsNotEmpty({message:'NO vacio'})
     manifest_esp:string
@@ -29,7 +29,7 @@ export class Create_Talento_Artistico_Dto{
     @IsEnum(Nomenclador_Clasifica_ContratoTalento)
     contrato_talento:string
     //Entity
-    @ApiProperty({  type:'ObjectID.Entity', example:'666c39bd57d4be9254cb5741' })
+    @ApiProperty({  example:'666c39bd57d4be9254cb5741' })
     @IsMongoId()
     entidad_talento:string
 

@@ -10,14 +10,12 @@ export class Create_ConsejoPopular_Municipality_Dto {
   @MinLength(3)
   name: string;
 
-  @ApiProperty({ type: 'ObjectId.Municipality' })
   @IsMongoId()
   @IsString({ message: 'The Id of the municipality must be a String' })
   @IsRelationShipWith(MunicipalityModel)
   @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })
   municipality: string;
 
-  @ApiProperty({ type: 'ObjectId.Province' })
   @IsMongoId()
   @IsString({ message: 'The Id of the province must be a String' })
   @IsRelationShipWith(ProvinceModel)

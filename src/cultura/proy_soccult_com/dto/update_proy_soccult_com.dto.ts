@@ -22,7 +22,6 @@ export class Update_Proyecto_Sociocultural_Comunitario_Dto {
     
     @IsOptional()
     @ApiProperty({ 
-        type: 'ObjectId.ConsejoPopular_Municipality_Model', 
         example:'66763c9511dbc2cb96b53d4d'})
     @IsMongoId()
     @IsString({ message: 'The Id of the consejo popular must be a String' })
@@ -31,7 +30,6 @@ export class Update_Proyecto_Sociocultural_Comunitario_Dto {
     consejopopular_municipality:string
 
     @IsOptional()
-    @ApiProperty({ type: 'ObjectId.MunicipalityModel' })
     @IsMongoId()
     @IsString({ message: 'The Id of the municipio must be a String' })
     @IsRelationShipWith(MunicipalityModel)

@@ -7,10 +7,10 @@ import { MunicipalityModel } from '../../infrastructure/municipality.schema';
 
 export class UpdateMunicipalityDto {
     
-    // @ApiProperty({ type: 'ObjectId.Municipality',
-    // example:`6669ff90079184e73863190a de Pinar del Rio`,
-    // required:true
-    // })
+    @ApiProperty({
+    example:`6669ff90079184e73863190a de Pinar del Rio`,
+    required:true
+    })
     @IsMongoId({message:'No es formato valido'})
     @IsString({ message: 'The Id of the municipality must be a String' })
     @IsRelationShipWith(MunicipalityModel)

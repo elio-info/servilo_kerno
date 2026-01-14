@@ -123,7 +123,7 @@ export class MunicipalityController {
   @ApiBody({
     type: RemoveMunicipalityDto,
   }) 
-  @Put()
+  @Delete()
   @ErrorHandler()
   remove(@Body() remo: RemoveMunicipalityDto,@Headers('authorization') hds) {
     return this.service.remove(remo.id,hds);
@@ -139,11 +139,10 @@ export class MunicipalityController {
   })  
   @ApiCustomErrorResponse()
   //@UsePipes(new SearchValidate(SearchMunicipalityDto))
-  @Post('search')
+  @Put()
   @ErrorHandler()
-  search(@Body() query) {
-    console.log(query);
-    
+  search(@Body() query:SearchMunicipalityDto) {
+    console.log(query);    
     return this.service.search(query);
   }
 }

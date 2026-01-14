@@ -30,12 +30,10 @@ export class SearchEntityDto {
     this.commercialRegister = '';
   }
 
-  @ApiProperty({ type: 'ObjectID.EntityType' })
   @IsMongoId({ message: 'Entity Type Id must be valid' })
   @IsRelationShipWith(EntityTypeModel)
   entityType: string;
 
-  @ApiProperty({ type: 'ObjectID.Entity' })
   @IsMongoId({ message: 'Parent Id must be valid' })
   @IsOptional()
   parentId?: string;
@@ -73,13 +71,11 @@ export class SearchEntityDto {
   @IsOptional()
   domicilie: string;
 
-  @ApiProperty({ type: 'ObjectID.Municipality' })
   @IsMongoId({ message: 'Municipality Id must be valid' })
   @IsOptional()
   @IsRelationShipWith(MunicipalityModel)
   municipality: string;
 
-  @ApiProperty({ type: 'ObjectID.Place' })
   @IsMongoId({ message: 'Place Id must be valid' })
   @IsOptional()
   @IsRelationShipWith(PlaceModel)

@@ -22,7 +22,7 @@ export class Update_ProgramaSocial_Especialidad_Dto extends PartialType(Create_P
     @MinLength(3)
     nombre_programasocial_especial :string
 
-    @ApiProperty({type:'ObjectId.ProgramaSocial', example: '666a2f9d001740325f7923d4' })
+    @ApiProperty({ example: '666a2f9d001740325f7923d4' })
     @IsMongoId()
     @IsString({ message: 'The Id of the Manifestacion must be a String' })
     @IsRelationShipWith(ProgramaSocial)

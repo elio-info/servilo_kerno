@@ -21,35 +21,24 @@ export function getUserHTTP_JWTS(hds_tk:string): Object {
       return hds_jwtk;
 }
 
-/**
- * The function `bool` takes a boolean parameter and returns true if the parameter is true, otherwise
- * it returns false.
- * @param {boolean} params - The parameter `params` in the `bool` function is a boolean value.
- * @returns The function `bool` takes a boolean parameter and returns `true` if the parameter is
- * `true`, otherwise it returns `false`.
- */
-export function bool(params:boolean) {
-  return params?true:false
-}
-
 export function extractMunicipality(
   municipality: MunicipalityModel,
 ): Municipality {
   return {
     id: municipality._id.toString(),
     name: municipality.name,
-    isDeleted: bool(municipality.isDeleted),
+    isDeleted: municipality.isDeleted,
     createdAt: municipality.createdAt,
     updatedAt: municipality.updatedAt,
     province: extractProvince(municipality.province),
   };
 }
 
-export function extractProvince(province: ProvinceModel): ProvinceEntity {
+export function extractProvince(province: ProvinceModel): ProvinceEntity {  
   return {
     id: province._id.toString(),
     name: province.name,
-    isDeleted: bool(province.isDeleted),
+    isDeleted: province.isDeleted,
     createdAt: province.createdAt,
     updatedAt: province.updatedAt,
   };

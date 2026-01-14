@@ -18,7 +18,6 @@ export class Update_ConsejoPopular_Municipality_Dto extends PartialType(Create_C
   name: string;
 
   @IsOptional()
-  @ApiProperty({ type: 'ObjectId.Municipality' })
   @IsMongoId()
   @IsString({ message: 'The Id of the municipality must be a String' })
   @IsRelationShipWith(MunicipalityModel)
@@ -26,7 +25,6 @@ export class Update_ConsejoPopular_Municipality_Dto extends PartialType(Create_C
   municipality: string;
 
   @IsOptional()
-  @ApiProperty({ type: 'ObjectId.Province' })
   @IsMongoId()
   @IsString({ message: 'The Id of the province must be a String' })
   @IsRelationShipWith(ProvinceModel)

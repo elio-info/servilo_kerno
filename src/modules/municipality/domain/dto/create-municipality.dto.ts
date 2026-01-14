@@ -17,7 +17,7 @@ export class CreateMunicipalityDto {
   @MinLength(3)
   name: string;
 
-  @ApiProperty({ type: 'ObjectId.Province',
+  @ApiProperty({ 
     example:`6669ff90079184e73863190a de Pinar del Rio`
    })
   @IsMongoId({message:'No es formato valido'})

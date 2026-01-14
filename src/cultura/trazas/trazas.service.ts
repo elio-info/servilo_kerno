@@ -39,8 +39,12 @@ export class TrazasService {
   * @date + secuencia anterior
   */
  traza_log(trz:CreateTrazaDto):string {
-    //return
-    return `${new Date().toISOString()} - [${trz.collection}] {Persona:${trz.user['username']+' ['+ trz.user['rol']+']'}} ${trz.operation} / ${trz.error} /${trz.filter} / ${trz.before} =>${trz.update}`
+    let err=JSON.stringify(trz.error);
+    let fltr=JSON.stringify(trz.filter);
+    let bfr=JSON.stringify(trz.before);
+    let upd=JSON.stringify(trz.update);
+
+    return `${new Date().toISOString()} - [${trz.collection}] {Persona:${trz.user['username']+' ['+ trz.user['rol']+']'}} ${trz.operation} / Error:${err} / Filtro: ${fltr} / Antes: ${bfr} => Despues: ${upd}`
      
   }
 

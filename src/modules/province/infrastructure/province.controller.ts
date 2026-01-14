@@ -58,8 +58,6 @@ export class ProvinceController {
   @Post()
   @ErrorHandler()
   create(@Body() createProvinceDto: CreateProvinceDto,@Headers('authorization') hds) {
-    let hds_uss= getUserHTTP_JWTS(hds);
-    // console.log(hds_uss);       
     return this.service.create(createProvinceDto,hds);
   }
 
@@ -67,14 +65,13 @@ export class ProvinceController {
     name: 'page',
     description: 'The current page. 1 by default',
     type: 'number',
-    required: false,    
+    required: false    
   })
   @ApiQuery({
     name: 'pageSize',
     description: 'The amount of items in the current page. 15 by default',
     type: 'number',
-    required: false,
-    
+    required: false    
   })
   @ApiPaginatedResponse(ProvinceEntity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
@@ -113,7 +110,7 @@ export class ProvinceController {
   })  
   @Patch()
   @ErrorHandler()
-  update(    @Body() updateProvinceDto: UpdateProvinceDto,@Headers('authorization') hds ) {
+  update(@Body() updateProvinceDto: UpdateProvinceDto,@Headers('authorization') hds ) {
     return this.service.update(updateProvinceDto,hds);
   }
 
@@ -124,11 +121,10 @@ export class ProvinceController {
   @ApiBody({
     type: RemoveProvinceDto,
   })  
-  @Put()
+  @Delete()
   @ErrorHandler()
   remove(@Body() remo: RemoveProvinceDto,@Headers('authorization') hds) {
-    console.log(getUserHTTP_JWTS(hds));
-    
+    // console.log(getUserHTTP_JWTS(hds));    
     return this.service.remove(remo.id,hds);
   }
 
@@ -140,10 +136,10 @@ export class ProvinceController {
   })  
   @ApiCustomErrorResponse()
   // @UsePipes(new SearchValidate(SearchProvinceDto))
-  @Post('search')
+  @Put()//'search'
   @ErrorHandler()
   search(@Body() query:SearchProvinceDto ) {
-    console.log(query);    
+    // console.log(query);    
     return this.service.search(query);
   }
 }

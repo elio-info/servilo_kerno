@@ -11,7 +11,7 @@ export class ProvinceModel {
   @Prop({ required: true, unique: true, type: String })
   name: string;
 
-  @Prop({ default: false, select: false })
+  @Prop({type:'boolean', default: false, select: false||true })
   isDeleted: boolean; 
   
   @Prop()

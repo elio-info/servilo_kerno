@@ -75,14 +75,13 @@ export class CreatePersonDto {
   @IsStrongPassword()
   password: string;
 
-  @ApiProperty({ type: 'ObjectID.Municipality' })
+  
   @IsString()
   @IsRelationShipWith(MunicipalityModel)
   @IsNotEmpty()
   municipality: string;
 
-  @ApiProperty({ type: 'ObjectID.Entity' })
-  @IsOptional()
+    @IsOptional()
   @IsRelationShipWith(EntityModel)
   entity: string;
 

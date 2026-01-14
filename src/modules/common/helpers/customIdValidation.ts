@@ -5,11 +5,9 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { error } from 'console';
-import mongoose, { Condition, Connection, Mongoose, MongooseError, ObjectId } from 'mongoose';
+import mongoose, { Connection } from 'mongoose';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
-import { ObjectDoesNotExist } from 'src/modules/domain/errors/object-doesnt-exist.error';
-import { ObjectId_NotFound, ObjectNotFound } from '../errors/object-not-found.error';
+import { ObjectId_NotFound } from '../errors/object-not-found.error';
 
 @ValidatorConstraint({ async: true })
 @Injectable()

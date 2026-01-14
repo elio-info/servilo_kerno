@@ -14,8 +14,7 @@ export default class SearchMunicipalityDto {
   @IsBoolean()
   exactName: boolean=true; 
 
-  @IsOptional()
-  @ApiProperty({ type: 'ObjectId.Province' })
+  @IsOptional()  
   @IsMongoId()
   @IsString({ message: 'The Id of the province must be a String' })
   @IsRelationShipWith(ProvinceModel)
