@@ -21,9 +21,9 @@ states or statuses for cultural activities. Each enum member represents a state 
 pair where the key is a single character abbreviation for the state, and the value is a descriptive
 string representing that state. */
 export enum Nomenclador_EstadosDeActividadCultural{
-    'P' = 'planificada', 
-    'R' = 'realizada', 
-    'S' = 'suspensa', 
+    'P' = 'Planificada', 
+    'R' = 'Realizada', 
+    'S' = 'Suspensa', 
     'D' = 'Denegada'
 }
 
