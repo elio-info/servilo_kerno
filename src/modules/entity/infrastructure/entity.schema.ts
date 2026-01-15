@@ -3,7 +3,7 @@ import { HydratedDocument, Types } from 'mongoose';
 import { Type } from 'class-transformer';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
-import { PlaceModel } from 'src/modules/place/infrastructure/places.schema';
+import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
 
 export type EntityDocument = HydratedDocument<EntityModel>;

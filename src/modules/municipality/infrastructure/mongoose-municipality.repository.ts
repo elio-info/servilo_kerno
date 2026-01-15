@@ -16,8 +16,8 @@ import { extractMunicipality } from 'src/modules/common/extractors';
 import { SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 
-const MODULE = 'Municipality';
-const IS_NOT_DELETED = { isDeleted: false };
+export const MODULE = 'Municipality';
+export const IS_NOT_DELETED = { isDeleted: false };
 
 @Injectable()
 export class MongooseMunicipalityRepository implements MunicipalityRepository {

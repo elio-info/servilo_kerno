@@ -26,5 +26,4 @@ export class MunicipalityModel {
   province: ProvinceModel;
 }
 
-export const MunicipalitySchema =
-  SchemaFactory.createForClass(MunicipalityModel);
+export const MunicipalitySchema = SchemaFactory.createForClass(MunicipalityModel);

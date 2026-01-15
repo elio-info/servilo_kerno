@@ -9,38 +9,55 @@ import { UpdatePlaceDto } from '../domain/dto/update-place.dto';
 import { hashPassword as hash } from 'src/modules/common/helpers/password.hasher';
 import { Place } from '../domain/entities/place.entity';
 import { SearchPlaceDto } from '../domain/dto/search-place.dto';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Injectable()
 export class PlaceService {
   constructor(
     @Inject(MongoosePlaceRepository)
     private placeRepository: PlaceRepository,
-  ) {}
+   @Inject(TrazasService) private traza:TrazasService
+    ) { traza.trazaDTO.collection='Place'}
 
-  create(createPlaceDto: CreatePlaceDto) {
-    return this.placeRepository.create(createPlaceDto);
+  create(createPlaceDto: CreatePlaceDto,tkhds:string): Promise<Place|string> {
+      this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);
+      this.traza.trazaDTO.operation='save';
+      this.traza.trazaDTO.filter=createPlaceDto;
+      this.traza.trazaDTO.error='Ok';
+    return this.placeRepository.create(createPlaceDto,this.traza);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Place>> {
-    if (page <= 0 || pageSize <= 0) {
-      throw new InvalidPaginationError();
-    }
+  findAll(page = 1, pageSize = 15): Promise<DataList<Place>|string> {
+    page= ( isNaN(page) || page<= 0)? 1: page;
+    console.log('page',page);
+    
+    pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
+    console.log('pagesz',pageSize);
     return this.placeRepository.findAll(page, pageSize);
   }
 
-  findOne(id: string): Promise<Place> {
+  findOne(id: string): Promise<Place|string> {
     return this.placeRepository.findOne(id);
   }
 
-  async update(id: string, updatePlaceDto: UpdatePlaceDto): Promise<Place> {
-    return this.placeRepository.update(id, updatePlaceDto);
+  update(updatePlaceDto: UpdatePlaceDto, tkhds:string): Promise<Place|string> {
+    this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);
+      this.traza.trazaDTO.operation='update';
+      this.traza.trazaDTO.filter=updatePlaceDto;
+      this.traza.trazaDTO.error='Ok';
+      return this.placeRepository.update( updatePlaceDto,this.traza);
   }
 
-  remove(id: string): Promise<void> {
-    return this.placeRepository.remove(id);
+  remove(id: string,tkhds:string): Promise<Place|string> {
+    this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);
+      this.traza.trazaDTO.operation='remove';
+      this.traza.trazaDTO.filter={id:id};
+      this.traza.trazaDTO.error='Ok';
+    return this.placeRepository.remove(id, this.traza);
   }
 
-  search(query: SearchPlaceDto): Promise<Place[]> {
+  search(query: SearchPlaceDto): Promise<Place[]|string> {
     return this.placeRepository.search(query);
   }
 }

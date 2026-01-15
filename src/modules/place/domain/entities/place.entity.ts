@@ -6,4 +6,5 @@ export class Place {
   updatedAt: Date;
   createdAt: Date;
   municipality: Municipality;
+  isDeleted:boolean;
 }

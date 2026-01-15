@@ -6,7 +6,7 @@ import { EntityType } from '../entity_type/domain/entities/entity-type.entity';
 import { EntityTypeModel } from '../entity_type/infrastructure/entity-type.schema';
 import { EntityModel } from '../entity/infrastructure/entity.schema';
 import { Entity } from '../entity/domain/entities/entity.entity';
-import { PlaceModel } from '../place/infrastructure/places.schema';
+import { PlaceModel } from '../place/infrastructure/place.schema';
 import { Place } from '../place/domain/entities/place.entity';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
 import { Nomencladores_Generales } from 'src/cultura/codificadores-cult/infrastructure/codificadores_nomencladores.controller';
@@ -56,17 +56,16 @@ export function extractEntityType(entityType: EntityTypeModel): EntityType {
 }
 
 export function extractPlace(place: PlaceModel): Place {
-  if (place) {
+  
     return {
       id: place._id.toString(),
       name: place.name,
       updatedAt: place.updatedAt,
       createdAt: place.createdAt,
       municipality: extractMunicipality(place.municipality),
+      isDeleted:place.isDeleted
     };
-  } else {
-    return null;
-  }
+  
 }
 
 export function extractEntity(entity: EntityModel): Entity {

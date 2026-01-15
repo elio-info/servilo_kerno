@@ -6,7 +6,7 @@ import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExis
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
 import { PlaceModel } from '../../infrastructure/place.schema';
 
-export class UpdatePlaceDto {
+export class RemovePlaceDto {
     @ApiProperty({ 
         example:`6669ff90079184e73863190a de Pinar del Rio`
     })
@@ -16,20 +16,4 @@ export class UpdatePlaceDto {
     @IsNotEmpty({ message: 'The Place ID cannot be empty' })
     id: string;
 
-    @IsString()
-    @IsNotEmpty()
-    name?: string;
-
-    @IsOptional()
-    @IsBoolean()
-    exactName?: boolean=true;
-
-    @IsOptional()
-    @IsBoolean()
-    isDeleted?: boolean=false;
-
-    @IsString()
-    @IsNotEmpty()
-    @IsRelationShipWith(MunicipalityModel)
-    municipality?: string;
 }

@@ -7,7 +7,8 @@ import {
   Param,
   Delete,
   Query,
-  UsePipes,
+  Headers,
+  Put,
 } from '@nestjs/common';
 import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
 import { PlaceService } from '../application/place.service';
@@ -31,6 +32,7 @@ import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-f
 import { Place } from '../domain/entities/place.entity';
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchPlaceDto } from '../domain/dto/search-place.dto';
+import { RemovePlaceDto } from '../domain/dto/remove-place.dto';
 
 @ApiTags(`place`)
 @ApiHeader({
@@ -53,8 +55,8 @@ export class PlaceController {
   @ApiCustomErrorResponse()
   @Post()
   @ErrorHandler()
-  create(@Body() createPlaceDto: CreatePlaceDto) {
-    return this.service.create(createPlaceDto);
+  create(@Body() createPlaceDto: CreatePlaceDto,@Headers('authorization') hds) {
+    return this.service.create(createPlaceDto, hds);
   }
 
   @ApiQuery({
@@ -77,7 +79,7 @@ export class PlaceController {
   findAll(
     @Query('page') page: number,
     @Query('pageSize') pageSize: number,
-  ): Promise<DataList<Place>> {
+  ) {
     return this.service.findAll(page, pageSize);
   }
 
@@ -108,40 +110,32 @@ export class PlaceController {
   @ApiParam({ name: 'id' })
   @Patch(':id')
   @ErrorHandler()
-  update(@Param('id') id: string, @Body() updatePlaceDto: UpdatePlaceDto) {
-    return this.service.update(id, updatePlaceDto);
+  update(@Body() updatePlaceDto: UpdatePlaceDto, @Headers('authorization') hds) {
+    return this.service.update( updatePlaceDto, hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Place')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The place successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @ApiBody({ type: RemovePlaceDto })
+  @Delete()
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.service.remove(id);
+  remove(@Body() remo: RemovePlaceDto, @Headers('authorization') hds) {
+    return this.service.remove(remo.id, hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Place')
-  @ApiQuery({
-    name: 'key',
-    description: 'The key name for the search',
-    type: 'string',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'value',
+  @ApiBody({    
     description: 'The value for the search',
-    type: 'string',
-    required: false,
+    type: SearchPlaceDto,
+    required: true,
   })
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchPlaceDto))
-  @Get('api/search')
+  @Put()
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query) {
     return this.service.search(query);
   }
 }

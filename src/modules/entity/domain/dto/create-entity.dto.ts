@@ -13,7 +13,7 @@ import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
-import { PlaceModel } from 'src/modules/place/infrastructure/places.schema';
+import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
 
 export class CreateEntityDto {
   @IsMongoId({ message: 'Entity Type Id must be valid' })
