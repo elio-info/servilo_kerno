@@ -5,9 +5,9 @@ import { Document, HydratedDocument, Types } from "mongoose";
 @Schema({
     timestamps:true,
     validateBeforeSave:true,
-    collection:'Nomencla_Categorias_ContratacionManifestacion'
+    collection:'nomenclacategorias_contmanifestacion'
 })
-export class Nomencla_Categorias_ContratacionManifestacion {
+export class NomenclaCategorias_ContratacionManifestacion_Model {
     _id: Types.ObjectId;
     
     @ApiProperty({
@@ -22,21 +22,26 @@ export class Nomencla_Categorias_ContratacionManifestacion {
 
     @ApiProperty({
         type:Boolean,
-        description:'Si: luces, transporte.	No: danza, teatro',default:false
+        description:'Si: luces, transporte.	No: danza, teatro'
     })
     @Prop({
-        default:false
+        default:false, select: false||true
     })
     apoyo_categoria_manifestacion:boolean
 
-    @Prop({ default: Date.now })
+    @Prop({
+        default:false, select: false||true
+    })
+    isDeleted:boolean
+    
+    @Prop()
     createdAt: Date;
   
-    @Prop({ default: Date.now })
+    @Prop()
     updatedAt: Date;
 }
 
-export const Nomencla_Categorias_ContratacionManifestacion_Schema=
-SchemaFactory.createForClass(Nomencla_Categorias_ContratacionManifestacion)
+export const NomenclaCategorias_ContratacionManifestacion_Schema=
+SchemaFactory.createForClass(NomenclaCategorias_ContratacionManifestacion_Model)
 
-export type Nomencla_Categorias_ContratacionManifestacion_Document = HydratedDocument<Nomencla_Categorias_ContratacionManifestacion>
+export type NomenclaCategorias_ContratacionManifestacion_Document = HydratedDocument<NomenclaCategorias_ContratacionManifestacion_Model>

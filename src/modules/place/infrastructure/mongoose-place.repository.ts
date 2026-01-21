@@ -15,13 +15,14 @@ import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValid
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { SearchPlaceDto } from '../domain/dto/search-place.dto';
 
-const MODULE = 'Place';
-const IS_NOT_DELETED = { isDeleted: false };
-const POPULATE_QUERY = { path: 'municipality', populate: { path: 'province' } };
 
 @Injectable()
 export class MongoosePlaceRepository implements PlaceRepository {
-  private cstvldt: IsRelationshipProvider;
+  private MODULE = 'Place';
+  private IS_NOT_DELETED = { isDeleted: false };
+  private POPULATE_QUERY = { path: 'municipality', populate: { path: 'province' } };
+
+private cstvldt: IsRelationshipProvider;
   constructor(
     @InjectModel(PlaceModel.name)
     private placeModel: Model<PlaceModel>,
@@ -31,10 +32,10 @@ export class MongoosePlaceRepository implements PlaceRepository {
   async findAll(page: number, pageSize: number): Promise<DataList<Place>|string> {
     const skipCount = (page - 1) * pageSize;
 
-    const places = await this.placeModel.find(IS_NOT_DELETED)
+    const places = await this.placeModel.find(this.IS_NOT_DELETED)
         .skip(skipCount)
         .limit(pageSize)
-        .populate(POPULATE_QUERY)
+        .populate(this.POPULATE_QUERY)
         .exec();
 
     const placeCollection = places.map((place) => this.toEntity(place));
@@ -49,7 +50,7 @@ export class MongoosePlaceRepository implements PlaceRepository {
 
   async create(place: CreatePlaceDto, traza:TrazasService): Promise<Place|string> {
     
-    let crt_dual=await SearchDuplicateValue(MODULE,this.placeModel,['name','municipalitity'],[place.name,place.municipality],traza)
+    let crt_dual=await SearchDuplicateValue(this.MODULE,this.placeModel,['name','municipalitity'],[place.name,place.municipality],traza)
     
         if (crt_dual.trazaDTO.error !='Ok')       
           return crt_dual.trazaDTO.error.toString();   
@@ -78,10 +79,10 @@ export class MongoosePlaceRepository implements PlaceRepository {
     
     const place = await this.placeModel
       .findById(id)
-      .where(IS_NOT_DELETED)
-      .populate(POPULATE_QUERY);
+      .where(this.IS_NOT_DELETED)
+      .populate(this.POPULATE_QUERY);
     if (!place) {
-      return  (new ObjectNotFound(MODULE)).toString();
+      return  (new ObjectNotFound(this.MODULE)).toString();
     }
 
     return this.toEntity(place);
@@ -93,11 +94,11 @@ export class MongoosePlaceRepository implements PlaceRepository {
     traza.trazaDTO.before=bf;  
     
     const plc = await this.placeModel.findOneAndUpdate(
-      { _id: place.id, ...IS_NOT_DELETED },
+      { _id: place.id, ...this.IS_NOT_DELETED },
       place,
       {
         new: true,
-        populate: POPULATE_QUERY,
+        populate: this.POPULATE_QUERY,
       },
     );
 
@@ -117,10 +118,10 @@ export class MongoosePlaceRepository implements PlaceRepository {
   async remove(id: string, traza: TrazasService): Promise<Place|string> {
     let bf=await this.findOne(id);
     // hijos
-    let hijos=await this.cstvldt.validate_onTable('entity',{'place':id},IS_NOT_DELETED);
+    let hijos=await this.cstvldt.validate_onTable('entity',{'place':id},this.IS_NOT_DELETED);
     console.log('hijos',hijos);
     if (hijos!=0) { //tienes hijos no te borras  
-      let error=new ObjectCanNotDeleted (MODULE,id,hijos );
+      let error=new ObjectCanNotDeleted (this.MODULE,hijos);
       traza.trazaDTO.error= error ;
       traza.save();
       return error.toString();

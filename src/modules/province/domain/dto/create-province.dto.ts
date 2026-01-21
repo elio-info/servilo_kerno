@@ -4,11 +4,6 @@ export class CreateProvinceDto {
   @IsString()
   @MinLength(3)
   @IsNotEmpty()
-  name: string;
-
-  // @IsOptional()
-  // @IsBoolean()
-  // isDeleted: boolean;
+  name: string;  
 }
 
-//TODO make so validations return proper custom errors

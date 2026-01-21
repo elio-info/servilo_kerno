@@ -1,21 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Model, Error, Connection } from 'mongoose';
+import { Model, Connection } from 'mongoose';
 import { EntityTypeRepository } from '../domain/repository/entity-type.repository';
 import { DataList } from 'src/modules/common/data-list';
 import { CreateEntityTypeDto } from '../domain/dto/create-entity-type.dto';
 import { UpdateEntityTypeDto } from '../domain/dto/update-entity-type.dto';
 import { EntityType } from '../domain/entities/entity-type.entity';
 import { EntityTypeDocument, EntityTypeModel } from './entity-type.schema';
-import { WrongIdFormat } from '../../common/errors/wrong-id-format.error';
 import { ObjectCanNotDeleted, ObjectNotFound } from '../../common/errors/object-not-found.error';
-import { validateId } from '../../common/helpers/id-validator';
 import { DuplicatedValueError } from '../../common/errors/duplicated-value.error';
 import { extractEntityType } from 'src/modules/common/extractors';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
-import { MODULE } from 'src/modules/province/infrastructure/mongoose-province.repository';
-import { query } from 'express';
-import { async } from 'rxjs';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { SearchEntityTypeDto } from '../domain/dto/search-entity-type.dto';
 
@@ -113,7 +108,7 @@ export class MongooseEntityTypeRepository implements EntityTypeRepository {
     let mnc= await this.cstvldt.validate_onTable('entity',{'entityType':id},this.WHERE_QUERY)// si esta en BD 
     console.log('hjos prv ',mnc);
     if (mnc) { //tienes hijos no te borras  
-      let error=new ObjectCanNotDeleted(this.MODULE,id,mnc) ;
+      let error=new ObjectCanNotDeleted(this.MODULE,mnc) ;
       traza.trazaDTO.error= error ;
       traza.save();
       return error.toString();

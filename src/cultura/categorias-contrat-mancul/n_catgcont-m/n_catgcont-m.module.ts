@@ -1,21 +1,28 @@
 import { Module } from '@nestjs/common';
 import { Nomencla_Categorias_ContratacionManifestacion_Controller } from './infrastructure/n_catgcont-m.controller';
-import { Nomencla_Categorias_ContratacionManifestacion_Service } from './infrastructure/n_catgcont-m.service';
+import { NomenclaCategorias_ContratacionManifestacion_Service } from './infrastructure/n_catgcont-m.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Nomencla_Categorias_ContratacionManifestacion, Nomencla_Categorias_ContratacionManifestacion_Schema } from './schemas/n_catgcont-m.schema';
+import { NomenclaCategorias_ContratacionManifestacion_Model, NomenclaCategorias_ContratacionManifestacion_Schema } from './schemas/n_catgcont-m.schema';
+import { TrazasModule } from 'src/cultura/trazas/trazas.module';
+import { ErrorModule } from 'src/modules/common/errors/error.module';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Module({
   imports:[
     MongooseModule.forFeature(
       [
         {
-          name:Nomencla_Categorias_ContratacionManifestacion.name,
-          schema:Nomencla_Categorias_ContratacionManifestacion_Schema
+          name:NomenclaCategorias_ContratacionManifestacion_Model.name,
+          schema:NomenclaCategorias_ContratacionManifestacion_Schema
         }
       ]
-    )
+    ),
+    TrazasModule,
+    ErrorModule
   ],
   controllers: [Nomencla_Categorias_ContratacionManifestacion_Controller],
-  providers: [Nomencla_Categorias_ContratacionManifestacion_Service],
+  providers: [NomenclaCategorias_ContratacionManifestacion_Service,
+    TrazasService
+  ],
 })
-export class Nomencla_Categorias_ContratacionManifestacion_Module {}
+export class NomenclaCategorias_ContratacionManifestacion_Module {}

@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Nomencla_Categorias_ContratacionManifestacion_Service } from './n_catgcont-m.service';
-import { Nomencla_Categorias_ContratacionManifestacion } from '../schemas/n_catgcont-m.schema';
+import { NomenclaCategorias_ContratacionManifestacion_Service } from './n_catgcont-m.service';
+import { NomenclaCategorias_ContratacionManifestacion_Model } from '../schemas/n_catgcont-m.schema';
 import { Model } from 'mongoose';
 import { create } from 'domain';
 import { getModelToken } from '@nestjs/mongoose';
-import { Create_Nomencla_CategoriasContratacionManifestacion_Dto } from '../dto/create-n_catgcont-m.dto';
+import { Create_NomenclaCategorias_ContratacionManifestacion_Dto } from '../dto/create-n_catgcont-m.dto';
 import { Nomencla_Categorias_ContratacionManifestacion_Controller } from './n_catgcont-m.controller';
 
 
 describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
-  let n_c_ContratManifestArts_service: Nomencla_Categorias_ContratacionManifestacion_Service;
-  let n_c_ContratManifestArts_model:Model <Nomencla_Categorias_ContratacionManifestacion>
+  let n_c_ContratManifestArts_service: NomenclaCategorias_ContratacionManifestacion_Service;
+  let n_c_ContratManifestArts_model:Model <NomenclaCategorias_ContratacionManifestacion_Model>
 
   const mock_n_c_ContratManifestArts_service={
     create: jest.fn()
@@ -28,17 +28,17 @@ describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
       //imports: [ /*" the Module containing "*/ Nomencla_Categorias_ContratacionManifestacion ],
       // fin mio
       providers: [
-        Nomencla_Categorias_ContratacionManifestacion_Service  //original
+        NomenclaCategorias_ContratacionManifestacion_Service  //original
         , {
-          provide:getModelToken(Nomencla_Categorias_ContratacionManifestacion.name),
+          provide:getModelToken(NomenclaCategorias_ContratacionManifestacion_Model.name),
           useValue: mock_n_c_ContratManifestArts_service,
         }
       ],
       
     }).compile();
 
-    n_c_ContratManifestArts_service = module.get<Nomencla_Categorias_ContratacionManifestacion_Service>(Nomencla_Categorias_ContratacionManifestacion_Service);
-    n_c_ContratManifestArts_model= module.get<Model<Nomencla_Categorias_ContratacionManifestacion>>(getModelToken(Nomencla_Categorias_ContratacionManifestacion.name))
+    n_c_ContratManifestArts_service = module.get<NomenclaCategorias_ContratacionManifestacion_Service>(NomenclaCategorias_ContratacionManifestacion_Service);
+    n_c_ContratManifestArts_model= module.get<Model<NomenclaCategorias_ContratacionManifestacion_Model>>(getModelToken(NomenclaCategorias_ContratacionManifestacion_Model.name))
   });
 
 
@@ -64,7 +64,7 @@ describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
           .spyOn(n_c_ContratManifestArts_model,'create')
           .mockImplementationOnce(() => Promise.resolve(mock_n_c_ContratManifestArts_service.create()))
           // fin Jest
-        const result= await n_c_ContratManifestArts_service.create(nomen_clasif_contrMansArts as Create_Nomencla_CategoriasContratacionManifestacion_Dto,)
+        const result= await n_c_ContratManifestArts_service.create(nomen_clasif_contrMansArts as Create_NomenclaCategorias_ContratacionManifestacion_Dto,)
 
         expect (result).toEqual(mock_n_c_ContratManifestArts_service)
 

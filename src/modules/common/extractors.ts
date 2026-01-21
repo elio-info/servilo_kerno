@@ -11,6 +11,8 @@ import { Place } from '../place/domain/entities/place.entity';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
 import { Nomencladores_Generales } from 'src/cultura/codificadores-cult/infrastructure/codificadores_nomencladores.controller';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
+import { NomenclaCategorias_ContratacionManifestacion_Entity } from 'src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catcont-m.entity';
+import { NomenclaCategorias_ContratacionManifestacion_Model } from 'src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema';
 
 export function getUserHTTP_JWTS(hds_tk:string): Object {
   // console.log(hds_tk);
@@ -90,3 +92,16 @@ export function extractEntity(entity: EntityModel): Entity {
     createdAt: entity.createdAt,
   };
 }
+
+export function extractNomCat_ContManif(params:NomenclaCategorias_ContratacionManifestacion_Model):NomenclaCategorias_ContratacionManifestacion_Entity {
+          return{
+          id:params._id.toString(),
+          nombre_categoria_manifestacion :params.nombre_categoria_manifestacion,
+          isDeleted:params.isDeleted,
+          apoyo_categoria_manifestacion:params.apoyo_categoria_manifestacion,
+          createdAt: params.createdAt,  
+          updatedAt: params.updatedAt
+        }
+      }
+  
+

@@ -4,7 +4,7 @@ import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 export type ProvinceDocument = HydratedDocument<ProvinceModel>;
 
-@Schema({ timestamps: true, collection: 'provinces' })
+@Schema({ timestamps: true,validateBeforeSave:true, collection: 'provinces' })
 export class ProvinceModel {
   _id: Types.ObjectId;
 

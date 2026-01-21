@@ -1,21 +1,14 @@
 import {
   BadRequestException,
-  CanActivate,
-  HttpException,
-  HttpStatus,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { PersonService } from '../person/application/person.service';
 import { compare } from '../common/helpers/password.hasher';
-import { Person } from '../person/domain/entities/person.entity';
 import { hashPassword as hash } from 'src/modules/common/helpers/password.hasher';
 import { PersonAuth } from './domain/person-auth.entity';
-import { PasswordDontMatchError } from '../common/errors/password-dont-match.error';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
-import { TrazaEntity } from 'src/cultura/trazas/entities/traza.entity';
-import { CreateTrazaDto } from 'src/cultura/trazas/dto/create-traza.dto';
 
 @Injectable()
 export class AuthService  {
@@ -41,7 +34,7 @@ export class AuthService  {
     this.traz.trazaDTO.error='ok';      
     this.traz.trazaDTO.operation='SignIn'
     let pss=await hash (pass)
-    this.traz.trazaDTO.filter=JSON.stringify( {'username': username, 'pass': pss+'.'+Date.now() }  )  ;
+    this.traz.trazaDTO.filter= {'username': username, 'pass': pss+'.'+Date.now() }   ;
 
     //TODO-------Delete This After proper testing------
     
@@ -56,7 +49,7 @@ export class AuthService  {
             rol: 'fakeRol'
           };
           this.traz.trazaDTO.user=fakeUser;
-          this.traz.trazaDTO.update=JSON.stringify(fakeUser);
+          this.traz.trazaDTO.update=fakeUser;
           this.traz.save()
           // this.traz.create(this.traz.trazaDTO);    
           return this.makeToken(fakeUser);
@@ -64,7 +57,7 @@ export class AuthService  {
       else {
 
           let nopasa=new UnauthorizedException();
-          this.traz.traza_error(nopasa.name,nopasa.message)
+          this.traz.trazaDTO.error=nopasa
           this.traz.save();
           // this.traz.create(this.traz.trazaDTO);
           throw nopasa

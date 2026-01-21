@@ -15,18 +15,16 @@ import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValid
 import { SearchProvinceDto } from '../domain/dto/search-province.dto';
 import { extractProvince } from 'src/modules/common/extractors';
 
-// const SELECT_QUERY: string = 'isDeleted name createdAt updatedAt';
-export const MODULE = 'Province';
-
 @Injectable()
 export class MongooseProvinceRepository implements ProvinceRepository {
+  private MODULE = 'Province';
+
   private whereQuery = { isDeleted: false };
   private cstvldt: IsRelationshipProvider 
   constructor(
     @InjectModel(ProvinceModel.name)
     private provinceModel: Model<ProvinceDocument>, 
-    @InjectConnection() private cnn: Connection,
-    // @Inject() 
+    @InjectConnection() private cnn: Connection,    
   ) {  this.cstvldt=new IsRelationshipProvider(this.cnn)    }
 
   async findAll(page: number, pageSize: number): Promise<DataList<ProvinceEntity>| string> {
@@ -54,10 +52,25 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     return dataList;
   }
 
-  async create(province: CreateProvinceDto,traza:TrazasService): Promise<ProvinceEntity | string> {
+  
+  async findOne(id: string): Promise<ProvinceEntity | string> {
+    
+    const province = await this.provinceModel
+      .findById(id)
+      .where(this.whereQuery);
+
+    if (!province) {
+      return (new ObjectNotFound(this.MODULE)).toString();
+    }
+
+    return this.toEntity (province)
+    
+  }
+
+async create(province: CreateProvinceDto,traza:TrazasService): Promise<ProvinceEntity | string> {
       let crt=null;
 
-      traza.trazaDTO.filter= JSON.stringify(province);
+      traza.trazaDTO.filter= province;
       
       let todos= await Promise.all(
                             [this.provinceModel
@@ -69,7 +82,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
                     ,dt_c=province.name.trim().toLowerCase();
                 console.log(dt,dt_c);
                 if (dt==dt_c) {
-                  let err=new DuplicatedValueError( data.name + ' -> ' + MODULE);
+                  let err=new DuplicatedValueError( data.name + ' -> ' + this.MODULE);
                   traza.trazaDTO.error=err;
                   traza.save();
                   return err.toString();
@@ -88,22 +101,8 @@ export class MongooseProvinceRepository implements ProvinceRepository {
       return crt;     
   }
 
-  async findOne(id: string): Promise<ProvinceEntity | string> {
-    
-    const province = await this.provinceModel
-      .findById(id)
-      .where(this.whereQuery);
-
-    if (!province) {
-      return (new ObjectNotFound(MODULE)).toString();
-    }
-
-    return this.toEntity (province)
-    
-  }
-
   async update(province: UpdateProvinceDto, traza:TrazasService): Promise<ProvinceEntity | string> {
-    validateId_Format(province.id, MODULE);
+    // validateId_Format(province.id, this.MODULE);
     let dco_find=  await this.provinceModel.findById({ _id: province.id, ...this.whereQuery });
 
     let ee=null;
@@ -156,7 +155,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     let mnc= await this.cstvldt.validate_onTable('municipalities',{'province':id},this.whereQuery)// si esta en BD 
     console.log('hjos prv ',mnc);
     if (mnc) { //tienes hijos no te borras  
-      let error=new ObjectCanNotDeleted(MODULE,id,mnc) ;
+      let error=new ObjectCanNotDeleted(this.MODULE,mnc) ;
       traza.trazaDTO.error= error ;
       traza.save();
       return error.toString();
@@ -191,7 +190,7 @@ export class MongooseProvinceRepository implements ProvinceRepository {
     let buscar={isDeleted: query.deleted}
 
     if (!!query.name) {//existe nombre
-      if (!!query.exactName) { buscar[' name']=query.exactName ; }
+      if (!!query.exactName) { buscar[' name']=query.name ; }
       else
       {buscar ['name']= { $regex:query.name , $options:'i'};}
     } 

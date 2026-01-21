@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
-import { Nomencla_Categorias_ContratacionManifestacion_Especialidad } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.schema";
+import { NomenclaCategorias_ContManifestacion_Especialidad_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.schema";
 import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores";
 import { Entity } from "src/modules/entity/domain/entities/entity.entity";
 
@@ -17,9 +17,9 @@ export class Talento_Artistico_Model {
     nombre_Talento_Artistico :string
    
     @Prop({
-        type: Types.ObjectId, ref: Nomencla_Categorias_ContratacionManifestacion_Especialidad.name
+        type: Types.ObjectId, ref: NomenclaCategorias_ContManifestacion_Especialidad_Model.name
     })
-    manifest_esp:Nomencla_Categorias_ContratacionManifestacion_Especialidad
+    manifest_esp:NomenclaCategorias_ContManifestacion_Especialidad_Model
 
     @Prop({  default:true })
     persona_TalentoArtistico:boolean
@@ -34,7 +34,7 @@ export class Talento_Artistico_Model {
     @Prop({
         type: Types.ObjectId, ref: Entity.name
     })
-    entidad_talento:Nomencla_Categorias_ContratacionManifestacion_Especialidad
+    entidad_talento:NomenclaCategorias_ContManifestacion_Especialidad_Model
 
      @Prop({  default:false })
     isDeleted:boolean

@@ -40,7 +40,6 @@ import { RemoveProvinceDto } from '../domain/dto/remove-province.dto';
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
-// @UseInterceptors(GlobalInterceptor)
 @Controller('province')
 export class ProvinceController {
   constructor(private readonly service: ProvinceService) {}
@@ -79,8 +78,7 @@ export class ProvinceController {
   @ApiOperation({ summary:'Recuperar todas las provincias'})
   @Get()
   @ErrorHandler()
-  findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
-    // console.log('all',page,pageSize);    
+  findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {       
     return this.service.findAll(page, pageSize);
   }
 

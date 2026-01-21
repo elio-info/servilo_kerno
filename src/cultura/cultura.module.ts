@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { Nomencla_CodificadoresCulturales_Module } from "./codificadores-cult/nomencla_codificadores-cultura.module";
-import { Nomencla_Categorias_ContratacionManifestacion_Module } from "./categorias-contrat-mancul/n_catgcont-m/n_catgcont-m.module";
-import { Nomencla_Categorias_ContratacionManifestacion_Especialidad_Module } from "./categorias-contrat-mancul/n_catgcont-m_espc/n_catgcont-m_espc.module";
+import { NomenclaCategorias_ContratacionManifestacion_Module } from "./categorias-contrat-mancul/n_catgcont-m/n_catgcont-m.module";
+import { NomenclaCategorias_ContManifestacion_Especialidad_Module } from "./categorias-contrat-mancul/n_catgcont-m_espc/n_catgcont-m_espc.module";
 import { Talento_Artistico_Module } from "./talentos/talentos.module";
 import { Proyecto_Sociocultural_Comunitario_Module } from './proy_soccult_com/proy_soccult_com.module';
 import { ConsejoPopular_Municipality_Module } from "./consejo_popular/consejo_popular.module";
@@ -14,8 +14,8 @@ import { TrazasModule } from './trazas/trazas.module';
     imports:[
         ConsejoPopular_Municipality_Module,
         Nomencla_CodificadoresCulturales_Module,
-        Nomencla_Categorias_ContratacionManifestacion_Module,
-        Nomencla_Categorias_ContratacionManifestacion_Especialidad_Module,
+        NomenclaCategorias_ContratacionManifestacion_Module,
+        NomenclaCategorias_ContManifestacion_Especialidad_Module,
         Comunidad_Transformacion_Module,
         ProgramaSocial_Module,ProgramaSocial_Especial_Module,
         Talento_Artistico_Module,

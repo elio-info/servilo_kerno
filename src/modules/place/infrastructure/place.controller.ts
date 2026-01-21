@@ -105,10 +105,9 @@ export class PlaceController {
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Place')
   @ApiBody({
-    type: CreatePlaceDto,
+    type: UpdatePlaceDto,
   })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  @Patch()
   @ErrorHandler()
   update(@Body() updatePlaceDto: UpdatePlaceDto, @Headers('authorization') hds) {
     return this.service.update( updatePlaceDto, hds);

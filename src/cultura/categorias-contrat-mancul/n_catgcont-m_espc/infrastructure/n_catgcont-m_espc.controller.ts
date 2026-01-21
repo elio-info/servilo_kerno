@@ -1,61 +1,124 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Query, Headers, Put } from '@nestjs/common';
 import { Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service } from './n_catgcont-m_espc.service';
 import { Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto } from '../dto/create-n_catgcont-m_espc.dto';
 import { Update_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto } from '../dto/update-n_catgcont-m_espc.dto';
-import { ApiBearerAuth, ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiHeader, ApiOkResponse, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Query as ExpressQuery } from 'express-serve-static-core';
+import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-custom-error-response.decorator';
+import { ApiUnauthorizedCustomErrorResponse } from 'src/modules/common/doc/api-unauthorized-custom-error-response.decorator';
+import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
+import { NomenclaCat_ContManifestacion_Especialidad_Entity } from '../schemas/n_catgcont-m_espc.entity';
+import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
+import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
+import { Remove_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto } from '../dto/remove-n_catgcont-m_espc.dto';
+import { Search_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto } from '../dto/search-n_catgcont-m_espc.dto';
 
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
-@Controller('nomencla-categorias-contratacion-manifestacion-especialidad')
+@Controller('nomenclacategorias-contmanifestacion-especialidad')
 @ApiTags( 'Nomenclador de Categorias de Contratacion de Especialidad de Manifestacion Artistica')
 export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Controller {
   constructor(private readonly nomencla_CCM_Esp_Service: 
     Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service) {}
 
-  @Post()
-  create(@Body(new ValidationPipe()) create_nccm_esp_Dto: Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto) {
-    this.nomencla_CCM_Esp_Service.create(create_nccm_esp_Dto);
-    //return 
-  }
-
+  @ApiQuery({name: 'page',
+    description: 'The current page. 1 by default',
+    type: 'number',
+    required: false    
+  })
+  @ApiQuery({
+    name: 'pageSize',
+    description: 'The amount of items in the current page. 15 by default',
+    type: 'number',
+    required: false    
+  })
+  @ApiPaginatedResponse(NomenclaCat_ContManifestacion_Especialidad_Entity)
+  @ApiCustomErrorResponse('Invalid page or pageSize')
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiOperation({ summary:'Recuperar todas las categorias'})
   @Get()
-  findAll(@Query() query:ExpressQuery) {
-    return this.nomencla_CCM_Esp_Service.findAll();
+  @ErrorHandler()
+  findAll(@Query() page:number,@Query() pageSize:number) {
+    return this.nomencla_CCM_Esp_Service.findAll(page,pageSize);
   }
 
-  /* This code snippet is defining a GET endpoint in a NestJS controller. */
+  @ApiQuery({
+    name: 'id',
+    description: 'The items in the colletion',
+    type: 'number',
+    required: true    
+  })
+  @ApiPaginatedResponse(NomenclaCat_ContManifestacion_Especialidad_Entity)
+  @ApiCustomErrorResponse('Invalid code')
+  @ApiUnauthorizedCustomErrorResponse('Usuario no valido')
+  @ApiOperation({ summary:'Recuperar la categoria especial'})
+  @ApiNotFoundCustomErrorResponse('Categoria Manifestacion Especial mal')
   @Get(':id')
-  /*
-   * The function findOne takes an id parameter and returns the first result found by calling the
-   * findFirst method of the nomencla_Categorias_ContratacionManifestacionService.
-   * @param {string} id - The `findOne` function takes a parameter `id` of type string. This function
-   * is likely part of a service or controller in a Node.js application using a framework like NestJS.
-   * The function is using the `id` parameter to call the `findFirst` method on the `nomencla_C
-   * @returns The `First` `nomencla_Categorias_ContratacionManifestacionService`
-   * being called with the `id` parameter passed to it, and the result of this method call
-   * is being returned.
-   */
-  findById(@Param('id') id: string) {
+  @ErrorHandler()
+  findOne(@Param('id') id: string) {
     return this.nomencla_CCM_Esp_Service.findId(id);
   }
 
-  @Get('/find/:name')
-  findByName(@Param('name') name: string) {
-    console.log(name)
-    return this.nomencla_CCM_Esp_Service.findFirstName(name);
+  @ApiBody({
+    description: 'The Manifestacion Cultural object',
+    type: Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto,
+  })
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiCreatedResponse({
+    description: 'Returns 201 when Manifestacion Cultural Especialidad is successfully created',
+  })
+  @ApiCustomErrorResponse()
+  @ApiOperation({ summary:'Crear Nomenclador de categoriaEspecialidad de  Manifestacion Cultural'})
+  @Post()
+  @ErrorHandler()
+  create(@Body() create_nccm_esp_Dto: Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto, @Headers('authorization') hds) {
+  return  this.nomencla_CCM_Esp_Service.create(create_nccm_esp_Dto, hds);
+   
+}  
+
+  @ApiOkResponse({
+    description: 'The updated Categoria Manifestacion Cultural Especial Object',
+    type: NomenclaCat_ContManifestacion_Especialidad_Entity,
+  })
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiCustomErrorResponse()
+  @ApiNotFoundCustomErrorResponse('Categoria Manifestacion Cultural Especial')
+  @ApiBody({
+    type: Update_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto,
+  }) 
+  @Patch()
+  @ErrorHandler()
+  update(@Body() bd: Update_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto, @Headers('authorization') hds) {
+    return this.nomencla_CCM_Esp_Service.update( bd,hds);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body(new ValidationPipe()) update_NCCM_Esp_Dto: Update_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto) {
-    return this.nomencla_CCM_Esp_Service.update(id, update_NCCM_Esp_Dto);
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiNotFoundCustomErrorResponse('Manifestacion Cultural Espec')
+  @ApiCustomErrorResponse()
+  @ApiOkResponse({ description: 'The Manifestacion Cultural Espe .successfully deleted' })
+  @ApiBody({
+    type: Remove_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto,
+  })  
+  @Delete()
+  @ErrorHandler()
+  remove(@Body() remo: Remove_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto, @Headers('authorization')hds) {
+    return this.nomencla_CCM_Esp_Service.remove(remo.id, hds);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.nomencla_CCM_Esp_Service.remove(id);
+
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiNotFoundCustomErrorResponse('Mani Cultural Esp')  
+  @ApiBody({
+    description: 'se buca cualquiera manifestacion cult espe',
+    type: Search_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto,
+  })  
+  @ApiCustomErrorResponse()
+  @Put()
+  search(@Body() query: Search_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto) {
+    console.log(query)
+    return this.nomencla_CCM_Esp_Service.search(query);
   }
 }

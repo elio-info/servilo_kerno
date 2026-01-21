@@ -1,16 +1,18 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
 import { Document, HydratedDocument, Types } from "mongoose";
-import { Nomencla_Categorias_ContratacionManifestacion } from "../../n_catgcont-m/schemas/n_catgcont-m.schema";
+import { NomenclaCategorias_ContratacionManifestacion_Model } from "../../n_catgcont-m/schemas/n_catgcont-m.schema";
 import { IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 @Schema({
     timestamps:true,
     validateBeforeSave:true,
-    collection:'Nomencla_Categorias_ContratacionManifestacion_Especialidad'
+    collection:'nomenclacategorias_contmanifest_especialidad'
 })
-export class Nomencla_Categorias_ContratacionManifestacion_Especialidad {
+export class NomenclaCategorias_ContManifestacion_Especialidad_Model {
+    _id: Types.ObjectId;
+    
     @ApiProperty({
         type:String,
         description:'Nombre del Nomenclador del tipo de especialidad dentro de la Manifestacion'
@@ -23,17 +25,12 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad {
 
     @Prop({
         type: Types.ObjectId,
-        ref: Nomencla_Categorias_ContratacionManifestacion.name        
+        ref: NomenclaCategorias_ContratacionManifestacion_Model.name        
     })
-    @Type(()=> Nomencla_Categorias_ContratacionManifestacion)
-    ID_categoria_manifestacion: Nomencla_Categorias_ContratacionManifestacion
+    @Type(()=> NomenclaCategorias_ContratacionManifestacion_Model)
+    categoria_manifestacion: NomenclaCategorias_ContratacionManifestacion_Model
 
-    @IsOptional()
-    @ApiProperty({
-        type: Boolean,
-        default:false
-    })
-    @Prop()
+    @Prop({default:false, select: false||true})
     isDeleted:boolean
 
     @Prop({ default: Date.now })
@@ -43,8 +40,8 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad {
     updatedAt: Date;
 }
 
-export const Nomencla_Categorias_ContratacionManifestacion_Especialidad_Schema=
-SchemaFactory.createForClass(Nomencla_Categorias_ContratacionManifestacion_Especialidad)
+export const NomenclaCategorias_ContManifestacion_Especialidad_Schema=
+SchemaFactory.createForClass(NomenclaCategorias_ContManifestacion_Especialidad_Model)
 
 export type Nomencla_Categorias_ContratacionManifestacion_Especialidad_Document = HydratedDocument<
-Nomencla_Categorias_ContratacionManifestacion_Especialidad >
+NomenclaCategorias_ContManifestacion_Especialidad_Model >

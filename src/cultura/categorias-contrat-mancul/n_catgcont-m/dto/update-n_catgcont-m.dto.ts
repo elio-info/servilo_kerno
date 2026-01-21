@@ -1,24 +1,28 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { Create_Nomencla_CategoriasContratacionManifestacion_Dto } from './create-n_catgcont-m.dto';
-import { IsNotEmpty, IsString, IsOptional, IsBoolean, IsDate } from 'class-validator';
+import { Create_NomenclaCategorias_ContratacionManifestacion_Dto } from './create-n_catgcont-m.dto';
+import { IsNotEmpty, IsString, IsOptional, IsBoolean, IsDate, MinLength, IsMongoId } from 'class-validator';
+import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
+import { NomenclaCategorias_ContratacionManifestacion_Model } from '../schemas/n_catgcont-m.schema';
 
-export class Update_Nomencla_CategoriasContratacionManifestacion_Dto extends PartialType(Create_Nomencla_CategoriasContratacionManifestacion_Dto) {
-    // @ApiProperty({
-    //     example:'665f7c4808023e4c264a4f9b',
-    //     description:`Esta el la llave del Objeto que se trabajara en cuestion`
-    // })
-    // @IsString()
-    // _id:string
-    
+export class Update_NomenclaCategorias_ContratacionManifestacion_Dto {
+    @ApiProperty({
+        example:'665f7c4808023e4c264a4f9b',
+        description:`Esta el la llave del Objeto que se trabajara en cuestion`
+    })
+    @IsMongoId()
+    @IsRelationShipWith(NomenclaCategorias_ContratacionManifestacion_Model)
+    @IsString()
+    id:string    
     
     @IsOptional()
     @ApiProperty({
         example:'Danza', 
         description:'Nombre del Nomenclador. Ej: música, danza, audio, transporte, luces, etc.'        
-    })@IsNotEmpty({message:'El tipo de categoria no puede ser vacio.'})
+    })
+    @IsNotEmpty({message:'El tipo de categoria no puede ser vacio.'})
     @IsString({message:'El nomenclador no puede ser numeral o caracter especial'})
-    readonly nombre_categoria_manifestacion :string
-
+    @MinLength(3)
+    nombre_categoria_manifestacion :string
     
     @IsOptional()
     @ApiProperty({
@@ -31,9 +35,9 @@ export class Update_Nomencla_CategoriasContratacionManifestacion_Dto extends Par
     })@IsBoolean({
         message:'Solo Si o No'
     })
-    apoyo_categoria_manifestacion:boolean
-    
+    apoyo_categoria_manifestacion:boolean    
+
     @IsOptional()
-    @IsDate()
-    updatedAt: Date
+    @IsBoolean()
+    isDeleted: boolean;
 }

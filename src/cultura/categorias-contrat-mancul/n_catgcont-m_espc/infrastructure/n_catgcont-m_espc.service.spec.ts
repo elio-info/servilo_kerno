@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service } from './n_catgcont-m_espc.service';
-import { Nomencla_Categorias_ContratacionManifestacion_Especialidad } from '../schemas/n_catgcont-m_espc.schema';
+import { NomenclaCategorias_ContManifestacion_Especialidad_Model } from '../schemas/n_catgcont-m_espc.schema';
 import mongoose, { Model } from 'mongoose';
 import { create } from 'domain';
 import { getModelToken } from '@nestjs/mongoose';
@@ -10,7 +10,7 @@ import { Nomencla_Categorias_ContratacionManifestacion_Especialidad_Controller }
 
 describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
   let n_ccM_esp_service: Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service;
-  let n_ccM_esp_model:Model <Nomencla_Categorias_ContratacionManifestacion_Especialidad>
+  let n_ccM_esp_model:Model <NomenclaCategorias_ContManifestacion_Especialidad_Model>
 
   const mock_n_ccm_espc_service={
     create: jest.fn()
@@ -30,7 +30,7 @@ describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
       providers: [
         Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service  //original
         , {
-          provide:getModelToken(Nomencla_Categorias_ContratacionManifestacion_Especialidad.name),
+          provide:getModelToken(NomenclaCategorias_ContManifestacion_Especialidad_Model.name),
           useValue: mock_n_ccm_espc_service,
         }
       ],
@@ -38,7 +38,7 @@ describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
     }).compile();
 
     n_ccM_esp_service = module_ccm_esp.get<Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service>(Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service);
-    n_ccM_esp_model= module_ccm_esp.get<Model<Nomencla_Categorias_ContratacionManifestacion_Especialidad>>(getModelToken(Nomencla_Categorias_ContratacionManifestacion_Especialidad.name))
+    n_ccM_esp_model= module_ccm_esp.get<Model<NomenclaCategorias_ContManifestacion_Especialidad_Model>>(getModelToken(NomenclaCategorias_ContManifestacion_Especialidad_Model.name))
   });
 
 

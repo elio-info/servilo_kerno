@@ -33,10 +33,10 @@ export class ProvinceService   {
   findAll(page = 1, pageSize = 15): Promise<DataList<ProvinceEntity>| string> {
     
     page= ( isNaN(page) || page<= 0)? 1: page;
-    console.log('page',page);
+    // console.log('page',page);
     
     pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
-    console.log('pagesz',pageSize);   
+    // console.log('pagesz',pageSize);   
     
     return this.repository.findAll(page, pageSize);
   }

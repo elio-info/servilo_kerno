@@ -16,12 +16,12 @@ import { extractMunicipality } from 'src/modules/common/extractors';
 import { SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 
-export const MODULE = 'Municipality';
-export const IS_NOT_DELETED = { isDeleted: false };
 
 @Injectable()
 export class MongooseMunicipalityRepository implements MunicipalityRepository {
-    private cstvldt: IsRelationshipProvider 
+  private MODULE = 'Municipality';
+  private IS_NOT_DELETED = { isDeleted: false };
+  private cstvldt: IsRelationshipProvider 
   
   constructor(
     @InjectModel(MunicipalityModel.name)
@@ -33,7 +33,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     const skipCount = (page - 1) * pageSize;
 
     const municipalities = await this.municipalityModel
-        .find(IS_NOT_DELETED)
+        .find(this.IS_NOT_DELETED)
         .skip(skipCount)
         .limit(pageSize)
        .populate('province')
@@ -60,7 +60,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     if (crt_prv.trazaDTO.error !='Ok')       
       return crt_prv.trazaDTO.error.toString();
 
-    let crt_dual=await SearchDuplicateValue(MODULE,this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
+    let crt_dual=await SearchDuplicateValue(this.MODULE,this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
 
     if (crt_dual.trazaDTO.error !='Ok')       
       return crt_dual.trazaDTO.error.toString();   
@@ -91,12 +91,12 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
 
     const municipality = await this.municipalityModel
       .findById(id)
-      .where(IS_NOT_DELETED)
+      .where(this.IS_NOT_DELETED)
       .populate('province')
       .exec();
 
     if (!municipality) {
-      return (new ObjectNotFound(MODULE)).toString();
+      return (new ObjectNotFound(this.MODULE)).toString();
     }
 
     return this.toEntity(municipality);
@@ -113,7 +113,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     // console.log('su dto ',municipality);
     traza.trazaDTO.before=bf;  
     const updated = await this.municipalityModel.findByIdAndUpdate(
-      { _id: municipality.id, ...IS_NOT_DELETED },
+      { _id: municipality.id, ...this.IS_NOT_DELETED },
       municipality,
       { new: true, populate: 'province' },
     );
@@ -144,10 +144,10 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     //     traza.save()
     //     return err.toString();
     // }
-    let hijos=await this.cstvldt.validate_onTable('consejopopular_municipal',{'municipio':id},IS_NOT_DELETED);
+    let hijos=await this.cstvldt.validate_onTable('consejopopular_municipal',{'municipio':id},this.IS_NOT_DELETED);
     console.log('hijos',hijos);
     if (hijos!=0) { //tienes hijos no te borras  
-      let error=new ObjectCanNotDeleted (MODULE,id,hijos );
+      let error=new ObjectCanNotDeleted (this.MODULE,hijos );
       traza.trazaDTO.error= error ;
       traza.save();
       return error.toString();

@@ -5,7 +5,7 @@ import { Type } from 'class-transformer';
 
 export type MunicipalityDocument = HydratedDocument<MunicipalityModel>;
 
-@Schema({ timestamps: true, collection: 'municipalities' })
+@Schema({ timestamps: true, validateBeforeSave:true,collection: 'municipalities' })
 export class MunicipalityModel {
   _id: Types.ObjectId;
 

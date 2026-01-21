@@ -147,7 +147,7 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
 	let mnc=psc+ct;
     console.log('jihos', mnc);
     if (mnc!=0) { //tienes hijos no te borras  .populate(populate_Municipio)
-      let error=new ObjectCanNotDeleted(MODULE,id,mnc) ;
+      let error=new ObjectCanNotDeleted(MODULE,mnc) ;
       traza.trazaDTO.error= error ;
       traza.save();
       return error.toString();

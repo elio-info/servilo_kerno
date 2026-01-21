@@ -11,10 +11,10 @@ export class ObjectId_NotFound extends Error {
   }
 }
 export class ObjectCanNotDeleted extends Error {
-  constructor(module_owner: string,module_id: string,hijos=1) {
+  constructor(module_owner: string,hijos=1) {
     super();
     this.name='Objeto no se puede eliminar';
-    this.message=`${module_owner} con id ${module_id},no se puede eliminar, contiene ${hijos} dependientes`;
+    this.message=`${module_owner} no se puede eliminar, contiene ${hijos} dependientes`;
   }
 }
 
