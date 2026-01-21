@@ -153,17 +153,17 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
   async search (query: Search_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto): Promise <NomenclaCategorias_ContManifestacion_Especialidad_Model[]|string> {
       // console.log(id_nom_cat_contman)
       let buscar={isDeleted: query.isDeleted}
-  
+      let nombre={}
       if (!!query.nombre_categoria_manifestacion_especialidad) {//existe nombre
-        if (!!query.exactName) { buscar[' nombre_categoria_manifestacion']=query.nombre_categoria_manifestacion_especialidad ; }
+        if (!!query.exactName) { nombre={ nombre_categoria_manifestacion:query.nombre_categoria_manifestacion_especialidad} ; }
         else
-        {buscar ['nombre_categoria_manifestacion']= { $regex:query.nombre_categoria_manifestacion_especialidad , $options:'i'};}
+        {nombre={ nombre_categoria_manifestacion: { $regex:query.nombre_categoria_manifestacion_especialidad , $options:'i'}};}
       }
-      let padre= !!query.categoria_manifestacion ? {...buscar,categoria_manifestacio:query.categoria_manifestacion}:{}
+      let padre= !!query.categoria_manifestacion ? {categoria_manifestacio:query.categoria_manifestacion}:{}
       console.log(buscar);
-      
+      let bus= {...buscar,...padre,...nombre}
        let result=[];
-      const qCollection =await this.model_ncme.find(buscar).exec();
+      const qCollection =await this.model_ncme.find(bus).exec();
       console.log(qCollection);
       
        qCollection.map((item) =>
