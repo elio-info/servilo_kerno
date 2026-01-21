@@ -10,7 +10,7 @@ import { DataList } from 'src/modules/common/data-list';
 import { ObjectCanNotDeleted, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
-import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
+import { DuplicatedValueError, SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
 import { Search_NomenclaCategorias_ContratacionManifestacion_Dto } from '../dto/search-n_catgcont-m.dto';
  
 @Injectable()
@@ -20,13 +20,13 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
   private whereQuery = { isDeleted: false };
   private cstvldt: IsRelationshipProvider 
   constructor(
-    @InjectModel( NomenclaCategorias_ContratacionManifestacion_Model.name) private readonly model: Model < NomenclaCategorias_ContratacionManifestacion_Document>,
+    @InjectModel( NomenclaCategorias_ContratacionManifestacion_Model.name) 
+    private readonly mnfclt_model: Model < NomenclaCategorias_ContratacionManifestacion_Model>,
     @InjectConnection() private cnn: Connection, 
     @Inject(TrazasService) private traza:TrazasService   
     ) {  
       this.cstvldt=new IsRelationshipProvider(this.cnn) ;
       this.traza.trazaDTO.collection= this.MODULE
-
        }
 
   async findAll(page: number, pageSize: number): Promise <DataList<NomenclaCategorias_ContratacionManifestacion_Entity>| string> {
@@ -37,15 +37,15 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
     // console.log('pagesz',pageSize); 
     const skipCount = (page - 1) * pageSize;
 
-    let cm= await this.model.find(this.whereQuery)
+    // console.log('model name ',NomenclaCategorias_ContratacionManifestacion_Model.name);
+
+    let cm= await this.mnfclt_model.find(this.whereQuery)
         .skip(skipCount)
         .limit(pageSize)
         .lean()
         .exec();
 
-    let cmClltn=cm.map(itm =>{
-       return this.toEntity(itm);
-    }  );  
+    let cmClltn=cm.map((itm) => this.toEntity(itm) );  
     
     const dataList: DataList<NomenclaCategorias_ContratacionManifestacion_Entity> = {
       data: cmClltn,
@@ -56,7 +56,7 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
   }
 
   async findOne(id:string): Promise< NomenclaCategorias_ContratacionManifestacion_Entity|string> {
-    let cm= await this.model.findById({_id:id});
+    let cm= await this.mnfclt_model.findById({_id:id});
     if (!cm) {
           return (new ObjectNotFound(this.MODULE)).toString();
         }
@@ -69,30 +69,21 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
     this.traza.trazaDTO.error='Ok' ;
     this.traza.trazaDTO.filter=createDto;
 
-    let all= await  this.model.find({})
-    let us= all.map((data) =>{
-            let dt=data.nombre_categoria_manifestacion.trim().toLowerCase()
-                ,dt_c=createDto.nombre_categoria_manifestacion.trim().toLowerCase();
-            console.log(dt,dt_c);
-            if (dt==dt_c) {
-              let err=new DuplicatedValueError( data.nombre_categoria_manifestacion + ' -> ' + this.MODULE);
-              this.traza.trazaDTO.error=err;
-              this.traza.save();
-              return err.toString();
-            }
-          })
-    let crt=null;
+    let all= await SearchDuplicateValue(this.MODULE,this.mnfclt_model,['nombre_categoria_manifestacion'],[createDto.nombre_categoria_manifestacion],this.traza)
+    
+    if (all.trazaDTO.error!='Ok') return all.trazaDTO.error.toString();
+    
     try {
-        crt= this.toEntity ( await new this.model(createDto).save());
+       let crt= this.toEntity ( await new this.mnfclt_model(createDto).save());
         this.traza.trazaDTO.update= crt.toString();
         this.traza.save();
-        
+        return crt;
       } catch (error) {
           this.traza.trazaDTO.error= error ;
           this.traza.save();
           return error.toString();
-      }            
-      return crt;
+      }       
+     
   } 
   
   async update(updDto: Update_NomenclaCategorias_ContratacionManifestacion_Dto, hds : string): Promise<NomenclaCategorias_ContratacionManifestacion_Entity|string>{
@@ -105,7 +96,7 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
     let bf=await this.findOne(updDto.id);
     this.traza.trazaDTO.before=bf;  
     
-    const plc = await this.model.findOneAndUpdate(
+    const plc = await this.mnfclt_model.findOneAndUpdate(
       { _id: updDto.id, ...this.whereQuery },
       updDto,
       {
@@ -143,7 +134,7 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
           this.traza.save();
           return error.toString();
         }
-        const plc = await this.model.findOneAndUpdate(
+        const plc = await this.mnfclt_model.findOneAndUpdate(
           { _id: id, isDeleted: false },
           {
             isDeleted: true,
@@ -174,7 +165,7 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
     console.log(buscar);
     
      let result=[];
-    const qCollection =await this.model.find(buscar).exec();
+    const qCollection =await this.mnfclt_model.find(buscar).exec();
     //console.log(provinceCollection);
     
      qCollection.map((item) =>

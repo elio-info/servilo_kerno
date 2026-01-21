@@ -150,7 +150,7 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
             return this.toEntity(plc);
   }
 
-  async search (query: Search_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto): Promise <NomenclaCategorias_ContManifestacion_Especialidad_Model[]|string> {
+  async search (query: Search_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto): Promise <NomenclaCat_ContManifestacion_Especialidad_Entity[]|string> {
       // console.log(id_nom_cat_contman)
       let buscar={isDeleted: query.isDeleted}
       let nombre={}
@@ -162,12 +162,12 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
       let padre= !!query.categoria_manifestacion ? {categoria_manifestacio:query.categoria_manifestacion}:{}
       console.log(buscar);
       let bus= {...buscar,...padre,...nombre}
-       let result=[];
+      
       const qCollection =await this.model_ncme.find(bus).exec();
       console.log(qCollection);
       
-       qCollection.map((item) =>
-        result.push(this.toEntity(item))//
+       let result=qCollection.map((item) =>
+        this.toEntity(item)//
       );
       return result;
     }

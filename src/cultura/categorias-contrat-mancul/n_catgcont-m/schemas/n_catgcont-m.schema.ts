@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
-import { Document, HydratedDocument, Types } from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
 
 @Schema({
     timestamps:true,

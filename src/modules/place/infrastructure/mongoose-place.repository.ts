@@ -151,7 +151,7 @@ private cstvldt: IsRelationshipProvider;
       .find(query)
       .populate({ path: 'municipality', populate: { path: 'province' } });
     const placeCollection = place.map((municipality) =>
-      this.toEntity(municipality),
+      this.toEntity(municipality)
     );
     return placeCollection;
   }

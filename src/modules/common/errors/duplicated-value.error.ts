@@ -31,8 +31,8 @@ export async function SearchDuplicateValue(module,model ,att_2_compare,value_2_c
   // console.log('buscar -',todos);  
   if(todos.length>0)  
     { 
-      let err=new DuplicatedValueError( module);
-      traza.trazaDTO.error=err;
+      let err=new DuplicatedValueError(module);
+      traza.trazaDTO.error=new DuplicatedValueError(module);
       traza.trazaDTO.before='';
       traza.trazaDTO.update='';
       traza.save();      

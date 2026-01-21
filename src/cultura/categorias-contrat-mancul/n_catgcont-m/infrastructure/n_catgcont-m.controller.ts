@@ -21,7 +21,7 @@ import { NomenclaCat_ContManifestacion_Especialidad_Entity } from '../../n_catgc
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
-@Controller('nomenclacategorias-contratacionmanifestacion')
+@Controller('nomenclacategorias-contmanifestacion')
 @ApiTags( 'Nomenclador de Categorias de Contratacion de Manifestacion Artistica')
 export class Nomencla_Categorias_ContratacionManifestacion_Controller {
   constructor(private readonly service: 
@@ -51,7 +51,7 @@ export class Nomencla_Categorias_ContratacionManifestacion_Controller {
   
     @ApiOkResponse({
       description: 'The categoria object',
-      type: NomenclaCat_ContManifestacion_Especialidad_Entity,
+      type: NomenclaCategorias_ContratacionManifestacion_Entity,
     })
     @ApiUnauthorizedCustomErrorResponse()
     @ApiCustomErrorResponse()

@@ -5,7 +5,7 @@ import { MunicipalityModel } from 'src/modules/municipality/infrastructure/munic
 
 export type PlaceDocument = HydratedDocument<PlaceModel>;
 
-@Schema({ timestamps: true, collection: 'places' })
+@Schema({ timestamps: true, validateBeforeSave:true,collection: 'places' })
 export class PlaceModel {
   _id: Types.ObjectId;
 
