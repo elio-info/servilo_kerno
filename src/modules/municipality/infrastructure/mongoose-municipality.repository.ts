@@ -78,10 +78,10 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
         } 
         catch (error) {
           console.log('error salva',error);          
-        let err=new Error('Problema al crear el municipio '+municipality)
-          traza.trazaDTO.error=err.name+' => '+err.message;
+        let err=new Error('Problema al crear '+municipality.name)
+          traza.trazaDTO.error=error;
           traza.save()
-          return err.toString();  
+          return error.toString();  
         }         
       
   }

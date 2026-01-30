@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProgramaSocial_Especial_Service } from './prog_socl_espc.service';
-import { ProgramaSocial_Especial } from '../schemas/prog_socl_espc.schema';
+import { ProgramaSocial_Especial_Model } from '../schemas/prog_socl_espc.schema';
 import mongoose, { Model } from 'mongoose';
 import { create } from 'domain';
 import { getModelToken } from '@nestjs/mongoose';
@@ -9,7 +9,7 @@ import { Create_ProgramaSocial_Especial_Dto } from '../dto/create-prog_socl_espc
 
 describe('ProgramaSocial_Service_Test', () => {
   let ps_esp_service: ProgramaSocial_Especial_Service;
-  let ps_esp_model:Model <ProgramaSocial_Especial>
+  let ps_esp_model:Model <ProgramaSocial_Especial_Model>
 
   const mock_ps_espc_service={
     create: jest.fn()
@@ -29,7 +29,7 @@ describe('ProgramaSocial_Service_Test', () => {
       providers: [
         ProgramaSocial_Especial_Service  //original
         , {
-          provide:getModelToken(ProgramaSocial_Especial.name),
+          provide:getModelToken(ProgramaSocial_Especial_Model.name),
           useValue: mock_ps_espc_service,
         }
       ],
@@ -37,7 +37,7 @@ describe('ProgramaSocial_Service_Test', () => {
     }).compile();
 
     ps_esp_service = module_ps_esp.get<ProgramaSocial_Especial_Service>(ProgramaSocial_Especial_Service);
-    ps_esp_model= module_ps_esp.get<Model<ProgramaSocial_Especial>>(getModelToken(ProgramaSocial_Especial.name))
+    ps_esp_model= module_ps_esp.get<Model<ProgramaSocial_Especial_Model>>(getModelToken(ProgramaSocial_Especial_Model.name))
   });
 
 

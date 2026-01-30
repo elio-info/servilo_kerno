@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProgramaSocial_Service } from './prog_socl.service';
-import { ProgramaSocial } from '../schemas/prog_socl.schema';
+import { ProgramaSocial_Priorizado } from '../schemas/prog_socl.schema';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 import { Create_ProgramaSocial_Dto } from '../dto/create-prog_socl.dto';
@@ -8,7 +8,7 @@ import { Create_ProgramaSocial_Dto } from '../dto/create-prog_socl.dto';
 
 describe('ProgramaSocial_Service_Test', () => {
   let n_c_psc_s: ProgramaSocial_Service;
-  let n_c_psc_m:Model <ProgramaSocial>
+  let n_c_psc_m:Model <ProgramaSocial_Priorizado>
 
   const mock_n_c_psc_service={
     create: jest.fn()
@@ -28,7 +28,7 @@ describe('ProgramaSocial_Service_Test', () => {
       providers: [
         ProgramaSocial_Service  //original
         , {
-          provide:getModelToken(ProgramaSocial.name),
+          provide:getModelToken(ProgramaSocial_Priorizado.name),
           useValue: mock_n_c_psc_service,
         }
       ],
@@ -36,7 +36,7 @@ describe('ProgramaSocial_Service_Test', () => {
     }).compile();
 
     n_c_psc_s = module.get<ProgramaSocial_Service>(ProgramaSocial_Service);
-    n_c_psc_m= module.get<Model<ProgramaSocial>>(getModelToken(ProgramaSocial.name))
+    n_c_psc_m= module.get<Model<ProgramaSocial_Priorizado>>(getModelToken(ProgramaSocial_Priorizado.name))
   });
 
 

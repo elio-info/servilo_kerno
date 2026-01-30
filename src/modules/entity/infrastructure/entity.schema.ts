@@ -8,7 +8,7 @@ import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/
 
 export type EntityDocument = HydratedDocument<EntityModel>;
 
-@Schema({ timestamps: true, collection: 'entity' })
+@Schema({ timestamps: true, collection: 'entity' , validateBeforeSave:true})
 export class EntityModel {
   _id: Types.ObjectId;
 

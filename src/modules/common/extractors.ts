@@ -5,7 +5,7 @@ import { ProvinceModel } from 'src/modules/province/infrastructure/province.sche
 import { EntityType } from '../entity_type/domain/entities/entity-type.entity';
 import { EntityTypeModel } from '../entity_type/infrastructure/entity-type.schema';
 import { EntityModel } from '../entity/infrastructure/entity.schema';
-import { Entity } from '../entity/domain/entities/entity.entity';
+import { Entity_Entity } from '../entity/domain/entities/entity.entity';
 import { PlaceModel } from '../place/infrastructure/place.schema';
 import { Place } from '../place/domain/entities/place.entity';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
@@ -13,6 +13,10 @@ import { Nomencladores_Generales } from 'src/cultura/codificadores-cult/infrastr
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
 import { NomenclaCategorias_ContratacionManifestacion_Entity } from 'src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catcont-m.entity';
 import { NomenclaCategorias_ContratacionManifestacion_Model } from 'src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema';
+
+export function validatePagination(pageValueEntered:number,pageConstValue:number):number {
+  return ( isNaN(pageValueEntered) || pageValueEntered<= 0)? pageConstValue :pageValueEntered
+}
 
 export function getUserHTTP_JWTS(hds_tk:string): Object {
   // console.log(hds_tk);
@@ -70,7 +74,7 @@ export function extractPlace(place: PlaceModel): Place {
   
 }
 
-export function extractEntity(entity: EntityModel): Entity {
+export function extractEntity(entity: EntityModel): Entity_Entity {
   if (!entity) return null;
   return {
     id: entity._id.toString(),

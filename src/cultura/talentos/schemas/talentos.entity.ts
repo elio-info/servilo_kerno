@@ -1,7 +1,7 @@
 import { Prop } from "@nestjs/mongoose";
 import { NomenclaCat_ContManifestacion_Especialidad_Entity } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.entity";
 import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores";
-import { Entity } from "src/modules/entity/domain/entities/entity.entity";
+import { Entity_Entity } from "src/modules/entity/domain/entities/entity.entity";
 
 export class Talento_Artistico_Entity {
     id:string
@@ -9,7 +9,7 @@ export class Talento_Artistico_Entity {
     
     manifest_esp:NomenclaCat_ContManifestacion_Especialidad_Entity
 
-    entidad_talento:Entity
+    entidad_talento:Entity_Entity
      
     @Prop({  default:false })
     persona_TalentoArtistico:boolean

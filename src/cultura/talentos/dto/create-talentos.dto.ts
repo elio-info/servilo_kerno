@@ -4,7 +4,7 @@ import { NomenclaCat_ContManifestacion_Especialidad_Entity } from "src/cultura/c
 import { NomenclaCategorias_ContManifestacion_Especialidad_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.schema"
 import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores"
 import { ApiPaginatedResponse } from "src/modules/common/doc/api-paginated-response.decorator"
-import { Entity } from "src/modules/entity/domain/entities/entity.entity"
+import { Entity_Entity } from "src/modules/entity/domain/entities/entity.entity"
 
 export class Create_Talento_Artistico_Dto{
     //id:string

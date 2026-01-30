@@ -5,9 +5,9 @@ import { Document, Types } from "mongoose";
 @Schema({
     timestamps:true,
     validateBeforeSave:true,
-    collection:'ProgramaSocial'
+    collection:'programasocial_priorizado'
 })
-export class ProgramaSocial {
+export class ProgramaSocial_Priorizado {
     @Prop()
     _id: Types.ObjectId;
 
@@ -19,16 +19,7 @@ export class ProgramaSocial {
         required:true,
         unique: true
     })
-    nombre_programasocial :string
-
-    // @ApiProperty({
-    //     type:Boolean,
-    //     description:'Si: priorizado.	No: provincial',default:true
-    // })
-    // @Prop({
-    //     default:true
-    // })
-    // priorizado:boolean
+    name :string    
 
     @Prop({ default: Date.now })
     createdAt: Date;
@@ -38,7 +29,7 @@ export class ProgramaSocial {
 }
 
 export const ProgramaSocial_Schema=
-SchemaFactory.createForClass(ProgramaSocial)
+SchemaFactory.createForClass(ProgramaSocial_Priorizado)
 
 export type ProgramaSocial_Document =
-ProgramaSocial & Document
+ProgramaSocial_Priorizado & Document

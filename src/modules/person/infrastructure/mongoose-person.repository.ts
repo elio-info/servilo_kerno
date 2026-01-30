@@ -15,7 +15,7 @@ import { extractEntity, extractMunicipality } from '../../common/extractors';
 import { PersonAuth } from 'src/modules/auth/domain/person-auth.entity';
 import { validateId } from 'src/modules/common/helpers/id-validator';
 import { UserNotFound } from 'src/modules/domain/errors/user-not-found.error';
-import { Entity } from 'src/modules/entity/domain/entities/entity.entity';
+import { Entity_Entity } from 'src/modules/entity/domain/entities/entity.entity';
 
 const POPULATE_PATH = { path: 'municipality', populate: { path: 'province' } };
 const ENTITY_PATH = {

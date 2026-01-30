@@ -1,4 +1,4 @@
-import { Entity } from 'src/modules/entity/domain/entities/entity.entity';
+import { Entity_Entity } from 'src/modules/entity/domain/entities/entity.entity';
 import { Municipality } from 'src/modules/municipality/domain/entities/municipality.entity';
 
 export class Person {
@@ -16,7 +16,7 @@ export class Person {
   address: string;
   image: string;
   role: string;
-  entity: Entity;
+  entity: Entity_Entity;
   gender: string;
   updatedAt: Date;
   createdAt: Date;

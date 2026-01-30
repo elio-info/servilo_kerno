@@ -5,17 +5,8 @@ import { ProgramaSocial_Priorizado } from '../../prog_socl_prio/schemas/prog_soc
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { ProgramaSocial_Especial_Model } from '../schemas/prog_socl_espc.schema';
 
-export class Update_ProgramaSocial_Especialidad_Dto  {
-    @ApiProperty({
-        example:'665f7c4808023e4c264a4f9b',
-        description:`Esta el la llave del Objeto que se trabajara en cuestion`
-    })
-    @IsMongoId()
-    @IsString()
-    @IsRelationShipWith(ProgramaSocial_Especial_Model)
-    @IsNotEmpty({message:'NO vacio'})
-    _id:string
-    
+export class Search_ProgramaSocial_Especialidad_Dto  {
+        
     @ApiProperty({
         example:'Pape', 
         description:'Nombre del Nomenclador especialidad que depende del ProgramaSocial especialidal.'        
@@ -24,7 +15,7 @@ export class Update_ProgramaSocial_Especialidad_Dto  {
     @IsNotEmpty({message:'El tipo de categoria no puede ser vacio.'})
     @IsString({message:'El nomenclador no puede ser numeral o caracter especial'})
     @MinLength(3)
-    name :string
+    name? :string
 
     @IsOptional()
     @ApiProperty({
@@ -34,6 +25,9 @@ export class Update_ProgramaSocial_Especialidad_Dto  {
         default:false
     })
     @IsBoolean()
-    isDeleted:boolean
-        
+    isDeleted?:boolean
+     
+    @IsOptional()
+    @IsBoolean()
+    exactName: boolean=true; 
 }

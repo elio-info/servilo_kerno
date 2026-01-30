@@ -10,7 +10,7 @@ import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { privateDecrypt } from 'crypto';
-import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { getUserHTTP_JWTS, validatePagination } from 'src/modules/common/extractors';
 
 @Injectable()
 export class MunicipalityService {
@@ -26,11 +26,11 @@ export class MunicipalityService {
   }
 
   findAll(page = 1, pageSize = 15): Promise<DataList<Municipality> |string> {
-    page= ( isNaN(page) || page<= 0)? 1: page;
-    console.log('page',page);
+    page= validatePagination(page,1);
+    // console.log('page',page);
     
-    pageSize= ( isNaN(pageSize) || pageSize<= 0)? 15: pageSize;
-    console.log('pagesz',pageSize);
+    pageSize= validatePagination( pageSize, 15);
+    // console.log('pagesz',pageSize);
     return this.repository.findAll(page, pageSize);
   }
 

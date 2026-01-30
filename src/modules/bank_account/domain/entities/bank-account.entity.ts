@@ -1,8 +1,8 @@
 import { Municipality } from 'src/modules/municipality/domain/entities/municipality.entity';
-import { Entity } from 'src/modules/entity/domain/entities/entity.entity';
+import { Entity_Entity } from 'src/modules/entity/domain/entities/entity.entity';
 export class BankAccount {
   id: string;
-  entity: Entity;
+  entity: Entity_Entity;
   isCard: boolean;
   accountType: string;
   account: string;

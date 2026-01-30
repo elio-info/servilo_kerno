@@ -8,6 +8,8 @@ import {
   Delete,
   Query,
   UsePipes,
+  Headers,
+  Put,
 } from '@nestjs/common';
 import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
 import { EntityService } from '../application/entity.service';
@@ -24,7 +26,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
-import { Entity } from '../domain/entities/entity.entity';
+import { Entity_Entity } from '../domain/entities/entity.entity';
 import { DataList } from 'src/modules/common/data-list';
 import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-custom-error-response.decorator';
 import { ApiUnauthorizedCustomErrorResponse } from 'src/modules/common/doc/api-unauthorized-custom-error-response.decorator';
@@ -32,6 +34,7 @@ import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-f
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchEntityDto } from '../domain/dto/search-entity.dto';
 import { SanitizePipe } from 'src/modules/common/pipes/Sanitize.pipe';
+import { RemoveEntityDto } from '../domain/dto/remove-entity.dto';
 
 @ApiTags(`entity`)
 @ApiHeader({
@@ -54,8 +57,8 @@ export class EntityController {
   @ApiCustomErrorResponse()
   @Post()
   @ErrorHandler()
-  create(@Body() createEntityDto: CreateEntityDto) {
-    return this.service.create(createEntityDto);
+  create(@Body() createEntityDto: CreateEntityDto,@Headers('authorization') hds) {
+    return this.service.create(createEntityDto,hds);
   }
 
   @ApiQuery({
@@ -70,7 +73,7 @@ export class EntityController {
     type: 'number',
     required: false,
   })
-  @ApiPaginatedResponse(Entity)
+  @ApiPaginatedResponse(Entity_Entity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
   @Get()
@@ -78,13 +81,13 @@ export class EntityController {
   findAll(
     @Query('page') page: number,
     @Query('pageSize') pageSize: number,
-  ): Promise<DataList<Entity>> {
+  ) {
     return this.service.findAll(page, pageSize);
   }
 
   @ApiOkResponse({
     description: 'The entity object',
-    type: Entity,
+    type: Entity_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
@@ -98,54 +101,46 @@ export class EntityController {
 
   @ApiOkResponse({
     description: 'The updated Entity Object',
-    type: Entity,
+    type: Entity_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Entity')
   @ApiBody({
     description: 'Send only the fields that you want to modify',
-    type: CreateEntityDto,
+    type: UpdateEntityDto,
   })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  @Patch()
   @ErrorHandler()
   update(
-    @Param('id') id: string,
-    @Body(SanitizePipe) updateEntityDto: UpdateEntityDto,
+   @Body() updateEntityDto: UpdateEntityDto,@Headers('authorization') hds
   ) {
-    return this.service.update(id, updateEntityDto);
+    return this.service.update( updateEntityDto,hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Entity')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The Entity successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @ApiBody({ type: RemoveEntityDto })
+  @Delete()
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.service.remove(id);
+  remove(@Body() rmid: RemoveEntityDto,@Headers('authorization') hds) {
+    return this.service.remove(rmid.id,hds);
   }
+
+
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Entity')
-  @ApiQuery({
-    name: 'key',
-    description: 'The key name for the search',
-    type: 'string',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'value',
-    description: 'The value for the search',
-    type: 'string',
-    required: false,
+  @ApiBody({
+    type: SearchEntityDto,
+    required: true,
+    description:'Para buscar'
   })
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchEntityDto))
-  @Get('api/search')
+  @Put()
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query:SearchEntityDto) {
     return this.service.search(query);
   }
 }

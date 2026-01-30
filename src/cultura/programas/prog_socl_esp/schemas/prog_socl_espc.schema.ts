@@ -2,15 +2,15 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
 import { Document, Types } from "mongoose";
 import { IsOptional } from "class-validator";
-import { ProgramaSocial } from "../../prog_socl/schemas/prog_socl.schema";
+import { ProgramaSocial_Priorizado } from "../../prog_socl_prio/schemas/prog_socl.schema";
 import { Type } from "class-transformer";
 
 @Schema({
     timestamps:true,
     validateBeforeSave:true,
-    collection:'ProgramaSocial_Especial'
+    collection:'programasocial_especial'
 })
-export class ProgramaSocial_Especial {
+export class ProgramaSocial_Especial_Model {
     _id: Types.ObjectId;
 
     @ApiProperty({
@@ -21,13 +21,7 @@ export class ProgramaSocial_Especial {
         required:true,
         unique: true
     })
-    nombre_programasocial_especial :string
-
-    @Prop({
-        type: Types.ObjectId, ref: ProgramaSocial.name        
-    })
-    @Type(()=> ProgramaSocial)
-    programa: ProgramaSocial
+    nombre_programasocial_especial :string    
 
     @IsOptional()
     @ApiProperty({
@@ -45,7 +39,7 @@ export class ProgramaSocial_Especial {
 }
 
 export const ProgramaSocial_Especial_Schema=
-SchemaFactory.createForClass(ProgramaSocial_Especial)
+SchemaFactory.createForClass(ProgramaSocial_Especial_Model)
 
 export type ProgramaSocial_Especial_Document =
-ProgramaSocial_Especial & Document
+ProgramaSocial_Especial_Model & Document

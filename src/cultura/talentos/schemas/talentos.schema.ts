@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
 import { NomenclaCategorias_ContManifestacion_Especialidad_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.schema";
 import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores";
-import { Entity } from "src/modules/entity/domain/entities/entity.entity";
+import { Entity_Entity } from "src/modules/entity/domain/entities/entity.entity";
 
 
 @Schema({
@@ -32,7 +32,7 @@ export class Talento_Artistico_Model {
     contrato_talento:string
 
     @Prop({
-        type: Types.ObjectId, ref: Entity.name
+        type: Types.ObjectId, ref: Entity_Entity.name
     })
     entidad_talento:NomenclaCategorias_ContManifestacion_Especialidad_Model
 

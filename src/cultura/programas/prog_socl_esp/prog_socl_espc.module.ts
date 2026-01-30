@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { ProgramaSocial_Especial_Controller } from './infrastructure/prog_socl_espc.controller';
 import { ProgramaSocial_Especial_Service } from './infrastructure/prog_socl_espc.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ProgramaSocial_Especial, ProgramaSocial_Especial_Schema } from './schemas/prog_socl_espc.schema';
+import { ProgramaSocial_Especial_Model, ProgramaSocial_Especial_Schema } from './schemas/prog_socl_espc.schema';
 
 @Module({
   imports:[
     MongooseModule.forFeature(
       [
         {
-          name:ProgramaSocial_Especial.name,
+          name:ProgramaSocial_Especial_Model.name,
           schema:ProgramaSocial_Especial_Schema
         }
       ]

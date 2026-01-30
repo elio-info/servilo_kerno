@@ -1,5 +1,5 @@
 import { Prop } from "@nestjs/mongoose"
-import { ProgramaSocial_Entity } from "../../prog_socl/schemas/prog_socl.entity"
+import { ProgramaSocial_Entity } from "../../prog_socl_prio/schemas/prog_socl.entity"
 
 export class ProgramaSocial_Especialidad_Entity
   {

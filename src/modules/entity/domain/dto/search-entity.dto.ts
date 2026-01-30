@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsBoolean,
   IsDate,
   IsDateString,
   IsMongoId,
@@ -13,23 +14,10 @@ import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExis
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
 import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
+import { EntityModel } from '../../infrastructure/entity.schema';
 
-export class SearchEntityDto {
-  constructor() {
-    this.entityType = '';
-    this.parentId = '';
-    this.name = '';
-    this.nitCode = '';
-    this.abbreviation = '';
-    this.resolution = '';
-    this.issuedBy = '';
-    this.domicilie = '';
-    this.municipality = '';
-    this.place = '';
-    this.reeup = '';
-    this.commercialRegister = '';
-  }
-
+export class SearchEntityDto {  
+  
   @IsMongoId({ message: 'Entity Type Id must be valid' })
   @IsRelationShipWith(EntityTypeModel)
   entityType: string;
@@ -88,4 +76,13 @@ export class SearchEntityDto {
 
   @IsString()
   commercialRegister: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isDeleted: boolean=false;
+
+  @IsOptional()
+  @IsBoolean()
+  exactName: boolean=true; 
+
 }

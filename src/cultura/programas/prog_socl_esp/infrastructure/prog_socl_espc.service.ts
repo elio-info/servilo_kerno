@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { ProgramaSocial_Especial, ProgramaSocial_Especial_Document } from '../schemas/prog_socl_espc.schema';
+import { ProgramaSocial_Especial_Model, ProgramaSocial_Especial_Document } from '../schemas/prog_socl_espc.schema';
 import { Create_ProgramaSocial_Especial_Dto } from '../dto/create-prog_socl_espc.dto';
 import { Update_ProgramaSocial_Especialidad_Dto } from '../dto/update-prog_socl_espc.dto';
  
@@ -9,13 +9,13 @@ import { Update_ProgramaSocial_Especialidad_Dto } from '../dto/update-prog_socl_
 export class ProgramaSocial_Especial_Service {
   
   constructor(
-    @InjectModel( ProgramaSocial_Especial.name) private readonly ps_Espec_Model: Model < ProgramaSocial_Especial_Document>,
+    @InjectModel( ProgramaSocial_Especial_Model.name) private readonly ps_Espec_Model: Model < ProgramaSocial_Especial_Document>,
   ){ }
 // :Promise <void>
   async create(create_ps_Espec_Dto: Create_ProgramaSocial_Especial_Dto) {
     console.log('salio esto'+Types.ObjectId.isValid(create_ps_Espec_Dto.prog_socl._id))
     /**/
-    let nomb=create_ps_Espec_Dto.nombre_programasocial_especial;
+    let nomb=create_ps_Espec_Dto.name;
     console.log(' estoy en creat '+ nomb);
     let dep= await this.findFirstName(nomb);
     
@@ -39,7 +39,7 @@ export class ProgramaSocial_Especial_Service {
   async findId(id:string) {
     return await this.ps_Espec_Model.findById({_id:id});
   }
-  async findFirstName (id_nom_ps_esp: string): Promise <ProgramaSocial_Especial> {
+  async findFirstName (id_nom_ps_esp: string): Promise <ProgramaSocial_Especial_Model> {
     console.log(id_nom_ps_esp)
     const ll=await this.ps_Espec_Model.findOne({
       nombre_programasocial_especial:id_nom_ps_esp

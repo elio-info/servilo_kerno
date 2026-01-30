@@ -1,4 +1,88 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateEntityDto } from './create-entity.dto';
+import { IsDateString, IsMongoId, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
+import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
+import { EntityModel } from '../../infrastructure/entity.schema';
+import { ApiProperty } from '@nestjs/swagger';
+import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
+import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
+import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
 
-export class UpdateEntityDto extends PartialType(CreateEntityDto) {}
+export class UpdateEntityDto  {
+    @IsMongoId({ message: 'Entity Id must be valid' })
+  @IsRelationShipWith(EntityModel)
+  @IsNotEmpty({message:'NO se reconoce Id'})
+  id: string;
+
+  @IsMongoId({ message: 'Entity Type Id must be valid' })
+  @IsRelationShipWith(EntityTypeModel)
+  entityType?: string;
+
+  @IsMongoId({ message: 'Parent Id must be valid' })
+  @IsOptional()
+  parentId?: string;
+
+  @IsString()
+  @MinLength(3)
+  @MaxLength(64)
+  @IsNotEmpty()
+  name?: string;
+
+  @ApiProperty({ 
+    type: String, 
+    enum:Object.keys(Clasifica_Nivel_EntidadCultural),
+    default:Clasifica_Nivel_EntidadCultural.Mnpl,
+    example: 'Mnpl'
+   })
+  @IsOptional()
+  nivel?: string;
+
+
+  @IsString()
+  @MinLength(6)
+  @IsOptional()
+  nitCode: string;
+
+  @IsString()
+  @MaxLength(10)
+  @IsOptional()
+  abbreviation: string;
+
+  @IsString()
+  @MaxLength(64)
+  @IsOptional()
+  resolution: string;
+
+  @IsDateString()
+  @IsOptional()
+  resolutionDate: Date;
+
+  @IsString()
+  @IsOptional()
+  issuedBy: string;
+
+  @IsString()
+  @IsOptional()
+  domicilie: string;
+
+  @ApiProperty({  example:'666a00f24d1a4ab9cb5d8e27'})
+  @IsMongoId({ message: 'Municipality Id must be valid' })
+  @IsOptional()
+  @IsRelationShipWith(MunicipalityModel)
+  municipality: string;
+
+  
+  @IsMongoId({ message: 'Place Id must be valid' })
+  @IsOptional()
+  @IsRelationShipWith(PlaceModel)
+  place: string;
+
+  @IsString()
+  @MaxLength(20)
+  @IsOptional()
+  reeup: string;
+
+  @IsString()
+  commercialRegister: string;
+}

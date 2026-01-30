@@ -6,17 +6,20 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EntityService } from './application/entity.service';
 import { MongooseEntityRepository } from './infrastructure/mongoose-entity.repository';
 import { EntityController } from './infrastructure/entity.controller';
+import { TrazasModule } from 'src/cultura/trazas/trazas.module';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: EntityModel.name, schema: EntitySchema },
     ]),
+    TrazasModule,
     ErrorModule,
     MunicipalityModel,
   ],
   controllers: [EntityController],
-  providers: [EntityService, MongooseEntityRepository],
+  providers: [EntityService, MongooseEntityRepository, TrazasService],
   exports: [EntityService],
 })
 export class EntityModule {}
