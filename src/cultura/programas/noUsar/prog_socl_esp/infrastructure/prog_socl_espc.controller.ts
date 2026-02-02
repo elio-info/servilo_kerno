@@ -24,7 +24,7 @@ import { Search_ProgramaSocial_Especialidad_Dto } from '../dto/search-prog_socl_
 export class ProgramaSocial_Especial_Controller {
   constructor(private readonly pse: 
     ProgramaSocial_Especial_Service) {}
-
+/*
     
    @ApiBody({
       description: 'The Manifestacion Cultural object',
@@ -123,4 +123,5 @@ export class ProgramaSocial_Especial_Controller {
       console.log(query);    
       return this.service.search(query);
     }
+      */
 }
