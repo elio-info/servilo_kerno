@@ -2,8 +2,8 @@ import { ApiProperty } from "@nestjs/swagger"
 import { IsBoolean, IsDate, IsMongoId, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator"
 import { Timestamp } from "rxjs"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
-import { ProgramaSocial_Priorizado } from "../../prog_socl_prio/schemas/prog_socl.schema"
-import { ProgramaSocial_Entity } from "../../prog_socl_prio/schemas/prog_socl.entity"
+import { ProgramaSocial_Priorizado_Model } from "../../prog_socl_prio/schemas/prog_socl_prio.schema"
+import { ProgramaSocial_Priorizado_Entity } from "../../prog_socl_prio/schemas/prog_socl_prio.entity"
 
 
 export class Create_ProgramaSocial_Especial_Dto {    

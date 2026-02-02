@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { Create_ProgramaSocial_Dto } from '../dto/create-prog_socl.dto';
-import { Update_ProgramaSocial_Dto } from '../dto/update-prog_socl.dto';
+import { Create_ProgramaSocial_Priorizado_Dto } from '../dto/create-progsocl_prio.dto';
+import { Update_ProgramaSocial_Priorizado_Dto } from '../dto/update-progsocl_prio.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { ProgramaSocial_Priorizado, ProgramaSocial_Document } from '../schemas/prog_socl.schema';
+import { ProgramaSocial_Priorizado_Model, ProgramaSocial_Priorizado_Document } from '../schemas/prog_socl_prio.schema';
 import { Model } from 'mongoose';
  
 @Injectable()
 export class ProgramaSocial_Service {
   
   constructor(
-    @InjectModel( ProgramaSocial_Priorizado.name) private readonly progsocl_Model: Model < ProgramaSocial_Document>,
+    @InjectModel( ProgramaSocial_Priorizado_Model.name) private readonly progsocl_Model: Model < ProgramaSocial_Priorizado_Document>,
   ){ }
 
-  async create(createProgramaSocialDto: Create_ProgramaSocial_Dto) {
-    let nomb=createProgramaSocialDto.nombre_programasocial
+  async create(createProgramaSocialDto: Create_ProgramaSocial_Priorizado_Dto) {
+    let nomb=createProgramaSocialDto.name
     console.log(' estoy en creat '+ nomb);
     let dep=await this.findFirstName(nomb);
     
@@ -39,12 +39,12 @@ export class ProgramaSocial_Service {
     return await this.progsocl_Model.findById({_id:id});
   }
   // :Promise <ProgramaSocial_Document>
-  async findFirstName(nombre_programasocial: string): Promise<ProgramaSocial_Priorizado>  {
+  async findFirstName(nombre_programasocial: string): Promise<ProgramaSocial_Priorizado_Model>  {
     console.log(nombre_programasocial);    
     return await this.progsocl_Model.findOne({name: nombre_programasocial});
   }
 
-  async update(id: string, updateDto: Update_ProgramaSocial_Dto) {
+  async update(id: string, updateDto: Update_ProgramaSocial_Priorizado_Dto) {
     console.log(updateDto)
     const rest= await this.progsocl_Model.findByIdAndUpdate(id,updateDto, { new: true})
     return rest

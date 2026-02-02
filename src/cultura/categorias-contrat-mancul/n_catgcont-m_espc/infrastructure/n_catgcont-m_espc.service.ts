@@ -60,7 +60,7 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
     let all=await this.model_ncme.find()
     let us= all.map((data) =>{
                 let dt=data.nombre_categoria_manifestacion_especialidad.trim().toLowerCase()
-                    ,dt_c=createDto.nombre_categoria_manifestacion_especialidad.trim().toLowerCase();
+                    ,dt_c=createDto.name.trim().toLowerCase();
                 console.log(dt,dt_c);
                 if (dt==dt_c) {
                   let err=new DuplicatedValueError( data.nombre_categoria_manifestacion_especialidad + ' -> ' + this.MODULE);

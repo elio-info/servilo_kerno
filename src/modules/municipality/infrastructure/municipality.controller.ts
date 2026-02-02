@@ -130,7 +130,6 @@ export class MunicipalityController {
     required: true,
   })  
   @ApiCustomErrorResponse()
-  //@UsePipes(new SearchValidate(SearchMunicipalityDto))
   @Put()
   @ErrorHandler()
   search(@Body() query:SearchMunicipalityDto) {

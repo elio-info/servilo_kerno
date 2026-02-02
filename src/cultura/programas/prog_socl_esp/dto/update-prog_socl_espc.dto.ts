@@ -1,7 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsOptional, IsBoolean, IsDate, MinLength, IsMongoId } from 'class-validator';
 import { Create_ProgramaSocial_Especial_Dto } from './create-prog_socl_espc.dto';
-import { ProgramaSocial_Priorizado } from '../../prog_socl_prio/schemas/prog_socl.schema';
+import { ProgramaSocial_Priorizado_Model } from '../../prog_socl_prio/schemas/prog_socl_prio.schema';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { ProgramaSocial_Especial_Model } from '../schemas/prog_socl_espc.schema';
 
@@ -14,7 +14,7 @@ export class Update_ProgramaSocial_Especialidad_Dto  {
     @IsString()
     @IsRelationShipWith(ProgramaSocial_Especial_Model)
     @IsNotEmpty({message:'NO vacio'})
-    _id:string
+    id:string
     
     @ApiProperty({
         example:'Pape', 

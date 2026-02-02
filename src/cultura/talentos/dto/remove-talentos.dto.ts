@@ -10,46 +10,11 @@ import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExis
 import { EntityModel } from "src/modules/entity/infrastructure/entity.schema"
 import { Talento_Artistico_Model } from "../schemas/talentos.schema"
 
-export class Update_Talento_Artistico_Dto{
+export class Remove_Talento_Artistico_Dto {
     @IsMongoId()
     @IsRelationShipWith(Talento_Artistico_Model)
     @IsNotEmpty()
     id:string
 
-     @IsOptional()
-     @ApiProperty({example:'Pedro Prieto'})
-    @IsString()
-    @MinLength(3)
-    name :string
-
-    //Nomencla_Categorias_ContratacionManifestacion_Clss.id
-    @IsOptional()
-    @ApiProperty({example:'666b7d6e80597b171ef1495d Danza Folklorica'})
-    @IsMongoId()
-    @IsNotEmpty({message:'NO vacio'})
-    @IsRelationShipWith(NomenclaCategorias_ContManifestacion_Especialidad_Model)
-    manifest_esp:string
-       
-    @IsOptional()
-    @ApiProperty({  default:true, description:'esto es para pensar' })
-    persona_Talento_Artistico:boolean
-
-    //Nomenclador_Clasifica_ContratoTalento
-    @IsOptional()
-    @ApiProperty({  
-        default:Nomenclador_Clasifica_ContratoTalento.A,
-        type: String,
-        enum:Object.keys(Nomenclador_Clasifica_ContratoTalento) })
-    contrato_talento:string
-    
-    //Entity
-    @IsOptional()
-    @IsRelationShipWith(EntityModel)
-    @IsMongoId()
-    entidad_talento:string
-
-    @IsOptional()
-    @ApiProperty({  default:false })
-    isDeleted:boolean    
     
 }

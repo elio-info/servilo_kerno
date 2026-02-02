@@ -1,12 +1,10 @@
 import { Prop } from "@nestjs/mongoose"
-import { ProgramaSocial_Entity } from "../../prog_socl_prio/schemas/prog_socl.entity"
+import { ProgramaSocial_Priorizado_Entity } from "../../prog_socl_prio/schemas/prog_socl_prio.entity"
 
-export class ProgramaSocial_Especialidad_Entity
+export class ProgramaSocial_Especial_Entity
   {
     id:string
-    nombre_programasocial_especial :string
-    programa: ProgramaSocial_Entity
-    @Prop({ default:false})
+    name :string
     isDeleted:boolean    
     createdAt:Date
     updatedAt:Date

@@ -1,11 +1,7 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsOptional, IsBoolean, IsDate, MinLength, IsMongoId } from 'class-validator';
-import { Create_ProgramaSocial_Especial_Dto } from './create-prog_socl_espc.dto';
-import { ProgramaSocial_Priorizado_Model } from '../../prog_socl_prio/schemas/prog_socl_prio.schema';
-import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
-import { ProgramaSocial_Especial_Model } from '../schemas/prog_socl_espc.schema';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString, IsOptional, IsBoolean, MinLength } from 'class-validator';
 
-export class Search_ProgramaSocial_Especialidad_Dto  {
+export class Search_ProgramaSocial_Priorizado_Dto  {
         
     @ApiProperty({
         example:'Pape', 

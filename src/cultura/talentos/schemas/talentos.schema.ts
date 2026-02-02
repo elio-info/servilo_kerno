@@ -8,13 +8,13 @@ import { Entity_Entity } from "src/modules/entity/domain/entities/entity.entity"
 @Schema({
     timestamps:true,
     validateBeforeSave:true,
-    collection:'Talento_Artistico'
+    collection:'talento_artistico'
 })
 export class Talento_Artistico_Model {
     _id: Types.ObjectId;    
     
     @Prop({ required:true    })
-    nombre_Talento_Artistico :string
+    name :string
    
     @Prop({
         type: Types.ObjectId, ref: NomenclaCategorias_ContManifestacion_Especialidad_Model.name
@@ -36,7 +36,7 @@ export class Talento_Artistico_Model {
     })
     entidad_talento:NomenclaCategorias_ContManifestacion_Especialidad_Model
 
-     @Prop({  default:false })
+     @Prop({  default:false, select: true||false })
     isDeleted:boolean
 
     @Prop({ default: Date.now })

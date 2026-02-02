@@ -1,9 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { ApiProperty } from "@nestjs/swagger";
 import { Document, Types } from "mongoose";
-import { IsOptional } from "class-validator";
-import { ProgramaSocial_Priorizado } from "../../prog_socl_prio/schemas/prog_socl.schema";
-import { Type } from "class-transformer";
 
 @Schema({
     timestamps:true,
@@ -12,23 +8,14 @@ import { Type } from "class-transformer";
 })
 export class ProgramaSocial_Especial_Model {
     _id: Types.ObjectId;
-
-    @ApiProperty({
-        type:String,
-        description:'Nombre del Nomenclador del tipo de especialidad dentro del Programa Social'
-    })
+    
     @Prop({
         required:true,
         unique: true
     })
-    nombre_programasocial_especial :string    
+    name :string    
 
-    @IsOptional()
-    @ApiProperty({
-        type: Boolean,
-        default:false
-    })
-    @Prop()
+    @Prop({type:Boolean,default:false, select :true||false})
     isDeleted:boolean
 
     @Prop({ default: Date.now })
