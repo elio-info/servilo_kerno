@@ -4,9 +4,14 @@ import { Talento_Artistico_Document, Talento_Artistico_Model } from '../schemas/
 import { Model, Query } from 'mongoose';
 import { Create_Talento_Artistico_Dto } from '../dto/create-talentos.dto';
 import { Update_Talento_Artistico_Dto } from '../dto/update-talentos.dto';
+import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 
 @Injectable()
 export class Talento_Artistico_Service {
+  private MODULE = 'Talentos y Apoyos';
+  private IS_NOT_DELETED = { isDeleted: false };
+  private cstvldt: IsRelationshipProvider 
+  
     constructor (
         @InjectModel(Talento_Artistico_Model.name) private readonly talento_Model: Model< Talento_Artistico_Document>
     ){}

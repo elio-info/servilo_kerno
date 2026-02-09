@@ -10,7 +10,7 @@ import { DataList } from 'src/modules/common/data-list';
 import { ObjectCanNotDeleted, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
-import { DuplicatedValueError, SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
+import { DuplicatedValueError, SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import { Search_NomenclaCategorias_ContratacionManifestacion_Dto } from '../dto/search-n_catgcont-m.dto';
  
 @Injectable()
@@ -69,7 +69,7 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
     this.traza.trazaDTO.error='Ok' ;
     this.traza.trazaDTO.filter=createDto;
 
-    let all= await SearchDuplicateValue(this.MODULE,this.mnfclt_model,['nombre_categoria_manifestacion'],[createDto.nombre_categoria_manifestacion],this.traza)
+    let all= await SearchDuplicate_KeysValue(this.MODULE,this.mnfclt_model,['nombre_categoria_manifestacion'],[createDto.nombre_categoria_manifestacion],this.traza)
     
     if (all.trazaDTO.error!='Ok') return all.trazaDTO.error.toString();
     

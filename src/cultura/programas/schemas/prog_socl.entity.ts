@@ -1,8 +1,9 @@
 import { Prop } from "@nestjs/mongoose";
 
-export class ProgramaSocial_Priorizado_Entity {
-    id:string
-    name :string
+export class ProgramaSocial_Entity {
+    id:string;
+    name :string;
+    priorizado:boolean;
     isDeleted:boolean;
     createdAt: Date;  
     updatedAt: Date;

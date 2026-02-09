@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsOptional, IsBoolean, MinLength } from 'class-validator';
 
-export class Search_ProgramaSocial_Priorizado_Dto  {
+export class Search_ProgramaSocial_Dto  {
         
     @ApiProperty({
         example:'Pape', 
@@ -26,4 +26,8 @@ export class Search_ProgramaSocial_Priorizado_Dto  {
     @IsOptional()
     @IsBoolean()
     exactName: boolean=true; 
+
+    @IsOptional()
+    @IsBoolean()
+    priorizado:Boolean
 }

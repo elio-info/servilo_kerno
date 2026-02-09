@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProgramaSocial_Service } from './prog_socl.service';
-import { ProgramaSocial_Priorizado_Model } from '../schemas/prog_socl_prio.schema';
+import { ProgramaSocial_Model } from '../schemas/prog_socl.schema';
 import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
-import { Create_ProgramaSocial_Priorizado_Dto } from '../dto/create-progsocl_prio.dto';
+import { Create_ProgramaSocial_Dto } from '../dto/create-progsocl.dto';
 
 
 describe('ProgramaSocial_Service_Test', () => {
   let n_c_psc_s: ProgramaSocial_Service;
-  let n_c_psc_m:Model <ProgramaSocial_Priorizado_Model>
+  let n_c_psc_m:Model <ProgramaSocial_Model>
 
   const mock_n_c_psc_service={
     create: jest.fn()
@@ -28,7 +28,7 @@ describe('ProgramaSocial_Service_Test', () => {
       providers: [
         ProgramaSocial_Service  //original
         , {
-          provide:getModelToken(ProgramaSocial_Priorizado_Model.name),
+          provide:getModelToken(ProgramaSocial_Model.name),
           useValue: mock_n_c_psc_service,
         }
       ],
@@ -36,7 +36,7 @@ describe('ProgramaSocial_Service_Test', () => {
     }).compile();
 
     n_c_psc_s = module.get<ProgramaSocial_Service>(ProgramaSocial_Service);
-    n_c_psc_m= module.get<Model<ProgramaSocial_Priorizado_Model>>(getModelToken(ProgramaSocial_Priorizado_Model.name))
+    n_c_psc_m= module.get<Model<ProgramaSocial_Model>>(getModelToken(ProgramaSocial_Model.name))
   });
 
 
@@ -62,7 +62,7 @@ describe('ProgramaSocial_Service_Test', () => {
           .spyOn(n_c_psc_s,'create')
           .mockImplementationOnce(() => Promise.resolve(mock_n_c_psc_service.create()))
           // fin Jest
-        const result= await n_c_psc_s.create(nomen_clasif_contrMansArts as Create_ProgramaSocial_Priorizado_Dto,)
+        const result= await n_c_psc_s.create(nomen_clasif_contrMansArts as Create_ProgramaSocial_Dto,)
 
         expect (result).toEqual(mock_n_c_psc_service)
 

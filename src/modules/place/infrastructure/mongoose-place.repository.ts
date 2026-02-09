@@ -8,7 +8,7 @@ import { PlaceRepository } from '../domain/repository/place.repository';
 import { PlaceDocument, PlaceModel } from './place.schema';
 import { CreatePlaceDto } from '../domain/dto/create-place.dto';
 import { UpdatePlaceDto } from '../domain/dto/update-place.dto';
-import { SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
+import { SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import { Place } from '../domain/entities/place.entity';
 import { extractMunicipality } from '../../common/extractors';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
@@ -50,7 +50,7 @@ private cstvldt: IsRelationshipProvider;
 
   async create(place: CreatePlaceDto, traza:TrazasService): Promise<Place|string> {
     
-    let crt_dual=await SearchDuplicateValue(this.MODULE,this.placeModel,['name','municipalitity'],[place.name,place.municipality],traza)
+    let crt_dual=await SearchDuplicate_KeysValue(this.MODULE,this.placeModel,['name','municipalitity'],[place.name,place.municipality],traza)
     
         if (crt_dual.trazaDTO.error !='Ok')       
           return crt_dual.trazaDTO.error.toString();   

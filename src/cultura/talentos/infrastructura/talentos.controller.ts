@@ -14,6 +14,7 @@ import { Search_Talentos_Artisticos_Dto } from '../dto/search-talentos.dto';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
 import { validatePagination } from 'src/modules/common/extractors';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Controller('talentos')
 @ApiHeader({
@@ -24,8 +25,9 @@ import { validatePagination } from 'src/modules/common/extractors';
 @ApiTags('Talentos Artisticos y de Apoyo')
 export class Talento_Artistico_Controller {
     constructor(
-        private readonly talento_Srv:Talento_Artistico_Service
-    ){}
+        private readonly talento_Srv:Talento_Artistico_Service,
+        @Inject(TrazasService) private traza:TrazasService
+    ){ traza.trazaDTO.collection:'Talentos'}
 
     @ApiBody({
       description: 'The Manifestacion Cultural object',
@@ -40,7 +42,12 @@ export class Talento_Artistico_Controller {
     @Post()
     @ErrorHandler()
     create(@Body() create_talento_Dto: Create_Talento_Artistico_Dto, @Headers('authorization') hds) {
-    this.talento_Srv.create(create_talento_Dto, hds);
+     this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
+      this.traza.trazaDTO.operation='save';
+      this.traza.trazaDTO.error='Ok';
+      this.traza.trazaDTO.before='';
+      this.traza.trazaDTO.filter=create_talento_Dto
+      this.talento_Srv.create(create_talento_Dto, this.traza);
     //return 
   }
 
@@ -92,7 +99,12 @@ export class Talento_Artistico_Controller {
     @Patch()
     @ErrorHandler()
    update( @Body() talento_Dto: Update_Talento_Artistico_Dto, @Headers('authorization')  hds)  {
-    return this.talento_Srv.update( talento_Dto, hds);
+     this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
+          this.traza.trazaDTO.operation='update';
+          this.traza.trazaDTO.error='Ok';
+         // this.traza.trazaDTO.before='';
+          this.traza.trazaDTO.filter=talento_Dto
+         return this.talento_Srv.update( talento_Dto, hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -105,7 +117,13 @@ export class Talento_Artistico_Controller {
     @Delete()
     @ErrorHandler()
     remove(@Body('id') id: string, @Headers('authorization') hds) {
-    return this.talento_Srv.remove(id, hds);
+       this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
+            this.traza.trazaDTO.operation='save';
+            this.traza.trazaDTO.error='Ok';
+            // this.traza.trazaDTO.before='';
+            this.traza.trazaDTO.filter={_id:id}
+           
+    return this.talento_Srv.remove(id, this.traza);
   }
 
   //TODO Making Search Endpoint By Query

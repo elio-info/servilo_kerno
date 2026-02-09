@@ -3,7 +3,7 @@ import { IsBoolean, IsDate, IsNotEmpty, IsOptional, IsString } from "class-valid
 import { Timestamp } from "rxjs"
 
 
-export class Create_ProgramaSocial_Priorizado_Dto {    
+export class Create_ProgramaSocial_Dto {    
     @ApiProperty({
         example:'Bellezas latinas', 
         description:'Nombre del programa social prio.'        
@@ -11,5 +11,8 @@ export class Create_ProgramaSocial_Priorizado_Dto {
     @IsNotEmpty({message:'El nombre no puede ser vacio.'})
     @IsString({message:'El nomenclador no puede ser numeral o caracter especial'})
     name :string
-    
+
+    @IsOptional()
+    @IsBoolean()
+    priorizado:Boolean
 }

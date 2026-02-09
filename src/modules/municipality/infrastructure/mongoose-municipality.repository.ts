@@ -13,7 +13,7 @@ import { validateId } from 'src/modules/common/helpers/id-validator';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { extractMunicipality } from 'src/modules/common/extractors';
-import { SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
+import { SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import SearchMunicipalityDto from '../domain/dto/search-municipality.dto';
 
 
@@ -60,7 +60,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     if (crt_prv.trazaDTO.error !='Ok')       
       return crt_prv.trazaDTO.error.toString();
 
-    let crt_dual=await SearchDuplicateValue(this.MODULE,this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
+    let crt_dual=await SearchDuplicate_KeysValue(this.MODULE,this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
 
     if (crt_dual.trazaDTO.error !='Ok')       
       return crt_dual.trazaDTO.error.toString();   

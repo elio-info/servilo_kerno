@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Talento_Artistico_Entity } from "../../talentos/schemas/talentos.entity"
 
-export class Create_Control_ActividadCultural_Dto {
+export class Create_CActCult_Dto {
     @ApiProperty({
         example:'Dia de los bebes',
         required:true,

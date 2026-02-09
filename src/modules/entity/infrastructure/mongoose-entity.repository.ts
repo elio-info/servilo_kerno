@@ -8,7 +8,7 @@ import { Entity_Entity } from '../domain/entities/entity.entity';
 import { EntityDocument, EntityModel } from './entity.schema';
 import { CreateEntityDto } from '../domain/dto/create-entity.dto';
 import { UpdateEntityDto } from '../domain/dto/update-entity.dto';
-import { DuplicatedValueError, SearchDuplicateValue } from 'src/modules/common/errors/duplicated-value.error';
+import { DuplicatedValueError, SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import {
   extractEntityType,
   extractMunicipality,
@@ -66,7 +66,7 @@ private  cstvldt: IsRelationshipProvider;
 
   async create(entity: CreateEntityDto, traza:TrazasService): Promise<Entity_Entity| string> {
 
-    let crt_dual=await SearchDuplicateValue(this.MODULE,this.entityModel,['name','municipality'],[entity.name,entity.municipality],traza)
+    let crt_dual=await SearchDuplicate_KeysValue(this.MODULE,this.entityModel,['name','municipality'],[entity.name,entity.municipality],traza)
     if (crt_dual.trazaDTO.error!='Ok') {
       return crt_dual.trazaDTO.error.toString();
     }
@@ -107,7 +107,7 @@ private  cstvldt: IsRelationshipProvider;
 
   async update(entity: UpdateEntityDto, traza:TrazasService): Promise<Entity_Entity| string> {
     // validateId(id, this.MODULE);
-    let crt_dual=await SearchDuplicateValue(this.MODULE,this.entityModel,['name','municipality'],[entity.name,entity.municipality],traza)
+    let crt_dual=await SearchDuplicate_KeysValue(this.MODULE,this.entityModel,['name','municipality'],[entity.name,entity.municipality],traza)
     if (crt_dual.trazaDTO.error!='Ok') {
       return crt_dual.trazaDTO.error.toString();
     }
