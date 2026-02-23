@@ -59,11 +59,11 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
     
     let all=await this.model_ncme.find()
     let us= all.map((data) =>{
-                let dt=data.nombre_categoria_manifestacion_especialidad.trim().toLowerCase()
+                let dt=data.name.trim().toLowerCase()
                     ,dt_c=createDto.name.trim().toLowerCase();
                 console.log(dt,dt_c);
                 if (dt==dt_c) {
-                  let err=new DuplicatedValueError( data.nombre_categoria_manifestacion_especialidad + ' -> ' + this.MODULE);
+                  let err=new DuplicatedValueError( data.name + ' -> ' + this.MODULE);
                   this.traza.trazaDTO.error=err;
                   this.traza.save();
                   return err.toString();
@@ -175,7 +175,7 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
   toEntity (params:NomenclaCategorias_ContManifestacion_Especialidad_Model):NomenclaCat_ContManifestacion_Especialidad_Entity {
       return{
         id:params._id.toString(),
-        nombre_categoria_manifestacion_especialidad :params.nombre_categoria_manifestacion_especialidad,
+        nombre_categoria_manifestacion_especialidad :params.name,
         isDeleted:params.isDeleted,
         categoria_manifestacion:extractNomCat_ContManif (params.categoria_manifestacion),
         createdAt: params.createdAt,  

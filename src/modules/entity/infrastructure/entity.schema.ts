@@ -5,6 +5,7 @@ import { MunicipalityModel } from 'src/modules/municipality/infrastructure/munic
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
 import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
+import { ConsejoPopular_Municipality_Model } from 'src/cultura/consejo_popular/domain/schemas/consejo_popular.schema';
 
 export type EntityDocument = HydratedDocument<EntityModel>;
 
@@ -14,11 +15,11 @@ export class EntityModel {
 
   @Prop({ type: Types.ObjectId, ref: EntityTypeModel.name, required: true })
   @Type(() => EntityTypeModel)
-  entityType: EntityTypeModel;
+  entityType: string;
 
-  @Prop({ type: Types.ObjectId, ref: EntityModel.name })
+  @Prop({ type: Types.ObjectId, ref: EntityModel.name || null,default:null,required:false })
   @Type(() => EntityModel)
-  parentId: EntityModel;
+  parentId: string;//EntityModel
 
   @Prop({ required: true, unique:true })
   name: string;
@@ -50,9 +51,9 @@ export class EntityModel {
   @Type(() => MunicipalityModel)
   municipality: MunicipalityModel;
 
-  @Prop({ type: Types.ObjectId, ref: PlaceModel.name })
-  @Type(() => PlaceModel)
-  place: PlaceModel;
+  @Prop({ type: Types.ObjectId, ref: ConsejoPopular_Municipality_Model.name })
+  @Type(() => ConsejoPopular_Municipality_Model)
+  consejo_p: ConsejoPopular_Municipality_Model;
 
   @Prop({ default: '' })
   reeup: string;
@@ -60,7 +61,7 @@ export class EntityModel {
   @Prop({ default: '' })
   commercialRegister: string;
 
-  @Prop({ default: false, select: false })
+  @Prop({ default: false, select: false||true })
   isDeleted: boolean;
 
   @Prop()

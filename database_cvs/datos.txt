@@ -152,7 +152,7 @@ cult/entity
 cult/Nomencla_Categorias_ContratacionManifestacion
 {
   "_id":ObjectID('666c29e7a2fc5ad817ef44c4'),
-  "nombre_categoria_manifestacion_especialidad":"Danza",
+  "name":"Danza",
   "apoyo_categoria_manifestacion":false,
   "isDeleted":false
 }

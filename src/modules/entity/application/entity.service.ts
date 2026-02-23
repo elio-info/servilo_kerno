@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { InvalidPaginationError } from 'src/modules/common/errors/invalid-pagination.error';
 import { DataList } from 'src/modules/common/data-list';
 import { MongooseEntityRepository } from '../infrastructure/mongoose-entity.repository';
 import { EntityRepository } from '../domain/repository/entity.repository';
@@ -8,7 +7,6 @@ import { Entity_Entity } from '../domain/entities/entity.entity';
 import { UpdateEntityDto } from '../domain/dto/update-entity.dto';
 import { SearchEntityDto } from '../domain/dto/search-entity.dto';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
-import { MunicipalityRepository } from 'src/modules/municipality/domain/repository/municipality.repository';
 import { getUserHTTP_JWTS, validatePagination } from 'src/modules/common/extractors';
 
 @Injectable()
@@ -16,7 +14,6 @@ export class EntityService {
   constructor(
     @Inject(MongooseEntityRepository)
     private entityRepository: EntityRepository,
-    private repository: MunicipalityRepository,
     @Inject(TrazasService) private traza:TrazasService
   ) { traza.trazaDTO.collection='Entity'}
 
@@ -24,6 +21,7 @@ export class EntityService {
     this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);
     this.traza.trazaDTO.operation='save';
     this.traza.trazaDTO.error='Ok';
+    this.traza.trazaDTO.filter=createEntityDto;
     return this.entityRepository.create(createEntityDto,this.traza);
   }
 
@@ -49,6 +47,7 @@ export class EntityService {
     this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);
     this.traza.trazaDTO.operation='remove';
     this.traza.trazaDTO.error='Ok';
+    this.traza.trazaDTO.filter={id:id};
     return this.entityRepository.remove(id, this.traza);
   }
   search(query: SearchEntityDto): Promise<Entity_Entity[]|string> {

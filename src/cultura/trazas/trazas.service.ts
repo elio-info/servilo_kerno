@@ -48,6 +48,8 @@ export class TrazasService {
      
   }
 
+  terror(): string {return JSON.stringify(this.trazaDTO.error)}
+
   save() {
     //return
     console.log( this.traza_log(this.trazaDTO));

@@ -8,15 +8,20 @@ import { MongooseEntityRepository } from './infrastructure/mongoose-entity.repos
 import { EntityController } from './infrastructure/entity.controller';
 import { TrazasModule } from 'src/cultura/trazas/trazas.module';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { EntityTypeModel } from '../entity_type/infrastructure/entity-type.schema';
+import { PlaceModule } from '../place/place.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: EntityModel.name, schema: EntitySchema },
     ]),
-    TrazasModule,
+    
     ErrorModule,
+    TrazasModule,
     MunicipalityModel,
+    EntityTypeModel,
+    PlaceModule,
   ],
   controllers: [EntityController],
   providers: [EntityService, MongooseEntityRepository, TrazasService],

@@ -140,7 +140,7 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     
     return {
       id:pry._id.toString(),
-      nombre:pry.nombre,
+      name:pry.name,
       consejopopular_municipality:pry.consejopopular_municipality,
       municipio:pry.municipio,
       direccion:pry.direccion,
@@ -148,7 +148,8 @@ export class Proyecto_Sociocultural_Comunitario_Service {
       gestor:gestores,
       actividades:pry.actividades,
       aprobado:pry.aprobado,
-      cancelado:pry.cancelado
+      cancelado:pry.cancelado,
+      isDeleted:pry.isDeleted
     }
   }
 }

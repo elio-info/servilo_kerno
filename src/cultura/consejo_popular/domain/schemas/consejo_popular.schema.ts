@@ -13,7 +13,7 @@ export class ConsejoPopular_Municipality_Model {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ default: false, select: false })
+  @Prop({ default: false, select: false || true})
   isDeleted: boolean;
 
   @Prop()

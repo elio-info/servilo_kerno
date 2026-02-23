@@ -22,7 +22,7 @@ export class Update_NomenclaCategorias_ContratacionManifestacion_Dto {
     @IsNotEmpty({message:'El tipo de categoria no puede ser vacio.'})
     @IsString({message:'El nomenclador no puede ser numeral o caracter especial'})
     @MinLength(3)
-    nombre_categoria_manifestacion :string
+    name :string
     
     @IsOptional()
     @ApiProperty({

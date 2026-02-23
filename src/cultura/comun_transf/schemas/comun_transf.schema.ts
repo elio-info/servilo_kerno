@@ -8,7 +8,7 @@ import { MunicipalityModel } from "src/modules/municipality/infrastructure/munic
 @Schema({
     timestamps:true,
     validateBeforeSave:true,
-    collection:'Comunidad_Transformacion'
+    collection:'comunidad_transformacion'
 })
 export class Comunidad_Transformacion_Model{
     _id:Types.ObjectId
@@ -16,7 +16,7 @@ export class Comunidad_Transformacion_Model{
     @Prop({required:true,
         unique:true
     })
-    nombre:string
+    name:string
 
     @Prop({ type: Types.ObjectId, ref: ConsejoPopular_Municipality_Model.name })
     @Type(() => ConsejoPopular_Municipality_Model)
@@ -37,6 +37,9 @@ export class Comunidad_Transformacion_Model{
 
     @Prop({ default: Date.now })
     createdAt: Date;
+    
+    @Prop({default: false, select: false || true })
+  isDeleted: boolean;
   
     @Prop({ default: Date.now })
     updatedAt: Date;

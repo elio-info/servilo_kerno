@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Headers, Param, Patch, Post, Put, Query, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Headers, Inject, Param, Patch, Post, Put, Query, ValidationPipe } from '@nestjs/common';
 import { ApiTags, ApiHeader,ApiBearerAuth, ApiParam, ApiBody, ApiCreatedResponse, ApiOperation, ApiOkResponse, ApiQuery } from '@nestjs/swagger';
 import { Talento_Artistico_Service } from './talentos.service';
 import { Create_Talento_Artistico_Dto } from '../dto/create-talentos.dto';
@@ -13,7 +13,7 @@ import { Remove_Talento_Artistico_Dto } from '../dto/remove-talentos.dto';
 import { Search_Talentos_Artisticos_Dto } from '../dto/search-talentos.dto';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
-import { validatePagination } from 'src/modules/common/extractors';
+import { getUserHTTP_JWTS, validatePagination } from 'src/modules/common/extractors';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Controller('talentos')
@@ -27,7 +27,7 @@ export class Talento_Artistico_Controller {
     constructor(
         private readonly talento_Srv:Talento_Artistico_Service,
         @Inject(TrazasService) private traza:TrazasService
-    ){ traza.trazaDTO.collection:'Talentos'}
+    ){ traza.trazaDTO.collection='Talentos'}
 
     @ApiBody({
       description: 'The Manifestacion Cultural object',
@@ -139,6 +139,6 @@ export class Talento_Artistico_Controller {
     @ErrorHandler()
     search(@Body() query:Search_Talentos_Artisticos_Dto) {
       console.log(query);    
-      return this.service.search(query);
+      return this.talento_Srv.search(query);
     }
 }

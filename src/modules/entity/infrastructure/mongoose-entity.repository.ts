@@ -10,6 +10,7 @@ import { CreateEntityDto } from '../domain/dto/create-entity.dto';
 import { UpdateEntityDto } from '../domain/dto/update-entity.dto';
 import { DuplicatedValueError, SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import {
+  extractEntity,
   extractEntityType,
   extractMunicipality,
   extractPlace,
@@ -36,25 +37,32 @@ private IS_NOT_DELETED = { isDeleted: false };
 private  cstvldt: IsRelationshipProvider;
 
   constructor(
-    @InjectModel(EntityModel.name)
-    private entityModel: Model<EntityModel>,
+    @InjectModel(EntityModel.name) private entityModel: Model<EntityModel>,
   @InjectConnection() private cnn: Connection,
   ) { this.cstvldt= new IsRelationshipProvider(this.cnn)}
 
   async findAll(page: number, pageSize: number): Promise<DataList<Entity_Entity> | string> {
     const skipCount = (page - 1) * pageSize;
-
-    const entities = await 
+   
+       let entities =null;
+      try {  
+        entities= await 
       this.entityModel
         .find(this.IS_NOT_DELETED)
         .skip(skipCount)
         .limit(pageSize)
         .populate(this.POPULATE_PATH.municipality)
-        .populate(this.POPULATE_PATH.entityType)
-        .populate('parentId')
+        // .populate(this.POPULATE_PATH.entityType)
+        //.populate('parentId')
         .populate(this.POPULATE_PATH.place)
         .exec();
-    const entityCollection = entities.map((entity) => this.toEntity(entity));
+   console.log(entities);
+   
+    } catch (error) {
+      console.log(error);
+      
+    }
+    const entityCollection = entities.map((entity) => extractEntity(entity));
 
     const dataList: DataList<Entity_Entity> = {
       data: entityCollection,
@@ -70,13 +78,16 @@ private  cstvldt: IsRelationshipProvider;
     if (crt_dual.trazaDTO.error!='Ok') {
       return crt_dual.trazaDTO.error.toString();
     }
-
+    console.log('paso SearchKey');
+    
     try {
       let ent=await new this.entityModel(entity).save();
       traza.trazaDTO.update=entity;
       traza.trazaDTO.before=''
       traza.trazaDTO.error='Ok';
       traza.save();
+      console.log('save ',ent);
+      
       let buscar=ent._id.toString();
       return await this.findOne(buscar);
     } catch (error) {
@@ -96,13 +107,13 @@ private  cstvldt: IsRelationshipProvider;
       .where(this.IS_NOT_DELETED)
       .populate(this.POPULATE_PATH.municipality)
       .populate(this.POPULATE_PATH.entityType)
-      .populate('parentId')
+      // .populate('parentId')
       .populate(this.POPULATE_PATH.place);
     if (!entity) {
       return (new ObjectNotFound(this.MODULE)).toString();
     }
 
-    return this.toEntity(entity);
+    return extractEntity(entity);
   }
 
   async update(entity: UpdateEntityDto, traza:TrazasService): Promise<Entity_Entity| string> {
@@ -125,7 +136,7 @@ private  cstvldt: IsRelationshipProvider;
       traza.trazaDTO.update=upd;      
       traza.trazaDTO.error='Ok';
       traza.save();
-      return this.findOne(upd._id.toString());
+      return extractEntity(upd);
     } catch (error) {
        console.log('error salva',error);          
         // let err=new Error('Problema al crear '+entity.name)
@@ -147,7 +158,7 @@ private  cstvldt: IsRelationshipProvider;
           traza.save();
           return error.toString();
         }
-        traza.trazaDTO.before= await this.findOne(id)
+    traza.trazaDTO.before= await this.findOne(id);
     const document = await this.entityModel.findOneAndUpdate(
       { _id: id, isDeleted: false },
       {
@@ -156,39 +167,49 @@ private  cstvldt: IsRelationshipProvider;
     );
 
     if (!document) {
-      throw new ObjectNotFound(this.MODULE);
+      let error=new ObjectNotFound(this.MODULE);
+      traza.trazaDTO.error= error ;
+      traza.save();
+      return error.toString();
     }
+    traza.trazaDTO.filter={id:id} ;
+    traza.trazaDTO.update='' ;
+      traza.save();
+      return extractEntity(document);
   }
-  async search(query) {
+
+  async search(query:SearchEntityDto) :  Promise<Entity_Entity[]|string>{
     const ents = await this.entityModel
       .find(query)
       .populate(this.POPULATE_PATH.municipality)
       .populate(this.POPULATE_PATH.entityType)
       .populate('parentId')
       .populate(this.POPULATE_PATH.place);
-    const entCollection = ents.map((ent) => this.toEntity(ent));
+    const entCollection = ents.map((ent) => extractEntity(ent));
     return entCollection;
   }
 
-  private toEntity(entity: EntityDocument): Entity_Entity {
+  /*
+  private toEntity(entityMdl: EntityModel): Entity_Entity {
     return {
-      id: entity._id.toString(),
-      entityType: extractEntityType(entity.entityType),
-      parentId: entity.parentId ? entity.parentId._id.toString() : null,
-      name: entity.name,
-      nivel: entity.nivel,
-      nitCode: entity.nitCode,
-      abbreviation: entity.abbreviation,
-      resolution: entity.resolution,
-      resolutionDate: entity.resolutionDate,
-      issuedBy: entity.issuedBy,
-      domicilie: entity.domicilie,
-      municipality: extractMunicipality(entity.municipality),
-      place: extractPlace(entity.place),
-      reeup: entity.reeup,
-      commercialRegister: entity.commercialRegister,
-      updatedAt: entity.updatedAt,
-      createdAt: entity.createdAt,
+      id: entityMdl._id.toString(),
+      entityType: entityMdl.entityType._id.toString(), //extractEntityType(entity.entityType),
+      parentId: !!entityMdl.parentId._id ? entityMdl.parentId._id.toString() : '',
+      name: entityMdl.name,
+      nivel: entityMdl.nivel,
+      nitCode: entityMdl.nitCode,
+      abbreviation: entityMdl.abbreviation,
+      resolution: entityMdl.resolution,
+      resolutionDate: entityMdl.resolutionDate,
+      issuedBy: entityMdl.issuedBy,
+      domicilie: entityMdl.domicilie,
+      municipality: entityMdl.municipality._id.toString(),// extractMunicipality(entityMdl.municipality),
+      place: entityMdl.place._id.toString(),//extractPlace(entityMdl.place),
+      reeup: entityMdl.reeup,
+      commercialRegister: entityMdl.commercialRegister,
+      updatedAt: entityMdl.updatedAt,
+      createdAt: entityMdl.createdAt,
     };
   }
+    */
 }

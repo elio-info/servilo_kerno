@@ -1,5 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Talento_Artistico_Entity } from "../../talentos/schemas/talentos.entity"
+import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
+import { EntityModel } from "src/modules/entity/infrastructure/entity.schema"
+import { IsArray, IsMongoId, IsNotEmpty } from "class-validator"
+import { ProgramaSocial_Model } from "src/cultura/programas/schemas/prog_socl.schema"
 
 export class Create_CActCult_Dto {
     @ApiProperty({
@@ -8,7 +12,7 @@ export class Create_CActCult_Dto {
         minLength:3,
         type:String
     })
-    nombre_actcult:string
+    name:string
 
     @ApiProperty({
         example:'29-06-2024',
@@ -25,6 +29,19 @@ export class Create_CActCult_Dto {
         nullable:true
     })
     hora_actcult:string  //Timestamp
+
+    @ApiProperty({required:true})
+    @IsRelationShipWith(EntityModel)
+    @IsNotEmpty()
+    @IsMongoId()
+    entidad_responsable:string
+
+    @ApiProperty({required:true})
+    // @IsRelationShipWith(ProgramaSocial_Model)
+    @IsNotEmpty()
+    // @IsMongoId()
+    @IsArray()
+    programas:string[]
 
     @ApiProperty({example:` '[Talento_Artistico]'
         [{

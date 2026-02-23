@@ -56,7 +56,7 @@ export enum Nomenclador_GrupoEtareo{
 }
 
 export enum Nomenclador_Clasifica_ProgramasSociales{
-    "Prov" = "Programa Social Provincial" ,  
+   // "Prov" = "Programa Social Provincial" ,  
     "Prior" = "Programa Social Priorizado " ,   
     "Espc" = "Programa Social Especiales " 
 }

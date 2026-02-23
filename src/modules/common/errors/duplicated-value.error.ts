@@ -1,9 +1,15 @@
 import { Model } from "mongoose";
 import { TrazasService } from "src/cultura/trazas/trazas.service";
+//extends Error
+export class DuplicatedValueError  {
+  moduleScc: string;
+  keys: any;
+  message: any;
 
-export class DuplicatedValueError extends Error {
-  constructor(message: string) {
-    super(`Duplicated key on ${message} colection`);
+  constructor(module: string, key='') {
+    this.moduleScc =module;
+    this.keys=key;
+    this.message=`Duplicated key ${key} on ${module} colection`;
   }
 }
 
@@ -23,12 +29,16 @@ export class DuplicatedValueError extends Error {
  */
 export async function SearchDuplicate_KeysValue(module,model ,att_2_compare,value_2_compare, traza:TrazasService):Promise <TrazasService>{
   let		qwerty={};
-  att_2_compare.map((data,indx)=>{ qwerty[data]=value_2_compare[indx]; console.log('json',qwerty);})
-  let todos= await Promise.all([model
-                              .find(qwerty)
-                              .exec()]
-                            )
-  // console.log('buscar -',todos);  
+  att_2_compare.map((data,indx)=>{ 
+    qwerty[data]=value_2_compare[indx]; 
+    console.log('Kvalues-json',qwerty);
+  }
+  )
+  let todos= await model
+              .find(qwerty)
+              .exec()
+                            
+  console.log('buscarDupKey -',todos);  
   if(todos.length>0)  
     { 
       let err=new DuplicatedValueError(module);
@@ -40,33 +50,40 @@ export async function SearchDuplicate_KeysValue(module,model ,att_2_compare,valu
     return traza;     
 }
 
-export async function SearchDuplicate_NameValue(mod ,att_2_compare,value_2_compare, traza:TrazasService):Promise <TrazasService>{
-  let todos= await Promise.all([mod
-                              .find({})
-                              .exec()]
-                            )
-  // console.log('buscar -',todos);  
-  return todos[0].filter((data)=> {
-      // console.log('buscar - todos ',data,att_2_compare,data[att_2_compare]);
+export async function SearchDuplicate_NameValue(modname:string,mod ,att_2_compare,value_2_compare, traza:TrazasService):Promise <TrazasService>{
+  let todos= await mod
+                    .find({})
+                    .exec()
+  
+  console.log('buscarDupName mod -',modname); 
+                    
+  console.log('buscarDupName -',todos);  
+  if (todos.length>0){
+   todos.filter((data)=> {
+      console.log('buscar - todos ',data,att_2_compare,data[att_2_compare]);
     // moverme por los elementos a comparar, al primero me voy
     let coincidencias=0;
     att_2_compare.map((att_2_compar,indx) =>{
       if (data[att_2_compar].trim().toLowerCase() ==value_2_compare[indx].trim().toLowerCase()) {
         // comparando todo lo que tengo que comparar
-        console.log('att_2_compar',att_2_compar);
-        console.log('value_2_compare',value_2_compare[indx]);      
+        // console.log('att_2_compar',att_2_compar);
+        // console.log('value_2_compare',value_2_compare[indx]);      
         coincidencias++
-      };
-    } )
+        };
+      } 
+    )
+    // console.log('cant att_2_compar',coincidencias);
+    // console.log('cant value_2_compare',att_2_compare.length); 
     if(coincidencias==att_2_compare.length)  
-    { 
-      let err=new DuplicatedValueError( mod.name);
-      traza.trazaDTO.error=err;
-      traza.trazaDTO.before='';
-      traza.trazaDTO.update='';
-      traza.save();
-      
-    }
-    return traza;     
-})
+      { 
+        let err=new DuplicatedValueError( modname,value_2_compare);        
+        traza.trazaDTO.error=err;
+        traza.trazaDTO.before='';
+        traza.trazaDTO.update='';
+        traza.save();      
+      }      
+      }
+    )
+   }
+return traza; 
 }

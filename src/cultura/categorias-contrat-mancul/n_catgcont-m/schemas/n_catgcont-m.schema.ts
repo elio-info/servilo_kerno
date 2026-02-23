@@ -18,7 +18,7 @@ export class NomenclaCategorias_ContratacionManifestacion_Model {
         required:true,
         unique: true
     })
-    nombre_categoria_manifestacion :string
+    name :string
 
     @ApiProperty({
         type:Boolean,

@@ -9,7 +9,7 @@ import { Gestor_Entity } from "./proy_soccult_com.entity";
 @Schema({
     timestamps:true,
     validateBeforeSave:true,
-    collection:'Proyecto_Sociocultural_Comunitario'
+    collection:'proyecto_sociocultural_comunitario'
 })
 export class Proyecto_Sociocultural_Comunitario_Model{
     _id:Types.ObjectId
@@ -17,7 +17,7 @@ export class Proyecto_Sociocultural_Comunitario_Model{
     @Prop({required:true,
         unique:true
     })
-    nombre:string
+    name:string
 
     @Prop({ type: Types.ObjectId, ref: ConsejoPopular_Municipality_Model.name })
     @Type(() => ConsejoPopular_Municipality_Model)
@@ -41,6 +41,8 @@ export class Proyecto_Sociocultural_Comunitario_Model{
     
     @Prop()
     cancelado:string
+    @Prop({default: false, select: false || true })
+  isDeleted: boolean;
     
     @Prop({ default: Date.now })
     createdAt: Date;

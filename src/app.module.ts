@@ -48,8 +48,9 @@ import { TrazasModule } from './cultura/trazas/trazas.module';
     // mio modulos ----------------
     TrazasModule,
     // fin mio modulos ----------------
-    ErrorModule,MunicipalityModule,
-    ProvinceModule,
+    ErrorModule,
+    ProvinceModule,    
+    MunicipalityModule,
     PlaceModule,
     EntityTypeModule,
     EntityModule,

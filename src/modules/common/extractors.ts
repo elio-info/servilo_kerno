@@ -74,33 +74,34 @@ export function extractPlace(place: PlaceModel): Place {
   
 }
 
-export function extractEntity(entity: EntityModel): Entity_Entity {
-  if (!entity) return null;
+export function extractEntity(entityMdl: EntityModel): Entity_Entity {
+  if (!entityMdl) return null;
   return {
-    id: entity._id.toString(),
-    entityType: extractEntityType(entity.entityType),
-    parentId: entity.parentId ? entity.parentId._id.toString() : null,
-    name: entity.name,
-    nivel: entity.nivel,
-    nitCode: entity.nitCode,
-    abbreviation: entity.abbreviation,
-    resolution: entity.resolution,
-    resolutionDate: entity.resolutionDate,
-    issuedBy: entity.issuedBy,
-    domicilie: entity.domicilie,
-    municipality: extractMunicipality(entity.municipality),
-    place: extractPlace(entity.place),
-    reeup: entity.reeup,
-    commercialRegister: entity.commercialRegister,
-    updatedAt: entity.updatedAt,
-    createdAt: entity.createdAt,
+    id: entityMdl._id.toString(),
+    entityType: entityMdl.entityType,//._id.toString(), //extractEntityType(entity.entityType),
+    parentId: entityMdl.parentId,//._id ? entityMdl.parentId._id.toString() : null,
+    name: entityMdl.name,
+    nivel: entityMdl.nivel,
+    nitCode: entityMdl.nitCode,
+    abbreviation: entityMdl.abbreviation,
+    resolution: entityMdl.resolution,
+    resolutionDate: entityMdl.resolutionDate,
+    issuedBy: entityMdl.issuedBy,
+    domicilie: entityMdl.domicilie,
+    municipality: entityMdl.municipality._id.toString(),// extractMunicipality(entityMdl.municipality),
+    consejo_p: entityMdl.consejo_p._id.toString(),//extractPlace(entityMdl.place),
+    reeup: entityMdl.reeup,
+    commercialRegister: entityMdl.commercialRegister,
+    updatedAt: entityMdl.updatedAt,
+    createdAt: entityMdl.createdAt,
+    isDeleted:entityMdl.isDeleted
   };
 }
 
 export function extractNomCat_ContManif(params:NomenclaCategorias_ContratacionManifestacion_Model):NomenclaCategorias_ContratacionManifestacion_Entity {
           return{
           id:params._id.toString(),
-          nombre_categoria_manifestacion :params.nombre_categoria_manifestacion,
+          name :params.name,
           isDeleted:params.isDeleted,
           apoyo_categoria_manifestacion:params.apoyo_categoria_manifestacion,
           createdAt: params.createdAt,  

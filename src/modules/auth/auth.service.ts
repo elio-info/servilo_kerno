@@ -106,7 +106,7 @@ export class AuthService  {
       img_usr:data_ret.image,
       pertenece:{
           id_ent:data_ret.entity.id,
-          nivel_ent:data_ret.entity.entityType.hierarchy,
+          nivel_ent:data_ret.entity.entityType,//.hierarchy,
           name_ent:data_ret.entity.name
         },
      // tiempoExpiraToken:Date.now()+ 3600
@@ -131,7 +131,7 @@ export class AuthService  {
       img_usr:data_ret.image,
       pertenece:{
           id_ent:data_ret.entity.id,
-          nivel_ent:data_ret.entity.entityType.hierarchy,
+          nivel_ent:data_ret.entity.entityType,//.hierarchy
           name_ent:data_ret.entity.name
         },
      // tiempoExpiraToken:Date.now()+ 3600

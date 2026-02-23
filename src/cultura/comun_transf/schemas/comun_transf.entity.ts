@@ -2,10 +2,11 @@ import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructur
 
 export class Comunidad_Transformacion_Entity {
     id:string
-    nombre:string
+    name:string
     consejopopular_municipality:string
     municipio:string
     observacion:string
     responsable:string
     telefonos:string
+    isDeleted:boolean
 }

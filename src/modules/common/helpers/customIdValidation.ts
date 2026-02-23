@@ -88,6 +88,7 @@ export class IsRelationshipProvider implements ValidatorConstraintInterface {
     }
     
   }
+  
   async validate_onTable(table_name:string, value_condition: {}, args={ isDeleted: false }): Promise<number> {
     let ssn=this.connection.startSession();
     let all_condition=value_condition;//uniendo

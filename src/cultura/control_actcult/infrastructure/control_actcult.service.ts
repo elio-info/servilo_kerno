@@ -5,6 +5,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Control_ActividadCultural_Document, Control_ActividadCultural_Model } from '../schemas/control_actcult.schema';
 import { Model } from 'mongoose';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { Control_ActividadCultural_Entity } from '../schemas/control_actcult.entity';
+import { Search_CActCult_Dto } from '../dto/search-control_actcult.dto';
+import { SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
+import { DataList } from 'src/modules/common/data-list';
 
 @Injectable()
 export class Control_ActividadCultural_Service {
@@ -15,26 +20,82 @@ export class Control_ActividadCultural_Service {
 
   constructor(@InjectModel(Control_ActividadCultural_Model.name) private readonly cntrl_actvcultMdl:Model<Control_ActividadCultural_Document>){}
 
-  async create(createControlActcultDto: Create_CActCult_Dto):Promise<void> {
-     this.cntrl_actvcultMdl.create(createControlActcultDto)
+  async create(createControlActcultDto: Create_CActCult_Dto, traza:TrazasService):Promise<Control_ActividadCultural_Entity | string> {
+    let srch=await SearchDuplicate_KeysValue(this.MODULE,this.cntrl_actvcultMdl,['name','dia_actcult'],[createControlActcultDto.name,createControlActcultDto.dia_actcult],traza);
+    if (srch.trazaDTO.error!='Ok'){
+      srch.save()
+      return srch.trazaDTO.error.toString();
+    }
+    try {
+      let crt=this.toEntity (await this.cntrl_actvcultMdl.create(createControlActcultDto));
+      traza.trazaDTO.update=crt;
+      traza.save();
+      return crt;
+    } catch (error) {
+      traza.trazaDTO.error=error;
+      traza.save()
+      return error.toString();
+    } 
   }
 
-  findAll():Promise<Control_ActividadCultural_Document[]> {
-    return this.cntrl_actvcultMdl.find()
+  async findAll(page: number, pageSize: number): Promise<DataList<Control_ActividadCultural_Entity> | string> {
+    let skipCount=(page -1 ) * pageSize;
+  
+      let fnd= await this.cntrl_actvcultMdl.find(this.IS_NOT_DELETED).skip(skipCount).lean().exec();
+      let pss=fnd.map((itm)=> this.toEntity(itm));
+       const dataList: DataList<Control_ActividadCultural_Entity> = {
+            data: pss,
+            totalPages: Math.ceil(pss.length / pageSize),
+            currentPage: page,
+          };
+          return dataList;
   }
 
-  async findOne(id: string):Promise<Control_ActividadCultural_Document> {
-    return await this.cntrl_actvcultMdl.findOne({_id:id})
+  async findOne(id: string):Promise<Control_ActividadCultural_Entity | string> {
+    return this.toEntity(await this.cntrl_actvcultMdl.findById({_id:id}))
   }
 
-  async findByName(name: string):Promise<Control_ActividadCultural_Document> {
-    return await this.cntrl_actvcultMdl.findOne({nombre_actcult:name})
+  async search(query:Search_CActCult_Dto):Promise<Control_ActividadCultural_Entity|string> {
+    return await this.cntrl_actvcultMdl.findOne({name:name})
   }
-  async update(id: string, updateControlActcultDto: Update_CActCult_Dto):Promise<Control_ActividadCultural_Document> {
-    return await this.cntrl_actvcultMdl.findByIdAndUpdate(id,updateControlActcultDto,{new:true})
+  async update( updateControlActcultDto: Update_CActCult_Dto, traza: TrazasService):Promise<Control_ActividadCultural_Entity| string> {
+    try {
+      let upd= this.toEntity(await this.cntrl_actvcultMdl.findByIdAndUpdate(updateControlActcultDto,{new:true}) )
+      traza.trazaDTO.update=upd
+      return upd;
+    } catch (error) {
+      let err=new Error('Problema con actualizacion Sistema '+this.MODULE)
+        traza.trazaDTO.error=err;
+        traza.trazaDTO.update='';
+        traza.save()
+        return err.toString();
+    }
   }
 
- async remove(id: string) {
-    return await this.cntrl_actvcultMdl.findByIdAndDelete({id})
+ async remove(id: string, traza:TrazasService) :Promise<Control_ActividadCultural_Entity| string> {
+  try {
+    let rm=await this.cntrl_actvcultMdl.findByIdAndUpdate(id,{isDeleted:true});
+    traza.trazaDTO.update='';
+    traza.save()
+    return this.toEntity(rm);;
+  } catch (error) {
+    let err=new Error('Problema con eliminacion '+this.MODULE)
+    traza.trazaDTO.error=err;
+    traza.trazaDTO.update='';
+    traza.save()
+    return err.toString();
   }
+  }
+ 
+  toEntity(ps:Control_ActividadCultural_Model): Control_ActividadCultural_Entity {
+      
+      return {
+        id:ps._id.toString(),
+        name:ps.name,
+        entidad_responsable:ps.entidad_responsable._id.toString(),
+        isDeleted:ps.isDeleted,
+        createdAt:ps.createdAt,
+        updatedAt:ps.updatedAt
+      } ;
+    }
 }

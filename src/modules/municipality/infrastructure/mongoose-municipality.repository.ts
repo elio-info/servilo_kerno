@@ -9,7 +9,6 @@ import { MunicipalityDocument, MunicipalityModel } from './municipality.schema';
 import { Municipality } from '../domain/entities/municipality.entity';
 import { CreateMunicipalityDto } from '../domain/dto/create-municipality.dto';
 import { UpdateMunicipalityDto } from '../domain/dto/update-municipality.dto';
-import { validateId } from 'src/modules/common/helpers/id-validator';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { extractMunicipality } from 'src/modules/common/extractors';

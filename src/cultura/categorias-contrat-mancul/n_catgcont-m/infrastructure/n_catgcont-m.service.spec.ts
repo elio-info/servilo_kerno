@@ -54,7 +54,7 @@ describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
         //comence a probar
         //creando nomen clasif contMansArts
         const nomen_clasif_contrMansArts ={
-          nombre_categoria_manifestacion:'nueva clasif',
+          name:'nueva clasif',
           apoyo_categoria_manifestacion: false,
           createdAt: new Date()
           //,updatedAt:new Date()

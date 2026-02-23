@@ -75,7 +75,7 @@ export class Nomencla_Categorias_ContratacionManifestacion_Controller {
   @ApiOperation({ summary:'Crear Nomenclador de categorias Manifestacion Cultural'})
   @Post()
   @ErrorHandler()
-  create(@Body() createNomencla_Categorias_ContratacionManifestacion_Dto: Create_NomenclaCategorias_ContratacionManifestacion_Dto , @Headers('authorization') hds) {
+  async create(@Body() createNomencla_Categorias_ContratacionManifestacion_Dto: Create_NomenclaCategorias_ContratacionManifestacion_Dto , @Headers('authorization') hds): Promise<NomenclaCategorias_ContratacionManifestacion_Entity|string> {
     return this.service.create(createNomencla_Categorias_ContratacionManifestacion_Dto, hds);
   }
 

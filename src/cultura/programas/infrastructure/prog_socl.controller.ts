@@ -27,7 +27,7 @@ export class ProgramaSocial_Controller {
   constructor(private readonly ps: 
     ProgramaSocial_Priorizado_Service,
     @Inject(TrazasService) private traza:TrazasService
-  )  { traza.trazaDTO.collection:'Programa Social'}
+  )  { traza.trazaDTO.collection='Programa Social'}
 
    @ApiBody({
         description: 'The Manifestacion Cultural object',
@@ -39,8 +39,8 @@ export class ProgramaSocial_Controller {
       })
       @ApiCustomErrorResponse()
       @ApiOperation({ summary:'Crear PS Especial'})
-      @Post()
       @ErrorHandler()
+      @Post()      
     create(@Body() createProgramaSocial_Dto: Create_ProgramaSocial_Dto, @Headers('authorization') hds) {
       this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
       this.traza.trazaDTO.operation='save';
@@ -66,6 +66,7 @@ export class ProgramaSocial_Controller {
     @ApiCustomErrorResponse('Invalid page or pageSize')
     @ApiUnauthorizedCustomErrorResponse()
     @ApiOperation({ summary:'Recuperar todas las categorias'})
+    @ErrorHandler()
     @Get()
   findAll(@Query('page') page:number,@Query('pageSize') pageSize:number) {
     return this.ps.findAll( validatePagination(page,1),validatePagination(pageSize,15));
@@ -137,6 +138,6 @@ export class ProgramaSocial_Controller {
     @ErrorHandler()
     search(@Body() query:Search_ProgramaSocial_Dto) {
       console.log(query);    
-      return this.service.search(query);
+      return this.ps.search(query);
     }
 }

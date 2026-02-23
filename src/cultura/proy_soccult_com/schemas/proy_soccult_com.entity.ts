@@ -2,7 +2,7 @@ import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructur
 
 export class Proyecto_Socioculturale_Comunitario_Entity {
     id:string;
-    nombre:string;
+    name:string;
     consejopopular_municipality:string;
     municipio:string
     direccion:string;
@@ -11,11 +11,11 @@ export class Proyecto_Socioculturale_Comunitario_Entity {
     actividades:string
     aprobado:string;
     cancelado:string;
+    isDeleted:boolean
 }
 
 export class Gestor_Entity{
-    nombre: string;
+    name: string;
     titulos_profesiones: string;
-    telefonos:string;
-    
+    telefonos:string;    
 }

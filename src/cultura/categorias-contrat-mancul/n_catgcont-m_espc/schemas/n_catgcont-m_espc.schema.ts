@@ -21,7 +21,7 @@ export class NomenclaCategorias_ContManifestacion_Especialidad_Model {
         required:true,
         unique: true
     })
-    nombre_categoria_manifestacion_especialidad :string
+    name :string
 
     @Prop({
         type: Types.ObjectId,

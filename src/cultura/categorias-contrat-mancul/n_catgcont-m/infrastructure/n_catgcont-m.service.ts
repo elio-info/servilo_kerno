@@ -10,7 +10,7 @@ import { DataList } from 'src/modules/common/data-list';
 import { ObjectCanNotDeleted, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
-import { DuplicatedValueError, SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
+import { DuplicatedValueError, SearchDuplicate_KeysValue, SearchDuplicate_NameValue } from 'src/modules/common/errors/duplicated-value.error';
 import { Search_NomenclaCategorias_ContratacionManifestacion_Dto } from '../dto/search-n_catgcont-m.dto';
  
 @Injectable()
@@ -68,10 +68,10 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
     this.traza.trazaDTO.operation='create';
     this.traza.trazaDTO.error='Ok' ;
     this.traza.trazaDTO.filter=createDto;
-
-    let all= await SearchDuplicate_KeysValue(this.MODULE,this.mnfclt_model,['nombre_categoria_manifestacion'],[createDto.nombre_categoria_manifestacion],this.traza)
+this.traza.save()
+    let all= await SearchDuplicate_NameValue(this.MODULE,this.mnfclt_model,['name'],[createDto.name],this.traza)
     
-    if (all.trazaDTO.error!='Ok') return all.trazaDTO.error.toString();
+    if (all.trazaDTO.error!='Ok') return all.terror();
     
     try {
        let crt= this.toEntity ( await new this.mnfclt_model(createDto).save());
@@ -157,10 +157,10 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
     // console.log(id_nom_cat_contman)
     let buscar={isDeleted: query.isDeleted}
 
-    if (!!query.nombre_categoria_manifestacion) {//existe nombre
-      if (!!query.exactName) { buscar[' nombre_categoria_manifestacion']=query.nombre_categoria_manifestacion ; }
+    if (!!query.name) {//existe nombre
+      if (!!query.exactName) { buscar['name']=query.name ; }
       else
-      {buscar ['nombre_categoria_manifestacion']= { $regex:query.nombre_categoria_manifestacion , $options:'i'};}
+      {buscar ['name']= { $regex:query.name , $options:'i'};}
     } 
     console.log(buscar);
     
@@ -177,7 +177,7 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
   toEntity (params:NomenclaCategorias_ContratacionManifestacion_Model):NomenclaCategorias_ContratacionManifestacion_Entity {
     return{
       id:params._id.toString(),
-      nombre_categoria_manifestacion :params.nombre_categoria_manifestacion,
+      name :params.name,
       isDeleted:params.isDeleted,
       apoyo_categoria_manifestacion:params.apoyo_categoria_manifestacion,
       createdAt: params.createdAt,  

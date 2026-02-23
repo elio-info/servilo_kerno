@@ -10,6 +10,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { Clasifica_Nivel_EntidadCultural } from 'src/cultura/codificadores-cult/enums/codificadores';
+import { ConsejoPopular_Municipality_Model } from 'src/cultura/consejo_popular/domain/schemas/consejo_popular.schema';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
@@ -74,10 +75,10 @@ export class CreateEntityDto {
   municipality: string;
 
   
-  @IsMongoId({ message: 'Place Id must be valid' })
+  @IsMongoId({ message: 'Consejo Popular Municipal Id must be valid' })
   @IsOptional()
-  @IsRelationShipWith(PlaceModel)
-  place: string;
+  @IsRelationShipWith(ConsejoPopular_Municipality_Model)
+  consejo_p: string;
 
   @IsString()
   @MaxLength(20)

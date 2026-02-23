@@ -52,3 +52,36 @@ guardo
   * responsable
   * telefono
   + observacion
+
+Para insertar Entidad Cultural
+  entityType: string;//EntityType
+  parentId: string;//Entity_Entity
+  name: string;
+  nivel:string;
+  nitCode: string;
+  abbreviation: string;
+  resolution: string;
+  resolutionDate: Date;
+  issuedBy: string;
+  domicilie: string;
+  municipality:string ;//Municipality
+  place:string ;//Place
+  reeup: string;
+  commercialRegister: string;
+
+  ejemplo:
+  entityType: "693dfd8fccd5a6a56e0a9709",//EntityType   "id": "693dfd8fccd5a6a56e0a9709","name": "Direc Munc Cult","hierarchy": 2,
+  parentId: "",//string;//Entity_Entity
+  name: "La casa de Pepe",//string;
+  nivel:"Prov",//string; Clasifica_Nivel_EntidadCultural
+  municipality:"'6923738182f18054a5e54d6f",//Municipality string ;la  perra  Matanzas'6923738182f18054a5e54d6f','municipality'
+  place:  "693e6fe6b267f8f6bb64a640" , //string ;//Place  lpoki string -> la perra -> Matanzas
+
+  nitCode: string;
+  abbreviation: string;
+  resolution: string;
+  resolutionDate: Date;
+  issuedBy: string;
+  domicilie: string;
+  reeup: string;
+  commercialRegister: string;

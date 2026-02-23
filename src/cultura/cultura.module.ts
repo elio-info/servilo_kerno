@@ -9,20 +9,25 @@ import { Comunidad_Transformacion_Module } from "./comun_transf/comun_transf.mod
 import { ProgramaSocial_Priorizado_Module } from "./programas/noUsar/prog_socl_prio/prog_socl_prio.module";
 import { ProgramaSocial_Especial_Module } from "./programas/noUsar/prog_socl_esp/prog_socl_espc.module";
 import { TrazasModule } from './trazas/trazas.module';
+import { EntityService } from "src/modules/entity/application/entity.service";
+import { EntityModule } from "src/modules/entity/entity.module";
 
 @Module({
     imports:[
+        EntityModule,
+
         ConsejoPopular_Municipality_Module,
         Nomencla_CodificadoresCulturales_Module,
         NomenclaCategorias_ContratacionManifestacion_Module,
         NomenclaCategorias_ContManifestacion_Especialidad_Module,
-        Comunidad_Transformacion_Module,
-        ProgramaSocial_Priorizado_Module,ProgramaSocial_Especial_Module,
+        Comunidad_Transformacion_Module,        
+        //ProgramaSocial_Priorizado_Module,ProgramaSocial_Especial_Module,
         Talento_Artistico_Module,
         Proyecto_Sociocultural_Comunitario_Module,
         TrazasModule
         
     ],
+   // providers:[EntityService],
     exports:[TrazasModule]
 })
 export class CulturaModule {}

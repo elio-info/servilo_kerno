@@ -9,11 +9,8 @@ import { ConsejoPopular_Municipality_Document, ConsejoPopular_Municipality_Model
 import { ConsejoPopular_Municipality_Entity } from '../domain/schemas/consejo_popular.entity';
 import { Create_ConsejoPopular_Municipality_Dto } from '../domain/dto/create-consejopopular_municipality.dto';
 import { Update_ConsejoPopular_Municipality_Dto } from '../domain/dto/update-consejopopular_municipality.dto';
-import { validateId } from 'src/modules/common/helpers/id-validator';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
-import { ErrorModule } from 'src/modules/common/errors/error.module';
-import { ObjectDoesNotExist } from 'src/modules/domain/errors/object-doesnt-exist.error';
 import Search_ConsejoPopular_MunicipalityDto from '../domain/dto/search-consejopopular_municipality.dto';
 
 const MODULE = 'Consejo_Popular_Municipal';
