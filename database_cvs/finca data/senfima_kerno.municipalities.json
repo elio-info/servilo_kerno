@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "6923738182f18054a5e54d6f"
+  },
+  "name": "Cardenas",
+  "isDeleted": false,
+  "province": "6923718182f18054a5e54d68",
+  "createdAt": {
+    "$date": "2025-11-23T20:50:09.541Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-23T12:31:12.202Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6923738982f18054a5e54d71"
+  },
+  "name": "Placetas",
+  "isDeleted": false,
+  "province": "6923718182f18054a5e54d68",
+  "createdAt": {
+    "$date": "2025-11-23T20:50:17.709Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-23T12:32:12.648Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6923739382f18054a5e54d73"
+  },
+  "name": "Varadero",
+  "isDeleted": false,
+  "province": "6923718182f18054a5e54d68",
+  "createdAt": {
+    "$date": "2025-11-23T20:50:27.105Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-23T12:33:13.383Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6933dcacc53d299ef5627dfd"
+  },
+  "name": "ggghyt",
+  "isDeleted": false,
+  "province": "6923718182f18054a5e54d68",
+  "createdAt": {
+    "$date": "2025-12-06T07:35:08.201Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-06T07:35:08.201Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693d1aa033ba286eaf4c2777"
+  },
+  "name": "Pinar del Rio",
+  "isDeleted": false,
+  "province": "6931df8a5dbd4bc64079a778",
+  "createdAt": {
+    "$date": "2025-12-13T07:49:52.228Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-13T07:49:52.228Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699c47036d668e83b802da3c"
+  },
+  "name": "Mantua",
+  "isDeleted": false,
+  "province": "6931df8a5dbd4bc64079a778",
+  "createdAt": {
+    "$date": "2026-02-23T12:24:35.120Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-23T12:24:35.120Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699c47246d668e83b802da42"
+  },
+  "name": "Consolacion del Sur",
+  "isDeleted": false,
+  "province": "6931df8a5dbd4bc64079a778",
+  "createdAt": {
+    "$date": "2026-02-23T12:25:08.230Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-23T12:25:08.230Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699c498f6d668e83b802da5d"
+  },
+  "name": "San Luis",
+  "isDeleted": false,
+  "province": "6931df8a5dbd4bc64079a778",
+  "createdAt": {
+    "$date": "2026-02-23T12:35:27.559Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-23T12:35:27.559Z"
+  },
+  "__v": 0
+}]

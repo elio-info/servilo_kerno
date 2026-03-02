@@ -4,6 +4,7 @@ import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExis
 import { EntityModel } from "src/modules/entity/infrastructure/entity.schema"
 import { IsArray, IsMongoId, IsNotEmpty } from "class-validator"
 import { ProgramaSocial_Model } from "src/cultura/programas/schemas/prog_socl.schema"
+import { Talento_Artistico_Contratado_Entity } from "src/cultura/talentos/talento_contratado/talento_contratado.entity"
 
 export class Create_CActCult_Dto {
     @ApiProperty({
@@ -44,15 +45,29 @@ export class Create_CActCult_Dto {
     programas:string[]
 
     @ApiProperty({example:` '[Talento_Artistico]'
-        [{
-    "_id": "6674bba60c094c02c3a5bef1",
-    "nombre_Talento_Artistico": "Pedro Prieto",
-    "manifest": ["666b7d6e80597b171ef1495d"],
-    "persona_TalentoArtistico": true,
-    "contrato_talento": "A",
-    "entidad_talento": "666c39bd57d4be9254cb5741"    
-    }]` })
-    talentos_y_apoyos?:Talento_Artistico_Entity[]
+        [
+    Talento_Artistico_Contratado_Entity {
+    id:string
+    name :string
+    manifest:string
+    numero_contrato:string
+    numero_prefactura:string
+    cantidad:number
+    }   
+    ]` })
+    talentos:Talento_Artistico_Contratado_Entity[]
 
-    
+    @ApiProperty({example:` '[Talento_Artistico]'
+        [
+    Talento_Artistico_Contratado_Entity {
+    id:string
+    name :string
+    manifest:string
+    numero_contrato:string
+    numero_prefactura:string
+    cantidad:number
+    }   
+    ]` })
+    apoyos?:Talento_Artistico_Contratado_Entity[]
+
 }

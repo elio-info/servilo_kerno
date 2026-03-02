@@ -47,8 +47,8 @@ export class Talento_Artistico_Controller {
       this.traza.trazaDTO.error='Ok';
       this.traza.trazaDTO.before='';
       this.traza.trazaDTO.filter=create_talento_Dto
-      this.talento_Srv.create(create_talento_Dto, this.traza);
-    //return 
+      return this.talento_Srv.create(create_talento_Dto, this.traza);
+    // 
   }
 
   @ApiQuery({
@@ -100,10 +100,10 @@ export class Talento_Artistico_Controller {
     @ErrorHandler()
    update( @Body() talento_Dto: Update_Talento_Artistico_Dto, @Headers('authorization')  hds)  {
      this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
-          this.traza.trazaDTO.operation='update';
-          this.traza.trazaDTO.error='Ok';
-          this.traza.trazaDTO.filter=talento_Dto
-         return this.talento_Srv.update( talento_Dto, hds);
+    this.traza.trazaDTO.operation='update';
+    this.traza.trazaDTO.error='Ok';
+    this.traza.trazaDTO.filter=talento_Dto
+    return this.talento_Srv.update( talento_Dto, hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -116,11 +116,11 @@ export class Talento_Artistico_Controller {
     @Delete()
     @ErrorHandler()
     remove(@Body('id') id: string, @Headers('authorization') hds) {
-       this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
-            this.traza.trazaDTO.operation='save';
-            this.traza.trazaDTO.error='Ok';
-            // this.traza.trazaDTO.before='';
-            this.traza.trazaDTO.filter={_id:id}
+      this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
+      this.traza.trazaDTO.operation='save';
+      this.traza.trazaDTO.error='Ok';
+      // this.traza.trazaDTO.before='';
+      this.traza.trazaDTO.filter={_id:id}
            
     return this.talento_Srv.remove(id, this.traza);
   }

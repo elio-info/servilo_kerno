@@ -1,0 +1,112 @@
+[{
+  "_id": {
+    "$oid": "6923718182f18054a5e54d68"
+  },
+  "name": "Matanzas",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-11-23T20:41:37.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-13T07:46:46.653Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930f93d6ee62cdcd3efdb87"
+  },
+  "name": "jkiuj",
+  "isDeleted": true,
+  "createdAt": {
+    "$date": "2025-12-04T03:00:13.712Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-05T09:08:39.325Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930fd136ee62cdcd3efdb8b"
+  },
+  "name": "fhnn djjdjs",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-12-04T03:16:35.831Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-05T09:07:51.743Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6931dec85dbd4bc64079a774"
+  },
+  "name": "cosas de alla tambien",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-12-04T19:19:36.799Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T19:19:36.799Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6931df8a5dbd4bc64079a778"
+  },
+  "name": "Pinar del Rio",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-12-04T19:22:50.939Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-13T07:47:37.020Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6931e5d75dbd4bc64079a77e"
+  },
+  "name": "mkloi",
+  "isDeleted": true,
+  "createdAt": {
+    "$date": "2025-12-04T19:49:43.330Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-05T16:56:44.763Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6931e8f95dbd4bc64079a784"
+  },
+  "name": " nkkkhbk",
+  "isDeleted": true,
+  "createdAt": {
+    "$date": "2025-12-04T20:03:05.796Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-05T16:53:00.663Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69323ddd909b9ace6c083c50"
+  },
+  "name": "la  rosa",
+  "isDeleted": true,
+  "createdAt": {
+    "$date": "2025-12-05T02:05:17.344Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-05T16:59:24.577Z"
+  },
+  "__v": 0
+}]
