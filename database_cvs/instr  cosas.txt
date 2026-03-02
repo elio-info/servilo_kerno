@@ -65,7 +65,7 @@ Para insertar Entidad Cultural
   issuedBy: string;
   domicilie: string;
   municipality:string ;//Municipality
-  place:string ;//Place
+  consejopopular_municipality:string ;//ConsejoPopular_Municipality
   reeup: string;
   commercialRegister: string;
 

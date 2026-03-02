@@ -27,8 +27,8 @@ export class MongooseEntityRepository implements EntityRepository {
 private POPULATE_PATH = {
   entityType: { path: 'entityType' },
   municipality: { path: 'municipality', populate: { path: 'province' } },
-  place: {
-    path: 'place',
+  consejo_p: {
+    path: 'consejo_p',
     populate: { path: 'municipality', populate: { path: 'province' } },
   },
 };
@@ -46,15 +46,14 @@ private  cstvldt: IsRelationshipProvider;
    
        let entities =null;
       try {  
-        entities= await 
-      this.entityModel
+        entities= await this.entityModel
         .find(this.IS_NOT_DELETED)
-        .skip(skipCount)
-        .limit(pageSize)
-        .populate(this.POPULATE_PATH.municipality)
-        // .populate(this.POPULATE_PATH.entityType)
-        //.populate('parentId')
-        .populate(this.POPULATE_PATH.place)
+        // .skip(skipCount)
+        // .limit(pageSize)
+       .populate(this.POPULATE_PATH.municipality)
+        .populate(this.POPULATE_PATH.entityType)
+        .populate('parentId')
+        .populate(this.POPULATE_PATH.consejo_p)
         .exec();
    console.log(entities);
    
@@ -82,14 +81,13 @@ private  cstvldt: IsRelationshipProvider;
     
     try {
       let ent=await new this.entityModel(entity).save();
-      traza.trazaDTO.update=entity;
+      traza.trazaDTO.update=ent;
       traza.trazaDTO.before=''
       traza.trazaDTO.error='Ok';
       traza.save();
       console.log('save ',ent);
       
-      let buscar=ent._id.toString();
-      return await this.findOne(buscar);
+      return extractEntity(ent);
     } catch (error) {
         console.log('error salva',error);          
         let err=new Error('Problema al crear '+entity.name)
@@ -108,7 +106,7 @@ private  cstvldt: IsRelationshipProvider;
       .populate(this.POPULATE_PATH.municipality)
       .populate(this.POPULATE_PATH.entityType)
       // .populate('parentId')
-      .populate(this.POPULATE_PATH.place);
+      .populate(this.POPULATE_PATH.consejo_p);
     if (!entity) {
       return (new ObjectNotFound(this.MODULE)).toString();
     }
@@ -131,8 +129,8 @@ private  cstvldt: IsRelationshipProvider;
       })
       .populate(this.POPULATE_PATH.municipality)
       .populate(this.POPULATE_PATH.entityType)
-      .populate('parentId')
-      .populate(this.POPULATE_PATH.place);
+      //.populate('parentId')
+      .populate(this.POPULATE_PATH.consejo_p);
       traza.trazaDTO.update=upd;      
       traza.trazaDTO.error='Ok';
       traza.save();
@@ -183,8 +181,8 @@ private  cstvldt: IsRelationshipProvider;
       .find(query)
       .populate(this.POPULATE_PATH.municipality)
       .populate(this.POPULATE_PATH.entityType)
-      .populate('parentId')
-      .populate(this.POPULATE_PATH.place);
+      //.populate('parentId')
+      .populate(this.POPULATE_PATH.consejo_p);
     const entCollection = ents.map((ent) => extractEntity(ent));
     return entCollection;
   }

@@ -9,6 +9,7 @@ import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { Talento_Artistico_Entity } from '../schemas/talentos.entity';
 import { SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import { Search_Talentos_Artisticos_Dto } from '../dto/search-talentos.dto';
+import { ObjectCanNotDeleted } from 'src/modules/common/errors/object-not-found.error';
 
 @Injectable()
 export class Talento_Artistico_Service {
@@ -22,7 +23,7 @@ export class Talento_Artistico_Service {
     ){ this.cstvldt=new IsRelationshipProvider(cnn);}
 
     async create(create_talento:Create_Talento_Artistico_Dto, traza:TrazasService): Promise<Talento_Artistico_Entity | string>{
-      let dup= await SearchDuplicate_KeysValue(this.MODULE,this.talento_Model,['name','manifest_esp'],[create_talento.name,create_talento.manifest_esp],traza)  
+      let dup= await SearchDuplicate_KeysValue(this.MODULE,this.talento_Model,['name','manifest'],[create_talento.name,create_talento.manifest],traza)  
       
       if (dup.trazaDTO.error!='Ok') {
         dup.save();
@@ -32,6 +33,8 @@ export class Talento_Artistico_Service {
         let crt= await this.talento_Model.create(create_talento );
         let tt=this.toEntity(crt);
         traza.trazaDTO.update= tt;
+        traza.save();
+        return tt;
       } catch (error) {
         traza.trazaDTO.error=error;
         traza.save()
@@ -54,21 +57,57 @@ export class Talento_Artistico_Service {
       }
 
       async update( update_talento_Dto: Update_Talento_Artistico_Dto,traza:TrazasService) {
-        console.log(update_talento_Dto)
-        const rest= await this.talento_Model.findByIdAndUpdate(update_talento_Dto.id,update_talento_Dto, { new: true})
-        return rest
+        traza.trazaDTO.before=this.findId(update_talento_Dto.id);
+        console.log(update_talento_Dto);
+        try {
+           const rest= await this.talento_Model.findByIdAndUpdate(update_talento_Dto.id,update_talento_Dto, { new: true})
+           let tt=this.toEntity(rest);
+           traza.trazaDTO.update=tt;
+          traza.save();
+           return  tt
+        } catch (error) {
+          traza.trazaDTO.error=error;
+          traza.save()
+          return traza.trazaDTO.error.toString();
+        }
+       
       }
     
-      async remove(id: string,traza:TrazasService) {
-        return await this.talento_Model.findByIdAndDelete({_id:id});
-      }
+  async remove(id: string,traza:TrazasService) {
+
+    let hijos=await this.cstvldt.validate_onTable('control_actividadcultural',{'talentos':id,'apoyos':id},this.IS_NOT_DELETED);
+    console.log('hijos t y a ',hijos);
+    if (hijos!=0) { //tienes hijos no te borras  
+      let error=new ObjectCanNotDeleted (this.MODULE,hijos );
+      traza.trazaDTO.error= error ;
+      traza.save();
+      return error.toString();
+    }
+    traza.trazaDTO.before= await this.findId(id);
+    try {
+      const document = await this.talento_Model.findOneAndUpdate(
+      { _id: id, isDeleted: false },
+      {
+        isDeleted: true,
+      },
+    );
+    traza.trazaDTO.filter={id:id} ;
+    traza.trazaDTO.update=this.toEntity(document) ;
+      traza.save();
+    } catch (error) {
+       traza.trazaDTO.error= error ;
+      traza.save();
+      return error;
+    }
+    
+}
 
       toEntity(tl:Talento_Artistico_Model):Talento_Artistico_Entity{
         return {
           id:tl._id.toString(),
           name:tl.name,    
-          manifest_esp:tl.manifest_esp._id.toString(),
-          entidad_talento:tl.entidad_talento._id.toString(),     
+          manifest:tl.manifest,//._id.toString(),
+          entidad_talento:tl.entidad_talento,//._id.toString(),     
           persona_TalentoArtistico:tl.persona_TalentoArtistico,
           contrato_talento: tl.contrato_talento,
           isDeleted:tl.isDeleted,

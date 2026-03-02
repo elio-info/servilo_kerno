@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsOptional, IsNotEmpty, IsString, MinLength, IsBoolean, IsMongoId } from "class-validator";
+import { NomenclaCategorias_ContratacionManifestacion_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema";
 import { NomenclaCategorias_ContManifestacion_Especialidad_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.schema";
 import { Nomenclador_Clasifica_ContratoTalento } from "src/cultura/codificadores-cult/enums/codificadores";
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence";
@@ -35,8 +36,8 @@ export class Search_Talentos_Artisticos_Dto  {
     @ApiProperty({example:'666b7d6e80597b171ef1495d Danza Folklorica'})
     @IsMongoId()
     @IsNotEmpty({message:'NO vacio'})
-    @IsRelationShipWith(NomenclaCategorias_ContManifestacion_Especialidad_Model)
-    manifest_esp:string
+    @IsRelationShipWith(NomenclaCategorias_ContratacionManifestacion_Model)
+    manifest:string[]
        
     @IsOptional()
     @ApiProperty({  default:true, description:'esto es para pensar' })

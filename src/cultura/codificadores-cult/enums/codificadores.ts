@@ -7,9 +7,9 @@ states or statuses for cultural activities. Each enum member represents a state 
 pair where the key is a single character abbreviation for the state, and the value is a descriptive
 string representing that state. */
 export enum Nomenclador_TiposDeActividadCultural{
-    'TCA'= 'Taller Creación Artística',
-    'TA'= 'Taller Apreciación Artística', 
-    'AIC' = 'Actividad Institución Cultural'
+    TCA = 'Taller Creación Artística',
+    TA  = 'Taller Apreciación Artística', 
+    AIC = 'Actividad Institución Cultural'
 }
 
 /* 
@@ -21,10 +21,10 @@ states or statuses for cultural activities. Each enum member represents a state 
 pair where the key is a single character abbreviation for the state, and the value is a descriptive
 string representing that state. */
 export enum Nomenclador_EstadosDeActividadCultural{
-    'P' = 'Planificada', 
-    'R' = 'Realizada', 
-    'S' = 'Suspensa', 
-    'D' = 'Denegada'
+    P = 'Planificada', 
+    R = 'Realizada', 
+    S = 'Suspensa', 
+    D = 'Denegada'
 }
 
 /* 
@@ -36,10 +36,10 @@ represents different classifications for talent contracts. Each enum member cons
 pair where the key is a single character representing the classification and the value is a
 descriptive string for that classification. */
 export enum Nomenclador_Clasifica_ContratoTalento{
-    "M" = "Mipyme" ,  
-    "T" = "TCP" ,   
-    "P" = "Profesional" ,   
-    "A" = "Aficionado"
+    M = 'Mipyme' ,
+    T = 'TCP' ,   
+    P = 'Profesional' ,   
+    A = 'Aficionado'
 }
 
 /**
@@ -47,24 +47,24 @@ export enum Nomenclador_Clasifica_ContratoTalento{
  *  En la información actual se clasifica en: 
  */
 export enum Nomenclador_GrupoEtareo{
-    'N'='Niño (N)',
-    'AD'='Adolescente (AD)',
-    'J' ='Joven (J)',
-    'A'= 'Adulto (A)',
-    'AM' = 'Adulto Mayor (AM)',
-    'PG' = 'Público General (PG)'
+    N  ='Niño (N)',
+    AD ='Adolescente (AD)',
+    J  ='Joven (J)',
+    A  = 'Adulto (A)',
+    AM = 'Adulto Mayor (AM)',
+    PG = 'Público General (PG)'
 }
 
 export enum Nomenclador_Clasifica_ProgramasSociales{
    // "Prov" = "Programa Social Provincial" ,  
-    "Prior" = "Programa Social Priorizado " ,   
-    "Espc" = "Programa Social Especiales " 
+    Prior = "Programa Social Priorizado " ,   
+    Espc = "Programa Social Especiales " 
 }
 
 
 export enum Clasifica_Nivel_EntidadCultural{
-    "Prov" = "Nivel Provincial" ,  
-    "Mnpl" = "Nivel Municipal " ,   
-    "Ncnl" = "Nivel Nacional " ,
-    "Otra" = "Otra Institución" //ejemplo Domicilio
+    Prov = "Nivel Provincial" ,  
+    Mnpl = "Nivel Municipal " ,   
+    Ncnl = "Nivel Nacional " ,
+    Otra = "Otra Institución" //ejemplo Domicilio
 }

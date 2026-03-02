@@ -17,9 +17,9 @@ export class EntityModel {
   @Type(() => EntityTypeModel)
   entityType: string;
 
-  @Prop({ type: Types.ObjectId, ref: EntityModel.name || null,default:null,required:false })
+  @Prop({ type: Types.ObjectId, ref: EntityModel.name, required:false })
   @Type(() => EntityModel)
-  parentId: string;//EntityModel
+  parentId?: string;//EntityModel
 
   @Prop({ required: true, unique:true })
   name: string;

@@ -102,7 +102,6 @@ export class Talento_Artistico_Controller {
      this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
           this.traza.trazaDTO.operation='update';
           this.traza.trazaDTO.error='Ok';
-         // this.traza.trazaDTO.before='';
           this.traza.trazaDTO.filter=talento_Dto
          return this.talento_Srv.update( talento_Dto, hds);
   }

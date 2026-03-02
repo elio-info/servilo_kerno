@@ -22,9 +22,9 @@ export class Comunidad_Transformacion_Model{
     @Type(() => ConsejoPopular_Municipality_Model)
     consejopopular_municipality: ConsejoPopular_Municipality_Model;
 
-    @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
-    @Type(() => MunicipalityModel)
-    province:string
+    // @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
+    // @Type(() => MunicipalityModel)
+    // province:string
     
     @Prop({required:true})
     responsable:string

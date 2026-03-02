@@ -24,7 +24,7 @@ export class Update_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dt
     @IsNotEmpty({message:'El tipo de categoria no puede ser vacio.'})
     @IsString({message:'El nomenclador no puede ser numeral o caracter especial'})
     @MinLength(3)
-    nombre_categoria_manifestacion_especialidad :string
+    name :string
 
     @ApiProperty({ example: '666a2f9d001740325f7923d4' })
     @IsMongoId()

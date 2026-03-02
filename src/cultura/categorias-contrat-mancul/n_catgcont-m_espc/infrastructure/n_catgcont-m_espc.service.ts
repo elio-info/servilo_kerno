@@ -10,7 +10,7 @@ import { Search_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto } 
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { DataList } from 'src/modules/common/data-list';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
-import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
+import { DuplicatedValueError, SearchDuplicate_NameValue } from 'src/modules/common/errors/duplicated-value.error';
 import { ObjectCanNotDeleted } from 'src/modules/common/errors/object-not-found.error';
  
 @Injectable()
@@ -25,7 +25,7 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
     @Inject(TrazasService) private traza:TrazasService
   ){  
     this.cstvldt= new IsRelationshipProvider(cnn);
-    this.traza.trazaDTO.collection
+    this.traza.trazaDTO.collection=NomenclaCategorias_ContManifestacion_Especialidad_Model.name;
   }
   
  async findAll(page:number,pageSize:number): Promise <DataList<NomenclaCat_ContManifestacion_Especialidad_Entity>|string> {
@@ -57,30 +57,22 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
     this.traza.trazaDTO.error='Ok' ;
     this.traza.trazaDTO.filter=createDto;
     
-    let all=await this.model_ncme.find()
-    let us= all.map((data) =>{
-                let dt=data.name.trim().toLowerCase()
-                    ,dt_c=createDto.name.trim().toLowerCase();
-                console.log(dt,dt_c);
-                if (dt==dt_c) {
-                  let err=new DuplicatedValueError( data.name + ' -> ' + this.MODULE);
-                  this.traza.trazaDTO.error=err;
-                  this.traza.save();
-                  return err.toString();
-                }
-              })
-        let crt=null;
-        try {
-            crt= this.toEntity ( await new this.model_ncme(createDto).save());
-            this.traza.trazaDTO.update= crt.toString();
-            this.traza.save();
-            
-          } catch (error) {
-              this.traza.trazaDTO.error= error ;
-              this.traza.save();
-              return error.toString();
-          }            
-          return crt;
+    let dup=await SearchDuplicate_NameValue(this.MODULE,this.model_ncme,['name'],[createDto.name],this.traza);
+    if (dup.trazaDTO.error!='Ok') {
+      dup.save();
+      return dup.trazaDTO.error.toString();
+    }
+    try {
+       let crt= this.toEntity ( await new this.model_ncme(createDto).save());
+        this.traza.trazaDTO.update= crt;
+        this.traza.save();
+        return crt;
+      } catch (error) {
+          this.traza.trazaDTO.error= error ;
+          this.traza.save();
+          return error.toString();
+      }            
+      
   }
 
   async update( updDto: Update_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto, hds:string):Promise <NomenclaCat_ContManifestacion_Especialidad_Entity| string> {
@@ -154,16 +146,16 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
       // console.log(id_nom_cat_contman)
       let buscar={isDeleted: query.isDeleted}
       let nombre={}
-      if (!!query.nombre_categoria_manifestacion_especialidad) {//existe nombre
-        if (!!query.exactName) { nombre={ nombre_categoria_manifestacion:query.nombre_categoria_manifestacion_especialidad} ; }
+      if (!!query.name) {//existe nombre
+        if (!!query.exactName) { nombre={ name:query.name} ; }
         else
-        {nombre={ nombre_categoria_manifestacion: { $regex:query.nombre_categoria_manifestacion_especialidad , $options:'i'}};}
+        {nombre={ name: { $regex:query.name , $options:'i'}};}
       }
       let padre= !!query.categoria_manifestacion ? {categoria_manifestacio:query.categoria_manifestacion}:{}
       console.log(buscar);
       let bus= {...buscar,...padre,...nombre}
       
-      const qCollection =await this.model_ncme.find(bus).exec();
+      const qCollection =await this.model_ncme.find(bus).populate('categoria_manifestacion').exec();
       console.log(qCollection);
       
        let result=qCollection.map((item) =>
@@ -173,11 +165,13 @@ export class Nomencla_Categorias_ContratacionManifestacion_Especialidad_Service 
     }
     
   toEntity (params:NomenclaCategorias_ContManifestacion_Especialidad_Model):NomenclaCat_ContManifestacion_Especialidad_Entity {
+    console.log(params);
+    
       return{
         id:params._id.toString(),
-        nombre_categoria_manifestacion_especialidad :params.name,
+        name :params.name,
         isDeleted:params.isDeleted,
-        categoria_manifestacion:extractNomCat_ContManif (params.categoria_manifestacion),
+        categoria_manifestacion:params.categoria_manifestacion,//._id.toString()extractNomCat_ContManif (params.categoria_manifestacion),
         createdAt: params.createdAt,  
         updatedAt: params.updatedAt
       }

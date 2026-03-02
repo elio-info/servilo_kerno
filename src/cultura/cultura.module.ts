@@ -19,7 +19,7 @@ import { EntityModule } from "src/modules/entity/entity.module";
         ConsejoPopular_Municipality_Module,
         Nomencla_CodificadoresCulturales_Module,
         NomenclaCategorias_ContratacionManifestacion_Module,
-        NomenclaCategorias_ContManifestacion_Especialidad_Module,
+       // NomenclaCategorias_ContManifestacion_Especialidad_Module,
         Comunidad_Transformacion_Module,        
         //ProgramaSocial_Priorizado_Module,ProgramaSocial_Especial_Module,
         Talento_Artistico_Module,

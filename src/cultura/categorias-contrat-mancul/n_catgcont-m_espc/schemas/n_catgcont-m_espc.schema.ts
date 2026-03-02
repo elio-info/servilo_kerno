@@ -28,7 +28,7 @@ export class NomenclaCategorias_ContManifestacion_Especialidad_Model {
         ref: NomenclaCategorias_ContratacionManifestacion_Model.name        
     })
     @Type(()=> NomenclaCategorias_ContratacionManifestacion_Model)
-    categoria_manifestacion: NomenclaCategorias_ContratacionManifestacion_Model
+    categoria_manifestacion: string// NomenclaCategorias_ContratacionManifestacion_Model
 
     @Prop({default:false, select: false||true})
     isDeleted:boolean

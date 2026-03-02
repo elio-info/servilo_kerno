@@ -6,14 +6,14 @@ import { Entity_Entity } from "src/modules/entity/domain/entities/entity.entity"
 export class Talento_Artistico_Entity {
     id:string
     name :string    
-    manifest_esp:string // NomenclaCat_ContManifestacion_Especialidad_Entity
+    manifest:string[] // NomenclaCat_ContManifestacion_Especialidad_Entity
     entidad_talento:string //Entity_Entity     
     @Prop({  default:false })
     persona_TalentoArtistico:boolean
     //Nomenclador_Clasifica_ContratoTalento
-    @Prop({  default:Nomenclador_Clasifica_ContratoTalento.A })
+    // @Prop({  default:Nomenclador_Clasifica_ContratoTalento.A })
     contrato_talento: string
-    @Prop({  default:false })
+    // @Prop({  default:false })
     isDeleted:boolean
     createdAt: Date;  
     updatedAt: Date;

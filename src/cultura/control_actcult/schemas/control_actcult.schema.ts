@@ -27,7 +27,10 @@ export  class Control_ActividadCultural_Model{
     programas:[ProgramaSocial_Model]
 
     @Prop([Talento_Artistico_Contratado_Entity])
-    talentos_y_apoyos?:Talento_Artistico_Contratado_Entity[]
+    talentos:Talento_Artistico_Contratado_Entity[]
+    
+    @Prop([Talento_Artistico_Contratado_Entity])
+    apoyos?:Talento_Artistico_Contratado_Entity[]
 
     @Prop({default: false, select: false || true })
     isDeleted: boolean;

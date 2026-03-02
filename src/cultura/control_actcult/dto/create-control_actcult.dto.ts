@@ -47,7 +47,7 @@ export class Create_CActCult_Dto {
         [{
     "_id": "6674bba60c094c02c3a5bef1",
     "nombre_Talento_Artistico": "Pedro Prieto",
-    "manifest_esp": "666b7d6e80597b171ef1495d",
+    "manifest": ["666b7d6e80597b171ef1495d"],
     "persona_TalentoArtistico": true,
     "contrato_talento": "A",
     "entidad_talento": "666c39bd57d4be9254cb5741"    

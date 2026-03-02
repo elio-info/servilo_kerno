@@ -54,7 +54,7 @@ describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
         //comence a probar
         //creando nomen clasif contMansArts
         const nomen_clasif_contrMansArts_Esp ={
-          nombre_categoria_manifestacion_especialidad:'nueva clasif espc',
+          name:'nueva clasif espc',
           ID_categoria_manifestacion: '666a2f452e6bbcc4b00916f4',
           isDeleted:false,
           createdAt: new Date()
@@ -65,7 +65,7 @@ describe('Nomencla_Categorias_ContratacionManifestacion_Service_Test', () => {
           .spyOn(n_ccM_esp_model,'create')
           .mockImplementationOnce(() => Promise.resolve(mock_n_ccm_espc_service.create()))
           // fin Jest
-        const result= await n_ccM_esp_service.create(nomen_clasif_contrMansArts_Esp as Create_Nomencla_CategoriasContratacionManifestacion_Especialidad_Dto)
+        const result= await n_ccM_esp_service.create(nomen_clasif_contrMansArts_Esp )
 
         expect (result).toEqual(mock_n_ccm_espc_service)
 

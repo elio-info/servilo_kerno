@@ -4,8 +4,8 @@ import { NomenclaCategorias_ContratacionManifestacion_Entity } from "../../n_cat
 export class NomenclaCat_ContManifestacion_Especialidad_Entity
   {
     id:string
-    nombre_categoria_manifestacion_especialidad :string
-    categoria_manifestacion: NomenclaCategorias_ContratacionManifestacion_Entity
+    name :string
+    categoria_manifestacion: string //NomenclaCategorias_ContratacionManifestacion_Entity
     isDeleted:boolean    
     createdAt:Date
     updatedAt:Date

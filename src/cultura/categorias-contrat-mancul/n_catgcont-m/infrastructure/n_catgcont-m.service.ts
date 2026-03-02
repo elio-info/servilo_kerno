@@ -1,8 +1,8 @@
-import { Inject, Injectable, Module } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Create_NomenclaCategorias_ContratacionManifestacion_Dto } from '../dto/create-n_catgcont-m.dto';
 import { Update_NomenclaCategorias_ContratacionManifestacion_Dto } from '../dto/update-n_catgcont-m.dto';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { NomenclaCategorias_ContratacionManifestacion_Model, NomenclaCategorias_ContratacionManifestacion_Document } from '../schemas/n_catgcont-m.schema';
+import { NomenclaCategorias_ContratacionManifestacion_Model } from '../schemas/n_catgcont-m.schema';
 import { Connection, Model } from 'mongoose';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { NomenclaCategorias_ContratacionManifestacion_Entity } from '../schemas/n_catcont-m.entity';
@@ -10,7 +10,7 @@ import { DataList } from 'src/modules/common/data-list';
 import { ObjectCanNotDeleted, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
-import { DuplicatedValueError, SearchDuplicate_KeysValue, SearchDuplicate_NameValue } from 'src/modules/common/errors/duplicated-value.error';
+import { SearchDuplicate_NameValue } from 'src/modules/common/errors/duplicated-value.error';
 import { Search_NomenclaCategorias_ContratacionManifestacion_Dto } from '../dto/search-n_catgcont-m.dto';
  
 @Injectable()
@@ -68,13 +68,17 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
     this.traza.trazaDTO.operation='create';
     this.traza.trazaDTO.error='Ok' ;
     this.traza.trazaDTO.filter=createDto;
-this.traza.save()
+    this.traza.save()
     let all= await SearchDuplicate_NameValue(this.MODULE,this.mnfclt_model,['name'],[createDto.name],this.traza)
     
     if (all.trazaDTO.error!='Ok') return all.terror();
     
     try {
-       let crt= this.toEntity ( await new this.mnfclt_model(createDto).save());
+      console.log('no error manisfes');
+      let nw=await this.mnfclt_model.create(createDto)
+      console.log( 'new mnfst ',nw);
+      
+       let crt= this.toEntity (nw );
         this.traza.trazaDTO.update= crt.toString();
         this.traza.save();
         return crt;
@@ -126,7 +130,7 @@ this.traza.save()
     this.traza.trazaDTO.before=bf;  
     
     // hijos
-        let hijos=await this.cstvldt.validate_onTable('nomenclacategorias_contmanifest_especialidad',{'categoria_manifestacion':id},this.whereQuery);
+        let hijos=await this.cstvldt.validate_onTable('talento_artistico',{'manifest':id},this.whereQuery);
         console.log('hijos',hijos);
         if (hijos!=0) { //tienes hijos no te borras  
           let error=new ObjectCanNotDeleted (this.MODULE,hijos );
