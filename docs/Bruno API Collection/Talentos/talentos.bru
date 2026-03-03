@@ -1,0 +1,15 @@
+meta {
+  name: talentos
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3300/cult/talentos
+  body: json
+  auth: inherit
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}

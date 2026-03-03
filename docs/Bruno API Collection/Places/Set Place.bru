@@ -1,0 +1,22 @@
+meta {
+  name: Set Place
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3300/cult/place/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+     "name": "",
+    "municipality": "693d1aa033ba286eaf4c2777"//pinar-pinar
+  }
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}

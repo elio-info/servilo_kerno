@@ -1,0 +1,26 @@
+meta {
+  name: talentos
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3300/cult/talentos
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nombre_Talento_Artistico": "Pedro Prieto",
+    "manifest_esp": "666b7d6e80597b171ef1495d",
+    "persona_Talento_Artistico": true,
+    "contrato_talento": "A",
+    "entidad_talento": "666c39bd57d4be9254cb5741"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

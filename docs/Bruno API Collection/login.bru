@@ -1,0 +1,22 @@
+meta {
+  name: login
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3300/cult/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "test",
+    "password": "test"
+  }
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}

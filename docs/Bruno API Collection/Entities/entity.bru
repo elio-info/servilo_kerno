@@ -1,0 +1,38 @@
+meta {
+  name: entity
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3300/cult/entity
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+   "nivel": "Ncnl",//Nacional
+    "municipality": "6923738982f18054a5e54d71",//placetas
+    "entityType": "69351ce161ab7464fce5b0fe",//minist
+   // "parentId": "699ca369160d18276202bb8a",//no
+    "name": "Min. Cultura Nacional",  
+    "consejo_p": "693e6bb7b267f8f6bb64a62c",//cp la comuna matanzas
+    "abbreviation": "MinCult"//,
+    /*"nitCode": "string",
+    
+    "resolution": "string",
+    "resolutionDate": "2026-02-16T08:08:14.842Z",
+    "issuedBy": "string",
+    "domicilie": "string",
+    
+    "reeup": "string",
+    "commercialRegister": "string"
+    */
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
