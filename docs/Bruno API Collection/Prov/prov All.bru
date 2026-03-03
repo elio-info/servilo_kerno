@@ -1,0 +1,15 @@
+meta {
+  name: prov All
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3300/cult/province
+  body: json
+  auth: inherit
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}

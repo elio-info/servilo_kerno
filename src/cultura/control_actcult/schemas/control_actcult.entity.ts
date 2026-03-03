@@ -16,7 +16,7 @@ export class Control_ActividadCultural_Entity {
     tipoActividad_extraPlan?:boolean //no 
     tipoActividad_Prov_Entidad?:Entity_Entity //null o entidad prov only
     estados_actividad?:Estado_ActividadCultural[] //estado actividad
-    justifica_motivo?:String //justifica No se hizo, Fin 1ra opcion
+    //justifica_motivo?:String //justifica No se hizo, Fin 1ra opcion
     manifestaciones_artisticas?:NomenclaCat_ContManifestacion_Especialidad_Entity[]//manifestaciones implicadas, la principal es la primera
     talentos?:Talento_Artistico_Contratado_Entity[]//talentos contratados
     programas_tributa?:ProgramaSocial_Especial_Entity[] //programas sociales entity
