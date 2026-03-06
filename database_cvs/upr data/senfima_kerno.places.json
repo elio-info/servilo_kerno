@@ -1,0 +1,75 @@
+[{
+  "_id": {
+    "$oid": "67be5509f2fddeb300b11ff6"
+  },
+  "name": "la comuna",
+  "isDeleted": false,
+  "municipality": "67b8abc8d25b39fdef54409c",
+  "createdAt": {
+    "$date": "2025-02-25T23:40:57.308Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-25T23:40:57.308Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68ee6928633f5771ff561607"
+  },
+  "name": "aigbkas",
+  "isDeleted": false,
+  "municipality": "67b8abc8d25b39fdef54409c",
+  "createdAt": {
+    "$date": "2025-10-14T15:15:52.138Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-14T15:15:52.138Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68f9550a7248fe8e8b063abc"
+  },
+  "name": "las canas",
+  "isDeleted": false,
+  "municipality": "67b8abc8d25b39fdef54409c",
+  "createdAt": {
+    "$date": "2025-10-22T22:04:58.938Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-22T22:04:58.938Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693e6fe6b267f8f6bb64a640"
+  },
+  "name": "lpoki string",
+  "isDeleted": false,
+  "municipality": "6923738182f18054a5e54d6f",
+  "createdAt": {
+    "$date": "2025-12-14T08:05:58.210Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-14T08:05:58.210Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "696466fc653cfd3668f044bc"
+  },
+  "name": "una pelota de ",
+  "isDeleted": false,
+  "municipality": "6923738182f18054a5e54d6f",
+  "createdAt": {
+    "$date": "2026-01-12T03:14:04.726Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-12T03:31:27.796Z"
+  },
+  "__v": 0
+}]

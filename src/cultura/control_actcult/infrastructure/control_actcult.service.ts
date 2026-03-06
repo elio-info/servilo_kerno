@@ -92,6 +92,11 @@ export class Control_ActividadCultural_Service {
       return {
         id:ps._id.toString(),
         name:ps.name,
+        dia_actcult:ps.dia_actcult,
+        hora_actcult:ps.hora_actcult,
+        lugar_planificado:ps.lugar_planificado._id.toString(),
+        edad:ps.edad,
+        edad_asitencia:ps.edad_asitencia,
         entidad_responsable:ps.entidad_responsable._id.toString(),
         manifestaciones_artisticas:ps.manifestaciones_artisticas,
         talentos:ps.talentos,

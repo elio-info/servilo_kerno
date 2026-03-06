@@ -1,0 +1,152 @@
+[{
+  "_id": {
+    "$oid": "67be5467bc9c79983bba1dbf"
+  },
+  "name": "Direccion Provincial",
+  "hierarchy": 0,
+  "isDeleted": false,
+  "createdAt": "2024-06-12T21:57:05.083Z",
+  "updatedAt": "2024-06-12T21:57:05.083Z",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be5467bc9c79983bba1dc0"
+  },
+  "name": "Direccion Municipal",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": "2024-06-12T21:58:52.828Z",
+  "updatedAt": "2024-06-12T21:58:52.828Z",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be5467bc9c79983bba1dc1"
+  },
+  "name": "Empresa Cultural",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": "2024-06-12T22:02:04.065Z",
+  "updatedAt": "2024-06-12T22:02:04.065Z",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be5467bc9c79983bba1dc2"
+  },
+  "name": "Centro Cultural Provincial",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": "2024-06-12T22:02:37.793Z",
+  "updatedAt": "2024-06-12T22:02:37.793Z",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be5467bc9c79983bba1dc3"
+  },
+  "name": "Consejo Cultural Provincial",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": "2024-06-12T22:03:20.163Z",
+  "updatedAt": "2024-06-12T22:03:20.163Z",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be5467bc9c79983bba1dc4"
+  },
+  "name": "Asociacion Cultural Provincial",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": "2024-06-12T22:04:07.479Z",
+  "updatedAt": "2024-06-12T22:04:07.479Z",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67be5467bc9c79983bba1dc5"
+  },
+  "name": "Institucion Cultural",
+  "hierarchy": 2,
+  "isDeleted": false,
+  "createdAt": "2024-06-12T22:04:48.470Z",
+  "updatedAt": "2024-06-12T22:04:48.470Z",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69351ce161ab7464fce5b0fe"
+  },
+  "name": "Minista",
+  "hierarchy": 0,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-12-07T06:21:21.457Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-07T06:21:21.457Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69351db861ab7464fce5b107"
+  },
+  "name": "Empresa de Cultura",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-12-07T06:24:56.331Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-07T06:28:31.667Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693dfd8fccd5a6a56e0a9709"
+  },
+  "name": "Direc Munc Cult",
+  "hierarchy": 2,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-12-13T23:58:07.275Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-13T23:58:07.275Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6957eb91aee8fee93f6cc67b"
+  },
+  "name": "Instituto",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-01-02T16:00:17.370Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-02T16:00:17.370Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6994a5d3e30639016494206d"
+  },
+  "name": "Direc Prov Cult",
+  "hierarchy": 1,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-02-17T17:30:59.340Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-17T17:30:59.340Z"
+  },
+  "__v": 0
+}]

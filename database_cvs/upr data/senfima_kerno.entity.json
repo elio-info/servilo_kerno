@@ -1,0 +1,77 @@
+[{
+  "_id": {
+    "$oid": "699ca369160d18276202bb8a"
+  },
+  "entityType": "6994a5d3e30639016494206d",
+  "parentId": "699d1242d9fb9411b15b1f5c",
+  "name": "Direcc. Prov. Cultura pinar",
+  "nivel": "Prov",
+  "nitCode": "4587963",
+  "abbreviation": "DPC Pinar",
+  "resolution": "",
+  "issuedBy": "",
+  "domicilie": "",
+  "municipality": "693d1aa033ba286eaf4c2777",
+  "consejo_p": "699c5e631901f6fdb4914412",
+  "reeup": "",
+  "commercialRegister": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-02-23T18:58:49.074Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-24T01:28:17.086Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699d00588d37785b50b32fae"
+  },
+  "entityType": "693dfd8fccd5a6a56e0a9709",
+  "parentId": "699ca369160d18276202bb8a",
+  "name": "Direcc. Muncp. Cultura pinar",
+  "nivel": "Mnpl",
+  "nitCode": "",
+  "abbreviation": "DMC Pinar",
+  "resolution": "",
+  "issuedBy": "",
+  "domicilie": "",
+  "municipality": "693d1aa033ba286eaf4c2777",
+  "consejo_p": "699c5e911901f6fdb4914419",
+  "reeup": "",
+  "commercialRegister": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-02-24T01:35:20.126Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-24T01:35:20.126Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699d1242d9fb9411b15b1f5c"
+  },
+  "entityType": "69351ce161ab7464fce5b0fe",
+  "name": "Min. Cultura Nacional",
+  "nivel": "Ncnl",
+  "nitCode": "",
+  "abbreviation": "MinCult",
+  "resolution": "",
+  "issuedBy": "",
+  "domicilie": "",
+  "municipality": "6923738982f18054a5e54d71",
+  "consejo_p": "693e6bb7b267f8f6bb64a62c",
+  "reeup": "",
+  "commercialRegister": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-02-24T02:51:46.844Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-24T02:51:46.844Z"
+  },
+  "__v": 0
+}]

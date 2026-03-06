@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "68f04abf9a5350f5891e5c23"
+  },
+  "nombre": "gozando con pedro",
+  "consejopopular_municipality": "68f03ee31c59f86602d853d4",
+  "municipio": "67b8abc8d25b39fdef54409c",
+  "responsable": "Pedro Prieto",
+  "observacion": "Se pone opcional lo que describe",
+  "telefonos": "cell:12345678,fijo:12345678,trabajo:12345678}",
+  "createdAt": {
+    "$date": "2025-10-16T01:30:39.634Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T01:30:39.634Z"
+  },
+  "__v": 0
+}]

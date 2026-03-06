@@ -1,0 +1,126 @@
+[{
+  "_id": {
+    "$oid": "67b8a9a8d25b39fdef54409a"
+  },
+  "name": "Pinar del Rio",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-02-21T17:55:38.835Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-13T23:44:59.289Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67b8b26bd4a4eac565d94218"
+  },
+  "name": "Santiago",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-02-21T17:05:47.066Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-21T17:05:47.066Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6902e029675ea13513de6682"
+  },
+  "name": "que toque",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-10-30T03:48:57.550Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-07T17:18:00.495Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691351d7c29f1b23b0c9aed3"
+  },
+  "name": "Pest string",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-11-11T15:10:15.324Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T22:06:16.905Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "695def0618c7522628a2aae3"
+  },
+  "name": "No sonc",
+  "isDeleted": true,
+  "createdAt": {
+    "$date": "2026-01-07T05:28:38.432Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-07T20:57:06.011Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6923718182f18054a5e54d68"
+  },
+  "name": "Matanzas",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-11-23T20:41:37.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-13T07:46:46.653Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930f93d6ee62cdcd3efdb87"
+  },
+  "name": "jkiuj",
+  "isDeleted": true,
+  "createdAt": {
+    "$date": "2025-12-04T03:00:13.712Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-05T09:08:39.325Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6930fd136ee62cdcd3efdb8b"
+  },
+  "name": "fhnn djjdjs",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-12-04T03:16:35.831Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-05T09:07:51.743Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6931dec85dbd4bc64079a774"
+  },
+  "name": "cosas de alla tambien",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-12-04T19:19:36.799Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T19:19:36.799Z"
+  },
+  "__v": 0
+}]

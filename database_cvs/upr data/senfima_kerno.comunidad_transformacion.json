@@ -1,0 +1,17 @@
+[{
+  "_id": {
+    "$oid": "68f04da29a5350f5891e5c45"
+  },
+  "nombre": "la guarida",
+  "consejopopular_municipality": "68f03ee31c59f86602d853d4",
+  "responsable": "Un Prieto",
+  "createdAt": {
+    "$date": "2025-10-16T01:42:58.089Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-17T16:59:50.639Z"
+  },
+  "__v": 0,
+  "observacion": "La casa de Pedro Prieto",
+  "telefonos": "cell:12345678,fijo:12345678,trabajo:12345678"
+}]
