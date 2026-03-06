@@ -28,6 +28,11 @@ export class Update_ProgramaSocial_Dto  {
     @IsOptional()
     @IsBoolean()
     priorizado:Boolean
+
+    @IsMongoId({message:'Se refiere un programa'})
+    @IsRelationShipWith(ProgramaSocial_Model)
+    @IsOptional()
+    programa?:string
  
     @IsOptional()
     @IsBoolean()

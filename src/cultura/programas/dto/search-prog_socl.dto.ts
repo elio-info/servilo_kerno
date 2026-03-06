@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsOptional, IsBoolean, MinLength } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsBoolean, MinLength, IsMongoId } from 'class-validator';
+import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
+import { ProgramaSocial_Model } from '../schemas/prog_socl.schema';
 
 export class Search_ProgramaSocial_Dto  {
         
@@ -30,4 +32,9 @@ export class Search_ProgramaSocial_Dto  {
     @IsOptional()
     @IsBoolean()
     priorizado:Boolean
+
+    @IsMongoId({message:'Se refiere un programa'})
+    @IsRelationShipWith(ProgramaSocial_Model)
+    @IsOptional()
+    programa?:string
 }

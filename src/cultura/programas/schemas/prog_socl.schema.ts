@@ -20,7 +20,7 @@ export class ProgramaSocial_Model {
     
     @Prop({
         type: Types.ObjectId, ref: ProgramaSocial_Model.name,
-        required: false      
+        required: false, default:null      
     })
     @Type(()=> ProgramaSocial_Model)
     programa?:string// ProgramaSocial_Model

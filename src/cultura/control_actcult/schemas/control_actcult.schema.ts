@@ -59,8 +59,8 @@ export  class Control_ActividadCultural_Model{
     manifestaciones_artisticas:string[]//NomenclaCat_ContManifestacion_Especialidad_Entity[]//manifestaciones implicadas, la principal es la primera
         
     @Prop([{ type:Types.ObjectId, ref: ProgramaSocial_Model.name}])
-    // @Type(()=>ProgramaSocial_Model)
-    programas:[ProgramaSocial_Model]
+    //@Type(()=>ProgramaSocial_Model)
+    programas_tributa:string[]//ProgramaSocial_Model[]
 
     @Prop([Talento_Artistico_Contratado_Entity])
     talentos:Talento_Artistico_Contratado_Entity[]

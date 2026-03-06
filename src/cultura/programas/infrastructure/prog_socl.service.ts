@@ -146,6 +146,7 @@ export class ProgramaSocial_Service {
         id:ps._id.toString(),
         name:ps.name,
         priorizado:ps.priorizado,
+        programa:ps.programa,
         isDeleted:ps.isDeleted,
         createdAt:ps.createdAt,
         updatedAt:ps.updatedAt

@@ -2,7 +2,7 @@ import { Entity_Entity } from "src/modules/entity/domain/entities/entity.entity"
 import { Talento_Artistico_Contratado_Entity } from "../../talentos/talento_contratado/talento_contratado.entity"
 import { Nomenclador_Clasifica_ProgramasSociales, Nomenclador_EstadosDeActividadCultural, Nomenclador_GrupoEtareo } from "src/cultura/codificadores-cult/enums/codificadores"
 import { NomenclaCat_ContManifestacion_Especialidad_Entity } from "src/cultura/categorias-contrat-mancul/n_catgcont-m_espc/schemas/n_catgcont-m_espc.entity"
-import { ProgramaSocial_Especial_Entity } from "src/cultura/programas/noUsar/prog_socl_esp/schemas/prog_socl_espc.entity"
+import { ProgramaSocial_Entity } from "src/cultura/programas/schemas/prog_socl.entity"
 
 export class Control_ActividadCultural_Entity {
     id:string
@@ -17,9 +17,9 @@ export class Control_ActividadCultural_Entity {
     tipoActividad_Prov_Entidad?:Entity_Entity //null o entidad prov only
     estados_actividad?:Estado_ActividadCultural[] //estado actividad
     //justifica_motivo?:String //justifica No se hizo, Fin 1ra opcion
-    manifestaciones_artisticas:NomenclaCat_ContManifestacion_Especialidad_Entity[]//manifestaciones implicadas, la principal es la primera
+    manifestaciones_artisticas:string[] //NomenclaCat_ContManifestacion_Especialidad_Entity[]//manifestaciones implicadas, la principal es la primera
     talentos:Talento_Artistico_Contratado_Entity[]//talentos contratados
-    programas_tributa:ProgramaSocial_Entity[] //programas sociales entity
+    programas_tributa:string[] //ProgramaSocial_Entity[] //programas sociales entity
     descripcion_actv?:String //descripcion de la actividad
     TV?:boolean
     redes_plataforma?:boolean

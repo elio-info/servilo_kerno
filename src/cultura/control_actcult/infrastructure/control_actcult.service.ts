@@ -93,6 +93,9 @@ export class Control_ActividadCultural_Service {
         id:ps._id.toString(),
         name:ps.name,
         entidad_responsable:ps.entidad_responsable._id.toString(),
+        manifestaciones_artisticas:ps.manifestaciones_artisticas,
+        talentos:ps.talentos,
+        programas_tributa:ps.programas_tributa,
         isDeleted:ps.isDeleted,
         createdAt:ps.createdAt,
         updatedAt:ps.updatedAt
