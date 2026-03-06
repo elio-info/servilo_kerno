@@ -43,7 +43,7 @@ export  class Control_ActividadCultural_Model{
     tipoActividad_Prov_Entidad?:EntityModel //null o entidad prov only
     
     @Prop({
-           type:[Nomenclador_EstadosDeActividadCultural],
+           type:[Estado_ActividadCultural],
            default:{estado_actividad:Nomenclador_EstadosDeActividadCultural.S, //estado actividad
                responsable:'string',
                justificacion:'string'}

@@ -7,19 +7,19 @@ import { ProgramaSocial_Especial_Entity } from "src/cultura/programas/noUsar/pro
 export class Control_ActividadCultural_Entity {
     id:string
     name:string
-    dia_actcult?:string// Date
-    hora_actcult?:string  // DateTimestamp
+    dia_actcult:string// Date
+    hora_actcult:string  // DateTimestamp
     entidad_responsable:string //quien planifica Entity_Entity
-    lugar_planificado?:String // InstCult | ConsjPop | ComnTransf
-    edad?:Nomenclador_GrupoEtareo //grupo etareo
-    edad_asitencia?:Number //cantidad
+    lugar_planificado:String // InstCult | ConsjPop | ComnTransf
+    edad:Nomenclador_GrupoEtareo //grupo etareo
+    edad_asitencia:Number //cantidad
     tipoActividad_extraPlan?:boolean //no 
     tipoActividad_Prov_Entidad?:Entity_Entity //null o entidad prov only
     estados_actividad?:Estado_ActividadCultural[] //estado actividad
     //justifica_motivo?:String //justifica No se hizo, Fin 1ra opcion
-    manifestaciones_artisticas?:NomenclaCat_ContManifestacion_Especialidad_Entity[]//manifestaciones implicadas, la principal es la primera
-    talentos?:Talento_Artistico_Contratado_Entity[]//talentos contratados
-    programas_tributa?:ProgramaSocial_Especial_Entity[] //programas sociales entity
+    manifestaciones_artisticas:NomenclaCat_ContManifestacion_Especialidad_Entity[]//manifestaciones implicadas, la principal es la primera
+    talentos:Talento_Artistico_Contratado_Entity[]//talentos contratados
+    programas_tributa:ProgramaSocial_Entity[] //programas sociales entity
     descripcion_actv?:String //descripcion de la actividad
     TV?:boolean
     redes_plataforma?:boolean

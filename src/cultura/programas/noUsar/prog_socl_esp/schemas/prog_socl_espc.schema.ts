@@ -13,7 +13,9 @@ export class ProgramaSocial_Especial_Model {
         required:true,
         unique: true
     })
-    name :string    
+    name :string
+    
+    
 
     @Prop({type:Boolean,default:false, select :true||false})
     isDeleted:boolean

@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Type } from "class-transformer";
 import { Document, Types } from "mongoose";
 
 @Schema({
@@ -15,6 +16,14 @@ export class ProgramaSocial_Model {
         unique: true
     })
     name :string    
+
+    
+    @Prop({
+        type: Types.ObjectId, ref: ProgramaSocial_Model.name,
+        required: false      
+    })
+    @Type(()=> ProgramaSocial_Model)
+    programa?:string// ProgramaSocial_Model
 
     @Prop({
         type: Boolean,
