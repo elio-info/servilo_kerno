@@ -9,6 +9,7 @@ import {
   Query,
   UsePipes,
   Headers,
+  Put,
 } from '@nestjs/common';
 import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
 import { ConsejoPopular_Municipality_Service } from '../application/consejo_popular.service';
@@ -20,6 +21,7 @@ import {
   ApiCreatedResponse,
   ApiHeader,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiQuery,
   ApiTags,
@@ -130,7 +132,8 @@ export class ConsejoPopular_Municipality_Controller {
     type: Search_ConsejoPopular_MunicipalityDto
   })
   @ApiCustomErrorResponse()
- @Post('search')
+  @ApiOperation({summary:'Busqueda'})
+  @Put()
   @ErrorHandler()
   search(@Query() query) {
     return this.service.search(query);

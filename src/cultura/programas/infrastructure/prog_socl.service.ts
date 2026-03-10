@@ -27,7 +27,7 @@ export class ProgramaSocial_Service {
   async create(ps: Create_ProgramaSocial_Dto, traza :TrazasService) : Promise<ProgramaSocial_Entity | string> {
     let nomb=ps.name
     console.log(this.MODULE+ ' estoy en creat '+ nomb);
-    let dep=await SearchDuplicate_NameValue(this.MODULE, this.progsocl_Model,'name', nomb,traza);
+    let dep=await SearchDuplicate_NameValue(this.MODULE, this.progsocl_Model,['name'],[ nomb],traza);
     
     if ( dep.trazaDTO.error!='Ok'  ) {
       dep.save();
@@ -35,7 +35,8 @@ export class ProgramaSocial_Service {
     }
     
     try {
-      let crt = this.toEntity( await new this.progsocl_Model(ps).save());
+      let c_ps=await new this.progsocl_Model(ps).save()
+      let crt = this.toEntity( c_ps );
       traza.trazaDTO.update=crt;
        traza.save();
       return crt;
@@ -74,7 +75,9 @@ export class ProgramaSocial_Service {
   async update( updateDto: Update_ProgramaSocial_Dto, traza:TrazasService): Promise<ProgramaSocial_Entity | string>  {
     console.log(updateDto)
     try {
-       const rest= await this.progsocl_Model.findOneAndUpdate( {_id:updateDto.id,...this.IS_NOT_DELETED},updateDto, { new: true});
+      let antes=await this.findId( updateDto.id);
+       let rest= await this.progsocl_Model.findOneAndUpdate( {_id:updateDto.id,...this.IS_NOT_DELETED},updateDto, { new: true});
+       
        if (!rest) {
         let err=new Error('Problema con actualizacion de '+this.MODULE)
         traza.trazaDTO.error=err;
@@ -82,28 +85,32 @@ export class ProgramaSocial_Service {
         traza.save()
         return err.toString();
         }
+        traza.trazaDTO.before=antes;
         traza.trazaDTO.update=rest;    
-        traza.save()
-       
+        traza.save()       
         return this.toEntity(rest)
     } catch (error) {
       let err=new Error('Problema con actualizacion Sistema '+this.MODULE)
-        traza.trazaDTO.error=err;
+        traza.trazaDTO.error=error;
         traza.trazaDTO.update='';
         traza.save()
-        return err.toString();
+        return error.toString();
     }
    
   }
 
   async remove(id: string, traza:TrazasService): Promise<ProgramaSocial_Entity | string>  {
 
+    // get all progsocl
+    const result_ps = await this.cnn.db.collection('programasocial')
+        .findOne({...this.IS_NOT_DELETED, $elemMatch:{programa:id}})
+    console.log('progscl, con prog socl padre',result_ps);
     // get all ctrl_cult
     const result = await this.cnn.db.collection('control_actividadcultural')
         .findOne({...this.IS_NOT_DELETED, $elemMatch:{programas:id}})
     console.log('act cult, con prog socl',result);
     
-    if (!!result._id) {
+    if (!!result_ps._id || !!result._id) {
       let err=new ObjectCanNotDeleted(this.MODULE,1)
     traza.trazaDTO.error=err;
     traza.trazaDTO.update='';
@@ -119,7 +126,8 @@ export class ProgramaSocial_Service {
 
   async search(query:Search_ProgramaSocial_Dto) : Promise<ProgramaSocial_Entity[] | string> {
   
-      let buscar={isDeleted: query.isDeleted}
+      let buscar=[];
+      buscar['isDeleted']= query.isDeleted;
       if (!!query.name) {//existe nombre
         if (!!query.exactName) { buscar[' name']=query.name ; }
         else
@@ -127,7 +135,10 @@ export class ProgramaSocial_Service {
       } 
       if (!!query.priorizado) {//existe tipo
         buscar['priorizado']=query.priorizado ; }
-       
+
+      if (!!query.programa) {//existe progrsoc padre
+        buscar['programa']= {$elemMatch:{programas:query.programa }} ;
+      }
       console.log(buscar);
       
        let result=[];

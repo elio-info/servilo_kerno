@@ -23,11 +23,11 @@ export class Update_ProgramaSocial_Dto  {
     })
     @IsNotEmpty({message:'El tipo de categoria no puede ser vacio.'})
     @IsString({message:'El nomenclador no puede ser numeral o caracter especial'})
-    name :string
+    name? :string
 
     @IsOptional()
     @IsBoolean()
-    priorizado:Boolean
+    priorizado?:Boolean
 
     @IsMongoId({message:'Se refiere un programa'})
     @IsRelationShipWith(ProgramaSocial_Model)

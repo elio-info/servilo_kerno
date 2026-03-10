@@ -22,7 +22,7 @@ import { TrazasService } from 'src/cultura/trazas/trazas.service';
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
-@ApiTags( 'Programa Social  de Manifestacion Artistica')
+@ApiTags( 'Programa Social de Manifestacion Artistica')
 export class ProgramaSocial_Controller {
   constructor(private readonly ps: 
     ProgramaSocial_Priorizado_Service,
@@ -30,18 +30,18 @@ export class ProgramaSocial_Controller {
   )  { traza.trazaDTO.collection='Programa Social'}
 
    @ApiBody({
-        description: 'The Manifestacion Cultural object',
-        type: Create_ProgramaSocial_Dto,
-      })
-      @ApiUnauthorizedCustomErrorResponse()
-      @ApiCreatedResponse({
-        description: 'Returns 201 when PS Especialidad is successfully created',
-      })
-      @ApiCustomErrorResponse()
-      @ApiOperation({ summary:'Crear PS Especial'})
-      @ErrorHandler()
-      @Post()      
-    create(@Body() createProgramaSocial_Dto: Create_ProgramaSocial_Dto, @Headers('authorization') hds) {
+    description: 'The Manifestacion Cultural object',
+    type: Create_ProgramaSocial_Dto,
+  })
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiCreatedResponse({
+    description: 'Returns 201 when PS is successfully created',
+  })
+  @ApiCustomErrorResponse()
+  @ApiOperation({ summary:'Crear PS Especial'})
+  @Post()      
+   @ErrorHandler()
+       create(@Body() createProgramaSocial_Dto: Create_ProgramaSocial_Dto, @Headers('authorization') hds) {
       this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
       this.traza.trazaDTO.operation='save';
       this.traza.trazaDTO.error='Ok';
@@ -56,55 +56,55 @@ export class ProgramaSocial_Controller {
       type: 'number',
       required: false    
     })
-    @ApiQuery({
-      name: 'pageSize',
-      description: 'The amount of items in the current page. 15 by default',
-      type: 'number',
-      required: false    
+  @ApiQuery({
+    name: 'pageSize',
+    description: 'The amount of items in the current page. 15 by default',
+    type: 'number',
+    required: false    
     })
-    @ApiPaginatedResponse(ProgramaSocial_Entity)
-    @ApiCustomErrorResponse('Invalid page or pageSize')
-    @ApiUnauthorizedCustomErrorResponse()
-    @ApiOperation({ summary:'Recuperar todas las categorias'})
-    @ErrorHandler()
-    @Get()
+  @ApiPaginatedResponse(ProgramaSocial_Entity)
+  @ApiCustomErrorResponse('Invalid page or pageSize')
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiOperation({ summary:'Recuperar todas las categorias'})
+  @Get()
+  @ErrorHandler()    
   findAll(@Query('page') page:number,@Query('pageSize') pageSize:number) {
     return this.ps.findAll( validatePagination(page,1),validatePagination(pageSize,15));
   }
 
   @ApiOkResponse({
-      description: 'The municipality object',
-      type: ProgramaSocial_Entity,
-    })
-    @ApiUnauthorizedCustomErrorResponse()
-    @ApiCustomErrorResponse()
-    @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
-    @ApiParam({ name: 'id' })
-    @Get(':id')
-    @ErrorHandler()
-    findById(@Param('id') id: string) {
+    description: 'The municipality object',
+    type: ProgramaSocial_Entity,
+  })
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiCustomErrorResponse()
+  @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
+  @ApiParam({ name: 'id' })
+  @Get(':id')
+  @ErrorHandler()
+  findById(@Param('id') id: string) {
     return this.ps.findId(id);
   }
 
-   @ApiOkResponse({
-      description: 'The updated Municipality Object',
-      type: ProgramaSocial_Entity,
-    })
-    @ApiUnauthorizedCustomErrorResponse()
-    @ApiCustomErrorResponse()
-    @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
-    @ApiBody({
-      type: Update_ProgramaSocial_Dto,
-    })  
-    @Patch()
-    @ErrorHandler()
+  @ApiOkResponse({
+    description: 'The updated Municipality Object',
+    type: ProgramaSocial_Entity,
+  })
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiCustomErrorResponse()
+  @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
+  @ApiBody({
+    type: Update_ProgramaSocial_Dto,
+  })  
+  @Patch()
+  @ErrorHandler()
    update( @Body() updateProgramaSocialDto: Update_ProgramaSocial_Dto, @Headers('authorization') hds) {
     this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
     this.traza.trazaDTO.operation='update';
     this.traza.trazaDTO.error='Ok';
     //this.traza.trazaDTO.before='';
     this.traza.trazaDTO.filter=updateProgramaSocialDto
-   return this.ps.update( updateProgramaSocialDto, hds);
+   return this.ps.update( updateProgramaSocialDto, this.traza);
   }
 
   @ApiUnauthorizedCustomErrorResponse()

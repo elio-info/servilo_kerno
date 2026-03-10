@@ -40,3 +40,4 @@ node_modules
 # mio
 package-lock.json
 .env
+docs/~$programas.xlsx

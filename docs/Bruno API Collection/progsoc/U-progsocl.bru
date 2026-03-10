@@ -1,10 +1,10 @@
 meta {
-  name: s-progsocl
+  name: U-progsocl
   type: http
-  seq: 2
+  seq: 3
 }
 
-post {
+patch {
   url: http://localhost:3300/cult/progsocl
   body: json
   auth: inherit
@@ -12,8 +12,9 @@ post {
 
 body:json {
   {
-  "name": "Educacion",
-  "priorizado": false//,
+  "id":"69b049a684f8645c33ef53ee",
+  //  "name": "Prevencion ITH-VIH-SIDA",
+  "priorizado": true//false,
   //"programa":"69b02b678ebab4261adbb044" //id del suprior
   }
 }

@@ -28,17 +28,17 @@ export class Control_ActividadCultural_Controller {
 
   
   @ApiBody({
-    description: 'The Manifestacion Cultural object',
+    description: 'The Actividad Cultural object',
     type: Create_CActCult_Dto,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCreatedResponse({
-    description: 'Returns 201 when PS Especialidad is successfully created',
+    description: 'Returns 201 when Actividad is successfully created',
   })
   @ApiCustomErrorResponse()
-  @ApiOperation({ summary:'Crear PS Especial'})
-  @ErrorHandler()
+  @ApiOperation({ summary:'Crear AC'})
   @Post()
+  @ErrorHandler()
   create(@Body() createControlActcultDto: Create_CActCult_Dto,@Headers('authorization') hds) {
      this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
           this.traza.trazaDTO.operation='save';
@@ -49,25 +49,25 @@ export class Control_ActividadCultural_Controller {
     return this.controlActcultService.create(createControlActcultDto, this.traza);
   }
 
-   @ApiQuery({
+  @ApiQuery({
       name: 'page',
       description: 'The current page. 1 by default',
       type: 'number',
       required: false    
     })
-    @ApiQuery({
-      name: 'pageSize',
-      description: 'The amount of items in the current page. 15 by default',
-      type: 'number',
-      required: false    
+  @ApiQuery({
+    name: 'pageSize',
+    description: 'The amount of items in the current page. 15 by default',
+    type: 'number',
+    required: false    
     })
-    @ApiPaginatedResponse(Control_ActividadCultural_Entity)
-    @ApiCustomErrorResponse('Invalid page or pageSize')
-    @ApiUnauthorizedCustomErrorResponse()
-    @ApiOperation({ summary:'Recuperar todas las actividades'})
-    @ErrorHandler()
-    @Get()
-  findAll(@Query('page') page:number,@Query('pageSize') pageSize:number) {
+  @ApiPaginatedResponse(Control_ActividadCultural_Entity)
+  @ApiCustomErrorResponse('Invalid page or pageSize')
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiOperation({ summary:'Recuperar todas las actividades'})
+  @Get()
+  @ErrorHandler()
+    findAll(@Query('page') page:number,@Query('pageSize') pageSize:number) {
     return this.controlActcultService.findAll( validatePagination(page,1),validatePagination(pageSize,15));
   }
 
@@ -77,6 +77,7 @@ export class Control_ActividadCultural_Controller {
     })
     @ApiUnauthorizedCustomErrorResponse()
     @ApiCustomErrorResponse()
+    @ApiOperation({ summary:'Segun Id'})
     @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
     @ApiParam({ name: 'id' })
     @Get(':id')
@@ -87,17 +88,17 @@ export class Control_ActividadCultural_Controller {
 
   
  @ApiOkResponse({
-       description: 'The updated Municipality Object',
-       type: Control_ActividadCultural_Entity
-     })
-     @ApiUnauthorizedCustomErrorResponse()
-     @ApiCustomErrorResponse()
-     @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
-     @ApiBody({
-       type: Update_CActCult_Dto,
-     })  
-     @Patch()
-     @ErrorHandler()
+    description: 'The updated Municipality Object',
+    type: Control_ActividadCultural_Entity
+  })
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiCustomErrorResponse()
+  @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
+  @ApiBody({
+    type: Update_CActCult_Dto,
+  })  
+  @Patch()
+  @ErrorHandler()
   update( @Body() updateControlActcultDto: Update_CActCult_Dto, @Headers('authorization') hds) {
      this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
           this.traza.trazaDTO.operation='update';
@@ -128,20 +129,21 @@ export class Control_ActividadCultural_Controller {
   }
 
   //TODO Making Search Endpoint By Query
-      @ApiUnauthorizedCustomErrorResponse()
-      @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
-      @ApiBody({
-        description: 'The key name for the search',
-        type: Search_CActCult_Dto,
-        required: true,
-      })  
-      @ApiCustomErrorResponse()
-      @Put()
-      @ErrorHandler()
-      search(@Body() query:Search_CActCult_Dto) {
-        console.log(query);    
-        return this.controlActcultService.search(query);
-      }
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
+  @ApiBody({
+    description: 'The key name for the search',
+    type: Search_CActCult_Dto,
+    required: true,
+  }) 
+  @ApiOperation({ summary:'Buscar por patron AC'}) 
+  @ApiCustomErrorResponse()
+  @Put()
+  @ErrorHandler()
+  search(@Body() query:Search_CActCult_Dto) {
+    console.log(query);    
+    return this.controlActcultService.search(query);
+  }
 }
 
 

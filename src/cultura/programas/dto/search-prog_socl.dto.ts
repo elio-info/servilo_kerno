@@ -23,15 +23,21 @@ export class Search_ProgramaSocial_Dto  {
         default:false
     })
     @IsBoolean()
-    isDeleted?:boolean
+    isDeleted?:boolean=false
      
     @IsOptional()
     @IsBoolean()
-    exactName: boolean=true; 
+    exactName?: boolean=true; 
 
     @IsOptional()
     @IsBoolean()
-    priorizado:Boolean
+    @ApiProperty({
+        example: false,
+        description:'Solo Si o No',
+        type:Boolean,
+        default:false
+    })
+    priorizado:Boolean=false
 
     @IsMongoId({message:'Se refiere un programa'})
     @IsRelationShipWith(ProgramaSocial_Model)

@@ -8,7 +8,7 @@ import { Document, Types } from "mongoose";
     collection:'programasocial'
 })
 export class ProgramaSocial_Model {
-    @Prop()
+    // @Prop()
     _id: Types.ObjectId;
 
     @Prop({
