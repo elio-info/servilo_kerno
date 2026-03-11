@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Headers, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Headers, Query, Put } from '@nestjs/common';
 import { Proyecto_Sociocultural_Comunitario_Service } from './proy_soccult_com.service';
 import { Create_Proyecto_Sociocultural_Comunitario_Dto } from './dto/create_proy_soccult_com.dto';
 import { Update_Proyecto_Sociocultural_Comunitario_Dto } from './dto/update_proy_soccult_com.dto';
@@ -13,6 +13,7 @@ import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-f
 import { Municipality } from 'src/modules/municipality/domain/entities/municipality.entity';
 import { Proyecto_Socioculturale_Comunitario_Entity } from './schemas/proy_soccult_com.entity';
 import { Search_Proyecto_Sociocultural_Comunitario_Dto } from './dto/search_proy_soccult_com.dto';
+import { Remove_Proyecto_Sociocultural_Comunitario_Dto } from './dto/delete_proy_soccult_com.dto';
 
 @ApiTags('Proyecto Sociocultural Comunitario')
 @ApiHeader({
@@ -84,9 +85,8 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   @ApiBody({
     type: Create_Proyecto_Sociocultural_Comunitario_Dto,
   })
-  @Post()
-  @ErrorHandler()
   @Patch()
+  @ErrorHandler()
   update( @Body() updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto , @Headers('authorization') hds) {
     return this.proySoccultComService.update( updateProySoccultComDto, hds);
   }
@@ -96,11 +96,11 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   @ApiNotFoundCustomErrorResponse('Municipality')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The municipality successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @ApiBody({ description: 'borrar', type: Remove_Proyecto_Sociocultural_Comunitario_Dto })
+  @Delete()
   @ErrorHandler()
-  remove(@Param('id') id: string, @Headers('authorization') hds) {
-    return this.proySoccultComService.remove(id,hds);
+  remove(@Body() rm: Remove_Proyecto_Sociocultural_Comunitario_Dto, @Headers('authorization') hds) {
+    return this.proySoccultComService.remove(rm.id,hds);
   }
 
   //TODO Making Search Endpoint By Query
@@ -112,11 +112,10 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
     required: true,
   })  
   @ApiCustomErrorResponse()
-  @Post('search')
+  @Put()
   @ErrorHandler()
   search(@Body() query) {
-    console.log(query);
-    
+    console.log(query);    
     return this.proySoccultComService.search(query);
   }
 }

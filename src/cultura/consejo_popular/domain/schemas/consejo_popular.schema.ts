@@ -21,7 +21,8 @@ export class ConsejoPopular_Municipality_Model {
 
   @Prop()
   updatedAt: Date;
-@Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
+
+  @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
  @Type(() => MunicipalityModel)
   municipality:string // ProvinceModel;
 

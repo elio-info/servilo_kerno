@@ -1,5 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { Create_Proyecto_Sociocultural_Comunitario_Dto } from './create_proy_soccult_com.dto';
 import { IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
@@ -7,10 +6,17 @@ import { MunicipalityModel } from 'src/modules/municipality/infrastructure/munic
 import { ProvinceModel } from 'src/modules/province/infrastructure/province.schema';
 import { Telefonos_Type_Dto } from 'src/cultura/codificadores-cult/infrastructure/telefonos.dto';
 import { ConsejoPopular_Municipality_Model } from '../../consejo_popular/domain/schemas/consejo_popular.schema';
+import { Type } from 'class-transformer';
+import { Proyecto_Sociocultural_Comunitario_Model } from '../schemas/proy_soccult_com.schema';
 
 export class Update_Proyecto_Sociocultural_Comunitario_Dto {
-    @IsNotEmpty()
-    @IsString()
+    @ApiProperty({ 
+        example:'66763c9511dbc2cb96b53d4d'})
+    @IsMongoId()
+    @IsString({ message: 'The Id of the proyecto soc com must be a String' })
+    @IsRelationShipWith(Proyecto_Sociocultural_Comunitario_Model)
+    @IsNotEmpty({ message: 'The Consejo Popular ID cannot be empty' }) 
+    @Type(()=>Proyecto_Sociocultural_Comunitario_Model) 
     id:string;
 
     @IsOptional()
@@ -25,14 +31,16 @@ export class Update_Proyecto_Sociocultural_Comunitario_Dto {
         example:'66763c9511dbc2cb96b53d4d'})
     @IsMongoId()
     @IsString({ message: 'The Id of the consejo popular must be a String' })
+    @IsNotEmpty({ message: 'The Consejo Popular ID cannot be empty' }) 
     @IsRelationShipWith(ConsejoPopular_Municipality_Model)
-    @IsNotEmpty({ message: 'The Consejo Popular ID cannot be empty' })  
+    @Type(()=> ConsejoPopular_Municipality_Model)    
     consejopopular_municipality:string
 
     @IsOptional()
     @IsMongoId()
     @IsString({ message: 'The Id of the municipio must be a String' })
     @IsRelationShipWith(MunicipalityModel)
+    @Type(()=> MunicipalityModel)
     @IsNotEmpty({ message: 'The Province ID cannot be empty' })  
     municipio:string
 
