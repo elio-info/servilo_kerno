@@ -9,7 +9,7 @@ import { Telefonos_Type_Dto } from 'src/cultura/codificadores-cult/infrastructur
 import { ConsejoPopular_Municipality_Model } from '../../consejo_popular/domain/schemas/consejo_popular.schema';
 import { Comunidad_Transformacion_Model } from '../schemas/comun_transf.schema';
 
-export class Update_Comunidad_Transformacion_Dto  {
+export class Delete_Comunidad_Transformacion_Dto  {
     @ApiProperty({  
         example:'66763c9511dbc2cb96b53d4d'})
     @IsMongoId()
@@ -18,39 +18,5 @@ export class Update_Comunidad_Transformacion_Dto  {
     @IsNotEmpty({ message: 'The Comunidad ID cannot be empty' })  
     id:string
     
-    @IsOptional()
-    @ApiProperty({example:'La casa de Pedro Prieto'})
-    @IsNotEmpty()
-    @IsString()
-    @MinLength(3)
-    name:string
     
-    @IsOptional()
-    @ApiProperty({  
-        example:'66763c9511dbc2cb96b53d4d'})
-    @IsMongoId()
-    @IsString({ message: 'The Id of the consejo popular must be a String' })
-    @IsRelationShipWith(ConsejoPopular_Municipality_Model)
-    @IsNotEmpty({ message: 'The Consejo Popular ID cannot be empty' })  
-    consejopopular_municipality:string
-
-    @IsOptional()
-    @IsMongoId()
-    @IsString({ message: 'The Id of the province must be a String' })
-    @IsRelationShipWith(MunicipalityModel)
-    @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })  
-    municipio:string
-
-    @IsOptional()
-    @ApiProperty({example:'La casa de Pedro Prieto'})
-    @IsString()
-    @MinLength(3)
-    responsable:string
-
-    @IsOptional()
-    @ApiProperty({
-        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`
-         
-    })
-    telefonos:string
 }

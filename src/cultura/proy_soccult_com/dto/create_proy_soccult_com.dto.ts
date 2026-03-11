@@ -13,7 +13,7 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @IsNotEmpty({message:'No vacio'})
     @IsString({message:'Minimo 3 letras'})
     @MinLength(3)    
-    nombre:string
+    name:string
     
     @ApiProperty({ 
         example:'66763c9511dbc2cb96b53d4d' })
@@ -35,8 +35,8 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @MinLength(3)
     direccion:string
 
-    @ApiProperty({example:'[{nombre: Pedro Prieto, titulos_profesiones:Miembro de la UNEAC,telefonos:{cell:12345678,fijo:12345678,trabajo:12345678} uno o los 3},{nombre: Alejandro Perez, titulos_profesiones:Profesor de Arte,Miembro de la UNEAC,Repentista,telefonos:}]'})
-    @IsObject({ message: '{nombre,titulos_profesiones,telefonos}' })
+    @ApiProperty({example:'[{name: Pedro Prieto, titulos_profesiones:Miembro de la UNEAC,telefonos:{cell:12345678,fijo:12345678,trabajo:12345678} uno o los 3},{name: Alejandro Perez, titulos_profesiones:Profesor de Arte,Miembro de la UNEAC,Repentista,telefonos:}]'})
+    @IsObject({ message: '{name,titulos_profesiones,telefonos}' })
     // @MinLength(3)
     @IsNotEmptyObject()
     gestor:Gestor_Entity[]   

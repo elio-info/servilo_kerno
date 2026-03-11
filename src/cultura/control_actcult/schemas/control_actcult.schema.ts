@@ -8,39 +8,57 @@ import { PlaceModel } from "src/modules/place/infrastructure/place.schema";
 import { Nomenclador_EstadosDeActividadCultural, Nomenclador_GrupoEtareo } from "src/cultura/codificadores-cult/enums/codificadores";
 import { Estado_ActividadCultural } from "./control_actcult.entity";
 import { NomenclaCategorias_ContratacionManifestacion_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema";
+import { ConsejoPopular_Municipality_Model } from "src/cultura/consejo_popular/domain/schemas/consejo_popular.schema";
+import { Comunidad_Transformacion_Model } from "src/cultura/comun_transf/schemas/comun_transf.schema";
 
 @Schema({ timestamps:true, collection:'control_actividadcultural'})
 export  class Control_ActividadCultural_Model{
     _id:Types.ObjectId
 
-    @Prop()
+    @Prop({required:true,
+        unique:true
+    })
     name:string
 
-    @Prop()
+    @Prop({required:true , minlength:10, maxlength:10 })
     dia_actcult:string
 
-    @Prop()
+    @Prop({required:true, minlength:5, maxlength:5
+    })
     hora_actcult:string  //Timestamp
 
     @Prop({type:Types.ObjectId,ref:EntityModel.name})
     @Type(()=>EntityModel)
-    entidad_responsable:EntityModel
+    entidad_responsable:string
     
-    @Prop({type:Types.ObjectId,ref:PlaceModel.name})
-    @Type(()=>PlaceModel)
-    lugar_planificado:PlaceModel
+    @Prop({type:Types.ObjectId,ref:PlaceModel.name, required:false})
+    @Type(()=>PlaceModel)    
+    lugar_planificado?:String //PlaceModel Place
+    
+    @Prop({type:Types.ObjectId,ref:EntityModel.name, required:false})
+    @Type(()=>EntityModel)    
+    ic_planificado?:String// InstCult
 
-    @Prop({enum:Nomenclador_GrupoEtareo})
+    @Prop({type:Types.ObjectId,ref:ConsejoPopular_Municipality_Model.name, required:false})
+    @Type(()=>ConsejoPopular_Municipality_Model)    
+    cp_planificado?:String// ConsjPop
+    
+    @Prop({type:Types.ObjectId,ref:Comunidad_Transformacion_Model.name, required:false})
+    @Type(()=>Comunidad_Transformacion_Model)    
+    ct_planificado?:String// ComnTransf
+
+    @Prop({enum:Nomenclador_GrupoEtareo,default:Nomenclador_GrupoEtareo.N, type:String})
     edad:Nomenclador_GrupoEtareo //grupo etareo
         
-    @Prop({min:1, default:1})
-    edad_asitencia:Number //cantidad
+    @Prop({type:Number,min:1, required:true})
+    edad_asistencia:number //cantidad
+
     @Prop({ default:false})    
     tipoActividad_extraPlan:boolean //no 
 
     @Prop({type:Types.ObjectId,ref:EntityModel.name})
     @Type(()=>EntityModel)    
-    tipoActividad_Prov_Entidad?:EntityModel //null o entidad prov only
+    tipoActividad_Prov_Entidad?:string //EntityModel //null o entidad prov only
     
     @Prop({
            type:[Estado_ActividadCultural],
@@ -69,7 +87,13 @@ export  class Control_ActividadCultural_Model{
     apoyos?:Talento_Artistico_Contratado_Entity[]
 
     @Prop({default: false, select: false || true })
-    isDeleted: boolean;
+    TV: boolean=false;
+
+   @Prop({default: false, select: false || true })
+    redes_plataforma: boolean=false;
+   
+    @Prop({default: false, select: false || true })
+    isDeleted: boolean=false;
   
     @Prop()
     createdAt: Date;

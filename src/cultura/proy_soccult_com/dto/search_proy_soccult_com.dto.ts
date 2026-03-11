@@ -12,8 +12,9 @@ export class Search_Proyecto_Sociocultural_Comunitario_Dto {
     @IsNotEmpty()
     @IsString()
     @MinLength(3)    
-    nombre:string
-    /*
+    name:string
+    
+    @IsOptional()
     @ApiProperty({ type: 'ObjectId.ConsejoPopular_Municipality',
         example:'66763c9511dbc2cb96b53d4d' })
     @IsMongoId()
@@ -22,23 +23,27 @@ export class Search_Proyecto_Sociocultural_Comunitario_Dto {
     @IsRelationShipWith(ConsejoPopular_Municipality_Model)    
     consejopopular_municipality:string
 
+    @IsOptional()
     @ApiProperty({ type: 'ObjectId.MunicipalityModel',example:'esta es la que selecciona el consejo' })
     @IsMongoId()
     @IsString({ message: 'The Id of the province must be a String' })
     @IsRelationShipWith(MunicipalityModel)
     @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })  
-    municipio:string
+    municipio?:string
 
+    @IsOptional()
     @ApiProperty({example:'Calle #11 entre #8 y San Ignacio'})
     @IsString({ message: 'Mas de 3 letras' })
     @MinLength(3)
     direccion:string
 
+    @IsOptional()
     @ApiProperty({example:'Pedro Prieto'})
     @IsString({ message: 'Mas de 3 letras' })
     @MinLength(3)
     gestor:string
 
+    @IsOptional()
     @ApiProperty({
         example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`
     })
@@ -46,6 +51,7 @@ export class Search_Proyecto_Sociocultural_Comunitario_Dto {
     @IsString()
     telefonos:string
     
+    @IsOptional()
     @ApiProperty({example:'Se pone que actividades se realizan en el '})
     // @IsOptional()
     @IsString({ message: 'Mas de 3 letras' })
@@ -53,15 +59,15 @@ export class Search_Proyecto_Sociocultural_Comunitario_Dto {
     actividades:string
 
     @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
-    // @IsOptional()
+    @IsOptional()
     @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
-    // @MinLength(3)
+    @MinLength(3)
     aprobado:string
 
-    // @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
-    // @IsOptional()
-    // @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
-    // // @MinLength(3)
-    // cancelado:string
-*/
+    @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
+    @IsOptional()
+    @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
+    @MinLength(3)
+    cancelado:string
+
 }

@@ -18,7 +18,7 @@ export class Update_Proyecto_Sociocultural_Comunitario_Dto {
     @IsNotEmpty()
     @IsString()
     @MinLength(3)
-    nombre:string
+    name:string
     
     @IsOptional()
     @ApiProperty({ 

@@ -135,7 +135,7 @@ export class ConsejoPopular_Municipality_Controller {
   @ApiOperation({summary:'Busqueda'})
   @Put()
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query) {
     return this.service.search(query);
   }
 }

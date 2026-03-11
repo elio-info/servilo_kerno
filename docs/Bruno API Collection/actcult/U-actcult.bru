@@ -1,0 +1,25 @@
+meta {
+  name: U-actcult
+  type: http
+  seq: 3
+}
+
+patch {
+  url: http://localhost:3300/cult/progsocl
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+  "id":"69b049a684f8645c33ef53ee",
+  //  "name": "Prevencion ITH-VIH-SIDA",
+  "priorizado": true//false,
+  //"programa":"69b02b678ebab4261adbb044" //id del suprior
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,3 +1,4 @@
+import { ValidationArguments } from "class-validator";
 import { Model } from "mongoose";
 import { TrazasService } from "src/cultura/trazas/trazas.service";
 //extends Error
@@ -87,3 +88,11 @@ export async function SearchDuplicate_NameValue(modname:string,mod ,att_2_compar
    }
 return traza; 
 }
+
+export async function IsAtLeastOnePlace2Insert (validationArguments: Object): Promise<boolean> {
+  let val=validationArguments['lugar_planificado'] || validationArguments['ic_planificado'] ||validationArguments['cp_planificado'] ||validationArguments['ct_planificado'] ? true:false; 
+     console.log('val de algun lugar',val);
+     
+  return   validationArguments['lugar_planificado'] || validationArguments['ic_planificado'] ||validationArguments['cp_planificado'] ||validationArguments['ct_planificado'];   
+    
+} 

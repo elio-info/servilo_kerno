@@ -127,7 +127,7 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     return this.toEntity(await this.pscc_Model.findByIdAndDelete(id))
   }
   async search(query:Search_Proyecto_Sociocultural_Comunitario_Dto):Promise<Proyecto_Socioculturale_Comunitario_Entity> {
-    return this.toEntity(await this.pscc_Model.findByIdAndDelete(query.nombre))
+    return this.toEntity(await this.pscc_Model.findByIdAndDelete(query.name))
   }
 
   private toEntity(pry: Proyecto_Sociocultural_Comunitario_Document): Proyecto_Socioculturale_Comunitario_Entity {

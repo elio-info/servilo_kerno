@@ -10,25 +10,27 @@ export class Control_ActividadCultural_Entity {
     dia_actcult:string// Date
     hora_actcult:string  // DateTimestamp
     entidad_responsable:string //quien planifica Entity_Entity
-    lugar_planificado:String // InstCult | ConsjPop | ComnTransf
+    lugar_planificado?:String //Place
+    ic_planificado?:String// InstCult
+    cp_planificado?:String// ConsjPop
+    ct_planificado?:String// ComnTransf
+    
     edad:Nomenclador_GrupoEtareo //grupo etareo
-    edad_asitencia:Number //cantidad
+    edad_asistencia:Number //cantidad
     tipoActividad_extraPlan?:boolean //no 
-    tipoActividad_Prov_Entidad?:Entity_Entity //null o entidad prov only
+    tipoActividad_Prov_Entidad?:string //Entity_Entity //null o entidad prov only
     estados_actividad?:Estado_ActividadCultural[] //estado actividad
     //justifica_motivo?:String //justifica No se hizo, Fin 1ra opcion
     manifestaciones_artisticas:string[] //NomenclaCat_ContManifestacion_Especialidad_Entity[]//manifestaciones implicadas, la principal es la primera
     talentos:Talento_Artistico_Contratado_Entity[]//talentos contratados
     programas_tributa:string[] //ProgramaSocial_Entity[] //programas sociales entity
-    descripcion_actv?:String //descripcion de la actividad
+    //descripcion_actv?:String //descripcion de la actividad
     TV?:boolean
     redes_plataforma?:boolean
     apoyos?:Talento_Artistico_Contratado_Entity[]//talentos contratados
 
-      isDeleted: boolean;
-    
-      createdAt: Date;
-    
+      isDeleted: boolean;    
+      createdAt: Date;    
       updatedAt: Date;
 }
 

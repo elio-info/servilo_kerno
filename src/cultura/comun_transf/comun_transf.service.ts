@@ -1,34 +1,122 @@
 import { Injectable } from '@nestjs/common';
 import { Update_Comunidad_Transformacion_Dto } from './dto/update-comun_transf.dto';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Comunidad_Transformacion_Document, Comunidad_Transformacion_Model } from './schemas/comun_transf.schema';
-import { Model } from 'mongoose';
+import { Connection, Model } from 'mongoose';
 import { Create_Comunidad_Transformacion_Dto } from './dto/create-comun_transf.dto';
+import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
+import { TrazasService } from '../trazas/trazas.service';
+import { Comunidad_Transformacion_Entity } from './schemas/comun_transf.entity';
+import { SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
+import { DataList } from 'src/modules/common/data-list';
+import { Search_Comunidad_Transformacion_Dto } from './dto/search-comun_transf.dto';
 
 @Injectable()
 export class Comunidad_Transformacion_Service {
+  private MODULE = 'Comunidad Transformacion';
+  private IS_NOT_DELETED = { isDeleted: false };
+  private cstvldt: IsRelationshipProvider 
+
   constructor(
-    @InjectModel(Comunidad_Transformacion_Model.name) private readonly comtransf_Model:Model<Comunidad_Transformacion_Document>
-  ){}
+    @InjectModel(Comunidad_Transformacion_Model.name) private readonly comtransf_Model:Model<Comunidad_Transformacion_Model>,
+    @InjectConnection() private cnn:Connection
+  ) {this.cstvldt= new IsRelationshipProvider(this.cnn)}
 
-  async create(createComTransDto: Create_Comunidad_Transformacion_Dto):Promise<void> {
-    this.comtransf_Model.create(createComTransDto)
+  async create(createComTransDto: Create_Comunidad_Transformacion_Dto,traza:TrazasService):Promise<Comunidad_Transformacion_Entity | string> {
+    let srch= await SearchDuplicate_KeysValue(this.MODULE,this.comtransf_Model,['name','consejopopular_municipality'],[createComTransDto.name,createComTransDto.consejopopular_municipality], traza)
+    if (srch.trazaDTO.error!='Ok'){
+      srch.save()
+      return srch.terror();
+    }
+    try {
+      let sv=await this.comtransf_Model.create(createComTransDto);
+      let ent=this.toEntity(sv);
+      traza.trazaDTO.update=ent;
+      traza.save();
+      return ent;
+    } catch (error) {
+      traza.trazaDTO.error=error;
+      traza.save()
+      return error.toString();
+    }
+    
   }
 
-  findAll():Promise<Comunidad_Transformacion_Document[]> {
-    return this.comtransf_Model.find()
+  async findAll(page: number, pageSize: number):Promise<DataList <Comunidad_Transformacion_Entity>| string> {
+    let skipCount=(page -1 ) * pageSize;
+    try {
+      let fnd= await this.comtransf_Model.find(this.IS_NOT_DELETED).skip(skipCount).limit(pageSize).exec()
+
+    let ct_cll=fnd.map( (itm)=> this.toEntity(itm)    );
+
+    return {
+      data:ct_cll,
+      totalPages:Math.ceil(ct_cll.length/pageSize),
+      currentPage:page
+    }
+    } catch (error) {
+      return error.toString()
+    }    
   }
 
-  async findOne(id: string) :Promise<Comunidad_Transformacion_Document[]>{
-    return await this.comtransf_Model.find({_id:id});
+  async findOne(id: string) :Promise<Comunidad_Transformacion_Entity | string>{
+    try {
+      let fn=await this.comtransf_Model.findById({_id:id});
+       return this.toEntity(fn);
+    } catch (error) {
+      return error.toString()
+    }
+   ;
   }
 
-  update(id: string, updateComTransfDto: Update_Comunidad_Transformacion_Dto):Promise<Comunidad_Transformacion_Document> {
+  async update( updateComTransfDto: Update_Comunidad_Transformacion_Dto,traza:TrazasService):Promise<Comunidad_Transformacion_Entity| string> {
     console.log(updateComTransfDto)
-    return this.comtransf_Model.findByIdAndUpdate(id,updateComTransfDto,{new :true })
+
+    traza.trazaDTO.before=await this.findOne(updateComTransfDto.id)
+    try {
+      let up= await this.comtransf_Model.findByIdAndUpdate(updateComTransfDto.id,updateComTransfDto,{new :true });
+      traza.trazaDTO.update=up;
+      traza.save();
+      return this.toEntity(up);
+    } catch (error) {
+      traza.trazaDTO.error=error;
+      traza.trazaDTO.update='';
+      traza.save();
+      return traza.terror();
+    }
+     
   }
 
-  async remove(id: string):Promise<void> {
+  async remove(id: string,traza:TrazasService):Promise<Comunidad_Transformacion_Entity| string>  {
+    // hjos
+    let hijos = await this.cstvldt.validate_onTable('control_actividadcultural',{ct_planificado:id},this.IS_NOT_DELETED)
+
     return await this.comtransf_Model.findByIdAndDelete(id)
   }
+
+  async search(query:Search_Comunidad_Transformacion_Dto) :  Promise<Comunidad_Transformacion_Entity[]|string>{
+      const ents = await this.comtransf_Model
+        .find(query)
+        // .populate(this.POPULATE_PATH.municipality)
+        // .populate(this.POPULATE_PATH.entityType)
+        // //.populate('parentId')
+        // .populate(this.POPULATE_PATH.consejo_p);
+      const entCollection = ents.map((ent) => this.toEntity(ent));
+      return entCollection;
+    }
+
+  toEntity(ct:Comunidad_Transformacion_Model): Comunidad_Transformacion_Entity {
+       return {
+        id:ct._id.toString(),
+        name:ct.name,
+        consejopopular_municipality:ct.consejopopular_municipality._id.toString(),
+        //municipio:ct.m
+        observacion:ct.observacion,
+        responsable:ct.responsable,
+        telefonos:ct.telefonos,
+        isDeleted:ct.isDeleted,
+        createdAt: ct.createdAt,
+        updatedAt: ct.updatedAt
+       } 
+    }
 }

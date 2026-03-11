@@ -13,12 +13,13 @@ import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import Search_ConsejoPopular_MunicipalityDto from '../domain/dto/search-consejopopular_municipality.dto';
 
-const MODULE = 'Consejo_Popular_Municipal';
-const IS_NOT_DELETED = { isDeleted: false };
-const populate_Municipio={ path: 'municipality', populate: { path: 'province' } };
 @Injectable()
 export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoPopular_MunicipalityRepository {
+  private MODULE = 'Consejo_Popular_Municipal';
+  private IS_NOT_DELETED = { isDeleted: false };
+  private populate_Municipio={ path: 'municipality', populate: { path: 'province' } };
   private cstvldt:IsRelationshipProvider;
+  
   constructor(
     @InjectModel(ConsejoPopular_Municipality_Model.name)
     private consejopopular_municipality_Model: Model<ConsejoPopular_Municipality_Model>,
@@ -32,7 +33,7 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
     const skipCount = (page - 1) * pageSize;
 
     const consejopopular_municipalities = await this.consejopopular_municipality_Model
-        .find(IS_NOT_DELETED)
+        .find(this.IS_NOT_DELETED)
         .skip(skipCount)
         .limit(pageSize)
         .populate('province')
@@ -77,12 +78,12 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
     
     const consejopopular_municipality = await this.consejopopular_municipality_Model
       .findById(id)
-      .where(IS_NOT_DELETED)
+      .where(this.IS_NOT_DELETED)
       .populate('province')
       .populate('municipality')
 
     if (!consejopopular_municipality) {
-      return (new ObjectNotFound(MODULE)).toString();
+      return (new ObjectNotFound(this.MODULE)).toString();
     }
 
     return this.toEntity(consejopopular_municipality);
@@ -105,7 +106,7 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
         return 'Error en Municipio ';  
 		 
 		const updated = await this.consejopopular_municipality_Model.findOneAndUpdate(
-		  { _id: cp_municipality.id, ...IS_NOT_DELETED },
+		  { _id: cp_municipality.id, ...this.IS_NOT_DELETED },
 		  cp_municipality,
 		  { new: true,},
 		);
@@ -128,23 +129,23 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
     //verificando existencia
     let cp_municipality_prv=await this.consejopopular_municipality_Model
 			.findById(id)
-			.where(IS_NOT_DELETED);
+			.where(this.IS_NOT_DELETED);
 	let datos={'_id':id};
 	traza.trazaDTO.filter=JSON.stringify(datos);
 	traza.trazaDTO.before='';
 	traza.trazaDTO.update='';
 	if(!cp_municipality_prv){
-		traza.trazaDTO.error=new ObjectId_NotFound(MODULE,id);
+		traza.trazaDTO.error=new ObjectId_NotFound(this.MODULE,id);
 		traza.save(); 
 		return traza.trazaDTO.error.toString();
 	}
 	//Id_OnTable buscar por hijos
-  let psc= await this.cstvldt.validate_onTable('Proyecto_Sociocultural_Comunitario',{'consejopopular_municipality':id},IS_NOT_DELETED)// si esta en BD 
-	let ct= await this.cstvldt.validate_onTable('Comunidad_Transformacion',{'consejopopular_municipality':id},IS_NOT_DELETED)// si esta en BD
+  let psc= await this.cstvldt.validate_onTable('proyecto_sociocultural_comunitario',{'consejopopular_municipality':id},this.IS_NOT_DELETED)// si esta en BD 
+	let ct= await this.cstvldt.validate_onTable('comunidad_transformacion',{'consejopopular_municipality':id},this.IS_NOT_DELETED)// si esta en BD
 	let mnc=psc+ct;
     console.log('jihos', mnc);
     if (mnc!=0) { //tienes hijos no te borras  .populate(populate_Municipio)
-      let error=new ObjectCanNotDeleted(MODULE,mnc) ;
+      let error=new ObjectCanNotDeleted(this.MODULE,mnc) ;
       traza.trazaDTO.error= error ;
       traza.save();
       return error.toString();
@@ -155,10 +156,10 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
       { isDeleted: true,}
       );
     let codupdate= await this.consejopopular_municipality_Model.findById(id)
-    .populate(populate_Municipio)    ;
+    .populate(this.populate_Municipio)    ;
 
     if (!document) {
-      let error=new ErrorX(MODULE,'Error inside transaction') ;
+      let error=new ErrorX(this.MODULE,'Error inside transaction') ;
       traza.trazaDTO.error= error ;
       traza.save();
       return traza.trazaDTO.error.toString();
@@ -181,7 +182,7 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
     const consejopopular_municipalities = await this.consejopopular_municipality_Model
       .find()
       .where(query)
-      .populate(populate_Municipio);
+      .populate(this.populate_Municipio);
     const co_municipalityCollection = consejopopular_municipalities.map((co_municipality) =>
       this.toEntity(co_municipality),
     );

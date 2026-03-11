@@ -52,7 +52,8 @@ export enum Nomenclador_GrupoEtareo{
     J  ='Joven (J)',
     A  = 'Adulto (A)',
     AM = 'Adulto Mayor (AM)',
-    PG = 'Público General (PG)'
+    PG = 'Público General (PG)',
+    locas='l'
 }
 
 export enum Nomenclador_Clasifica_ProgramasSociales{

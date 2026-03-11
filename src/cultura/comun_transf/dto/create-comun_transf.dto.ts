@@ -12,7 +12,7 @@ export class Create_Comunidad_Transformacion_Dto {
     @IsNotEmpty()
     @IsString()
     @MinLength(3)    
-    nombre:string
+    name:string
     
     @ApiProperty({  example:'66763c9511dbc2cb96b53d4d' })
     @IsMongoId()

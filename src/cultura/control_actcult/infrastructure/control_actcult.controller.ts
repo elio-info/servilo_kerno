@@ -40,6 +40,8 @@ export class Control_ActividadCultural_Controller {
   @Post()
   @ErrorHandler()
   create(@Body() createControlActcultDto: Create_CActCult_Dto,@Headers('authorization') hds) {
+    console.log('entro', createControlActcultDto);
+    
      this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
           this.traza.trazaDTO.operation='save';
           this.traza.trazaDTO.error='Ok';
