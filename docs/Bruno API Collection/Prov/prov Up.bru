@@ -1,19 +1,19 @@
 meta {
-  name: Munc
+  name: prov Up
   type: http
-  seq: 3
+  seq: 4
 }
 
-post {
-  url: http://localhost:3300/cult/municipality/
+patch {
+  url: {{rqs}}
   body: json
   auth: inherit
 }
 
 body:json {
   {
-     "name": "San Luis",
-    "province": "6931df8a5dbd4bc64079a778" //Pinar
+    "id":"6902e029675ea13513de6682",
+    "name": "Villa Clara"
   }
 }
 

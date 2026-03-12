@@ -1,8 +1,11 @@
 meta {
   name: Prov
-  seq: 3
 }
 
 auth {
   mode: inherit
+}
+
+vars:pre-request {
+  rqs: {{lk}}province/
 }

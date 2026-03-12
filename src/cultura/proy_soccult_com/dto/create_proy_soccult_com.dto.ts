@@ -53,10 +53,10 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @MinLength(3)
     aprobado:string
 
-    // @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
-    // @IsOptional()
-    // @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
-    // // @MinLength(3)
-    // cancelado:string
+    @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
+    @IsOptional()
+    @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
+    // @MinLength(3)
+    cancelado:string
 
 }

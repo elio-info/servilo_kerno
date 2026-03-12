@@ -15,7 +15,7 @@ export class ConsejoPopular_Municipality_Service {
     @Inject(Mongoose_ConsejoPopular_Municipality_Repository)
     private repository: ConsejoPopular_Municipality_Repository,
     @Inject(TrazasService) private traza:TrazasService
-  ) {}
+  ) {traza.trazaDTO.collection="ConsejoPopular_Municipality"}
 
   create(create_CPMunicipalityDto: Create_ConsejoPopular_Municipality_Dto,tkhds:string): Promise<ConsejoPopular_Municipality_Entity| string> {
     this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);

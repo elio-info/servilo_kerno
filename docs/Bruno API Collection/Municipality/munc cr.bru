@@ -1,19 +1,19 @@
 meta {
-  name: login
+  name: munc cr
   type: http
-  seq: 2
+  seq: 3
 }
 
 post {
-  url: {{lk}}auth/login
+  url: {{rqs}}
   body: json
-  auth: none
+  auth: inherit
 }
 
 body:json {
   {
-    "username": "admin",
-    "password": "Qwerty.123456"
+     "name": "San Luis",
+    "province": "6931df8a5dbd4bc64079a778" //Pinar
   }
 }
 

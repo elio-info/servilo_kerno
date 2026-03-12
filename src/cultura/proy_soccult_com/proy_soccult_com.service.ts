@@ -24,27 +24,23 @@ export class Proyecto_Sociocultural_Comunitario_Service {
   ){ traza.trazaDTO.collection=MODULE}
 
   async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity |string> {
+    
     this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
     this.traza.trazaDTO.operation='save';
     this.traza.trazaDTO.filter=createProySoccultComDto;
-
-    // let crt = await this.cstvldt.validateId_onTable('consejopopular_municipal',createProySoccultComDto.consejopopular_municipality,this.traza);
-    // console.log('existe '+createProySoccultComDto.consejopopular_municipality+' ?'+crt);
-    // if (crt.trazaDTO.error!='Ok' )       
-    //     return crt.trazaDTO.error.toString();  
-     
-      try {
-        let mnc=await new this.pscc_Model(createProySoccultComDto).save();
-        this.traza.trazaDTO.update=JSON.stringify (createProySoccultComDto);
-        this.traza.trazaDTO.before=''
-        this.traza.trazaDTO.error='Ok';
-        this.traza.save();        
-        return this.toEntity(mnc );        
-      } catch (error) {      
-        this.traza.trazaDTO.error=error;
-        this.traza.save()
-        return error.toString();  
-      }           
+    
+    try {
+      let mnc=await new this.pscc_Model(createProySoccultComDto).save();
+      this.traza.trazaDTO.update=JSON.stringify (createProySoccultComDto);
+      this.traza.trazaDTO.before=''
+      this.traza.trazaDTO.error='Ok';
+      this.traza.save();        
+      return this.toEntity(mnc );        
+    } catch (error) {      
+      this.traza.trazaDTO.error=error;
+      this.traza.save()
+      return error.toString();  
+    }           
    
   }
 
@@ -127,28 +123,25 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     traza.trazaDTO.error='Ok';
     traza.save()
     return this.toEntity(document);
-    return this.toEntity(await this.pscc_Model.findByIdAndDelete(id))
+    // return this.toEntity(await this.pscc_Model.findByIdAndDelete(id))
   }
-  async search(query:Search_Proyecto_Sociocultural_Comunitario_Dto):Promise<Proyecto_Socioculturale_Comunitario_Entity> {
-    return this.toEntity(await this.pscc_Model.findByIdAndDelete(query.name))
+  async search(query:Search_Proyecto_Sociocultural_Comunitario_Dto):Promise<Proyecto_Socioculturale_Comunitario_Entity[] | string> {
+    if (query.exactName)  
+      query.name=  "{ $regex:"+query.name+" , $options:'i'}";
+    let srch= await this.pscc_Model.find().where(query);
+    let srchCll= srch.map((itm)=>this.toEntity(itm))
+    return srchCll
   }
 
   private toEntity(pry: Proyecto_Sociocultural_Comunitario_Document): Proyecto_Socioculturale_Comunitario_Entity {
-    let gestores=[];
-    pry.gestor.map( gstr => {
-      let prsn= new Gestor_Entity();
-      let mygestor=  (gstr as Gestor_Entity)
-      gestores.concat(mygestor)
-    })
-    
+   
     return {
       id:pry._id.toString(),
       name:pry.name,
       consejopopular_municipality:pry.consejopopular_municipality,
       municipio:pry.municipio,
-      direccion:pry.direccion,
-    // province:string
-      gestor:gestores,
+      direccion:pry.direccion,    
+      gestor:pry.gestor,
       actividades:pry.actividades,
       aprobado:pry.aprobado,
       cancelado:pry.cancelado,

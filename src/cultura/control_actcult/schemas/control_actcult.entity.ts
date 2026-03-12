@@ -19,7 +19,7 @@ export class Control_ActividadCultural_Entity {
     edad_asistencia:Number //cantidad
     tipoActividad_extraPlan?:boolean //no 
     tipoActividad_Prov_Entidad?:string //Entity_Entity //null o entidad prov only
-    estados_actividad?:Estado_ActividadCultural[] //estado actividad
+    estados_actividad:Estado_ActividadCultural[] //estado actividad
     //justifica_motivo?:String //justifica No se hizo, Fin 1ra opcion
     manifestaciones_artisticas:string[] //NomenclaCat_ContManifestacion_Especialidad_Entity[]//manifestaciones implicadas, la principal es la primera
     talentos:Talento_Artistico_Contratado_Entity[]//talentos contratados
@@ -35,7 +35,7 @@ export class Control_ActividadCultural_Entity {
 }
 
 export class Estado_ActividadCultural{
-    estado_actividad:Nomenclador_EstadosDeActividadCultural; //estado actividad
+    estado_actividad: Nomenclador_EstadosDeActividadCultural; //estado actividad
     responsable:string;
     justificacion:string;
 }

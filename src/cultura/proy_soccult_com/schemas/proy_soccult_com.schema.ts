@@ -30,17 +30,17 @@ export class Proyecto_Sociocultural_Comunitario_Model{
     @Prop({required:true})
     direccion:string
     
-    @Prop({required:true})
+    @Prop({required:true,type: [Gestor_Entity]})
     gestor:Gestor_Entity[]
 
-    @Prop()
+    @Prop({required:true})
     actividades:string
     
-    @Prop()
+    @Prop({required:true})
     aprobado:string
     
-    @Prop()
-    cancelado:string
+    @Prop({required:false})
+    cancelado:string=null
 
     @Prop({default: false, select: false || true })
     isDeleted: boolean=false;

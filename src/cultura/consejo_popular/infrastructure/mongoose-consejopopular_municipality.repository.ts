@@ -175,13 +175,14 @@ export class Mongoose_ConsejoPopular_Municipality_Repository implements ConsejoP
   }
 
   async search(queryDTO:Search_ConsejoPopular_MunicipalityDto):Promise<ConsejoPopular_Municipality_Entity[] | string> {
-    let query= { isDeleted:false};
-    if (queryDTO.name!='') {query['name']= queryDTO.name} ;
-    if (queryDTO.provinceId!='') { query['province']= queryDTO.provinceId; }
-    if (queryDTO.municipalityId!='') { query['municipality']=queryDTO.municipalityId; }
+    //let query= { isDeleted:false};
+    if (queryDTO.exactName)  
+      queryDTO.name=  "{ $regex:"+queryDTO.name+" , $options:'i'}";
+   // if (queryDTO.provinceId!='') { query['province']= queryDTO.provinceId; }
+   // if (queryDTO.municipalityId!='') { query['municipality']=queryDTO.municipalityId; }
     const consejopopular_municipalities = await this.consejopopular_municipality_Model
       .find()
-      .where(query)
+      .where(queryDTO)
       .populate(this.populate_Municipio);
     const co_municipalityCollection = consejopopular_municipalities.map((co_municipality) =>
       this.toEntity(co_municipality),

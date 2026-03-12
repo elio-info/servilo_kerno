@@ -8,7 +8,7 @@ export default class Search_ConsejoPopular_MunicipalityDto {
  
   @IsOptional()
   @IsBoolean()
-  exactName: boolean=true;
+  exactName: boolean=false;
 
   @IsString({ message: 'The name of the municipality must be a String' })
   @IsNotEmpty({ message: 'The name of the municipality cannot be empty' })
@@ -21,7 +21,7 @@ export default class Search_ConsejoPopular_MunicipalityDto {
   @IsRelationShipWith(ProvinceModel)
   @IsNotEmpty({ message: 'The Province ID cannot be empty' })
   @IsOptional()
-  provinceId: string;
+  province: string;
 
   @IsMongoId()
   @IsString({ message: 'The Id of the municipalities must be a String' })

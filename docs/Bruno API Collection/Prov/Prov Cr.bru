@@ -1,19 +1,19 @@
 meta {
-  name: Prov
+  name: Prov Cr
   type: http
   seq: 3
 }
 
 post {
-  url: http://localhost:3300/cult/province
+  url: {{rqs}}
   body: json
   auth: inherit
 }
 
 body:json {
   {
-     "name": "San Luis"//,solo nombre y no repetido
-   // "province": "6931df8a5dbd4bc64079a778" //Pinar
+     "name": "Guantanamo"//,solo nombre y no repetido
+   
   }
 }
 

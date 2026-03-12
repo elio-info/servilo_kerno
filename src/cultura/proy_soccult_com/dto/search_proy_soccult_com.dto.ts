@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Type } from "class-transformer"
-import { IsMongoId, IsNotEmpty, IsObject, IsOptional, isString, IsString, MinLength } from "class-validator"
+import { IsBoolean, IsMongoId, IsNotEmpty, IsObject, IsOptional, isString, IsString, MinLength } from "class-validator"
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
 import { ConsejoPopular_Municipality_Model } from "../../consejo_popular/domain/schemas/consejo_popular.schema"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
@@ -8,6 +8,11 @@ import { MunicipalityModel } from "src/modules/municipality/infrastructure/munic
 import { ProvinceModel } from "src/modules/province/infrastructure/province.schema"
 
 export class Search_Proyecto_Sociocultural_Comunitario_Dto {
+    @ApiProperty({example:'completo nombre '})
+    @IsOptional()
+    @IsBoolean({ message: 'Si o No' })
+    exactName:boolean=false
+    
     @ApiProperty({example:'La casa de Pedro Prieto'})
     @IsNotEmpty()
     @IsString()
@@ -70,4 +75,8 @@ export class Search_Proyecto_Sociocultural_Comunitario_Dto {
     @MinLength(3)
     cancelado:string
 
+    @ApiProperty({example:'si esta eliminado '})
+    @IsOptional()
+    @IsBoolean({ message: 'Si o No' })
+    isDeleted:boolean=false
 }

@@ -12,6 +12,7 @@ import { IsAtLeastOnePlace2Insert, SearchDuplicate_KeysValue } from 'src/modules
 import { DataList } from 'src/modules/common/data-list';
 import { ErrorModule } from 'src/modules/common/errors/error.module';
 import { ErrorX } from 'src/modules/common/errors/object-not-found.error';
+import { ReportsBasic_DTO } from '../dto/reports-control_actcult.dto';
 
 @Injectable()
 export class Control_ActividadCultural_Service {
@@ -97,10 +98,30 @@ export class Control_ActividadCultural_Service {
     traza.save()
     return err.toString();
   }
+
+  
   }
- 
+ async reportsBasic(params:ReportsBasic_DTO) {
+    let rp=await this.cntrl_actvcultMdl.aggregate(
+      [ 
+        
+        { 
+          $match: {dia_actcul:params.dia_actcult},
+        },
+        {
+          $group:{
+          _id:'dia_actcult',
+          cant_act:{$sum:1},
+          cant_prs :{$sum:'$edad_asistencia'} 
+        }
+        }
+      ]
+    );
+    return rp;   
+  }
+
   toEntity(ps:Control_ActividadCultural_Model): Control_ActividadCultural_Entity {
-      
+         
       return {
         id:ps._id.toString(),
         name:ps.name,
@@ -112,6 +133,7 @@ export class Control_ActividadCultural_Service {
         ct_planificado:ps.cp_planificado,
         edad:ps.edad,
         edad_asistencia:ps.edad_asistencia,
+        estados_actividad:ps.estados_actividad,
         entidad_responsable:ps.entidad_responsable,//._id.toString(),
         manifestaciones_artisticas:ps.manifestaciones_artisticas,
         talentos:ps.talentos,
