@@ -41,8 +41,9 @@ export class Proyecto_Sociocultural_Comunitario_Model{
     
     @Prop()
     cancelado:string
+
     @Prop({default: false, select: false || true })
-  isDeleted: boolean;
+    isDeleted: boolean=false;
     
     @Prop({ default: Date.now })
     createdAt: Date;

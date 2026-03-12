@@ -1,0 +1,25 @@
+meta {
+  name: B-actcult
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3300/cult/control-actcult
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+  //"exactName":false,
+  //"name": "ITH"//,
+  "priorizado": true//false,
+  //"programa":"69b02b678ebab4261adbb044" //id del suprior
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

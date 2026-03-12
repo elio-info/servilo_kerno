@@ -1,0 +1,23 @@
+meta {
+  name: cp_m
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3300/cult/consejopopular_municipality/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "La alameda",
+    "municipality": "693d1aa033ba286eaf4c2777",//pinar
+    "province": "6931df8a5dbd4bc64079a778" //Pinar
+  }
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}

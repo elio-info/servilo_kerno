@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Type } from "class-transformer"
-import { IsMongoId, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, isString, IsString, MinLength } from "class-validator"
+import { IsArray, IsMongoId, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, isString, IsString, MinLength } from "class-validator"
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
 import { ConsejoPopular_Municipality_Model } from "../../consejo_popular/domain/schemas/consejo_popular.schema"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
@@ -36,9 +36,9 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     direccion:string
 
     @ApiProperty({example:'[{name: Pedro Prieto, titulos_profesiones:Miembro de la UNEAC,telefonos:{cell:12345678,fijo:12345678,trabajo:12345678} uno o los 3},{name: Alejandro Perez, titulos_profesiones:Profesor de Arte,Miembro de la UNEAC,Repentista,telefonos:}]'})
-    @IsObject({ message: '{name,titulos_profesiones,telefonos}' })
+    @IsArray({ message: '[{name,titulos_profesiones,telefonos}]' })
     // @MinLength(3)
-    @IsNotEmptyObject()
+    @IsNotEmpty()
     gestor:Gestor_Entity[]   
     
     @ApiProperty({example:'Se pone que actividades se realizan en el '})

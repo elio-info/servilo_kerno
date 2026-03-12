@@ -6,7 +6,7 @@ import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiHeader, ApiOkResponse, A
 import { ApiCustomErrorResponse } from 'src/modules/common/doc/api-bad-request-custom-error-response.decorator';
 import { ApiUnauthorizedCustomErrorResponse } from 'src/modules/common/doc/api-unauthorized-custom-error-response.decorator';
 import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
-import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { getUserHTTP_JWTS, validatePagination } from 'src/modules/common/extractors';
 import { ConsejoPopular_Municipality_Entity } from '../consejo_popular/domain/schemas/consejo_popular.entity';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
 import { ApiNotFoundCustomErrorResponse } from 'src/modules/common/doc/api-not-found-custom-error-response.decorator';
@@ -58,7 +58,7 @@ export class Proyecto_Sociocultural_Comunitario_Controller {
   @ErrorHandler()
   @Get()
   findAll(@Query('page') page: number, @Query('pageSize') pageSize: number) {
-    return this.proySoccultComService.findAll(page,pageSize);
+    return this.proySoccultComService.findAll(validatePagination (page,1),validatePagination(pageSize,15));
   }
 
   @ApiOkResponse({

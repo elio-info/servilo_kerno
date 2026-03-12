@@ -1,0 +1,24 @@
+meta {
+  name: s-progsocl
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3300/cult/progsocl
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+  "name": "Educacion",
+  "priorizado": false//,
+  //"programa":"69b02b678ebab4261adbb044" //id del suprior
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

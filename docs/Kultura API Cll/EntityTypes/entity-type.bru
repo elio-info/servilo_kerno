@@ -1,0 +1,23 @@
+meta {
+  name: entity-type
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3300/cult/entity-type
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Direc Prov Cult",
+    "hierarchy": 1
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

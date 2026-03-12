@@ -28,10 +28,10 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     this.traza.trazaDTO.operation='save';
     this.traza.trazaDTO.filter=createProySoccultComDto;
 
-    let crt = await this.cstvldt.validateId_onTable('consejopopular_municipal',createProySoccultComDto.consejopopular_municipality,this.traza);
-    console.log('existe '+createProySoccultComDto.consejopopular_municipality+' ?'+crt);
-    if (crt.trazaDTO.error!='Ok' )       
-        return crt.trazaDTO.error.toString();  
+    // let crt = await this.cstvldt.validateId_onTable('consejopopular_municipal',createProySoccultComDto.consejopopular_municipality,this.traza);
+    // console.log('existe '+createProySoccultComDto.consejopopular_municipality+' ?'+crt);
+    // if (crt.trazaDTO.error!='Ok' )       
+    //     return crt.trazaDTO.error.toString();  
      
       try {
         let mnc=await new this.pscc_Model(createProySoccultComDto).save();
@@ -50,13 +50,16 @@ export class Proyecto_Sociocultural_Comunitario_Service {
 
   async findAll(page = 1, pageSize = 15):Promise<DataList<Proyecto_Socioculturale_Comunitario_Entity>| string> {
     const skipCount = (page - 1) * pageSize;
-
-    const cp= await  this.pscc_Model
+    console.log(page,pageSize,skipCount);
+ 
+    let cp= await  this.pscc_Model
         .find(IS_NOT_DELETED)
-        .skip(skipCount)
+        // .skip(skipCount)
         .limit(pageSize)
        .populate('consejopopular_municipality')
         .exec();
+    console.log(cp);
+    
     const cpCollection = cp.map((cpp) =>
       this.toEntity(cpp),
     );

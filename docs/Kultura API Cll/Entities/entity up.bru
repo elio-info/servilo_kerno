@@ -1,0 +1,36 @@
+meta {
+  name: entity up
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3300/cult/entity
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id":"699ca369160d18276202bb8a",
+  // "nivel": "Prov",
+    //"municipality": "6923738182f18054a5e54d6f",
+   // "entityType": "6994a5d3e30639016494206d",
+    "parentId": null,
+   // "name": "la pertyu 22",
+   "nitCode": "4587963",
+   // "abbreviation": "string",
+   // "resolution": "string",
+   // "resolutionDate": "2026-02-16T08:08:14.842Z",
+   // "issuedBy": "string",
+   // "domicilie": "string",
+    "consejo_p": "693d1aa033ba286eaf4c2777"//,
+   // "reeup": "string",
+   // "commercialRegister": "string"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

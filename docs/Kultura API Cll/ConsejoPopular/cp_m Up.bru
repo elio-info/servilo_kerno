@@ -1,0 +1,24 @@
+meta {
+  name: cp_m Up
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3300/cult/consejopopular_municipality/
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id":"6923739382f18054a5e54d73",
+    "name": "Varadero"//,
+   // "province": "6931df8a5dbd4bc64079a778"
+    //, "municipality":"693d1aa033ba286eaf4c2777"//pinar
+  }
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}

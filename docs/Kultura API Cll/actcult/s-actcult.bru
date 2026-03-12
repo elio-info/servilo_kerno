@@ -1,0 +1,66 @@
+meta {
+  name: s-actcult
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3300/cult/control-actcult
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+  "name":"la ratonera de cuco",
+   "dia_actcult":"2026-03-01",// Date
+  "hora_actcult":"18:00" , // DateTimestamp
+  "entidad_responsable":"699ca369160d18276202bb8a", //DPC Pinar ,quien planifica Entity_Entity
+  "lugar_planificado":"67be5509f2fddeb300b11ff6", //Place La comuna Pinar
+  //     ic_planificado?:String// InstCult
+  //     cp_planificado?:String// ConsjPop
+  //     ct_planificado?:String// ComnTransf
+      
+  "edad":"l",// locas Nomenclador_GrupoEtareo //grupo etareo
+  "edad_asistencia":12,//Number //cantidad
+  //"tipoActividad_extraPlan":boolean //no 
+  //    tipoActividad_Prov_Entidad?:Entity_Entity //null o entidad prov only
+    "estados_actividad":[
+      {"estado_actividad":"S",//Nomenclador_EstadosDeActividadCultural; //estado actividad
+      "responsable":"Pedro Sierra",//string;
+      "justificacion":"se fajaron y hubo de todo"}//string;
+    ]//Estado_ActividadCultural[] //estado actividad    
+      ,"manifestaciones_artisticas":[
+        "69a5188990707b297a3614b0",//musica
+        "69a518a390707b297a3614b4" //danza
+      ]//string[] NomenclaCat_ContManifestacion_Especialidad_Entity[] manifestaciones implicadas, la principal es la primera
+     , "talentos":[
+    {"id":"69a59d9faa0720723afe3d26",
+      "name" :"string",
+      "manifest":"string",
+      "numero_contrato":"string",
+      "numero_prefactura":"string",
+      "cantidad":2320.55}
+    ]//Talento_Artistico_Contratado_Entity[]//talentos contratados
+      ,"programas_tributa":[
+        "69b049a684f8645c33ef53ee"//educacion
+      ]//string[] //ProgramaSocial_Entity[] //programas sociales entity
+      //,"descripcion_actv":"String" //descripcion de la actividad
+      //TV?:boolean
+      //redes_plataforma?:boolean
+      ,"apoyos":[
+    {"id":"69a59d9faa0720723afe3d26",
+      "name" :"string",
+      "manifest":"string",
+      "numero_contrato":"string",
+      "numero_prefactura":"string",
+      "cantidad":2220.55}
+    ]//Talento_Artistico_Contratado_Entity[]//talentos contratados
+  
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
