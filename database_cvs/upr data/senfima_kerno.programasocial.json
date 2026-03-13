@@ -1,0 +1,96 @@
+[{
+  "_id": {
+    "$oid": "69b02b678ebab4261adbb044"
+  },
+  "name": "Salud",
+  "programa": null,
+  "priorizado": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-10T14:32:07.089Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-10T14:32:07.089Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b035fce86ca01e39390654"
+  },
+  "name": "Prevencion del Tabaquismo",
+  "programa": "69b02b678ebab4261adbb044",
+  "priorizado": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-10T15:17:16.485Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-10T15:24:50.100Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b0364be86ca01e39390661"
+  },
+  "name": "Prevencion al Alcoholismo",
+  "programa": "69b02b678ebab4261adbb044",
+  "priorizado": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-10T15:18:35.694Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-10T15:29:54.200Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b03662e86ca01e39390669"
+  },
+  "name": "Prevencion ITH-VIH-SIDA",
+  "programa": "69b02b678ebab4261adbb044",
+  "priorizado": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-10T15:18:58.702Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-10T15:32:09.461Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b03bb2c00d346bc0affe97"
+  },
+  "name": "Atencio al Adulto Mayor",
+  "programa": null,
+  "priorizado": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-10T15:41:38.191Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-10T16:41:47.327Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b049a684f8645c33ef53ee"
+  },
+  "name": "Educacion",
+  "programa": null,
+  "priorizado": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-10T16:41:10.408Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-10T16:41:57.619Z"
+  },
+  "__v": 0
+}]

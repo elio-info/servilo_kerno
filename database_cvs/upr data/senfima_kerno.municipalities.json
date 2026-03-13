@@ -222,4 +222,19 @@
     "$date": "2026-02-23T12:35:27.559Z"
   },
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b30afdc6c9ef684c59d27f"
+  },
+  "name": "La Palma",
+  "isDeleted": false,
+  "province": "67b8a9a8d25b39fdef54409a",
+  "createdAt": {
+    "$date": "2026-03-12T18:50:37.319Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-12T18:50:37.319Z"
+  },
+  "__v": 0
 }]

@@ -85,3 +85,354 @@ Para insertar Entidad Cultural
   domicilie: string;
   reeup: string;
   commercialRegister: string;
+/////////////////////////////////////////////////////////
+Below is a complete example of how to perform a MongoDB query (using Mongoose) that matches documents based on conditions on objects inside an array. The example is built with NestJS and follows a typical API structure (controller, service, module, schema).
+
+## Scenario
+
+We have a collection of `orders`. Each order document contains an array `items` where each item is an object with `name`, `price`, and `quantity`. We want to find all orders that have at least one item matching multiple criteria, e.g.:
+- item name is "Laptop"
+- item price is greater than 1000
+
+This requires a query that inspects the array and applies conditions on the sub‑documents.
+
+## 1. Define the Mongoose Schema
+
+Create the schema using `@nestjs/mongoose` decorators.
+
+```typescript
+// order.schema.ts
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+
+export type OrderDocument = Order & Document;
+
+@Schema()
+export class OrderItem {
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true })
+  price: number;
+
+  @Prop({ required: true })
+  quantity: number;
+}
+
+@Schema()
+export class Order {
+  @Prop({ required: true })
+  orderNumber: string;
+
+  @Prop({ type: [OrderItem], default: [] })
+  items: OrderItem[];
+}
+
+export const OrderSchema = SchemaFactory.createForClass(Order);
+```
+
+## 2. Create the Module
+
+Register the schema with Mongoose in the module.
+
+```typescript
+// orders.module.ts
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Order, OrderSchema } from './order.schema';
+import { OrdersService } from './orders.service';
+import { OrdersController } from './orders.controller';
+
+@Module({
+  imports: [
+    MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
+  ],
+  controllers: [OrdersController],
+  providers: [OrdersService],
+})
+export class OrdersModule {}
+```
+
+## 3. Write the Service with the Query
+
+In the service, we use `$elemMatch` to specify multiple conditions on the same array element. If you need to combine different criteria across the array, you can adjust the filter accordingly.
+
+```typescript
+// orders.service.ts
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Order, OrderDocument } from './order.schema';
+
+@Injectable()
+export class OrdersService {
+  constructor(
+    @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+  ) {}
+
+  /**
+   * Find orders that contain at least one item matching the given criteria.
+   * @param itemName - item name to match
+   * @param minPrice - minimum price for the item
+   */
+  async findOrdersByItemCriteria(itemName: string, minPrice: number): Promise<Order[]> {
+    // Use $elemMatch to apply multiple conditions on the same array element
+    const filter = {
+      items: {
+        $elemMatch: {
+          name: itemName,
+          price: { $gt: minPrice },
+        },
+      },
+    };
+
+    return this.orderModel.find(filter).exec();
+  }
+}
+```
+
+**Explanation**  
+- `$elemMatch` ensures that at least one element in the `items` array satisfies **both** conditions (`name === itemName` and `price > minPrice`).  
+- If you need to match elements across the array with different conditions (e.g., an item with name "Laptop" *and* another item with quantity > 5), you would use multiple `$elemMatch` clauses or the `$and` operator. For that more complex case, see the **Advanced Note** below.
+
+## 4. Build the Controller
+
+Create a REST endpoint that accepts query parameters and calls the service method.
+
+```typescript
+// orders.controller.ts
+import { Controller, Get, Query } from '@nestjs/common';
+import { OrdersService } from './orders.service';
+import { Order } from './order.schema';
+
+@Controller('orders')
+export class OrdersController {
+  constructor(private readonly ordersService: OrdersService) {}
+
+  @Get('search')
+  async searchOrders(
+    @Query('itemName') itemName: string,
+    @Query('minPrice') minPrice: string,
+  ): Promise<Order[]> {
+    // Convert minPrice to number (or use ValidationPipe in a real app)
+    const price = parseFloat(minPrice);
+    return this.ordersService.findOrdersByItemCriteria(itemName, price);
+  }
+}
+```
+
+## 5. Full API Sequence Example
+
+1. **Request**  
+   `GET /orders/search?itemName=Laptop&minPrice=1000`
+
+2. **Mongoose Query**  
+   The generated MongoDB query (simplified) would be:
+   ```javascript
+   db.orders.find({
+     items: {
+       $elemMatch: {
+         name: "Laptop",
+         price: { $gt: 1000 }
+       }
+     }
+   })
+   ```
+
+3. **Response**  
+   Returns an array of order documents that contain at least one item named "Laptop" with price > 1000.
+
+## Advanced: Matching Multiple Criteria Across Different Array Elements
+
+If you need to find orders where **different** items satisfy different conditions (e.g., an item named "Laptop" and another item with quantity > 5), you can combine `$elemMatch` with `$and`:
+
+```typescript
+const filter = {
+  $and: [
+    { items: { $elemMatch: { name: 'Laptop' } } },
+    { items: { $elemMatch: { quantity: { $gt: 5 } } } },
+  ],
+};
+```
+
+This returns orders that contain at least one "Laptop" item **and** at least one item with quantity greater than 5 (they may be the same item or different items).
+
+## Summary
+
+- Use `$elemMatch` inside the array field to apply multiple conditions to the same array element.
+- For cross‑element conditions, use `$and` with separate `$elemMatch` clauses.
+- The same pattern works in any NestJS service using `@nestjs/mongoose`.
+
+This example provides a complete, runnable API sequence that you can adapt to your own data models and criteria.
+
+*******************************************
+if i want to know count, sum and average following that criterias
+
+  Below is an extended example that retrieves **count**, **sum**, and **average** for orders matching the same criteria. The aggregation pipeline is used to compute these metrics efficiently. The example assumes you want the total value of each order (sum of `price * quantity` over all its items) and then the overall count, sum, and average of those order totals.
+
+## 1. Service Method Using Aggregation
+
+We'll add a method in `OrdersService` that returns the statistics.
+
+```typescript
+// orders.service.ts
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Order, OrderDocument } from './order.schema';
+
+@Injectable()
+export class OrdersService {
+  constructor(
+    @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+  ) {}
+
+  /**
+   * Find orders matching the item criteria and return:
+   * - count of orders
+   * - sum of total order values
+   * - average order value
+   */
+  async getOrderStatsByItemCriteria(itemName: string, minPrice: number): Promise<{
+    count: number;
+    totalSum: number;
+    average: number;
+  }> {
+    const pipeline = [
+      // Stage 1: Match orders that contain at least one item satisfying the criteria
+      {
+        $match: {
+          items: {
+            $elemMatch: {
+              name: itemName,
+              price: { $gt: minPrice },
+            },
+          },
+        },
+      },
+      // Stage 2: Compute total value for each order
+      {
+        $addFields: {
+          orderTotal: {
+            $sum: {
+              $map: {
+                input: '$items',
+                as: 'item',
+                in: { $multiply: ['$$item.price', '$$item.quantity'] },
+              },
+            },
+          },
+        },
+      },
+      // Stage 3: Group to get statistics
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+          totalSum: { $sum: '$orderTotal' },
+          average: { $avg: '$orderTotal' },
+        },
+      },
+    ];
+
+    const result = await this.orderModel.aggregate(pipeline).exec();
+    // If no orders match, result will be an empty array
+    if (result.length === 0) {
+      return { count: 0, totalSum: 0, average: 0 };
+    }
+    const { count, totalSum, average } = result[0];
+    return { count, totalSum, average };
+  }
+}
+```
+
+**Explanation**  
+- `$match` uses `$elemMatch` to keep only orders with an item matching `name` and `price > minPrice`.  
+- `$addFields` creates a new field `orderTotal` by iterating over the `items` array with `$map`. For each item, it multiplies `price` by `quantity` and then `$sum`s the resulting array.  
+- `$group` with `_id: null` aggregates all documents into one. It calculates `count` (number of orders), `totalSum` (sum of `orderTotal`), and `average` (average of `orderTotal`).  
+- If no orders match, the pipeline returns an empty array; we handle that by returning zeros.
+
+## 2. Controller Endpoint
+
+Add a new endpoint that returns the statistics.
+
+```typescript
+// orders.controller.ts
+import { Controller, Get, Query } from '@nestjs/common';
+import { OrdersService } from './orders.service';
+
+@Controller('orders')
+export class OrdersController {
+  constructor(private readonly ordersService: OrdersService) {}
+
+  @Get('search')
+  async searchOrders(
+    @Query('itemName') itemName: string,
+    @Query('minPrice') minPrice: string,
+  ) {
+    const price = parseFloat(minPrice);
+    return this.ordersService.findOrdersByItemCriteria(itemName, price);
+  }
+
+  @Get('stats')
+  async getOrderStats(
+    @Query('itemName') itemName: string,
+    @Query('minPrice') minPrice: string,
+  ) {
+    const price = parseFloat(minPrice);
+    return this.ordersService.getOrderStatsByItemCriteria(itemName, price);
+  }
+}
+```
+
+## 3. Full API Sequence Example
+
+- **Request**  
+  `GET /orders/stats?itemName=Laptop&minPrice=1000`
+
+- **Aggregation Pipeline (simplified)**  
+  ```javascript
+  db.orders.aggregate([
+    { $match: { items: { $elemMatch: { name: "Laptop", price: { $gt: 1000 } } } } },
+    { $addFields: { orderTotal: { $sum: { $map: { input: "$items", as: "item", in: { $multiply: ["$$item.price", "$$item.quantity"] } } } } } },
+    { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$orderTotal" }, average: { $avg: "$orderTotal" } } }
+  ])
+  ```
+
+- **Response**  
+  ```json
+  {
+    "count": 5,
+    "totalSum": 12500.75,
+    "average": 2500.15
+  }
+  ```
+
+## Alternative: Aggregating Over Matching Items Only
+
+If you want the statistics based **only** on the items that match the criteria (e.g., sum of prices of matching items, average quantity of matching items), you would unwind the array, filter the items, and then group. Here's a quick example for that scenario:
+
+```typescript
+const pipeline = [
+  { $unwind: '$items' },
+  { $match: { 'items.name': itemName, 'items.price': { $gt: minPrice } } },
+  {
+    $group: {
+      _id: null,
+      count: { $sum: 1 },                // number of matching items
+      totalPrice: { $sum: '$items.price' },
+      avgQuantity: { $avg: '$items.quantity' },
+    },
+  },
+];
+```
+
+Choose the approach that fits your business need.
+
+## Summary
+
+- Use aggregation pipelines in Mongoose to compute statistics across filtered documents.  
+- The pipeline can be extended with multiple stages to reshape data and calculate aggregates.  
+- Handle the empty result case gracefully.  
+
+This example gives you a complete, runnable NestJS service for obtaining count, sum, and average based on array‑element criteria.

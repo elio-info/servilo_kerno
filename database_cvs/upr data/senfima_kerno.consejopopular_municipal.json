@@ -205,4 +205,36 @@
     "$date": "2026-02-23T14:05:05.138Z"
   },
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b30217ee93e47c179aa793"
+  },
+  "name": "Celso Maragoto",
+  "isDeleted": false,
+  "municipality": "693d1aa033ba286eaf4c2777",
+  "province": "67b8a9a8d25b39fdef54409a",
+  "createdAt": {
+    "$date": "2026-03-12T18:12:39.826Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-12T18:12:39.826Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b30bc8c6c9ef684c59d286"
+  },
+  "name": "San Andres",
+  "isDeleted": false,
+  "municipality": "69b30afdc6c9ef684c59d27f",
+  "province": "67b8a9a8d25b39fdef54409a",
+  "createdAt": {
+    "$date": "2026-03-12T18:54:00.717Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-12T18:54:00.717Z"
+  },
+  "__v": 0
 }]
