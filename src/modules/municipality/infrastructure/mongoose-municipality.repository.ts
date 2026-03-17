@@ -55,9 +55,9 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     traza.trazaDTO.operation='save';
     traza.trazaDTO.filter=municipality;
     //existe prov
-    let crt_prv = await this.cstvldt.validateId_onTable('provinces',municipality.province,traza);
-    if (crt_prv.trazaDTO.error !='Ok')       
-      return crt_prv.trazaDTO.error.toString();
+    // let crt_prv = await this.cstvldt.validateId_onTable('provinces',municipality.province,traza);
+    // if (crt_prv.trazaDTO.error !='Ok')       
+    //   return crt_prv.trazaDTO.error.toString();
 
     let crt_dual=await SearchDuplicate_KeysValue(this.MODULE,this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
 
@@ -70,8 +70,8 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
           traza.trazaDTO.before=''
           traza.trazaDTO.error='Ok';
           traza.save();   
-          let buscar=new SearchMunicipalityDto();
-          buscar.name=municipality.name;
+          // let buscar=new SearchMunicipalityDto();
+          // buscar.name=municipality.name;
           let ids=mnc._id.toString();
           return await this.findOne(ids);                          
         } 
