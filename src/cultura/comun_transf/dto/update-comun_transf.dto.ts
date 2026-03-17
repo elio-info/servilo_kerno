@@ -34,12 +34,12 @@ export class Update_Comunidad_Transformacion_Dto  {
     @IsNotEmpty({ message: 'The Consejo Popular ID cannot be empty' })  
     consejopopular_municipality:string
 
-    @IsOptional()
-    @IsMongoId()
-    @IsString({ message: 'The Id of the province must be a String' })
-    @IsRelationShipWith(MunicipalityModel)
-    @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })  
-    municipio:string
+    // @IsOptional()
+    // @IsMongoId()
+    // @IsString({ message: 'The Id of the province must be a String' })
+    // @IsRelationShipWith(MunicipalityModel)
+    // @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })  
+    // municipio:string
 
     @IsOptional()
     @ApiProperty({example:'La casa de Pedro Prieto'})

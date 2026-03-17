@@ -136,7 +136,7 @@ export class NomenclaCategorias_ContratacionManifestacion_Service {
           let error=new ObjectCanNotDeleted (this.MODULE,hijos );
           this.traza.trazaDTO.error= error ;
           this.traza.save();
-          return error.toString();
+          return this.traza.terror();
         }
         const plc = await this.mnfclt_model.findOneAndUpdate(
           { _id: id, isDeleted: false },

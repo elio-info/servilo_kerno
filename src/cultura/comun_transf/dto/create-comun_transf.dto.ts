@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { Type } from "class-transformer"
-import { IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, MinLength } from "class-validator"
+import { IsBoolean, IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, MinLength } from "class-validator"
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
 import { ConsejoPopular_Municipality_Model } from "../../consejo_popular/domain/schemas/consejo_popular.schema"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
@@ -21,11 +21,11 @@ export class Create_Comunidad_Transformacion_Dto {
     @IsNotEmpty({ message: 'The consejo ppopular ID cannot be empty' })  
     consejopopular_municipality:string
     
-    @IsMongoId()
-    @IsString({ message: 'The Id of the province must be a String' })
-    @IsRelationShipWith(MunicipalityModel)
-    @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })  
-    municipio:string
+    // @IsMongoId()
+    // @IsString({ message: 'The Id of the province must be a String' })
+    // @IsRelationShipWith(MunicipalityModel)
+    // @IsNotEmpty({ message: 'The Municipality ID cannot be empty' })  
+    // municipio:string
 
     @ApiProperty({example:'La casa de Pedro Prieto'})
     @IsString()
@@ -43,4 +43,8 @@ export class Create_Comunidad_Transformacion_Dto {
     @IsString({ message: 'Mas de 3 letras' })
     // @MinLength(3)
     observacion:string
+
+    @IsOptional()
+    @IsBoolean()
+    isDeleted:boolean=false
 }

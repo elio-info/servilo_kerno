@@ -1,5 +1,7 @@
 ejemplos 
 https://github.com/nestjs/nest/blob/master
+https://mongoplayground.net/
+
 
 
 
@@ -436,3 +438,692 @@ Choose the approach that fits your business need.
 - Handle the empty result case gracefully.  
 
 This example gives you a complete, runnable NestJS service for obtaining count, sum, and average based on array‑element criteria.
+
+*********************************
+
+Below is an extended example that adds date range filtering to the previous statistics query. The same aggregation pipeline now includes a condition on the order date, allowing you to retrieve count, sum, and average for orders that:
+
+- contain at least one item matching the given criteria (name, min price), **and**
+- have an order date falling within a specified range.
+
+## 1. Schema with Date Field
+
+Add an `orderDate` field to the `Order` schema.
+
+```typescript
+// order.schema.ts
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+
+export type OrderDocument = Order & Document;
+
+@Schema()
+export class OrderItem {
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true })
+  price: number;
+
+  @Prop({ required: true })
+  quantity: number;
+}
+
+@Schema()
+export class Order {
+  @Prop({ required: true })
+  orderNumber: string;
+
+  @Prop({ required: true, type: Date })
+  orderDate: Date;                      // <-- new date field
+
+  @Prop({ type: [OrderItem], default: [] })
+  items: OrderItem[];
+}
+
+export const OrderSchema = SchemaFactory.createForClass(Order);
+```
+
+## 2. Service Method with Date Range
+
+In the service, we accept optional start and end dates. If both are provided, we add a date range condition. The aggregation pipeline is updated accordingly.
+
+```typescript
+// orders.service.ts
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Order, OrderDocument } from './order.schema';
+
+@Injectable()
+export class OrdersService {
+  constructor(
+    @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+  ) {}
+
+  /**
+   * Get statistics for orders that:
+   * - contain at least one item with given name and price > minPrice
+   * - have orderDate between startDate and endDate (if both provided)
+   */
+  async getOrderStatsByItemCriteria(
+    itemName: string,
+    minPrice: number,
+    startDate?: Date,
+    endDate?: Date,
+  ): Promise<{
+    count: number;
+    totalSum: number;
+    average: number;
+  }> {
+    // Build the $match stage step by step
+    const matchConditions: any = {
+      items: {
+        $elemMatch: {
+          name: itemName,
+          price: { $gt: minPrice },
+        },
+      },
+    };
+
+    // Add date range if both start and end are provided
+    if (startDate && endDate) {
+      matchConditions.orderDate = {
+        $gte: startDate,
+        $lte: endDate,
+      };
+    } else if (startDate) {
+      // only start date: from that date onward
+      matchConditions.orderDate = { $gte: startDate };
+    } else if (endDate) {
+      // only end date: up to that date
+      matchConditions.orderDate = { $lte: endDate };
+    }
+
+    const pipeline = [
+      // Stage 1: Match orders based on item criteria and date range
+      { $match: matchConditions },
+
+      // Stage 2: Compute total value for each order
+      {
+        $addFields: {
+          orderTotal: {
+            $sum: {
+              $map: {
+                input: '$items',
+                as: 'item',
+                in: { $multiply: ['$$item.price', '$$item.quantity'] },
+              },
+            },
+          },
+        },
+      },
+
+      // Stage 3: Group to get statistics
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+          totalSum: { $sum: '$orderTotal' },
+          average: { $avg: '$orderTotal' },
+        },
+      },
+    ];
+
+    const result = await this.orderModel.aggregate(pipeline).exec();
+    if (result.length === 0) {
+      return { count: 0, totalSum: 0, average: 0 };
+    }
+    const { count, totalSum, average } = result[0];
+    return { count, totalSum, average };
+  }
+}
+```
+
+**Key Points**  
+- The `$match` stage now includes an `orderDate` condition when date parameters are provided.  
+- You can pass `startDate` and/or `endDate` as JavaScript `Date` objects.  
+- The pipeline remains efficient because all filtering happens in the first stage.
+
+## 3. Controller with Date Query Parameters
+
+Add the date parameters to the controller endpoint. They are expected as ISO strings (e.g., `2026-01-01`) and converted to `Date` objects.
+
+```typescript
+// orders.controller.ts
+import { Controller, Get, Query } from '@nestjs/common';
+import { OrdersService } from './orders.service';
+
+@Controller('orders')
+export class OrdersController {
+  constructor(private readonly ordersService: OrdersService) {}
+
+  @Get('stats')
+  async getOrderStats(
+    @Query('itemName') itemName: string,
+    @Query('minPrice') minPrice: string,
+    @Query('startDate') startDate?: string,   // ISO date string
+    @Query('endDate') endDate?: string,
+  ) {
+    const price = parseFloat(minPrice);
+    const start = startDate ? new Date(startDate) : undefined;
+    const end = endDate ? new Date(endDate) : undefined;
+    return this.ordersService.getOrderStatsByItemCriteria(
+      itemName,
+      price,
+      start,
+      end,
+    );
+  }
+}
+```
+
+## 4. Full API Sequence Example
+
+- **Request**  
+  `GET /orders/stats?itemName=Laptop&minPrice=1000&startDate=2026-01-01&endDate=2026-03-31`
+
+- **Aggregation Pipeline (simplified)**  
+  ```javascript
+  db.orders.aggregate([
+    {
+      $match: {
+        items: { $elemMatch: { name: "Laptop", price: { $gt: 1000 } } },
+        orderDate: { $gte: ISODate("2026-01-01"), $lte: ISODate("2026-03-31") }
+      }
+    },
+    { $addFields: { orderTotal: { $sum: { $map: { input: "$items", as: "item", in: { $multiply: ["$$item.price", "$$item.quantity"] } } } } } },
+    { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$orderTotal" }, average: { $avg: "$orderTotal" } } }
+  ])
+  ```
+
+- **Response**  
+  ```json
+  {
+    "count": 3,
+    "totalSum": 8700.50,
+    "average": 2900.17
+  }
+  ```
+
+## Handling Edge Cases
+
+- If `startDate` is provided without `endDate`, the query matches orders from that date onward.  
+- If `endDate` is provided without `startDate`, it matches orders up to that date.  
+- If neither date is given, no date filtering is applied.  
+
+You can easily adjust the logic to require both dates or to treat missing dates differently.
+
+## Summary
+
+- The same aggregation pipeline can be extended to filter by a date range by adding conditions to the `$match` stage.  
+- Use JavaScript `Date` objects when constructing queries to ensure proper MongoDB ISODate conversion.  
+- The controller accepts ISO date strings and converts them.  
+
+This gives you a complete, flexible NestJS API endpoint to retrieve order statistics based on item criteria and a date range.
+
+***************************
+
+db('senfima_kerno').collection('control_actividadcultural').find({}).limit(100).toArray()
+
+db('senfima_kerno').collection('control_actividadcultural').aggregate(
+    [
+        { $match: { dia_actcult: { $regex: "2026-03", $options:"i" } } } 
+        // { $match: { 'estados_actividad.estado_actividad': "S"  } }//criterio
+        // ,
+       // { $match: { 'dia_actcult':  {$regex:'^2026-03-'} } }//comienzo con
+        ,
+        { $group:{_id:'$estados_actividad.estado_actividad',cant_act:{$sum:1},cant_prs :{$sum:'$edad_asistencia'} }}
+    ]
+)
+
+db('senfima_kerno').collection('control_actividadcultural').insertMany(
+    [
+  {
+    
+    "name": "es uera",
+    "dia_actcult": "2026-02-01",
+    "hora_actcult": "08:00",
+    "entidad_responsable": "699ca369160d18276202bb8a",
+    "lugar_planificado": "67be5509f2fddeb300b11ff6",
+    "edad": "l",
+    "edad_asistencia": 102,
+    "tipoActividad_extraPlan": false,
+    "tipoActividad_Prov_Entidad": null,
+    "estados_actividad": [
+      {
+        "estado_actividad": "P",
+        "responsable": "Pedro Sierra",
+        "justificacion": "hubo de todo"
+      }
+    ],
+    "manifestaciones_artisticas": [
+      "69a5188990707b297a3614b0"
+    ],
+    "programas_tributa": [
+      "69b049a684f8645c33ef53ee"
+    ],
+    "talentos": [
+      {
+        "id": "69a59d9faa0720723afe3d26",
+        "name": "string",
+        "manifest": "string",
+        "numero_contrato": "string",
+        "numero_prefactura": "string",
+        "cantidad": 20.55
+      }
+    ],
+    "apoyos": [
+      {
+        "id": "69a59d9faa0720723afe3d26",
+        "name": "string",
+        "manifest": "string",
+        "numero_contrato": "string",
+        "numero_prefactura": "string",
+        "cantidad": 20.55
+      }
+    ],
+    "TV": false,
+    "redes_plataforma": false,
+    "isDeleted": false,
+    "createdAt": {
+      "$date": "2026-03-11T00:21:16.597Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-11T00:21:16.597Z"
+    },
+    "__v": 0
+  },
+  {
+    
+    "name": "lnera de cuco",
+    "dia_actcult": "2026-02-01",
+    "hora_actcult": "18:00",
+    "entidad_responsable": "699ca369160d18276202bb8a",
+    "lugar_planificado": "67be5509f2fddeb300b11ff6",
+    "edad": "l",
+    "edad_asistencia": 123,
+    "tipoActividad_extraPlan": false,
+    "tipoActividad_Prov_Entidad": null,
+    "estados_actividad": [
+      {
+        "estado_actividad": "S",
+        "responsable": "Pedro Sierra",
+        "justificacion": "se fajaron y hubo de todo"
+      }
+    ],
+    "manifestaciones_artisticas": [
+      "69a5188990707b297a3614b0",
+      "69a518a390707b297a3614b4"
+    ],
+    "programas_tributa": [
+      "69b049a684f8645c33ef53ee"
+    ],
+    "talentos": [
+      {
+        "id": "69a59d9faa0720723afe3d26",
+        "name": "string",
+        "manifest": "string",
+        "numero_contrato": "string",
+        "numero_prefactura": "string",
+        "cantidad": 2320.55
+      }
+    ],
+    "apoyos": [
+      {
+        "id": "69a59d9faa0720723afe3d26",
+        "name": "string",
+        "manifest": "string",
+        "numero_contrato": "string",
+        "numero_prefactura": "string",
+        "cantidad": 2220.55
+      }
+    ],
+    "TV": false,
+    "redes_plataforma": false,
+    "isDeleted": false,
+    "createdAt": {
+      "$date": "2026-03-11T00:29:06.301Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-11T00:29:06.301Z"
+    },
+    "__v": 0
+  },
+  {
+       "name": "rauilu de cuco",
+    "dia_actcult": "2026-03-02",
+    "hora_actcult": "18:00",
+    "entidad_responsable": "699ca369160d18276202bb8a",
+    "lugar_planificado": "67be5509f2fddeb300b11ff6",
+    "edad": "l",
+    "edad_asistencia": 152,
+    "tipoActividad_extraPlan": false,
+    "tipoActividad_Prov_Entidad": null,
+    "estados_actividad": [
+      {
+        "estado_actividad": "S",
+        "responsable": "Pedro Sierra",
+        "justificacion": "se fajaron y hubo de todo"
+      }
+    ],
+    "manifestaciones_artisticas": [
+      "69a5188990707b297a3614b0",
+      "69a518a390707b297a3614b4"
+    ],
+    "programas_tributa": [
+      "69b049a684f8645c33ef53ee"
+    ],
+    "talentos": [
+      {
+        "id": "69a59d9faa0720723afe3d26",
+        "name": "string",
+        "manifest": "string",
+        "numero_contrato": "string",
+        "numero_prefactura": "string",
+        "cantidad": 2320.55
+      }
+    ],
+    "apoyos": [
+      {
+        "id": "69a59d9faa0720723afe3d26",
+        "name": "string",
+        "manifest": "string",
+        "numero_contrato": "string",
+        "numero_prefactura": "string",
+        "cantidad": 2220.55
+      }
+    ],
+    "TV": false,
+    "redes_plataforma": false,
+    "isDeleted": false,
+    "createdAt": {
+      "$date": "2026-03-12T22:47:58.361Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T22:47:58.361Z"
+    },
+    "__v": 0
+  },
+  {
+   
+    "name": "1rafff de cuco",
+    "dia_actcult": "2026-03-02",
+    "hora_actcult": "16:00",
+    "entidad_responsable": "699ca369160d18276202bb8a",
+    "lugar_planificado": "67be5509f2fddeb300b11ff6",
+    "edad": "l",
+    "edad_asistencia": 232,
+    "tipoActividad_extraPlan": false,
+    "tipoActividad_Prov_Entidad": null,
+    "estados_actividad": [
+      {
+        "estado_actividad": "D",
+        "responsable": "Pedro Sierra",
+        "justificacion": "se fajaron y hubo de todo"
+      }
+    ],
+    "manifestaciones_artisticas": [
+      "69a518a390707b297a3614b4"
+    ],
+    "programas_tributa": [],
+    "talentos": [
+      {
+        "id": "69a59d9faa0720723afe3d26",
+        "name": "string",
+        "manifest": "string",
+        "numero_contrato": "string",
+        "numero_prefactura": "string",
+        "cantidad": 2320.55
+      }
+    ],
+    "apoyos": [
+      {
+        "id": "69a59d9faa0720723afe3d26",
+        "name": "string",
+        "manifest": "string",
+        "numero_contrato": "string",
+        "numero_prefactura": "string",
+        "cantidad": 2220.55
+      }
+    ],
+    "TV": false,
+    "redes_plataforma": false,
+    "isDeleted": false,
+    "createdAt": {
+      "$date": "2026-03-12T22:55:28.087Z"
+    },
+    "updatedAt": {
+      "$date": "2026-03-12T22:55:28.087Z"
+    },
+    "__v": 0
+  }
+]
+)
+
+Below is the final extended solution that adds **partial matching on the item name** (case‑insensitive) to the previous statistics query with date range filtering. Now you can retrieve count, sum, and average for orders that:
+
+- contain at least one item whose name contains the given substring (case‑insensitive),
+- have a price greater than a specified minimum,
+- and have an order date within an optional range.
+
+## 1. Schema (unchanged)
+
+The `Order` schema includes `orderDate` and an array of `items`.
+
+```typescript
+// order.schema.ts
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+
+export type OrderDocument = Order & Document;
+
+@Schema()
+export class OrderItem {
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true })
+  price: number;
+
+  @Prop({ required: true })
+  quantity: number;
+}
+
+@Schema()
+export class Order {
+  @Prop({ required: true })
+  orderNumber: string;
+
+  @Prop({ required: true, type: Date })
+  orderDate: Date;
+
+  @Prop({ type: [OrderItem], default: [] })
+  items: OrderItem[];
+}
+
+export const OrderSchema = SchemaFactory.createForClass(Order);
+```
+
+## 2. Service with Partial Name Matching and Date Range
+
+In the service, we build the `$match` stage dynamically. For the item name, we use a case‑insensitive regular expression. A helper function escapes any regex‑special characters in the user input.
+
+```typescript
+// orders.service.ts
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Order, OrderDocument } from './order.schema';
+
+@Injectable()
+export class OrdersService {
+  constructor(
+    @InjectModel(Order.name) private orderModel: Model<OrderDocument>,
+  ) {}
+
+  // Escape special characters for regex
+  private escapeRegex(text: string): string {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+  }
+
+  /**
+   * Get statistics for orders that:
+   * - contain at least one item whose name contains the given substring (case‑insensitive)
+   * - with price > minPrice
+   * - and orderDate between startDate and endDate (if provided)
+   */
+  async getOrderStatsByItemCriteria(
+    itemName: string,
+    minPrice: number,
+    startDate?: Date,
+    endDate?: Date,
+  ): Promise<{
+    count: number;
+    totalSum: number;
+    average: number;
+  }> {
+    // Build the $match stage conditions
+    const matchConditions: any = {
+      items: {
+        $elemMatch: {
+          name: { $regex: this.escapeRegex(itemName), $options: 'i' }, // partial, case‑insensitive
+          price: { $gt: minPrice },
+        },
+      },
+    };
+
+    // Add date range if provided
+    if (startDate && endDate) {
+      matchConditions.orderDate = { $gte: startDate, $lte: endDate };
+    } else if (startDate) {
+      matchConditions.orderDate = { $gte: startDate };
+    } else if (endDate) {
+      matchConditions.orderDate = { $lte: endDate };
+    }
+
+    const pipeline = [
+      { $match: matchConditions },
+      {
+        $addFields: {
+          orderTotal: {
+            $sum: {
+              $map: {
+                input: '$items',
+                as: 'item',
+                in: { $multiply: ['$$item.price', '$$item.quantity'] },
+              },
+            },
+          },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+          totalSum: { $sum: '$orderTotal' },
+          average: { $avg: '$orderTotal' },
+        },
+      },
+    ];
+
+    const result = await this.orderModel.aggregate(pipeline).exec();
+    if (result.length === 0) {
+      return { count: 0, totalSum: 0, average: 0 };
+    }
+    const { count, totalSum, average } = result[0];
+    return { count, totalSum, average };
+  }
+}
+```
+
+**What changed for partial name matching?**  
+- Inside `$elemMatch`, the `name` field now uses `{ $regex: escapedInput, $options: 'i' }`.  
+- This matches any item whose name contains the substring `itemName` (case‑insensitive).  
+- The `escapeRegex` method ensures that characters like `.`, `*`, `+` in the search term are treated as literals, not regex operators.
+
+## 3. Controller
+
+The controller remains the same; it accepts the partial name as a plain string.
+
+```typescript
+// orders.controller.ts
+import { Controller, Get, Query } from '@nestjs/common';
+import { OrdersService } from './orders.service';
+
+@Controller('orders')
+export class OrdersController {
+  constructor(private readonly ordersService: OrdersService) {}
+
+  @Get('stats')
+  async getOrderStats(
+    @Query('itemName') itemName: string,
+    @Query('minPrice') minPrice: string,
+    @Query('startDate') startDate?: string,
+    @Query('endDate') endDate?: string,
+  ) {
+    const price = parseFloat(minPrice);
+    const start = startDate ? new Date(startDate) : undefined;
+    const end = endDate ? new Date(endDate) : undefined;
+    return this.ordersService.getOrderStatsByItemCriteria(
+      itemName,
+      price,
+      start,
+      end,
+    );
+  }
+}
+```
+
+## 4. Full API Sequence Example
+
+- **Request**  
+  `GET /orders/stats?itemName=lapt&minPrice=1000&startDate=2026-01-01&endDate=2026-03-31`  
+  This searches for any item whose name contains `"lapt"` (e.g., "Laptop", "Gaming Laptop") with price > 1000, placed in Q1 2026.
+
+- **Aggregation Pipeline (simplified)**  
+  ```javascript
+  db.orders.aggregate([
+    {
+      $match: {
+        items: {
+          $elemMatch: {
+            name: { $regex: "lapt", $options: "i" },
+            price: { $gt: 1000 }
+          }
+        },
+        orderDate: { $gte: ISODate("2026-01-01"), $lte: ISODate("2026-03-31") }
+      }
+    },
+    { $addFields: { orderTotal: { $sum: { $map: { input: "$items", as: "item", in: { $multiply: ["$$item.price", "$$item.quantity"] } } } } } },
+    { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$orderTotal" }, average: { $avg: "$orderTotal" } } }
+  ])
+  ```
+
+- **Response**  
+  ```json
+  {
+    "count": 4,
+    "totalSum": 12450.00,
+    "average": 3112.50
+  }
+  ```
+
+## Performance Consideration
+
+Using a regular expression with a leading wildcard (as in `$regex: "lapt"`) **cannot use an index** on the `items.name` field efficiently. If your collection is large and you need high performance, consider:
+
+- Using a **text index** and `$text` search (which supports word stems but not arbitrary substrings).
+- Storing a lower‑case version of the name and using a `$regex` with the `^` anchor if you only need prefix matching.
+- If substring search is a hard requirement, you might explore Elasticsearch or MongoDB Atlas Search.
+
+For moderate‑sized collections, the regex approach is acceptable and very flexible.
+
+## Summary
+
+- **Partial name matching** is achieved with a case‑insensitive `$regex` inside `$elemMatch`.  
+- The input is escaped to avoid regex injection or unintended patterns.  
+- The date range filtering remains optional and works seamlessly with the new name condition.  
+- The aggregation pipeline computes order totals and then aggregates to return count, sum, and average.
+
+This completes the full feature set: matching array objects by multiple criteria (partial name, minimum price) and a date range, then returning summary statistics.

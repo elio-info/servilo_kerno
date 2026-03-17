@@ -5,15 +5,15 @@ meta {
 }
 
 post {
-  url: http://localhost:3300/cult/nomenclacategorias-contmanifestacion
+  url: {{rqs}}
   body: json
   auth: inherit
 }
 
 body:json {
   {
-  "name": "Musica",
-  "apoyo_categoria_manifestacion": false
+  "name": "Audio",
+  "apoyo_categoria_manifestacion": true
   }
 }
 

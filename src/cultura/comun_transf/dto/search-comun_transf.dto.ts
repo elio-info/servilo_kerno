@@ -49,4 +49,8 @@ export class Search_Comunidad_Transformacion_Dto  {
          
     })
     telefonos:string
+
+    @IsOptional()
+    @IsBoolean()
+    isDeleted:boolean=false
 }

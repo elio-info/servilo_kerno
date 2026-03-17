@@ -10,6 +10,7 @@ import { Comunidad_Transformacion_Entity } from './schemas/comun_transf.entity';
 import { SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import { DataList } from 'src/modules/common/data-list';
 import { Search_Comunidad_Transformacion_Dto } from './dto/search-comun_transf.dto';
+import { ErrorX, ObjectCanNotDeleted } from 'src/modules/common/errors/object-not-found.error';
 
 @Injectable()
 export class Comunidad_Transformacion_Service {
@@ -30,7 +31,9 @@ export class Comunidad_Transformacion_Service {
     }
     try {
       let sv=await this.comtransf_Model.create(createComTransDto);
-      let ent=this.toEntity(sv);
+      console.log(sv, sv._id.toString());
+      
+      let ent=this.findOne(sv._id.toString());
       traza.trazaDTO.update=ent;
       traza.save();
       return ent;
@@ -45,7 +48,7 @@ export class Comunidad_Transformacion_Service {
   async findAll(page: number, pageSize: number):Promise<DataList <Comunidad_Transformacion_Entity>| string> {
     let skipCount=(page -1 ) * pageSize;
     try {
-      let fnd= await this.comtransf_Model.find(this.IS_NOT_DELETED).skip(skipCount).limit(pageSize).exec()
+      let fnd= await this.comtransf_Model.find(this.IS_NOT_DELETED).populate('consejopopular_municipality').skip(skipCount).limit(pageSize).exec()
 
     let ct_cll=fnd.map( (itm)=> this.toEntity(itm)    );
 
@@ -61,7 +64,7 @@ export class Comunidad_Transformacion_Service {
 
   async findOne(id: string) :Promise<Comunidad_Transformacion_Entity | string>{
     try {
-      let fn=await this.comtransf_Model.findById({_id:id});
+      let fn= await this.comtransf_Model.findById(id).populate('consejopopular_municipality');
        return this.toEntity(fn);
     } catch (error) {
       return error.toString()
@@ -77,7 +80,7 @@ export class Comunidad_Transformacion_Service {
       let up= await this.comtransf_Model.findByIdAndUpdate(updateComTransfDto.id,updateComTransfDto,{new :true });
       traza.trazaDTO.update=up;
       traza.save();
-      return this.toEntity(up);
+      return this.findOne(up.id);
     } catch (error) {
       traza.trazaDTO.error=error;
       traza.trazaDTO.update='';
@@ -88,10 +91,37 @@ export class Comunidad_Transformacion_Service {
   }
 
   async remove(id: string,traza:TrazasService):Promise<Comunidad_Transformacion_Entity| string>  {
+    
     // hjos
     let hijos = await this.cstvldt.validate_onTable('control_actividadcultural',{ct_planificado:id},this.IS_NOT_DELETED)
+    if (hijos!=0) {
+        let error=new ObjectCanNotDeleted (this.MODULE,hijos );
+        traza.trazaDTO.error= error ;
+        traza.save();
+        throw traza.terror();
+      }
 
-    return await this.comtransf_Model.findByIdAndDelete(id)
+      let bf=this.findOne(id);
+      traza.trazaDTO.before=bf;      
+      const document = await this.comtransf_Model.findOneAndUpdate(
+        { _id: id, isDeleted: false },
+        {
+          isDeleted: true,
+        },
+      );
+  
+      if (!document) {
+         let err=new Error('Problema con eliminacion  '+  id)
+          traza.trazaDTO.error=err.name+' => '+err.message;
+          traza.trazaDTO.update='';
+          traza.save()
+          throw err;
+      }
+      traza.trazaDTO.update=document;    
+      traza.trazaDTO.error='Ok';
+      traza.save()      
+
+    return await this.findOne(id)
   }
 
   async search(query:Search_Comunidad_Transformacion_Dto) :  Promise<Comunidad_Transformacion_Entity[]|string>{
@@ -100,7 +130,7 @@ export class Comunidad_Transformacion_Service {
         // .populate(this.POPULATE_PATH.municipality)
         // .populate(this.POPULATE_PATH.entityType)
         // //.populate('parentId')
-        // .populate(this.POPULATE_PATH.consejo_p);
+        .populate("consejopopular_municipality");
       const entCollection = ents.map((ent) => this.toEntity(ent));
       return entCollection;
     }
@@ -109,7 +139,7 @@ export class Comunidad_Transformacion_Service {
        return {
         id:ct._id.toString(),
         name:ct.name,
-        consejopopular_municipality:ct.consejopopular_municipality._id.toString(),
+        consejopopular_municipality:ct.consejopopular_municipality,//._id.toString(),
         //municipio:ct.m
         observacion:ct.observacion,
         responsable:ct.responsable,

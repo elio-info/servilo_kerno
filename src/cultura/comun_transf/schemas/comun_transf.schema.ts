@@ -14,7 +14,8 @@ export class Comunidad_Transformacion_Model{
     _id:Types.ObjectId
 
     @Prop({required:true,
-        unique:true
+        unique:true,type:String
+        , minlength:3
     })
     name:string
 
@@ -39,7 +40,7 @@ export class Comunidad_Transformacion_Model{
     createdAt: Date;
     
     @Prop({default: false, select: false || true })
-  isDeleted: boolean;
+    isDeleted: boolean=false;
   
     @Prop({ default: Date.now })
     updatedAt: Date;

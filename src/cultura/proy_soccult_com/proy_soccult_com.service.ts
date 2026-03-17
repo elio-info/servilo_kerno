@@ -9,19 +9,19 @@ import { TrazasService } from '../trazas/trazas.service';
 import { Gestor_Entity, Proyecto_Socioculturale_Comunitario_Entity } from './schemas/proy_soccult_com.entity';
 import { DataList } from 'src/modules/common/data-list';
 import { Search_Proyecto_Sociocultural_Comunitario_Dto } from './dto/search_proy_soccult_com.dto';
-import { ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
+import { ObjectCanNotDeleted, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 import { ObjectDoesNotExist } from 'src/modules/domain/errors/object-doesnt-exist.error';
 
-const MODULE='Proyecto_Sociocultural_Comunitario';
-const IS_NOT_DELETED = { isDeleted: false };
 @Injectable()
 export class Proyecto_Sociocultural_Comunitario_Service {
   private cstvldt: IsRelationshipProvider ;
-  constructor(
+  private MODULE='Proyecto_Sociocultural_Comunitario';
+  private IS_NOT_DELETED = { isDeleted: false };
+constructor(
     @InjectModel(Proyecto_Sociocultural_Comunitario_Model.name) private readonly pscc_Model:Model<Proyecto_Sociocultural_Comunitario_Document>,
     @Inject(TrazasService) private traza:TrazasService
-  ){ traza.trazaDTO.collection=MODULE}
+  ){ traza.trazaDTO.collection=this.MODULE}
 
   async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity |string> {
     
@@ -49,7 +49,7 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     console.log(page,pageSize,skipCount);
  
     let cp= await  this.pscc_Model
-        .find(IS_NOT_DELETED)
+        .find(this.IS_NOT_DELETED)
         // .skip(skipCount)
         .limit(pageSize)
        .populate('consejopopular_municipality')
@@ -72,11 +72,11 @@ export class Proyecto_Sociocultural_Comunitario_Service {
   async findOne(id: string) :Promise<Proyecto_Socioculturale_Comunitario_Entity | string>{
     const cpp = await this.pscc_Model
       .findById(id)
-      .where(IS_NOT_DELETED)
+      .where(this.IS_NOT_DELETED)
       .populate('consejopopular_municipality');
 
     if (!cpp) {
-      return new ObjectNotFound(MODULE).toString();
+      return new ObjectNotFound(this.MODULE).toString();
     }
 
     return this.toEntity(cpp);    
@@ -88,20 +88,20 @@ export class Proyecto_Sociocultural_Comunitario_Service {
     return this.pscc_Model.findByIdAndUpdate(updateProySoccultComDto,{new :true })
   }
 
-  async remove(id: string,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity> {
+  async remove(id: string,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity | string> {
     this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
     let traza=this.traza;
 
     traza.trazaDTO.filter= JSON.stringify ({_id:id}) ;
     traza.trazaDTO.operation='remove';
     //actividades culturales
-    let hijos=await this.cstvldt.validate_onTable('Consejo_Popular_Municipal',{'municipio':id},IS_NOT_DELETED);
+    let hijos=await this.cstvldt.validate_onTable('Consejo_Popular_Municipal',{'municipio':id},this.IS_NOT_DELETED);
     console.log('hijos',hijos);
     if (hijos!=0) { //tienes hijos no te borras  
-      let error='Error: This object '+MODULE+' id@ '+id+' has actives childs' ;
+      let error=new ObjectCanNotDeleted (this.MODULE,hijos );
       traza.trazaDTO.error= error ;
       traza.save();
-      throw error;
+      throw traza.terror();
     }
     let bf=this.findOne(id);
     traza.trazaDTO.before=bf;      
