@@ -62,7 +62,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
     let crt_dual=await SearchDuplicate_KeysValue(this.MODULE,this.municipalityModel,['name','province'],[municipality.name,municipality.province],traza)
 
     if (crt_dual.trazaDTO.error !='Ok')       
-      return crt_dual.trazaDTO.error.toString();   
+      return crt_dual.terror();   
     
         try {
           let mnc=await new this.municipalityModel(municipality).save();
@@ -80,7 +80,7 @@ export class MongooseMunicipalityRepository implements MunicipalityRepository {
         let err=new Error('Problema al crear '+municipality.name)
           traza.trazaDTO.error=error;
           traza.save()
-          return error.toString();  
+          return traza.terror();  
         }         
       
   }

@@ -40,6 +40,9 @@ export class Control_ActividadCultural_Service {
       return srch.trazaDTO.error.toString();
     }
     try {
+      // Se combinan con 'T' como separador y se crea el objeto
+      const fechaFinal = new Date(`${crtAC.dia_actcult}T${crtAC.hora_actcult}:00`);
+      crtAC.dateAt=fechaFinal;
       let crt=this.toEntity (await this.cntrl_actvcultMdl.create(crtAC));
       traza.trazaDTO.update=crt;
       traza.save();
@@ -68,8 +71,48 @@ export class Control_ActividadCultural_Service {
     return this.toEntity(await this.cntrl_actvcultMdl.findById({_id:id}))
   }
 
-  async search(query:Search_CActCult_Dto):Promise<Control_ActividadCultural_Entity|string> {
-    return await this.cntrl_actvcultMdl.findOne({name:name})
+  async search(query:Search_CActCult_Dto):Promise<Control_ActividadCultural_Entity| Object|string> {
+
+    let buscar={}
+    
+    Object.keys(query).map(itm=>buscar[itm]=query[itm])
+   
+    if (!query.exactName) {
+      buscar['name']= { $regex: query.name, $options: "i" };
+      delete buscar['exactName'];
+    }
+    console.log(buscar);
+    
+    if (query.reporte) {
+      let match=[
+        {
+          $match:{
+            items:
+              buscar
+            
+          }
+        },
+        { $addFields: { dineroTotal: { $sum: { $map: { input: "$talentos", as: "item", in: "$$item.cantidad"}} } } },
+        { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$dineroTotal" } } }
+     
+      ]
+      console.log(match);
+      
+      return await this.cntrl_actvcultMdl.aggregate([
+        {
+          $match:{
+            items:
+              buscar            
+          }
+        },
+        { $addFields: { dineroTotal: { $sum: { $map: { input: "$talentos", as: "item", in: "$$item.cantidad"}} } } },
+        { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$dineroTotal" } } }
+      ])
+    }
+
+    return await this.cntrl_actvcultMdl.find(buscar)
+
+    
   }
   async update( updateControlActcultDto: Update_CActCult_Dto, traza: TrazasService):Promise<Control_ActividadCultural_Entity| string> {
     try {
@@ -101,6 +144,7 @@ export class Control_ActividadCultural_Service {
 
   
   }
+
  async reportsBasic(params:ReportsBasic_DTO) {
     let rp=await this.cntrl_actvcultMdl.aggregate(
       [ 

@@ -20,6 +20,9 @@ export  class Control_ActividadCultural_Model{
     })
     name:string
 
+    @Prop({required:true})
+    datedAt: Date;
+
     @Prop({required:true , minlength:10, maxlength:10 })
     dia_actcult:string
 
