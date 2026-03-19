@@ -55,7 +55,7 @@ export class Update_CActCult_Dto {
 
     @IsDate()
     @IsOptional()
-    dateAt:Date
+    datedAt:Date
 
     @ApiProperty({required:true})
     @IsRelationShipWith(EntityModel)

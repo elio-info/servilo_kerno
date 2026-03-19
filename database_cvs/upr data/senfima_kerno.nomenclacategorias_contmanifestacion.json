@@ -132,4 +132,19 @@
     "$date": "2026-03-06T16:04:27.273Z"
   },
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69b7a80970c40a42b3f4482b"
+  },
+  "name": "Audio",
+  "apoyo_categoria_manifestacion": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-16T06:49:45.889Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-16T06:49:45.889Z"
+  },
+  "__v": 0
 }]

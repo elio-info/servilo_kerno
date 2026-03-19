@@ -1,8 +1,11 @@
 meta {
   name: Places
-  seq: 8
 }
 
 auth {
   mode: inherit
+}
+
+vars:pre-request {
+  rqs: {{lk}}place/
 }

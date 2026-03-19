@@ -40,9 +40,9 @@ export class Create_CActCult_Dto {
     @IsString()
     hora_actcult:string  //Timestamp
 
-    @IsDate()
     @IsOptional()
-    dateAt:Date
+    @IsDate()
+    datedAt?:Date
 
     @ApiProperty({required:true})
     @IsRelationShipWith(EntityModel)

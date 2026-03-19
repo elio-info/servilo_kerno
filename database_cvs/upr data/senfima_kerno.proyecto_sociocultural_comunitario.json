@@ -1,5 +1,23 @@
 [{
   "_id": {
+    "$oid": "68f04abf9a5350f5891e5c23"
+  },
+  "nombre": "gozando con pedro",
+  "consejopopular_municipality": "68f03ee31c59f86602d853d4",
+  "municipio": "67b8abc8d25b39fdef54409c",
+  "responsable": "Pedro Prieto",
+  "observacion": "Se pone opcional lo que describe",
+  "telefonos": "cell:12345678,fijo:12345678,trabajo:12345678}",
+  "createdAt": {
+    "$date": "2025-10-16T01:30:39.634Z"
+  },
+  "updatedAt": {
+    "$date": "2025-10-16T01:30:39.634Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
     "$oid": "69b302d7ee93e47c179aa79b"
   },
   "name": "Casa de la Décima.",
@@ -21,58 +39,6 @@
   },
   "updatedAt": {
     "$date": "2026-03-12T18:15:51.596Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "69b30996116077bd7ac24e8b"
-  },
-  "name": "El Patio de Ana la Cub Ana.",
-  "consejopopular_municipality": "69b30217ee93e47c179aa793",
-  "municipio": "67b8abc8d25b39fdef54409c",
-  "direccion": "4ta C y D # 11 A, Reparto Celso Maragoto",
-  "gestor": [
-    {
-      "name": "Ana Acanda Cala",
-      "titulos_profesiones": "Preguntale",
-      "telefonos": "pideselo"
-    }
-  ],
-  "actividades": " Talleres de Manualidades(Tejido y Fibra)",
-  "aprobado": "Acuerdo # 21 Acta # 2,20 de enero del 2016",
-  "isDeleted": false,
-  "createdAt": {
-    "$date": "2026-03-12T18:44:38.008Z"
-  },
-  "updatedAt": {
-    "$date": "2026-03-12T18:44:38.008Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "69b30c51c6c9ef684c59d28e"
-  },
-  "name": "Abrazarte.",
-  "consejopopular_municipality": "69b30bc8c6c9ef684c59d286",
-  "municipio": "69b30afdc6c9ef684c59d27f",
-  "direccion": "Buscala, Reparto Caiguandabo",
-  "gestor": [
-    {
-      "name": "Dayani Pérez Martínez",
-      "titulos_profesiones": "Preguntale",
-      "telefonos": "pideselo"
-    }
-  ],
-  "actividades": " Realización de talleres de capacitación a los productores de la comunidad que cultivan el tabaco, el café y la malanga-cultura culinaria: Comidas criollas, recetas familiares",
-  "aprobado": "Acuerdo # 72, Acta # 5,12 de marzo del 2014 ",
-  "isDeleted": false,
-  "createdAt": {
-    "$date": "2026-03-12T18:56:17.163Z"
-  },
-  "updatedAt": {
-    "$date": "2026-03-12T18:56:17.163Z"
   },
   "__v": 0
 }]

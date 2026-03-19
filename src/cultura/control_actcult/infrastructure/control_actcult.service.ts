@@ -26,7 +26,7 @@ export class Control_ActividadCultural_Service {
   ) {this.cstvldt= new IsRelationshipProvider(this.cnn)}
 
   async create(crtAC: Create_CActCult_Dto, traza:TrazasService):Promise<Control_ActividadCultural_Entity | string> {
-    
+    // virify place
     let valPLaces=await IsAtLeastOnePlace2Insert(crtAC)
     if (!valPLaces) {      
       traza.trazaDTO.error=new ErrorX(this.MODULE,'no existe lugar ');
@@ -42,7 +42,9 @@ export class Control_ActividadCultural_Service {
     try {
       // Se combinan con 'T' como separador y se crea el objeto
       const fechaFinal = new Date(`${crtAC.dia_actcult}T${crtAC.hora_actcult}:00`);
-      crtAC.dateAt=fechaFinal;
+      crtAC.datedAt=fechaFinal;
+      console.log('con fecha', crtAC);
+      
       let crt=this.toEntity (await this.cntrl_actvcultMdl.create(crtAC));
       traza.trazaDTO.update=crt;
       traza.save();
@@ -88,11 +90,15 @@ export class Control_ActividadCultural_Service {
         {
           $match:{
             items:
-              buscar
-            
+              buscar            
           }
         },
-        { $addFields: { dineroTotal: { $sum: { $map: { input: "$talentos", as: "item", in: "$$item.cantidad"}} } } },
+        { $addFields: { 
+            dineroTotalTalento: { $sum: { $map: { input: "$talentos", as: "item", in: "$$item.cantidad"}} } 
+            ,dineroTotalApoyos: { $sum: { $map: { input: "$apoyos", as: "item", in: "$$item.cantidad"}} } 
+            ,dineroTotal: { $sum: ["$dineroTotalTalento","$dineroTotalApoyos"] }
+          }
+        },
         { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$dineroTotal" } } }
      
       ]
@@ -115,7 +121,18 @@ export class Control_ActividadCultural_Service {
     
   }
   async update( updateControlActcultDto: Update_CActCult_Dto, traza: TrazasService):Promise<Control_ActividadCultural_Entity| string> {
+
+    let bf=await this.findOne(updateControlActcultDto.id);
+
+    if (!!updateControlActcultDto.dia_actcult &&
+      updateControlActcultDto.dia_actcult.localeCompare( 
+        Object.assign ( new Control_ActividadCultural_Entity(), bf).dia_actcult )!=0
+      ) {
+      const fechaFinal = new Date(`${updateControlActcultDto.dia_actcult}T${updateControlActcultDto.hora_actcult}:00`);
+      updateControlActcultDto.datedAt=fechaFinal;      
+    }
     try {
+
       let upd= this.toEntity(await this.cntrl_actvcultMdl.findByIdAndUpdate(updateControlActcultDto,{new:true}) )
       traza.trazaDTO.update=upd
       return upd;
