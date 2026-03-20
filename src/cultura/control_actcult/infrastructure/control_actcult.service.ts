@@ -86,33 +86,75 @@ export class Control_ActividadCultural_Service {
     console.log(buscar);
     
     if (query.reporte) {
-      let match=[
-        {
-          $match:{
-            items:
-              buscar            
-          }
-        },
-        { $addFields: { 
-            dineroTotalTalento: { $sum: { $map: { input: "$talentos", as: "item", in: "$$item.cantidad"}} } 
-            ,dineroTotalApoyos: { $sum: { $map: { input: "$apoyos", as: "item", in: "$$item.cantidad"}} } 
-            ,dineroTotal: { $sum: ["$dineroTotalTalento","$dineroTotalApoyos"] }
-          }
-        },
-        { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$dineroTotal" } } }
-     
-      ]
+      let match={ 
+        $or: [
+            { itemsA: { $elemMatch: { name: itemName, price: { $gt: minPrice } } } },
+            { itemsB: { $elemMatch: { name: itemName, price: { $gt: minPrice } } } },
+          ],
+        }
       console.log(match);
       
       return await this.cntrl_actvcultMdl.aggregate([
         {
-          $match:{
-            items:
-              buscar            
-          }
+          // busquedas filtros
+          $match:       buscar    
         },
-        { $addFields: { dineroTotal: { $sum: { $map: { input: "$talentos", as: "item", in: "$$item.cantidad"}} } } },
-        { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$dineroTotal" } } }
+        // calculos
+              { 
+        $addFields: { 
+        dineroTotalArtistas: {
+            $reduce:{  input: "$talentos", initialValue: 0, 
+                        in: { $add:['$$value',{$sum:"$$this.cantidad"}]} } 
+            }
+        ,
+        dineroTotalApoyos:{
+            $reduce:{  input: "$apoyos", initialValue: 0, 
+                        in: { $add:['$$value',{$sum:"$$this.cantidad"}]} } 
+        }
+        //} { $sum: { $map: { input: "$apoyos", as: "item", in: "$$item.cantidad"}} }
+        ,dineroTotal: { $add: ["$dineroTotalArtistas","$dineroTotalApoyos"] }//
+        }
+       }
+     , 
+       {
+        $facet://to split
+        {
+            porActCult:[
+                {
+                    $project:{
+                        result:1,
+                        totalArt:{ dineroTotalArtistas:'$dineroTotalArtistas'},
+                        totalApy:{ dineroTotalArtistas:'$dineroTotalApoyos'},
+                        totalAct:{ dineroTotal:'$dineroTotal'}
+                    }
+                }
+            ]
+            ,
+            paraTodos:
+                [
+                    { 
+                    $group: {
+                        _id: null, 
+                        count: { $sum: 1 },
+                        TAr:{ $sum: '$dineroTotalArtistas' },
+                        TAp:{ $sum: '$dineroTotalApoyos' }//,
+                       // totalSum: { $sum: { $sum:['$dineroTotalApoyos','$dineroTotalArtistas']} } } 
+                        }
+                    }
+                    ,
+                    {
+                        $project:{
+                            _id:0
+                            ,count:1
+                            ,Tar:1
+                            ,TAp:1
+                        }
+                    }
+                ]
+
+        }
+       }
+      
       ])
     }
 
