@@ -12,7 +12,7 @@ import { IsAtLeastOnePlace2Insert, SearchDuplicate_KeysValue } from 'src/modules
 import { DataList } from 'src/modules/common/data-list';
 import { ErrorModule } from 'src/modules/common/errors/error.module';
 import { ErrorX } from 'src/modules/common/errors/object-not-found.error';
-import { ReportsBasic_DTO } from '../dto/reports-control_actcult.dto';
+import { ReportsBasic_CActCult_DTO } from '../dto/reports-control_actcult.dto';
 
 @Injectable()
 export class Control_ActividadCultural_Service {
@@ -56,111 +56,129 @@ export class Control_ActividadCultural_Service {
     } 
   }
 
-  async findAll(page: number, pageSize: number): Promise<DataList<Control_ActividadCultural_Entity> | string> {
-    let skipCount=(page -1 ) * pageSize;
+  private formatSearch(params:Object): Object {
+    let buscar={};
+     Object.keys(params).map(itm=>buscar[itm]=params[itm]);
+   
+    if (!!params['exactName']) {
+      buscar['name']= { $regex: params['name'], $options: "i" };
+      delete buscar['exactName'];
+    }
+
+    // rango fecha
+    if (!!params['findia_actcult'] && !!params['dia_actcult']) {
+      let startDate=new Date(params['dia_actcult']+'T'+ (params['hora_actcult']?params['hora_actcult']:'00:00')+':00:00z')
+      let endDate=new Date(params['findia_actcult']+'T'+ (params['finhora_actcult']?params['finhora_actcult']:'23:59')+':00:00z')
+      buscar['datedAt']= { $gte: startDate,$lte: endDate  };
+      delete buscar['dia_actcul']
+      delete buscar['hora_actcult'];
+      delete buscar['findia_actcul']
+      delete buscar['finhora_actcult'];
+    }
+
+    // if (!!params['programas_tributa']) {
+    //   buscar['programas_tributa']= { $regex: params['name'], $options: "i" };
+    //   delete buscar['exactName'];
+    // }
   
-      let fnd= await this.cntrl_actvcultMdl.find(this.IS_NOT_DELETED).skip(skipCount).limit(pageSize).exec();
-      let pss=fnd.map((itm)=> this.toEntity(itm));
-       const dataList: DataList<Control_ActividadCultural_Entity> = {
-            data: pss,
-            totalPages: Math.ceil(pss.length / pageSize),
-            currentPage: page,
-          };
-          return dataList;
+    console.log(buscar);
+    return  buscar;
+  }
+
+  async findAll(query:Search_CActCult_Dto): Promise<DataList<Control_ActividadCultural_Entity> | string> {
+    console.log('findAll-ActCult', query);    
+    let skipCount=(query.page -1 ) * query.pageSize;
+
+    let mySrch=this.formatSearch(query);
+    delete mySrch['page'];
+    delete mySrch['pageSize'];
+    console.log('query',mySrch);    
+  
+    let fnd= await this.cntrl_actvcultMdl.find(mySrch).skip(skipCount).limit(query.pageSize).exec();
+    let pss=fnd.map((itm)=> this.toEntity(itm));
+      const dataList: DataList<Control_ActividadCultural_Entity> = {
+          data: pss,
+          totalPages: Math.ceil(pss.length / query.pageSize),
+          currentPage: query.page,
+        };
+        return dataList;
   }
 
   async findOne(id: string):Promise<Control_ActividadCultural_Entity | string> {
     return this.toEntity(await this.cntrl_actvcultMdl.findById({_id:id}))
   }
 
-  async search(query:Search_CActCult_Dto):Promise<Control_ActividadCultural_Entity| Object|string> {
+  async search(query:ReportsBasic_CActCult_DTO):Promise<Object|string> {
 
-    let buscar={}
+    let buscar=this.formatSearch(query);
+
+    let camposInternosTotales={
+    $addFields: {
+      dineroTotalArtistas: {
+        $reduce: { input: "$talentos", initialValue: 0, in: { $add: ["$$value", { $sum: "$$this.cantidad"}]}}},
+      dineroTotalApoyos: {
+        $reduce: { input: "$apoyos", initialValue: 0,in: {$add: ["$$value",{ $sum: "$$this.cantidad"}]}}}
+      }//fin $addFields
+    }//fin objeto
+
+    let campoInternoTotal= {
+      $addFields: {
+        dineroTotal: { $add: ["$dineroTotalArtistas","$dineroTotalApoyos" ]}
+      }//fin $addFields
+    }//fin objeto
     
-    Object.keys(query).map(itm=>buscar[itm]=query[itm])
-   
-    if (!query.exactName) {
-      buscar['name']= { $regex: query.name, $options: "i" };
-      delete buscar['exactName'];
-    }
-    console.log(buscar);
-    
-    if (query.reporte) {
-      let match={ 
-        $or: [
-            { itemsA: { $elemMatch: { name: itemName, price: { $gt: minPrice } } } },
-            { itemsB: { $elemMatch: { name: itemName, price: { $gt: minPrice } } } },
-          ],
-        }
-      console.log(match);
-      
-      return await this.cntrl_actvcultMdl.aggregate([
-        {
-          // busquedas filtros
-          $match:       buscar    
-        },
-        // calculos
-              { 
-        $addFields: { 
-        dineroTotalArtistas: {
-            $reduce:{  input: "$talentos", initialValue: 0, 
-                        in: { $add:['$$value',{$sum:"$$this.cantidad"}]} } 
-            }
-        ,
-        dineroTotalApoyos:{
-            $reduce:{  input: "$apoyos", initialValue: 0, 
-                        in: { $add:['$$value',{$sum:"$$this.cantidad"}]} } 
-        }
-        //} { $sum: { $map: { input: "$apoyos", as: "item", in: "$$item.cantidad"}} }
-        ,dineroTotal: { $add: ["$dineroTotalArtistas","$dineroTotalApoyos"] }//
-        }
-       }
-     , 
-       {
-        $facet://to split
-        {
-            porActCult:[
-                {
-                    $project:{
-                        result:1,
-                        totalArt:{ dineroTotalArtistas:'$dineroTotalArtistas'},
-                        totalApy:{ dineroTotalArtistas:'$dineroTotalApoyos'},
-                        totalAct:{ dineroTotal:'$dineroTotal'}
-                    }
+    let hacerXCadaActCult= [
+              {
+                $project: {
+                  result: 1,
+                  totalPagarArt: {$sum: "$dineroTotalArtistas"},
+                  totalPagarApy: {$sum: "$dineroTotalApoyos"},
+                  totalPagarAct: { $sum: "$dineroTotal"},
                 }
+              },
             ]
-            ,
-            paraTodos:
-                [
-                    { 
-                    $group: {
-                        _id: null, 
-                        count: { $sum: 1 },
-                        TAr:{ $sum: '$dineroTotalArtistas' },
-                        TAp:{ $sum: '$dineroTotalApoyos' }//,
-                       // totalSum: { $sum: { $sum:['$dineroTotalApoyos','$dineroTotalArtistas']} } } 
-                        }
-                    }
-                    ,
-                    {
-                        $project:{
-                            _id:0
-                            ,count:1
-                            ,Tar:1
-                            ,TAp:1
-                        }
-                    }
-                ]
 
+    let hacerX_TodoControl=[
+              {
+                $group: {
+                  _id: null,
+                  count: { $sum: 1 },
+                  TAr: {$sum: "$dineroTotalArtistas"   },
+                  TAp: {$sum: "$dineroTotalApoyos"  },
+                  TAA: {$sum: "$dineroTotal"  },
+                }
+              },
+              {
+                $project: {
+                  _id: 0,
+                  count: 1,
+                  TAr: 1,
+                  TAp: 1,
+                  TAA: 1,
+                },
+              },
+            ]
+    let facetQuery={
+      $facet://to split
+        {
+          paraCadaActCult:hacerXCadaActCult ,
+          paraTodos: hacerX_TodoControl
         }
-       }
-      
-      ])
     }
 
-    return await this.cntrl_actvcultMdl.find(buscar)
-
-    
+      return await this.cntrl_actvcultMdl.aggregate([
+        // busquedas filtros
+        { $match:buscar }   
+        ,
+        // calculos por actCult
+       camposInternosTotales
+        ,
+        // calculos para todas actCult
+        campoInternoTotal
+        ,//final de campos
+        facetQuery        
+      ])
+      
   }
   async update( updateControlActcultDto: Update_CActCult_Dto, traza: TrazasService):Promise<Control_ActividadCultural_Entity| string> {
 
@@ -203,25 +221,7 @@ export class Control_ActividadCultural_Service {
 
   
   }
-
- async reportsBasic(params:ReportsBasic_DTO) {
-    let rp=await this.cntrl_actvcultMdl.aggregate(
-      [ 
-        
-        { 
-          $match: {dia_actcul:params.dia_actcult},
-        },
-        {
-          $group:{
-          _id:'dia_actcult',
-          cant_act:{$sum:1},
-          cant_prs :{$sum:'$edad_asistencia'} 
-        }
-        }
-      ]
-    );
-    return rp;   
-  }
+ 
 
   toEntity(ps:Control_ActividadCultural_Model): Control_ActividadCultural_Entity {
          

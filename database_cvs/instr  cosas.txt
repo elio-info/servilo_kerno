@@ -1445,66 +1445,96 @@ esto pincha
 
 db('senfima_kerno').collection('control_actividadcultural').aggregate(
     [
-       // { $match: { dia_actcult: { $regex: "2026-03", $options:"i" } } } 
-        // { $match: { 'estados_actividad.estado_actividad': "S"  } }//criterio
-        // ,
-       // { $match: { 'dia_actcult':  {$regex:'^2026-03-'} } }//comienzo con
-       // ,
-       // { $group:{_id:'$estados_actividad.estado_actividad',cant_act:{$sum:1},cant_prs :{$sum:'$edad_asistencia'} }}
-      { 
-        $addFields: { 
-        dineroTotalArtistas: {
-            $reduce:{  input: "$talentos", initialValue: 0, 
-                        in: { $add:['$$value',{$sum:"$$this.cantidad"}]} } 
-            }
-        ,
-        dineroTotalApoyos:{
-            $reduce:{  input: "$apoyos", initialValue: 0, 
-                        in: { $add:['$$value',{$sum:"$$this.cantidad"}]} } 
-        }
-        //} { $sum: { $map: { input: "$apoyos", as: "item", in: "$$item.cantidad"}} }
-        ,dineroTotal: { $add: ["$dineroTotalArtistas","$dineroTotalApoyos"] }//
-        }
-       }
-     , 
-       {
-        $facet://to split
+  {
+    $addFields: {
+      dineroTotalArtistas: {
+        $reduce: {
+          input: "$talentos",
+          initialValue: 0,
+          in: {
+            $add: [
+              "$$value",
+              {
+                $sum: "$$this.cantidad",
+              },
+            ],
+          },
+        },
+      },
+      dineroTotalApoyos: {
+        $reduce: {
+          input: "$apoyos",
+          initialValue: 0,
+          in: {
+            $add: [
+              "$$value",
+              {
+                $sum: "$$this.cantidad",
+              },
+            ],
+          },
+        },
+      },
+    },
+  },
+  {
+    $addFields: {
+      dineroTotal: {
+        $add: [
+          "$dineroTotalArtistas",
+          "$dineroTotalApoyos",
+        ],
+      },
+    },
+  },
+  {
+    //to split
+    $facet: {
+      porActCult: [
         {
-            porActCult:[
-                {
-                    $project:{
-                        result:1,
-                        totalArt:{ dineroTotalArtistas:'$dineroTotalArtistas'},
-                        totalApy:{ dineroTotalArtistas:'$dineroTotalApoyos'},
-                        totalAct:{ dineroTotal:'$dineroTotal'}
-                    }
-                }
-            ]
-            ,
-            paraTodos:
-                [
-                    { 
-                    $group: {
-                        _id: null, 
-                        count: { $sum: 1 },
-                        TAr:{ $sum: '$dineroTotalArtistas' },
-                        TAp:{ $sum: '$dineroTotalApoyos' }//,
-                       // totalSum: { $sum: { $sum:['$dineroTotalApoyos','$dineroTotalArtistas']} } } 
-                        }
-                    }
-                    ,
-                    {
-                        $project:{
-                            _id:0
-                            ,count:1
-                            ,Tar:1
-                            ,TAp:1
-                        }
-                    }
-                ]
-
-        }
-       }
-      
-    ]
+          $project: {
+            result: 1,
+            totalPagarArt: {
+              $sum: "$dineroTotalArtistas",
+            },
+            totalPagarApy: {
+              $sum: "$dineroTotalApoyos",
+            },
+            totalPagarAct: {
+              $sum: "$dineroTotal",
+            },
+          },
+        },
+      ],
+      paraTodos: [
+        {
+          $group: {
+            _id: null,
+            count: {
+              $sum: 1,
+            },
+            TAr: {
+              $sum: "$dineroTotalArtistas",
+            },
+            TAp: {
+              $sum: "$dineroTotalApoyos",
+            },
+            TAA: {
+              $sum: "$dineroTotal",
+            },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            count: 1,
+            TAr: 1,
+            TAp: 1,
+            TAA: 1,
+          },
+        },
+      ],
+    },
+  },
+]
 )

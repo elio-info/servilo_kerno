@@ -2,7 +2,7 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Create_CActCult_Dto } from './create-control_actcult.dto';
 import { Control_ActividadCultural_Model } from '../schemas/control_actcult.schema';
 import { Type } from 'class-transformer';
-import { IsArray, IsBoolean, IsDate, IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { IsArray, IsBoolean, IsDate, IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString, Min, minLength } from 'class-validator';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { EntityModel } from 'src/modules/entity/infrastructure/entity.schema';
 import { Nomenclador_EstadosDeActividadCultural, Nomenclador_GrupoEtareo } from 'src/cultura/codificadores-cult/enums/codificadores';
@@ -11,22 +11,39 @@ import { ConsejoPopular_Municipality_Model } from 'src/cultura/consejo_popular/d
 import { Talento_Artistico_Contratado_Entity } from 'src/cultura/talentos/talento_contratado/talento_contratado.entity';
 import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
 import { Estado_ActividadCultural } from '../schemas/control_actcult.entity';
+import { ProgramaSocial_Model } from 'src/cultura/programas/schemas/prog_socl.schema';
 
 export class Search_CActCult_Dto {
+    @IsNumber()
+    page:number=1
+
+    @IsNumber()
+    pageSize:number=15
+
+    @IsOptional()
+    @ApiProperty({ 
+        example:'665f7c4808023e4c264a4f9b',
+        description:`Esta el la llave del Objeto que se trabajara en cuestion`
+    })
+    @IsMongoId()
+    @IsString()
+    @IsRelationShipWith(Control_ActividadCultural_Model)
+    @Type(()=> Control_ActividadCultural_Model)
+    id?:string
+    
     @IsOptional()
     @IsString()
+    @ApiProperty({minLength:3})
     name?:string
 
+    @IsOptional()
     @IsBoolean()
     exactName?:boolean
 
    @ApiProperty({
         example:'false: por defecto.si es recuperacion de informacion'        
     })    
-    @IsOptional()
-    @IsBoolean()
-    reporte:boolean
-
+    
     @ApiProperty({
         example:'yyyy-mm-dd',
         maxLength:10,
@@ -69,10 +86,6 @@ export class Search_CActCult_Dto {
     @IsString()
     finhora_actcult?:string  
 
-    @IsDate()
-    @IsOptional()
-    dateAt:Date
-
     @ApiProperty({required:false})
     @IsRelationShipWith(EntityModel)
     @IsNotEmpty()
@@ -99,11 +112,11 @@ export class Search_CActCult_Dto {
     @IsMongoId()
     ct_planificado:string
     
+    @IsOptional()
     @ApiProperty({required:false})
-    // @IsRelationShipWith(ProgramaSocial_Model)
+    @IsRelationShipWith(ProgramaSocial_Model)
     @IsNotEmpty()
      @IsMongoId()
-    //@IsArray()
     programas_tributa?:string
 
     @IsOptional()
@@ -171,4 +184,8 @@ export class Search_CActCult_Dto {
     @IsOptional()
     @IsBoolean()
     redes_plataforma:boolean 
+
+    @IsOptional()
+    @IsBoolean()
+    isDeleted:boolean=false 
 }
