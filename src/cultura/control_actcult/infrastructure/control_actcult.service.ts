@@ -60,19 +60,24 @@ export class Control_ActividadCultural_Service {
     let buscar={};
      Object.keys(params).map(itm=>buscar[itm]=params[itm]);
    
-    if (!!params['exactName']) {
+    if (params['exactName']==false) {
       buscar['name']= { $regex: params['name'], $options: "i" };
       delete buscar['exactName'];
     }
 
     // rango fecha
-    if (!!params['findia_actcult'] && !!params['dia_actcult']) {
-      let startDate=new Date(params['dia_actcult']+'T'+ (params['hora_actcult']?params['hora_actcult']:'00:00')+':00:00z')
-      let endDate=new Date(params['findia_actcult']+'T'+ (params['finhora_actcult']?params['finhora_actcult']:'23:59')+':00:00z')
+    if (params['findia_actcult'] && params['dia_actcult']) {
+      let berra=params['dia_actcult']+'T'+ (params['hora_actcult']?params['hora_actcult']:'00:00')//+':00.000z'
+      let startDate= new Date (berra)
+      console.log(berra,startDate);
+      let berra2=params['findia_actcult']+'T'+ (params['finhora_actcult']?params['finhora_actcult']:'23:59')+':00.000z';
+      let endDate=new Date(berra2)
+      console.log(berra2,endDate);
+      
       buscar['datedAt']= { $gte: startDate,$lte: endDate  };
-      delete buscar['dia_actcul']
+      delete buscar['dia_actcult'];
       delete buscar['hora_actcult'];
-      delete buscar['findia_actcul']
+      delete buscar['findia_actcult'];
       delete buscar['finhora_actcult'];
     }
 

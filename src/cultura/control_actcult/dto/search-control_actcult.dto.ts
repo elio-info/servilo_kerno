@@ -32,8 +32,8 @@ export class Search_CActCult_Dto {
     id?:string
     
     @IsOptional()
-    @IsString()
     @ApiProperty({minLength:3})
+    @IsString()
     name?:string
 
     @IsOptional()
