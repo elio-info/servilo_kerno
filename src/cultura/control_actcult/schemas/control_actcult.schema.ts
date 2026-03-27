@@ -72,7 +72,7 @@ export  class Control_ActividadCultural_Model{
               ,
               default:[]
         })
-    estados_actividad:Estado_ActividadCultural[] //estado actividad
+    estados_actividad:Estado_ActividadCultural //estado actividad
         
    // justifica_motivo?:String //justifica No se hizo, Fin 1ra opcion
     
