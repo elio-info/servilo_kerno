@@ -13,6 +13,7 @@ import { DataList } from 'src/modules/common/data-list';
 import { ErrorModule } from 'src/modules/common/errors/error.module';
 import { ErrorX } from 'src/modules/common/errors/object-not-found.error';
 import { ReportsBasic_CActCult_DTO } from '../dto/reports-control_actcult.dto';
+import { isArray } from 'class-validator';
 
 @Injectable()
 export class Control_ActividadCultural_Service {
@@ -56,6 +57,24 @@ export class Control_ActividadCultural_Service {
     } 
   }
 
+  /**
+   * Convertir elemento a modalidad de filtro en mongoose
+   * @param elemnt entidad a convertir
+   * @param all si deben de buscar todos los elementos de un array o solo uno, por defecto true, si es false se busca el elemento exacto, si es true se busca dentro del array
+   * @returns estructura de filtro para mongoose, si all es true se busca dentro del array, si es false se busca el elemento exacto
+   */
+  private checkOnAsArray(elemnt:Object,all=true): Object{
+    if ( isArray(elemnt)) {
+      return { $in:[elemnt]};
+    }
+    return elemnt;
+  }
+
+  /**
+   * dar estructura de filtro a los parametros de busqueda, se pueden agregar mas casos segun las necesidades de busqueda, por ejemplo para fechas, rangos, etc
+   * @param params elementos a convertir en filtro, se pueden agregar mas casos segun las necesidades de busqueda, por ejemplo para fechas, rangos, etc
+   * @returns filtro para mongoose, se pueden agregar mas casos segun las necesidades de busqueda, por ejemplo para fechas, rangos, etc
+   */
   private formatSearch(params:Object): Object {
     let buscar={};
      Object.keys(params).map(itm=>buscar[itm]=params[itm]);
@@ -69,11 +88,15 @@ export class Control_ActividadCultural_Service {
     if (params['findia_actcult'] && params['dia_actcult']) {
       let berra=params['dia_actcult']+'T'+ (params['hora_actcult']?params['hora_actcult']:'00:00')//+':00.000z'
       let startDate= new Date (berra)
-      console.log(berra,startDate);
+      // console.log(berra,startDate);
       let berra2=params['findia_actcult']+'T'+ (params['finhora_actcult']?params['finhora_actcult']:'23:59')+':00.000z';
       let endDate=new Date(berra2)
-      console.log(berra2,endDate);
-      
+      // console.log(berra2,endDate);
+      if (startDate > endDate) {
+        let aux=endDate;
+        endDate=startDate;
+        startDate=aux;
+      }      
       buscar['datedAt']= { $gte: startDate,$lte: endDate  };
       delete buscar['dia_actcult'];
       delete buscar['hora_actcult'];
@@ -81,11 +104,13 @@ export class Control_ActividadCultural_Service {
       delete buscar['finhora_actcult'];
     }
 
-    // if (!!params['programas_tributa']) {
-    //   buscar['programas_tributa']= { $regex: params['name'], $options: "i" };
-    //   delete buscar['exactName'];
-    // }
+    if (!!params['programas_tributa']) {
+      buscar['programas_tributa']= this.checkOnAsArray(params['programas_tributa']);
+    }
   
+    if (!!params['manifestaciones_artisticas']) {
+      buscar['manifestaciones_artisticas']= this.checkOnAsArray(params['manifestaciones_artisticas']);
+    }
     console.log(buscar);
     return  buscar;
   }
@@ -116,6 +141,7 @@ export class Control_ActividadCultural_Service {
   async searchReport(query:ReportsBasic_CActCult_DTO):Promise<Object|string> {
 
     let buscar=this.formatSearch(query);
+    
 
     let camposInternosTotales={
     $addFields: {
