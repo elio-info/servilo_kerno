@@ -1538,3 +1538,150 @@ db('senfima_kerno').collection('control_actividadcultural').aggregate(
   },
 ]
 )
+
+
+db('senfima_kerno').collection('control_actividadcultural').aggregate([ 
+    { $match:{
+        dia_actcult:'2026-03-01'
+           //no funciono {$regex:'2026-03-',options:'i'}
+        }
+    },
+    { $group:{_id:'$dia_actcult',cant_act:{$sum:1},cant_prs :{$sum:'$edad_asistencia'} }}
+])
+
+db('senfima_kerno').collection('control_actividadcultural').find({programas_tributa:'69b035fce86ca01e39390654'}).limit(100).toArray()
+
+db('senfima_kerno').collection('control_actividadcultural').find({
+     isDeleted: false,
+  datedAt: {
+    '$gte': '2024-03-03T13:00:00.000Z',
+    '$lte': '2026-06-12T20:06:00.000Z'
+  }}).limit(100).toArray()
+
+db('senfima_kerno').collection('control_actividadcultural').aggregate(
+    [
+        { $match: { dia_actcult: { $regex: "2026-03", $options:"i" } } } 
+        // { $match: { 'estados_actividad.estado_actividad': "S"  } }//criterio
+        // ,
+       // { $match: { 'dia_actcult':  {$regex:'^2026-03-'} } }//comienzo con
+        ,
+        { $group:{_id:'$estados_actividad.estado_actividad',cant_act:{$sum:1},cant_prs :{$sum:'$edad_asistencia'} }}
+    ]
+)
+
+db('senfima_kerno').collection('control_actividadcultural').aggregate(
+    [
+       // { $match: { dia_actcult: { $regex: "2026-03", $options:"i" } } } 
+        // { $match: { 'estados_actividad.estado_actividad': "S"  } }//criterio
+        // ,
+       // { $match: { 'dia_actcult':  {$regex:'^2026-03-'} } }//comienzo con
+       // ,
+       // { $group:{_id:'$estados_actividad.estado_actividad',cant_act:{$sum:1},cant_prs :{$sum:'$edad_asistencia'} }}
+      { $addFields: { dineroTotalArtistas: { $sum: { $map: { input: "$talentos", as: "item", in: "$$item.cantidad"}} } } }
+     // , { $group: { _id: null, count: { $sum: 1 }, totalSum: { $sum: "$dineroTotal" } } } 
+    ]
+)
+
+db('senfima_kerno').collection('control_actividadcultural').aggregate(
+    [
+       // { $match: { dia_actcult: { $regex: "2026-03", $options:"i" } } } 
+        // { $match: { 'estados_actividad.estado_actividad': "S"  } }//criterio
+        // ,
+       // { $match: { 'dia_actcult':  {$regex:'^2026-03-'} } }//comienzo con
+       // ,
+       // { $group:{_id:'$estados_actividad.estado_actividad',cant_act:{$sum:1},cant_prs :{$sum:'$edad_asistencia'} }}
+       {
+            $addFields: {
+            dineroTotalArtistas: {
+                $reduce: {
+                input: "$talentos",
+                initialValue: 0,
+                in: {
+                    $add: [
+                    "$$value",
+                    {
+                        $sum: "$$this.cantidad",
+                    },
+                    ],
+                },
+                },
+            },
+            dineroTotalApoyos: {
+                $reduce: {
+                input: "$apoyos",
+                initialValue: 0,
+                in: {
+                    $add: [
+                    "$$value",
+                    {
+                        $sum: "$$this.cantidad",
+                    },
+                    ],
+                },
+                },
+            },
+            },
+        },
+        {
+            $addFields: {
+            dineroTotal: {
+                $add: [
+                "$dineroTotalArtistas",
+                "$dineroTotalApoyos",
+                ],
+            },
+            },
+        } 
+     , 
+       {
+        $facet://to split
+        {
+  porActCult: [
+    {
+      $project: {
+        result: 1,
+        totalPagarArt: {
+          $sum: "$dineroTotalArtistas",
+        },
+        totalPagarApy: {
+          $sum: "$dineroTotalApoyos",
+        },
+        totalPagarAct: {
+          $sum: "$dineroTotal",
+        },
+      },
+    },
+  ],
+  paraTodos: [
+    {
+      $group: {
+        _id: null,
+        count: {
+          $sum: 1,
+        },
+        TAr: {
+          $sum: "$dineroTotalArtistas",
+        },
+        TAp: {
+          $sum: "$dineroTotalApoyos",
+        },
+        TAA: {
+          $sum: "$dineroTotal",
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        count: 1,
+        TAr: 1,
+        TAp: 1,
+        TAA: 1,
+      },
+    },
+  ],
+}
+       }
+      
+    ]
+)
