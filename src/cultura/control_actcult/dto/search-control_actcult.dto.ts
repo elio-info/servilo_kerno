@@ -138,8 +138,6 @@ export class Search_CActCult_Dto {
     tipoActividad_Prov_Entidad:string //EntityModel
     
     @IsOptional()
-    // @IsArray()
-    @IsNotEmpty()
     estado_actividad:Nomenclador_EstadosDeActividadCultural
 
    /*

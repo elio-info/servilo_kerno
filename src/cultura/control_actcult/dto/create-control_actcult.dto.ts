@@ -70,12 +70,10 @@ export class Create_CActCult_Dto {
     @IsMongoId()
     ct_planificado:string
     
-    @ApiProperty({required:true})
-    // @IsRelationShipWith(ProgramaSocial_Model)
-    @IsNotEmpty()
-    // @IsMongoId()
-    @IsArray()
-    programas_tributa:string[]
+    @ApiProperty({required:false})
+    @IsOptional()
+    @IsMongoId()
+    programas_tributa:string
 
     // @IsOptional()
     @IsEnum(Nomenclador_GrupoEtareo)

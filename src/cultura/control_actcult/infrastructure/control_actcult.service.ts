@@ -145,10 +145,13 @@ export class Control_ActividadCultural_Service {
 
     let camposInternosTotales={
     $addFields: {
-      dineroTotalArtistas: {
+      // dineroTotalArtistas: {
         $reduce: { input: "$talentos", initialValue: 0, in: { $add: ["$$value", { $sum: "$$this.cantidad"}]}}},
-      dineroTotalApoyos: {
+      // dineroTotalApoyos: {
         $reduce: { input: "$apoyos", initialValue: 0,in: {$add: ["$$value",{ $sum: "$$this.cantidad"}]}}}
+      //ineroTotalArtistas: { $cond: [{ $ne: ["$talentos", null] }, "$talentos.cantidad", 0] },
+      // dineroTotalApoyos: { $cond: [{ $ne: ["$apoyos", null] }, "$apoyos.cantidad", 0] }
+     
       }//fin $addFields
     }//fin objeto
 
