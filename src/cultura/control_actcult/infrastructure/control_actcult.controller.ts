@@ -138,7 +138,7 @@ export class Control_ActividadCultural_Controller {
   @ErrorHandler()
   reports(@Body() query:ReportsBasic_CActCult_DTO) {
     console.log(query);    
-    return this.controlActcultService.search(query);
+    return this.controlActcultService.searchReport(query);
   }
 }
 

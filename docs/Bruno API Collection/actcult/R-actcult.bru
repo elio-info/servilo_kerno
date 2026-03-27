@@ -4,15 +4,14 @@ meta {
   seq: 5
 }
 
-put {
-  url: {{rqs}}
+post {
+  url: {{rqs}}report
   body: json
   auth: inherit
 }
 
 body:json {
   {
-  "reporte": true,
   //"dia_actcult": "2026-03-02"//,
   //  "hora_actcult": "08:00"//,
   //   "findia_actcult": "29-06-2024",

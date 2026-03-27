@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Type } from "class-transformer";
 import { IsBoolean, IsEnum, IsMongoId, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Nomenclador_GrupoEtareo, Nomenclador_EstadosDeActividadCultural } from "src/cultura/codificadores-cult/enums/codificadores";
 import { Comunidad_Transformacion_Model } from "src/cultura/comun_transf/schemas/comun_transf.schema";
@@ -6,8 +7,29 @@ import { ConsejoPopular_Municipality_Model } from "src/cultura/consejo_popular/d
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence";
 import { EntityModel } from "src/modules/entity/infrastructure/entity.schema";
 import { PlaceModel } from "src/modules/place/infrastructure/place.schema";
+import { Control_ActividadCultural_Model } from "../schemas/control_actcult.schema";
 export class ReportsBasic_CActCult_DTO {
-  @ApiProperty({
+  @IsOptional()
+@ApiProperty({ 
+    example:'665f7c4808023e4c264a4f9b',
+    description:`Esta el la llave del Objeto que se trabajara en cuestion`
+})
+@IsMongoId()
+@IsString()
+@IsRelationShipWith(Control_ActividadCultural_Model)
+@Type(()=> Control_ActividadCultural_Model)
+id?:string
+
+@IsOptional()
+@ApiProperty({minLength:3})
+@IsString()
+name?:string
+
+@IsOptional()
+@IsBoolean()
+exactName?:boolean
+    
+@ApiProperty({
       example:'Fecha de la actividad',
       required:true,
       minLength:10,

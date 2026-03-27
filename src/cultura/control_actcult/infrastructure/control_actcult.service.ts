@@ -113,7 +113,7 @@ export class Control_ActividadCultural_Service {
     return this.toEntity(await this.cntrl_actvcultMdl.findById({_id:id}))
   }
 
-  async search(query:ReportsBasic_CActCult_DTO):Promise<Object|string> {
+  async searchReport(query:ReportsBasic_CActCult_DTO):Promise<Object|string> {
 
     let buscar=this.formatSearch(query);
 
@@ -171,7 +171,7 @@ export class Control_ActividadCultural_Service {
         }
     }
 
-      return await this.cntrl_actvcultMdl.aggregate([
+    let query_agg=[
         // busquedas filtros
         { $match:buscar }   
         ,
@@ -182,7 +182,18 @@ export class Control_ActividadCultural_Service {
         campoInternoTotal
         ,//final de campos
         facetQuery        
-      ])
+      ]
+
+      console.log(query_agg);
+      
+      try {
+        let requestQuery=await this.cntrl_actvcultMdl.aggregate(query_agg);
+        return requestQuery;
+      } catch (error) {
+        return error.toString();
+      }
+
+      
       
   }
   async update( updateControlActcultDto: Update_CActCult_Dto, traza: TrazasService):Promise<Control_ActividadCultural_Entity| string> {
