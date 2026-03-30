@@ -1,0 +1,163 @@
+
+db('senfima_kerno').collection('control_actividadcultural').find({}).limit(100).toArray()
+
+db('senfima_kerno').collection('control_actividadcultural').aggregate(
+    [
+       // { $match: { dia_actcult: { $regex: "2026-03", $options:"i" } } } 
+        // { $match: { 'estados_actividad.estado_actividad': "S"  } }//criterio
+        // ,
+       // { $match: { 'dia_actcult':  {$regex:'^2026-03-'} } }//comienzo con
+       // ,
+       // { $group:{_id:'$estados_actividad.estado_actividad',cant_act:{$sum:1},cant_prs :{$sum:'$edad_asistencia'} }}
+       {
+            $addFields: {
+            dineroTotalArtistas: {
+                $reduce: {
+                input: "$talentos",
+                initialValue: 0,
+                in: {
+                    $add: [
+                    "$$value",
+                    {
+                        $sum: "$$this.cantidad",
+                    },
+                    ],
+                },
+                },
+            },
+            dineroTotalApoyos: {
+                $reduce: {
+                input: "$apoyos",
+                initialValue: 0,
+                in: {
+                    $add: [
+                    "$$value",
+                    {
+                        $sum: "$$this.cantidad",
+                    },
+                    ],
+                },
+                },
+            },
+            },
+        },
+        {
+            $addFields: {
+            dineroTotal: {
+                $add: [
+                "$dineroTotalArtistas",
+                "$dineroTotalApoyos",
+                ],
+            },
+            },
+        } 
+     , 
+       {
+        $facet://to split
+        {
+  porActCult: [
+    {
+      $project: {
+        result: 1,
+        totalPagarArt: {
+          $sum: "$dineroTotalArtistas",
+        },
+        totalPagarApy: {
+          $sum: "$dineroTotalApoyos",
+        },
+        totalPagarAct: {
+          $sum: "$dineroTotal",
+        },
+      },
+    },
+  ],
+  paraTodos: [
+    {
+      $group: {
+        _id: null,
+        count: {
+          $sum: 1,
+        },
+        TAr: {
+          $sum: "$dineroTotalArtistas",
+        },
+        TAp: {
+          $sum: "$dineroTotalApoyos",
+        },
+        TAA: {
+          $sum: "$dineroTotal",
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        count: 1,
+        TAr: 1,
+        TAp: 1,
+        TAA: 1,
+      },
+    },
+  ],
+}
+       }
+      
+    ]
+)
+
+db('senfima_kerno').collection('control_actividadcultural').aggregate(
+    [
+        {
+          $match:
+            /**
+             * query: The query in MQL.
+             */
+            {
+              "talentos.pagado": true,
+            },
+        },
+        {
+          $project:
+            /**
+             * specifications: The fields to
+             *   include or exclude.
+             */
+            {
+              name: 1,
+              talentos: 1,
+            },
+        },
+      ]
+)
+
+db('senfima_kerno').collection('control_actividadcultural').aggregate(
+    [
+        // { $match: { tipoActividad_extraPlan: true } }
+        {
+            $group:
+              /**
+               * _id: The id of the group.
+               * fieldN: The first field name.
+               */
+            //   {
+            //     _id: "$estados_actividad.estado_actividad",
+            //     cantAct: {
+            //       $sum: 1,
+            //     },
+            //   },
+            /**
+             * por edad, saber cuantos y cantidad
+             */
+              {
+                _id: "$edad",
+                cantAct: {
+                  $sum: 1,
+                },
+                cant_personas: {
+                  $sum: "$edad_asistencia",
+                }
+            }
+          }
+    
+    ]
+  );

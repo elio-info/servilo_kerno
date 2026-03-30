@@ -83,7 +83,7 @@ export class Update_CActCult_Dto {
     @IsMongoId()
     ct_planificado:string
     
-    @ApiProperty({required:true})
+    @ApiProperty({required:false})
     // @IsRelationShipWith(ProgramaSocial_Model)
     @IsNotEmpty()
     // @IsMongoId()
@@ -107,9 +107,9 @@ export class Update_CActCult_Dto {
     @IsMongoId()
     tipoActividad_Prov_Entidad:string=null //EntityModel
     
-    @IsArray()
+    // @IsArray()
     @IsNotEmpty()
-   estados_actividad:Estado_ActividadCultural[]
+   estados_actividad:Estado_ActividadCultural//[]
 
    @IsArray()
     @IsNotEmpty()

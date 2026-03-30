@@ -72,8 +72,8 @@ export class Create_CActCult_Dto {
     
     @ApiProperty({required:false})
     @IsOptional()
-    @IsMongoId()
-    programas_tributa:string
+    @IsArray()
+    programas_tributa:string[]
 
     // @IsOptional()
     @IsEnum(Nomenclador_GrupoEtareo)
@@ -92,9 +92,9 @@ export class Create_CActCult_Dto {
     @IsMongoId()
     tipoActividad_Prov_Entidad:string=null //EntityModel
     
-    @IsArray()
+    // @IsArray()
     @IsNotEmpty()
-   estados_actividad:Estado_ActividadCultural[]
+   estados_actividad:Estado_ActividadCultural
 
    @IsArray()
     @IsNotEmpty()
