@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ChargeController } from './charge.controller';
 import { ChargeService } from '../application/charge.service';
 import { DataList } from 'src/modules/common/data-list';
-import { Charge } from '../domain/entities/charge.entity';
+import { Charge_Entity } from '../domain/entities/charge.entity';
 import { getModelToken, Schema } from '@nestjs/mongoose';
 import { ChargeModel } from './charge.schema';
 import mongoose from 'mongoose';

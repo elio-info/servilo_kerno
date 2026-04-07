@@ -81,7 +81,7 @@ export class CreatePersonDto {
   @IsNotEmpty()
   municipality: string;
 
-    @IsOptional()
+  @IsOptional()
   @IsRelationShipWith(EntityModel)
   entity: string;
 

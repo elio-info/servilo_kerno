@@ -5,7 +5,7 @@ import { CategorieRepository } from '../domain/repository/categorie.repository';
 import { DataList } from 'src/modules/common/data-list';
 import { CreateCategorieDto } from '../domain/dto/create-categorie.dto';
 import { UpdateCategorieDto } from '../domain/dto/update-categorie.dto';
-import { Categorie } from '../domain/entities/categorie.entity';
+import { Categorie_Entity } from '../domain/entities/categorie.entity';
 import { CategorieDocument, CategorieModel } from './categorie.schema';
 import { WrongIdFormat } from '../../common/errors/wrong-id-format.error';
 import { ObjectNotFound } from '../../common/errors/object-not-found.error';
@@ -21,7 +21,7 @@ export class MongooseCategorieRepository implements CategorieRepository {
     private categorieModel: Model<CategorieModel>,
   ) {}
 
-  async findAll(page: number, pageSize: number): Promise<DataList<Categorie>> {
+  async findAll(page: number, pageSize: number): Promise<DataList<Categorie_Entity>> {
     const skipCount = (page - 1) * pageSize;
 
     const [categories, count] = await Promise.all([
@@ -33,11 +33,11 @@ export class MongooseCategorieRepository implements CategorieRepository {
       this.categorieModel.countDocuments(this.WHERE_QUERY).exec(),
     ]);
 
-    const categorieCollection: Categorie[] = categories.map((categorie) =>
+    const categorieCollection: Categorie_Entity[] = categories.map((categorie) =>
       this.toEntity(categorie),
     );
 
-    const dataList: DataList<Categorie> = {
+    const dataList: DataList<Categorie_Entity> = {
       data: categorieCollection,
       totalPages: Math.ceil(count / pageSize),
       currentPage: page,
@@ -63,7 +63,7 @@ export class MongooseCategorieRepository implements CategorieRepository {
     }
   }
 
-  async findOne(id: string): Promise<Categorie> {
+  async findOne(id: string): Promise<Categorie_Entity> {
     validateId(id, this.MODULE);
 
     const categorie = await this.categorieModel
@@ -77,7 +77,7 @@ export class MongooseCategorieRepository implements CategorieRepository {
     return this.toEntity(categorie);
   }
 
-  async update(id: string, categorie: UpdateCategorieDto): Promise<Categorie> {
+  async update(id: string, categorie: UpdateCategorieDto): Promise<Categorie_Entity> {
     validateId(id, this.MODULE);
     try {
       const document = await this.categorieModel.findOneAndUpdate(
@@ -111,10 +111,14 @@ export class MongooseCategorieRepository implements CategorieRepository {
     return categriesCollection;
   }
 
-  private toEntity(categorie: CategorieDocument): Categorie {
+  private toEntity(categorie: CategorieModel): Categorie_Entity {
     return {
       id: categorie._id.toString(),
       name: categorie.name,
+      nameTitle: categorie.nameTitle,
+      link: categorie.link,
+      access_point:categorie.access_point,
+      isDeleted:categorie.isDeleted,
       updatedAt: categorie.updatedAt,
       createdAt: categorie.createdAt,
     };

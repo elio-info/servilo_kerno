@@ -25,7 +25,7 @@ import {
 } from '@nestjs/swagger';
 import { ApiUnauthorizedCustomErrorResponse } from '../../common/doc/api-unauthorized-custom-error-response.decorator';
 import { ApiCustomErrorResponse } from '../../common/doc/api-bad-request-custom-error-response.decorator';
-import { Charge } from '../domain/entities/charge.entity';
+import { Charge_Entity } from '../domain/entities/charge.entity';
 import { ApiPaginatedResponse } from '../../common/doc/api-paginated-response.decorator';
 import { ApiNotFoundCustomErrorResponse } from '../../common/doc/api-not-found-custom-error-response.decorator';
 import { CustomController } from 'src/modules/common/helpers/custom-controller';
@@ -70,7 +70,7 @@ export class ChargeController {
     type: 'number',
     required: false,
   })
-  @ApiPaginatedResponse(Charge)
+  @ApiPaginatedResponse(Charge_Entity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
   @Get()
@@ -81,7 +81,7 @@ export class ChargeController {
 
   @ApiOkResponse({
     description: 'The charge object',
-    type: Charge,
+    type: Charge_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
@@ -95,7 +95,7 @@ export class ChargeController {
 
   @ApiOkResponse({
     description: 'The updated Charge Object',
-    type: Charge,
+    type: Charge_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()

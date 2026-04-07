@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   UsePipes,
+  Inject,Headers
 } from '@nestjs/common';
 import { CategorieService } from '../application/categorie.service';
 import { CreateCategorieDto } from '../domain/dto/create-categorie.dto';
@@ -19,27 +20,32 @@ import {
   ApiCreatedResponse,
   ApiHeader,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 import { ApiUnauthorizedCustomErrorResponse } from '../../common/doc/api-unauthorized-custom-error-response.decorator';
 import { ApiCustomErrorResponse } from '../../common/doc/api-bad-request-custom-error-response.decorator';
-import { Categorie } from '../domain/entities/categorie.entity';
+import { Categorie_Entity } from '../domain/entities/categorie.entity';
 import { ApiPaginatedResponse } from '../../common/doc/api-paginated-response.decorator';
 import { ApiNotFoundCustomErrorResponse } from '../../common/doc/api-not-found-custom-error-response.decorator';
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchCategorieDto } from '../domain/dto/search-categorie.dto';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
-@ApiTags(`categorie`)
+@Controller('categorie')
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
-@Controller('categorie')
+@ApiTags(`Categorias de acceso`)
 export class CategorieController {
-  constructor(private readonly categorieService: CategorieService) {}
+  constructor(
+    private readonly categorieService: CategorieService
+    ,@Inject(TrazasService) private traza:TrazasService
+    ){ traza.trazaDTO.collection='Categorias'}
 
   @ApiBody({
     description: 'The categorie object',
@@ -50,9 +56,10 @@ export class CategorieController {
     description: 'Returns 201 when categorie is successfully created',
   })
   @ApiCustomErrorResponse()
+  @ApiOperation({summary:"Crear categoria de acceso"})
   @Post()
   @ErrorHandler()
-  create(@Body() createCategorieDto: CreateCategorieDto) {
+  create(@Body() createCategorieDto: CreateCategorieDto, @Headers('authorization') hds) {
     return this.categorieService.create(createCategorieDto);
   }
 
@@ -68,7 +75,7 @@ export class CategorieController {
     type: 'number',
     required: false,
   })
-  @ApiPaginatedResponse(Categorie)
+  @ApiPaginatedResponse(Categorie_Entity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
   @Get()
@@ -79,7 +86,7 @@ export class CategorieController {
 
   @ApiOkResponse({
     description: 'The categorie object',
-    type: Categorie,
+    type: Categorie_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
@@ -93,7 +100,7 @@ export class CategorieController {
 
   @ApiOkResponse({
     description: 'The updated Categorie Object',
-    type: Categorie,
+    type: Categorie_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()

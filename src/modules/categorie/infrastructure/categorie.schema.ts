@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { API_Struct } from '../domain/entities/categorie.entity';
 
 export type CategorieDocument = HydratedDocument<CategorieModel>;
 
@@ -10,7 +11,16 @@ export class CategorieModel {
   @Prop({ required: true, unique: true, type: String })
   name: string;
 
-  @Prop({ default: false, select: false })
+  @Prop({ required: true, type: String })
+  nameTitle: string;
+
+  @Prop({ required: true, type: String })
+  link: string;
+
+  @Prop({required:true,type:[API_Struct]})
+  access_point:API_Struct[]
+
+  @Prop({ default: false, select: false || true})
   isDeleted: boolean;
 
   @Prop()

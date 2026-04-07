@@ -17,8 +17,11 @@ import { validateId } from 'src/modules/common/helpers/id-validator';
 import { UserNotFound } from 'src/modules/domain/errors/user-not-found.error';
 import { Entity_Entity } from 'src/modules/entity/domain/entities/entity.entity';
 
-const POPULATE_PATH = { path: 'municipality', populate: { path: 'province' } };
-const ENTITY_PATH = {
+@Injectable()
+export class MongoosePersonRepository implements PersonRepository {
+
+private POPULATE_PATH = { path: 'municipality', populate: { path: 'province' } };
+private ENTITY_PATH = {
   entityType: { path: 'entityType' },
   municipality: { path: 'municipality', populate: { path: 'province' } },
   place: {
@@ -26,11 +29,9 @@ const ENTITY_PATH = {
     populate: { path: 'municipality', populate: { path: 'province' } },
   },
 };
-const MODULE = 'Person';
-const IS_NOT_DELETED = { isDeleted: false };
+private MODULE = 'Person';
+private IS_NOT_DELETED = { isDeleted: false };
 
-@Injectable()
-export class MongoosePersonRepository implements PersonRepository {
   constructor(
     @InjectModel(PersonModel.name)
     private personModel: Model<PersonModel>,
@@ -41,15 +42,15 @@ export class MongoosePersonRepository implements PersonRepository {
 
     const [persons, count] = await Promise.all([
       this.personModel
-        .find(IS_NOT_DELETED)
+        .find(this.IS_NOT_DELETED)
         .skip(skipCount)
         .limit(pageSize)
-        .populate(POPULATE_PATH)
-        .populate({ path: 'entity', populate: ENTITY_PATH.entityType })
-        .populate({ path: 'entity', populate: ENTITY_PATH.municipality })
-        .populate({ path: 'entity', populate: ENTITY_PATH.place })
+        .populate(this.POPULATE_PATH)
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.place })
         .exec(),
-      this.personModel.countDocuments(IS_NOT_DELETED).exec(),
+      this.personModel.countDocuments(this.IS_NOT_DELETED).exec(),
     ]);
     const personCollection = persons.map((person) => this.toEntity(person));
 
@@ -74,39 +75,39 @@ export class MongoosePersonRepository implements PersonRepository {
   }
 
   async findOne(id: string): Promise<Person> {
-    validateId(id, MODULE);
+    validateId(id, this.MODULE);
 
     const person = await this.personModel
       .findById(id)
-      .where(IS_NOT_DELETED)
-      .populate(POPULATE_PATH)
-      .populate({ path: 'entity', populate: ENTITY_PATH.entityType })
-      .populate({ path: 'entity', populate: ENTITY_PATH.municipality })
-      .populate({ path: 'entity', populate: ENTITY_PATH.place });
+      .where(this.IS_NOT_DELETED)
+      .populate(this.POPULATE_PATH)
+      .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
+      .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
+      .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
     if (!person) {
-      throw new ObjectNotFound(MODULE);
+      throw new ObjectNotFound(this.MODULE);
     }
     return this.toEntity(person);
   }
 
   async update(id: string, person: UpdatePersonDto): Promise<Person> {
-    validateId(id, MODULE);
+    validateId(id, this.MODULE);
 
     if (person.municipality) {
       validateId(person.municipality, 'municipality');
     }
     try {
       const document = await this.personModel
-        .findOneAndUpdate({ _id: id, ...IS_NOT_DELETED }, person, {
+        .findOneAndUpdate({ _id: id, ...this.IS_NOT_DELETED }, person, {
           new: true,
           populate: { path: 'municipality', populate: { path: 'province' } },
         })
-        .populate({ path: 'entity', populate: ENTITY_PATH.entityType })
-        .populate({ path: 'entity', populate: ENTITY_PATH.municipality })
-        .populate({ path: 'entity', populate: ENTITY_PATH.place });
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
 
       if (!document) {
-        throw new ObjectNotFound(MODULE);
+        throw new ObjectNotFound(this.MODULE);
       }
 
       return this.toEntity(document);
@@ -119,7 +120,7 @@ export class MongoosePersonRepository implements PersonRepository {
   }
 
   async remove(id: string): Promise<void> {
-    validateId(id, MODULE);
+    validateId(id, this.MODULE);
 
     const document = await this.personModel.findOneAndUpdate(
       { _id: id, isDeleted: false },
@@ -129,13 +130,13 @@ export class MongoosePersonRepository implements PersonRepository {
     );
 
     if (!document) {
-      throw new ObjectNotFound(MODULE);
+      throw new ObjectNotFound(this.MODULE);
     }
   }
 
   async byUserName(username: string): Promise<PersonAuth> {
     const document = await this.personModel
-      .findOne({ username, ...IS_NOT_DELETED })
+      .findOne({ username, ...this.IS_NOT_DELETED })
       .select('_id username hashPassword salt isActive role')
       .exec();
 
@@ -158,9 +159,9 @@ export class MongoosePersonRepository implements PersonRepository {
     const persons = await this.personModel
       .find(query)
       .populate({ path: 'municipality', populate: { path: 'province' } })
-      .populate({ path: 'entity', populate: ENTITY_PATH.entityType })
-      .populate({ path: 'entity', populate: ENTITY_PATH.municipality })
-      .populate({ path: 'entity', populate: ENTITY_PATH.place });
+      .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
+      .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
+      .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
     const personCollection = persons.map((person) => this.toEntity(person));
     return personCollection;
   }
@@ -186,6 +187,8 @@ export class MongoosePersonRepository implements PersonRepository {
       role: person.role,
       entity: extractEntity(person.entity),
       municipality: extractMunicipality(person.municipality),
+      charge:person.charge,
+      isDeleted:person.isDeleted
     };
   }
 }

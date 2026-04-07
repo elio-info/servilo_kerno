@@ -5,7 +5,7 @@ import { ChargeRepository } from '../domain/repository/charge.repository';
 import { DataList } from 'src/modules/common/data-list';
 import { CreateChargeDto } from '../domain/dto/create-charge.dto';
 import { UpdateChargeDto } from '../domain/dto/update-charge.dto';
-import { Charge } from '../domain/entities/charge.entity';
+import { Charge_Entity } from '../domain/entities/charge.entity';
 import { ChargeDocument, ChargeModel } from './charge.schema';
 import { WrongIdFormat } from '../../common/errors/wrong-id-format.error';
 import { ObjectNotFound } from '../../common/errors/object-not-found.error';
@@ -21,7 +21,7 @@ export class MongooseChargeRepository implements ChargeRepository {
     private chargeModel: Model<ChargeModel>,
   ) {}
 
-  async findAll(page: number, pageSize: number): Promise<DataList<Charge>> {
+  async findAll(page: number, pageSize: number): Promise<DataList<Charge_Entity>> {
     const skipCount = (page - 1) * pageSize;
 
     const [charges, count] = await Promise.all([
@@ -33,11 +33,11 @@ export class MongooseChargeRepository implements ChargeRepository {
       this.chargeModel.countDocuments(this.WHERE_QUERY).exec(),
     ]);
 
-    const chargeCollection: Charge[] = charges.map((charge) =>
+    const chargeCollection: Charge_Entity[] = charges.map((charge) =>
       this.toEntity(charge),
     );
 
-    const dataList: DataList<Charge> = {
+    const dataList: DataList<Charge_Entity> = {
       data: chargeCollection,
       totalPages: Math.ceil(count / pageSize),
       currentPage: page,
@@ -56,7 +56,7 @@ export class MongooseChargeRepository implements ChargeRepository {
     }
   }
 
-  async findOne(id: string): Promise<Charge> {
+  async findOne(id: string): Promise<Charge_Entity> {
     validateId(id, this.MODULE);
 
     const charge = await this.chargeModel.findById(id).where(this.WHERE_QUERY);
@@ -68,7 +68,7 @@ export class MongooseChargeRepository implements ChargeRepository {
     return this.toEntity(charge);
   }
 
-  async update(id: string, charge: UpdateChargeDto): Promise<Charge> {
+  async update(id: string, charge: UpdateChargeDto): Promise<Charge_Entity> {
     validateId(id, this.MODULE);
 
     const document = await this.chargeModel.findOneAndUpdate(
@@ -97,10 +97,14 @@ export class MongooseChargeRepository implements ChargeRepository {
     return chargeCollection;
   }
 
-  private toEntity(charge: ChargeDocument): Charge {
+  private toEntity(charge: ChargeDocument): Charge_Entity {
     return {
       id: charge._id.toString(),
       name: charge.name,
+      entity:charge.entity,
+      access:charge.access,
+      subord:charge.subord,
+      isDeleted:charge.isDeleted,
       updatedAt: charge.updatedAt,
       createdAt: charge.createdAt,
     };

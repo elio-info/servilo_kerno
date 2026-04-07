@@ -5,7 +5,7 @@ import { CategorieRepository } from '../domain/repository/categorie.repository';
 import { MongooseCategorieRepository } from '../infrastructure/mongoose-categorie.repository';
 import { InvalidPaginationError } from '../../common/errors/invalid-pagination.error';
 import { DataList } from '../../common/data-list';
-import { Categorie } from '../domain/entities/categorie.entity';
+import { Categorie_Entity } from '../domain/entities/categorie.entity';
 import { SearchCategorieDto } from '../domain/dto/search-categorie.dto';
 
 @Injectable()
@@ -19,28 +19,28 @@ export class CategorieService {
     return this.repository.create(createCategorieDto);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Categorie>> {
+  findAll(page = 1, pageSize = 15): Promise<DataList<Categorie_Entity>> {
     if (page <= 0 || pageSize <= 0) {
       throw new InvalidPaginationError();
     }
     return this.repository.findAll(page, pageSize);
   }
 
-  findOne(id: string): Promise<Categorie> {
+  findOne(id: string): Promise<Categorie_Entity> {
     return this.repository.findOne(id);
   }
 
   update(
     id: string,
     updateCategorieDto: UpdateCategorieDto,
-  ): Promise<Categorie> {
+  ): Promise<Categorie_Entity> {
     return this.repository.update(id, updateCategorieDto);
   }
 
   remove(id: string): Promise<void> {
     return this.repository.remove(id);
   }
-  search(query: SearchCategorieDto): Promise<Categorie[]> {
+  search(query: SearchCategorieDto): Promise<Categorie_Entity[]> {
     return this.repository.search(query);
   }
 }

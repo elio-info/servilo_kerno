@@ -5,7 +5,7 @@ import { ChargeRepository } from '../domain/repository/charge.repository';
 import { MongooseChargeRepository } from '../infrastructure/mongoose-charge.repository';
 import { InvalidPaginationError } from '../../common/errors/invalid-pagination.error';
 import { DataList } from '../../common/data-list';
-import { Charge } from '../domain/entities/charge.entity';
+import { Charge_Entity } from '../domain/entities/charge.entity';
 import { SearchChargeDto } from '../domain/dto/search-charge.dto';
 
 @Injectable()
@@ -19,25 +19,25 @@ export class ChargeService {
     return this.repository.create(createChargeDto);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Charge>> {
+  findAll(page = 1, pageSize = 15): Promise<DataList<Charge_Entity>> {
     if (page <= 0 || pageSize <= 0) {
       throw new InvalidPaginationError();
     }
     return this.repository.findAll(page, pageSize);
   }
 
-  findOne(id: string): Promise<Charge> {
+  findOne(id: string): Promise<Charge_Entity> {
     return this.repository.findOne(id);
   }
 
-  update(id: string, updateChargeDto: UpdateChargeDto): Promise<Charge> {
+  update(id: string, updateChargeDto: UpdateChargeDto): Promise<Charge_Entity> {
     return this.repository.update(id, updateChargeDto);
   }
 
   remove(id: string): Promise<void> {
     return this.repository.remove(id);
   }
-  search(query: SearchChargeDto): Promise<Charge[]> {
+  search(query: SearchChargeDto): Promise<Charge_Entity[]> {
     return this.repository.search(query);
   }
 }

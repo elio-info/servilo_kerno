@@ -1,3 +1,5 @@
+import { Charge_Entity } from 'src/modules/charge/domain/entities/charge.entity';
+import { ChargeModel } from 'src/modules/charge/infrastructure/charge.schema';
 import { Entity_Entity } from 'src/modules/entity/domain/entities/entity.entity';
 import { Municipality } from 'src/modules/municipality/domain/entities/municipality.entity';
 
@@ -21,4 +23,6 @@ export class Person {
   updatedAt: Date;
   createdAt: Date;
   municipality: Municipality;
+  charge:Charge_Entity;
+  isDeleted:boolean;
 }

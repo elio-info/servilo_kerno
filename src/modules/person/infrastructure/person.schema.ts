@@ -3,6 +3,7 @@ import { HydratedDocument, Types } from 'mongoose';
 import { Type } from 'class-transformer';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
 import { EntityModel } from 'src/modules/entity/infrastructure/entity.schema';
+import { Charge_Entity } from 'src/modules/charge/domain/entities/charge.entity';
 
 export type PersonDocument = HydratedDocument<PersonModel>;
 
@@ -67,7 +68,7 @@ export class PersonModel {
   @Prop()
   role: string;
 
-  @Prop({ default: false, select: false })
+  @Prop({ default: false, select: false || true })
   isDeleted: boolean;
 
   @Prop()
@@ -79,6 +80,10 @@ export class PersonModel {
   @Prop({ type: Types.ObjectId, ref: MunicipalityModel.name })
   @Type(() => MunicipalityModel)
   municipality: MunicipalityModel;
+
+  @Prop({ required: true,type: Charge_Entity })
+  charge: Charge_Entity;
+  
 }
 
 export const PersonSchema = SchemaFactory.createForClass(PersonModel);
