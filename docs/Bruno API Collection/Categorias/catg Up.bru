@@ -1,0 +1,22 @@
+meta {
+  name: catg Up
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{rqs}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id":"6902e029675ea13513de6682",
+    "name": "Villa Clara"
+  }
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}

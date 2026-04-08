@@ -70,7 +70,7 @@ export class MongooseCategorieRepository implements CategorieRepository {
     }
   }
 
-  async findOne(id: string): Promise<Categorie_Entity> {
+  async findOne(id: string): Promise<Categorie_Entity |string> {
     validateId(id, this.MODULE);
 
     const categorie = await this.categorieModel
@@ -78,7 +78,7 @@ export class MongooseCategorieRepository implements CategorieRepository {
       .where(this.WHERE_QUERY);
 
     if (!categorie) {
-      throw new ObjectNotFound(this.MODULE);
+      return (new ObjectNotFound(this.MODULE)).message;
     }
 
     return this.toEntity(categorie);

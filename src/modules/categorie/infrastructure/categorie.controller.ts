@@ -8,7 +8,8 @@ import {
   Delete,
   Query,
   UsePipes,
-  Inject,Headers
+  Inject,Headers,
+  Put
 } from '@nestjs/common';
 import { CategorieService } from '../application/categorie.service';
 import { CreateCategorieDto } from '../domain/dto/create-categorie.dto';
@@ -160,7 +161,7 @@ export class CategorieController {
   })
   @ApiCustomErrorResponse()
   @UsePipes(new SearchValidate(SearchCategorieDto))
-  @Get('api/search')
+  @Put()
   @ErrorHandler()
   search(@Query() query) {
     return this.categorieService.search(query);

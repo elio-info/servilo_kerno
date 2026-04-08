@@ -27,7 +27,7 @@ export class CategorieService {
     return this.repository.findAll(page, pageSize);
   }
 
-  findOne(id: string): Promise<Categorie_Entity> {
+  findOne(id: string): Promise<Categorie_Entity |string> {
     return this.repository.findOne(id);
   }
 

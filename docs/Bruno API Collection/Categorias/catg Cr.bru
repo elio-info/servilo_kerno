@@ -1,0 +1,51 @@
+meta {
+  name: catg Cr
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{rqs}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {   
+     "name": 'User Management',
+      "nameTitle": 'Users',
+      "link": '/users',
+      "access_point": 
+        [
+    {
+      nameAPI: 'Get',
+      linkAPI: '/api/categories',
+      nameMenuTitle: 'List Categories',
+      isActive: true,
+    },
+    {
+      nameAPI: 'Post',
+      linkAPI: '/api/categories',
+      nameMenuTitle: 'Create Category',
+      isActive: true,
+    },
+    {
+      nameAPI: 'Put',
+      linkAPI: '/api/categories/:id',
+      nameMenuTitle: 'Update Category',
+      isActive: true,
+    },
+    {
+      nameAPI: 'Delete',
+      linkAPI: '/api/categories/:id',
+      nameMenuTitle: 'Delete Category',
+      isActive: false,
+    },
+  ]
+      
+    }
+}
+
+docs {
+  This request retrieves a list of users from the JSONPlaceholder API.
+}
