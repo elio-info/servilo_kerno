@@ -7,6 +7,7 @@ import { InvalidPaginationError } from '../../common/errors/invalid-pagination.e
 import { DataList } from '../../common/data-list';
 import { Categorie_Entity } from '../domain/entities/categorie.entity';
 import { SearchCategorieDto } from '../domain/dto/search-categorie.dto';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Injectable()
 export class CategorieService {
@@ -15,11 +16,11 @@ export class CategorieService {
     private repository: CategorieRepository,
   ) {}
 
-  create(createCategorieDto: CreateCategorieDto): Promise<void> {
-    return this.repository.create(createCategorieDto);
+  create(createCategorieDto: CreateCategorieDto,trz:TrazasService): Promise<Categorie_Entity|string> {
+    return this.repository.create(createCategorieDto, trz);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Categorie_Entity>> {
+  findAll(page = 1, pageSize = 15): Promise<DataList<Categorie_Entity>|string> {
     if (page <= 0 || pageSize <= 0) {
       throw new InvalidPaginationError();
     }
@@ -31,16 +32,15 @@ export class CategorieService {
   }
 
   update(
-    id: string,
-    updateCategorieDto: UpdateCategorieDto,
-  ): Promise<Categorie_Entity> {
-    return this.repository.update(id, updateCategorieDto);
+     updateCategorieDto: UpdateCategorieDto, trz:TrazasService
+  ): Promise<Categorie_Entity |string> {
+    return this.repository.update(updateCategorieDto, trz);
   }
 
-  remove(id: string): Promise<void> {
-    return this.repository.remove(id);
+  remove(id: string, trz:TrazasService): Promise<Categorie_Entity |string> {
+    return this.repository.remove(id, trz);
   }
-  search(query: SearchCategorieDto): Promise<Categorie_Entity[]> {
+  search(query: SearchCategorieDto): Promise<Categorie_Entity[] |string> {
     return this.repository.search(query);
   }
 }

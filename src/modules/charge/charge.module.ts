@@ -5,6 +5,8 @@ import { MongooseChargeRepository } from './infrastructure/mongoose-charge.repos
 import { MongooseModule } from '@nestjs/mongoose';
 import { ChargeSchema, ChargeModel } from './infrastructure/charge.schema';
 import { ErrorModule } from '../common/errors/error.module';
+import { TrazasModule } from 'src/cultura/trazas/trazas.module';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Module({
   imports: [
@@ -12,8 +14,11 @@ import { ErrorModule } from '../common/errors/error.module';
       { name: ChargeModel.name, schema: ChargeSchema },
     ]),
     ErrorModule,
+    TrazasModule
   ],
   controllers: [ChargeController],
-  providers: [ChargeService, MongooseChargeRepository],
+  providers: [ChargeService, MongooseChargeRepository,
+    TrazasService
+  ],
 })
 export class ChargeModule {}

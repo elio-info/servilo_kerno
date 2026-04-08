@@ -33,6 +33,7 @@ import { ApiNotFoundCustomErrorResponse } from '../../common/doc/api-not-found-c
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchCategorieDto } from '../domain/dto/search-categorie.dto';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
 
 @Controller('categorie')
 @ApiHeader({
@@ -60,7 +61,12 @@ export class CategorieController {
   @Post()
   @ErrorHandler()
   create(@Body() createCategorieDto: CreateCategorieDto, @Headers('authorization') hds) {
-    return this.categorieService.create(createCategorieDto);
+      this.traza.trazaDTO.operation='Crear categoria de acceso';
+      this.traza.trazaDTO.user=getUserHTTP_JWTS (hds);
+      this.traza.trazaDTO.error='Ok';
+      this.traza.trazaDTO.filter=createCategorieDto;
+      this.traza.trazaDTO.before={};
+    return this.categorieService.create(createCategorieDto, this.traza);
   }
 
   @ApiQuery({
@@ -111,11 +117,16 @@ export class CategorieController {
   @ApiParam({ name: 'id' })
   @Patch(':id')
   @ErrorHandler()
-  update(
-    @Param('id') id: string,
+  update(    
     @Body() updateCategorieDto: UpdateCategorieDto,
+    @Headers('authorization') hds
   ) {
-    return this.categorieService.update(id, updateCategorieDto);
+    this.traza.trazaDTO.operation='Crear categoria de acceso';
+      this.traza.trazaDTO.user=getUserHTTP_JWTS (hds);
+      this.traza.trazaDTO.error='Ok';
+      this.traza.trazaDTO.filter=updateCategorieDto;
+      this.traza.trazaDTO.before={};
+    return this.categorieService.update( updateCategorieDto,this.traza);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
@@ -125,8 +136,13 @@ export class CategorieController {
   @ApiParam({ name: 'id' })
   @Delete(':id')
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.categorieService.remove(id);
+  remove(@Param('id') id: string, @Headers('authorization') hds) {
+    this.traza.trazaDTO.operation='Crear categoria de acceso';
+      this.traza.trazaDTO.user=getUserHTTP_JWTS (hds);
+      this.traza.trazaDTO.error='Ok';
+      this.traza.trazaDTO.filter={id:id};
+      this.traza.trazaDTO.before={};
+    return this.categorieService.remove(id,this.traza);
   }
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Place')

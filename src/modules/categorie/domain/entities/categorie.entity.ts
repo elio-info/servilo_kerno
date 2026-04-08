@@ -11,7 +11,7 @@ export class Categorie_Entity {
 
 export class API_Struct
 {
-	nameAPI: string;//post,get,put,etc
+	nameAPI: 'Post' | 'Delete' | 'Put' | 'Get' | 'Patch' ;//post,get,put,etc
 	linkAPI: string;// dcc
 	nameMenuTitle: string;// nombre
 	isActive: boolean;// si / no

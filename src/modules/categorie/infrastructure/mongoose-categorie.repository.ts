@@ -11,6 +11,7 @@ import { WrongIdFormat } from '../../common/errors/wrong-id-format.error';
 import { ObjectNotFound } from '../../common/errors/object-not-found.error';
 import { validateId } from '../../common/helpers/id-validator';
 import { DuplicatedValueError } from '../../common/errors/duplicated-value.error';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Injectable()
 export class MongooseCategorieRepository implements CategorieRepository {
@@ -45,16 +46,22 @@ export class MongooseCategorieRepository implements CategorieRepository {
     return dataList;
   }
 
-  async create(categorie: CreateCategorieDto): Promise<void> {
+  async create(categorie: CreateCategorieDto, trz:TrazasService): Promise<Categorie_Entity|string> {
     const exist = await this.categorieModel.findOne({
       name: categorie.name,
-      isDeleted: true,
+     // isDeleted: true,
     });
     if (!exist) {
       try {
-        await new this.categorieModel(categorie).save();
+      let itm=  await new this.categorieModel(categorie).save();
+      trz.trazaDTO.update=itm;
+      trz.save();
+      return this.toEntity(itm);
       } catch (e) {
-        throw new DuplicatedValueError(this.MODULE);
+        trz.trazaDTO.error=e;
+        trz.save();
+        //throw new DuplicatedValueError(this.MODULE);
+        return trz.terror();
       }
     } else {
       await this.categorieModel.findByIdAndUpdate(exist._id, {
@@ -77,11 +84,11 @@ export class MongooseCategorieRepository implements CategorieRepository {
     return this.toEntity(categorie);
   }
 
-  async update(id: string, categorie: UpdateCategorieDto): Promise<Categorie_Entity> {
-    validateId(id, this.MODULE);
+  async update(categorie: UpdateCategorieDto): Promise<Categorie_Entity|string> {
+    
     try {
       const document = await this.categorieModel.findOneAndUpdate(
-        { _id: id, ...this.WHERE_QUERY },
+        { _id: categorie.id, ...this.WHERE_QUERY },
         categorie,
         {
           new: true,
@@ -93,15 +100,21 @@ export class MongooseCategorieRepository implements CategorieRepository {
     }
   }
 
-  async remove(id: string): Promise<void> {
-    validateId(id, this.MODULE);
+  async remove(id: string, trz:TrazasService): Promise<Categorie_Entity|string> {
+    // validateId(id, this.MODULE);
     const document = await this.categorieModel
       .findById(id)
       .where(this.WHERE_QUERY);
+
     if (!document) {
-      throw new ObjectNotFound();
+      trz.trazaDTO.error = new ObjectNotFound();
+      trz.save();
+      return trz.terror();
     }
-    await document.updateOne({ isDeleted: true });
+    let rm=await document.updateOne({ isDeleted: true });
+    trz.trazaDTO.update=rm;
+    trz.save();
+    return this.toEntity(document);
   }
   async search(query) {
     const categories = await this.categorieModel.find(query);

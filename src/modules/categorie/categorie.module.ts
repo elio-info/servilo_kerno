@@ -8,6 +8,8 @@ import {
   CategorieModel,
 } from './infrastructure/categorie.schema';
 import { ErrorModule } from '../common/errors/error.module';
+import { TrazasModule } from 'src/cultura/trazas/trazas.module';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Module({
   imports: [
@@ -15,8 +17,11 @@ import { ErrorModule } from '../common/errors/error.module';
       { name: CategorieModel.name, schema: CategorieSchema },
     ]),
     ErrorModule,
+    TrazasModule
   ],
   controllers: [CategorieController],
-  providers: [CategorieService, MongooseCategorieRepository],
+  providers: [CategorieService, MongooseCategorieRepository,
+    TrazasService
+  ],
 })
 export class CategorieModule {}
