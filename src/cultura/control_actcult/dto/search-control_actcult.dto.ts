@@ -12,6 +12,7 @@ import { Talento_Artistico_Contratado_Entity } from 'src/cultura/talentos/talent
 import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
 import { Estado_ActividadCultural } from '../schemas/control_actcult.entity';
 import { ProgramaSocial_Model } from 'src/cultura/programas/schemas/prog_socl.schema';
+import { NomenclaCategorias_ContratacionManifestacion_Model } from 'src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema';
 
 export class Search_CActCult_Dto {
     @IsNumber()
@@ -116,18 +117,17 @@ export class Search_CActCult_Dto {
     @ApiProperty({required:false})
     @IsRelationShipWith(ProgramaSocial_Model)
     @IsNotEmpty()
-     @IsMongoId()
+    @IsMongoId()
     programas_tributa?:string
+
+    @IsOptional()
+    @IsBoolean()
+    principal:boolean=true
 
     @IsOptional()
     @IsEnum(Nomenclador_GrupoEtareo)
     edad:string
 
-    // @IsNumber()
-    // @ApiProperty({required:true,type:Number})
-    // @Min(1)
-    // edad_asistencia:Number;
-    
     @IsBoolean()
     @IsOptional()
     tipoActividad_extraPlan:boolean
@@ -140,10 +140,12 @@ export class Search_CActCult_Dto {
     @IsOptional()
     estado_actividad:Nomenclador_EstadosDeActividadCultural
 
-   /*
-    @IsArray()
+    @IsOptional()
+    @IsMongoId()
+    @IsRelationShipWith(NomenclaCategorias_ContratacionManifestacion_Model)
     @IsNotEmpty()
-    manifestaciones_artisticas:string[]
+    manifestaciones_artisticas?:string
+  /*  
 /////////////////
     @ApiProperty({example:` '[Talento_Artistico]'
         [

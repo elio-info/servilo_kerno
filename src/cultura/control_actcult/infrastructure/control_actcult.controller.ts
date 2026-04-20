@@ -53,45 +53,50 @@ export class Control_ActividadCultural_Controller {
   }
 
   @ApiBody({    
-    description: 'The amount of items in the current page. 15 by default',
     type: Search_CActCult_Dto,
     required: true    
     })
   @ApiPaginatedResponse(Control_ActividadCultural_Entity)
   @ApiCustomErrorResponse('Error')
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiOperation({ summary:'Recuperar todas las actividades'})
+  @ApiOperation({ summary:'Recuperar la informacion de todas las actividades',
+    description:'Se hace cualquier busqueda, hasta la particular (findOne).Se muestra la informacion plana de las actividades.'
+  })
   @Put()
   @ErrorHandler()
     search(@Body() search:Search_CActCult_Dto) {
     return this.controlActcultService.findAll(search);
   }
-
+/*
   @ApiOkResponse({
-    description: 'The municipality object',
+    description: 'The actividad object',
     type: Control_ActividadCultural_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
   @ApiOperation({ summary:'Segun Id'})
-  @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
+  @ApiNotFoundCustomErrorResponse('Control_ActividadCultural')
   @ApiParam({ name: 'id' })
   @Get(':id')
   @ErrorHandler()
   findOne(@Param('id') id: string) {
     return this.controlActcultService.findOne(id);
   }
-
+*/
   
- @ApiOkResponse({
-    description: 'The updated Municipality Object',
+ @ApiBody({
+    type: Update_CActCult_Dto,
+  })
+  @ApiOkResponse({
+    description: 'The updated was OK',
     type: Control_ActividadCultural_Entity
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
-  @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
-  @ApiBody({
-    type: Update_CActCult_Dto,
+  @ApiNotFoundCustomErrorResponse('Control_ActividadCultural')
+  @ApiOperation({
+    summary: 'Actualizacion de la actividad cultural',
+    description:'el id es obligatorio, los demas datos solo lo necesario...'
   })  
   @Patch()
   @ErrorHandler()
@@ -106,8 +111,9 @@ export class Control_ActividadCultural_Controller {
   }
 
   
+  @ApiOperation({summary:'Eliminar existente'})
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
+  @ApiNotFoundCustomErrorResponse('Control_ActividadCultural')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The Prog Prio successfully deleted' })
   @ApiBody({
@@ -126,13 +132,15 @@ export class Control_ActividadCultural_Controller {
 
   //TODO Making Search Endpoint By Query
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
+  @ApiNotFoundCustomErrorResponse('Control_ActividadCultural')
   @ApiBody({
     description: 'The key name for the search',
     type: ReportsBasic_CActCult_DTO,
     required: true,
   }) 
-  @ApiOperation({ summary:'Buscar por patron AC'}) 
+  @ApiOperation({ summary:'Buscar por patron AC.',
+    description:'Se busca segun patron similar al find, pero los resultados van en el orden de los calculos.Respuesta dada en funcion de calculos finales.'
+  }) 
   @ApiCustomErrorResponse()
   @Post('/report')
   @ErrorHandler()

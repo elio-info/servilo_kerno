@@ -8,8 +8,10 @@ import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExis
 import { EntityModel } from "src/modules/entity/infrastructure/entity.schema";
 import { PlaceModel } from "src/modules/place/infrastructure/place.schema";
 import { Control_ActividadCultural_Model } from "../schemas/control_actcult.schema";
+import { ProgramaSocial_Model } from "src/cultura/programas/schemas/prog_socl.schema";
+import { NomenclaCategorias_ContratacionManifestacion_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema";
 export class ReportsBasic_CActCult_DTO {
-  @IsOptional()
+@IsOptional()
 @ApiProperty({ 
     example:'665f7c4808023e4c264a4f9b',
     description:`Esta el la llave del Objeto que se trabajara en cuestion`
@@ -99,11 +101,15 @@ exactName?:boolean
     ct_planificado:string
     
     @ApiProperty({required:false})
-    // @IsRelationShipWith(ProgramaSocial_Model)
+    @IsRelationShipWith(ProgramaSocial_Model)
     @IsNotEmpty()
-     @IsMongoId()
-    //@IsArray()
+    @IsMongoId()
+    @IsOptional()
     programas_tributa?:string
+
+    @IsOptional()
+    @IsBoolean()
+    principal:boolean=true
 
     @IsOptional()
     @IsEnum(Nomenclador_GrupoEtareo)
@@ -128,4 +134,21 @@ exactName?:boolean
     @IsNotEmpty()
     estado_actividad:Nomenclador_EstadosDeActividadCultural
   
+    @IsOptional()
+    @IsMongoId()
+    @IsRelationShipWith(NomenclaCategorias_ContratacionManifestacion_Model)
+    @IsNotEmpty()
+    manifestaciones_artisticas?:string
+
+    @IsOptional()
+    @IsBoolean()
+    TV:boolean
+
+    @IsOptional()
+    @IsBoolean()
+    redes_plataforma:boolean 
+
+    @IsOptional()
+    @IsBoolean()
+    isDeleted:boolean=false 
 }

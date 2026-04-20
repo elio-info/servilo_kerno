@@ -3,7 +3,7 @@ import { Create_CActCult_Dto } from '../dto/create-control_actcult.dto';
 import { Update_CActCult_Dto } from '../dto/update-control_actcult.dto';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Control_ActividadCultural_Document, Control_ActividadCultural_Model } from '../schemas/control_actcult.schema';
-import { Connection, Model } from 'mongoose';
+import mongoose, { Connection, Model, Mongoose } from 'mongoose';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { Control_ActividadCultural_Entity } from '../schemas/control_actcult.entity';
@@ -63,7 +63,7 @@ export class Control_ActividadCultural_Service {
    * @param all si deben de buscar todos los elementos de un array o solo uno, por defecto true, si es false se busca el elemento exacto, si es true se busca dentro del array
    * @returns estructura de filtro para mongoose, si all es true se busca dentro del array, si es false se busca el elemento exacto
    */
-  private checkOnAsArray(elemnt:Object,all=true): Object{
+  private checkOnAsArray(elemnt:Object,main=false): Object{
     if ( isArray(elemnt)) {
       return { $in:[elemnt]};
     }
@@ -78,7 +78,12 @@ export class Control_ActividadCultural_Service {
   private formatSearch(params:Object): Object {
     let buscar={};
      Object.keys(params).map(itm=>buscar[itm]=params[itm]);
-   
+    
+    if (!!params['id']) {
+        buscar['_id']=new mongoose.Types.ObjectId(params['id']);
+        delete buscar['id'];        
+      }   
+
     if (params['exactName']==false) {
       buscar['name']= { $regex: params['name'], $options: "i" };
       delete buscar['exactName'];
@@ -105,27 +110,42 @@ export class Control_ActividadCultural_Service {
     }
 
     if (!!params['programas_tributa']) {
-      buscar['programas_tributa']= this.checkOnAsArray(params['programas_tributa']);
+      if (params['principal']) {
+        buscar['programas_tributa.0']=params['programas_tributa'];
+        delete buscar['principal'];
+        delete buscar['programas_tributa'];
+      } else {
+        buscar['programas_tributa']= this.checkOnAsArray(params['programas_tributa']);
+      }
+      
     }
   
     if (!!params['manifestaciones_artisticas']) {
+      if (params['principal']) {
+        buscar['manifestaciones_artisticas.0']=params['manifestaciones_artisticas'];
+        delete buscar['manifestaciones_artisticas'];
+      } else {
       buscar['manifestaciones_artisticas']= this.checkOnAsArray(params['manifestaciones_artisticas']);
+      }
     }
-    console.log(buscar);
+    
+    delete buscar['principal'];
+    console.log('formatSearch',buscar);
     return  buscar;
   }
 
   async findAll(query:Search_CActCult_Dto): Promise<DataList<Control_ActividadCultural_Entity> | string> {
     console.log('findAll-ActCult', query);    
     let skipCount=(query.page -1 ) * query.pageSize;
-
-    let mySrch=this.formatSearch(query);
-    delete mySrch['page'];
-    delete mySrch['pageSize'];
-    console.log('query',mySrch);    
-  
-    let fnd= await this.cntrl_actvcultMdl.find(mySrch).skip(skipCount).limit(query.pageSize).exec();
-    let pss=fnd.map((itm)=> this.toEntity(itm));
+    let pss=null;//to answer
+    let mySrch=  this.formatSearch(query);
+      delete mySrch['page'];
+      delete mySrch['pageSize'];
+      console.log('query',mySrch);    
+    
+      let fnd= await this.cntrl_actvcultMdl.find(mySrch).skip(skipCount).limit(query.pageSize).exec();
+      pss=fnd.map((itm)=> this.toEntity(itm));    
+    
       const dataList: DataList<Control_ActividadCultural_Entity> = {
           data: pss,
           totalPages: Math.ceil(pss.length / query.pageSize),
@@ -142,7 +162,6 @@ export class Control_ActividadCultural_Service {
 
     let buscar=this.formatSearch(query);
     
-
     let camposInternosTotales={
     $addFields: {
       dineroTotalArtistas: {
