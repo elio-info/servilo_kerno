@@ -14,6 +14,7 @@ import { ErrorModule } from 'src/modules/common/errors/error.module';
 import { ErrorX } from 'src/modules/common/errors/object-not-found.error';
 import { ReportsBasic_CActCult_DTO } from '../dto/reports-control_actcult.dto';
 import { isArray } from 'class-validator';
+import { M1_Reports_CActCult_DTO } from '../dto/reportsm1-control_actcult.dto';
 
 @Injectable()
 export class Control_ActividadCultural_Service {
@@ -158,7 +159,7 @@ export class Control_ActividadCultural_Service {
     return this.toEntity(await this.cntrl_actvcultMdl.findById({_id:id}))
   }
 
-  async searchReport(query:ReportsBasic_CActCult_DTO):Promise<Object|string> {
+  async get_Finance_Report(query:ReportsBasic_CActCult_DTO):Promise<Object|string> {
 
     let buscar=this.formatSearch(query);
     
@@ -244,6 +245,94 @@ export class Control_ActividadCultural_Service {
       
       
   }
+  
+  async get_M1_Report(query:M1_Reports_CActCult_DTO):Promise<Object|string> {
+    let m1={};
+    let buscar=this.formatSearch(query);
+    // #region InfGral
+    let camposBusqueda_InformeGral={
+        _id: {
+          estado_actividad: "$estados_actividad.estado_actividad",
+          extraPlan: "$tipoActividad_extraPlan",
+        },
+        cantAct: {$sum: 1},
+        cant_personas: { $sum: "$edad_asistencia"}
+      }    
+    let query_agg_ig=[
+        // busquedas filtros
+        { $match:buscar }   
+        ,
+        // calculos por actCult
+        {
+          $group:camposBusqueda_InformeGral
+        }               
+      ]
+      console.log(query_agg_ig);
+      
+      try {
+        let requestQuery_IG=await this.cntrl_actvcultMdl.aggregate(query_agg_ig);
+        m1['informe_gral'] = requestQuery_IG;
+      } catch (error) {
+        return error.toString();
+      }
+      //#endregion      
+     let buscarMatch={
+            ...buscar
+            , 'estados_actividad.estado_actividad':'R'
+            ,  tipoActividad_extraPlan:false
+          } 
+      // #region Etareo
+      let camposBusqueda_InformeEtareo={
+        _id: '$edad',
+        cantAct: {$sum: 1},
+        cant_personas: { $sum: "$edad_asistencia"}
+      }    
+      let query_agg_edad=[
+        // busquedas filtros
+        { $match:buscarMatch}   
+        ,
+        // calculos por actCult
+        {
+          $group:camposBusqueda_InformeEtareo
+        }               
+      ]
+      console.log(query_agg_edad);      
+      try {
+        let requestQuery_IE=await this.cntrl_actvcultMdl.aggregate(query_agg_edad);
+        m1['informe_edad'] = requestQuery_IE;
+      } catch (error) {
+        return error.toString();
+      } 
+      //#endregion
+    //#region Manifes
+    let romperArreglo={ $project: { manifestacion: {$arrayElemAt:["$manifestaciones_artisticas",0]}}};
+    let camposBusqueda_InformeManifestacion={
+        _id:"$manifestacion",
+        cantAct: {$sum: 1},
+       // cant_personas: { $sum: "$edad_asistencia"}
+      } 
+    let query_agg_manifestacion=[
+        // busquedas filtros
+        { $match:buscarMatch}   
+        ,
+        romperArreglo,
+        // calculos por actCult
+        {
+          $group:camposBusqueda_InformeManifestacion
+        }               
+      ]
+      console.log(query_agg_manifestacion);      
+      try {
+        let requestQuery_IM=await this.cntrl_actvcultMdl.aggregate(query_agg_manifestacion);
+        m1['informe_manifestacion'] = requestQuery_IM;
+      } catch (error) {
+        return error.toString();
+      } 
+// #endregion
+      
+     return m1;
+  }
+  
   async update( updateControlActcultDto: Update_CActCult_Dto, traza: TrazasService):Promise<Control_ActividadCultural_Entity| string> {
 
     let bf=await this.findOne(updateControlActcultDto.id);

@@ -14,6 +14,7 @@ import { getUserHTTP_JWTS, validatePagination } from 'src/modules/common/extract
 import { Control_ActividadCultural_Entity } from '../schemas/control_actcult.entity';
 import { ApiPaginatedResponse } from 'src/modules/common/doc/api-paginated-response.decorator';
 import { ReportsBasic_CActCult_DTO } from '../dto/reports-control_actcult.dto';
+import { M1_Reports_CActCult_DTO } from '../dto/reportsm1-control_actcult.dto';
 
 @Controller('control-actcult')
 @ApiHeader({
@@ -134,7 +135,6 @@ export class Control_ActividadCultural_Controller {
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Control_ActividadCultural')
   @ApiBody({
-    description: 'The key name for the search',
     type: ReportsBasic_CActCult_DTO,
     required: true,
   }) 
@@ -146,7 +146,25 @@ export class Control_ActividadCultural_Controller {
   @ErrorHandler()
   reports(@Body() query:ReportsBasic_CActCult_DTO) {
     console.log(query);    
-    return this.controlActcultService.searchReport(query);
+    return this.controlActcultService.get_Finance_Report(query);
+  }
+  
+  //TODO Making Search Endpoint By Query
+  @ApiUnauthorizedCustomErrorResponse()
+  @ApiNotFoundCustomErrorResponse('Control_ActividadCultural')
+  @ApiBody({
+    type: M1_Reports_CActCult_DTO,
+    required: true,
+  }) 
+  @ApiOperation({ summary:'Hacer M1 de AC.',
+    description:'Se hace el M1 .'
+  }) 
+  @ApiCustomErrorResponse()
+  @Post('/m1')
+  @ErrorHandler()
+  m1_reports(@Body() query:M1_Reports_CActCult_DTO) {
+    console.log(query);    
+    return this.controlActcultService.get_M1_Report(query);
   }
 }
 
