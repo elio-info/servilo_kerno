@@ -240,9 +240,7 @@ export class Control_ActividadCultural_Service {
         return requestQuery;
       } catch (error) {
         return error.toString();
-      }
-
-      
+      }     
       
   }
   
@@ -305,26 +303,83 @@ export class Control_ActividadCultural_Service {
       } 
       //#endregion
     //#region Manifes
-    let romperArreglo={ $project: { manifestacion: {$arrayElemAt:["$manifestaciones_artisticas",0]}}};
-    let camposBusqueda_InformeManifestacion={
-        _id:"$manifestacion",
-        cantAct: {$sum: 1},
-       // cant_personas: { $sum: "$edad_asistencia"}
-      } 
-    let query_agg_manifestacion=[
+    let Stage01_unwind_romperArregloTalento={'$unwind': '$talentos'};
+    let Stage02_lookup_camposBusqueda_InformeTalentoManifestacion={
+          'from': 'talento_artistico',
+          'let': { talentoId: { $toObjectId: '$talentos.id' } },
+          'pipeline': [
+            {
+              '$match': {
+                '$expr': { '$eq': ['$_id', '$$talentoId'] }
+              }
+            }
+          ],
+          'as': 'talento_info'
+   }
+   let Stage03_unwind_romperArreglo_TalentoInfo={ '$unwind': '$talento_info' };
+   let Stage04_project_separarPorManifestacion ={ '$project': {
+      '_id': 0, 
+      'manifestacion': {
+        '$arrayElemAt': [
+          '$manifestaciones_artisticas', 0
+        ]
+      }, 
+      'talento': '$talento_info.contrato_talento'
+      }
+    }
+    let Stage05_group_agruparPorManifestacionTalentoCategoria={
+       '$group': {
+      '_id': {
+        'fm': '$manifestacion', 
+        'ct': '$talento'
+      }, 
+      'count': {
+        '$sum': 1
+      }
+      }
+    }
+    let Stage06_lookup_camposBusqueda_InformeManifestacionNombre={'$lookup': {
+      'from': 'nomenclacategorias_contmanifestacion', 
+      'let': {
+        'namId': {
+          '$toObjectId': '$_id.fm'
+        }
+      }, 
+      'pipeline': [
+        {
+          '$match': {
+            '$expr': {
+              '$eq': [
+                '$_id', '$$namId'
+              ]
+            }
+          }
+        }, {
+          '$project': {
+            'name': 1, 
+            '_id': 0
+          }
+        }
+      ], 
+      'as': 'manifest_name'
+    }}
+    let Stage07_unwind_romperArreglo_ManifestacionNombre={ '$unwind': '$manifest_name' };
+    let query_agg_ManifestacionTalento: any[]=[
         // busquedas filtros
         { $match:buscarMatch}   
         ,
-        romperArreglo,
-        // calculos por actCult
-        {
-          $group:camposBusqueda_InformeManifestacion
-        }               
+        Stage01_unwind_romperArregloTalento,
+        Stage02_lookup_camposBusqueda_InformeTalentoManifestacion,
+        Stage03_unwind_romperArreglo_TalentoInfo,
+        Stage04_project_separarPorManifestacion,
+        Stage05_group_agruparPorManifestacionTalentoCategoria,
+        Stage06_lookup_camposBusqueda_InformeManifestacionNombre,
+        Stage07_unwind_romperArreglo_ManifestacionNombre                     
       ]
-      console.log(query_agg_manifestacion);      
+      console.log(query_agg_ManifestacionTalento);      
       try {
-        let requestQuery_IM=await this.cntrl_actvcultMdl.aggregate(query_agg_manifestacion);
-        m1['informe_manifestacion'] = requestQuery_IM;
+        let requestQuery_IMT=await this.cntrl_actvcultMdl.aggregate(query_agg_ManifestacionTalento);
+        m1['informe_manifestacion'] = requestQuery_IMT;
       } catch (error) {
         return error.toString();
       } 
@@ -371,7 +426,6 @@ export class Control_ActividadCultural_Service {
     traza.save()
     return err.toString();
   }
-
   
   }
  
