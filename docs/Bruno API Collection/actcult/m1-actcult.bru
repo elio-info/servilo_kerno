@@ -1,36 +1,28 @@
 meta {
-  name: R-actcult
+  name: m1-actcult
   type: http
-  seq: 5
+  seq: 6
 }
 
 post {
-  url: {{rqs}}report
+  url: {{rqs}}m1
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "dia_actcult": "2026-02-02",
+  "dia_actcult": "2026-02-02",
   "findia_actcult": "2026-03-28",
   //   "finhora_actcult": "20:06",
-    "entidad_responsable": "699ca369160d18276202bb8a",
-  //"dia_actcult": "2026-03-02"//,
-  //  "hora_actcult": "08:00"//,
-  //   "findia_actcult": "29-06-2024",
-  //   "finhora_actcult": "20:06",
-  //   "entidad_responsable": "string",
-  //   "programas_tributa": "string",
-  //   "name": "la",
-  //   "exactName": false//,
+    "entidad_responsable": "699ca369160d18276202bb8a"
   //   "dateAt": "2026-03-17T21:30:07.466Z",
   //   "lugar_planificado": "string",
   //   "ic_planificado": "string",
   //   "cp_planificado": "string",
   //   "ct_planificado": "string",
   //   "edad": "string",
-    "tipoActividad_extraPlan": false//,
+  //   "tipoActividad_extraPlan": false,
   //   "tipoActividad_Prov_Entidad": null,
   //   "estado_actividad": "Planificada",
   //   "TV": false,

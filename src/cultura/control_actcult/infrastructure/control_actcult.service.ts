@@ -305,16 +305,18 @@ export class Control_ActividadCultural_Service {
     //#region Manifes
     let Stage01_unwind_romperArregloTalento={'$unwind': '$talentos'};
     let Stage02_lookup_camposBusqueda_InformeTalentoManifestacion={
+      '$lookup': { 
           'from': 'talento_artistico',
           'let': { talentoId: { $toObjectId: '$talentos.id' } },
           'pipeline': [
             {
               '$match': {
-                '$expr': { '$eq': ['$_id', '$$talentoId'] }
+                '$expr': { '$eq': ['$_id', '$$talentoId'] } 
               }
             }
           ],
           'as': 'talento_info'
+        }
    }
    let Stage03_unwind_romperArreglo_TalentoInfo={ '$unwind': '$talento_info' };
    let Stage04_project_separarPorManifestacion ={ '$project': {
