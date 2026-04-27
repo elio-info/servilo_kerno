@@ -497,7 +497,61 @@ export class Control_ActividadCultural_Service {
         return error.toString();
       } 
       // #endregion
-     return m1;
+     
+      // #region TV
+      let Stage01_group_TV= {
+        $group:
+          /**
+           * _id: The id of the group.
+           * fieldN: The first field name.
+           */
+          {
+            _id: '$TV',
+            cantidad_Actividades: { $sum: 1 }
+          }
+      };
+      let query_agg_TV=[
+        // busquedas filtros
+        { $match:buscarMatch}   
+        ,
+        Stage01_group_TV                     
+      ];
+        console.log(query_agg_TV);      
+      try {
+        let requestQuery_IMTV=await this.cntrl_actvcultMdl.aggregate(query_agg_TV);
+        m1['informacion_tv'] = requestQuery_IMTV;
+      } catch (error) {
+        return error.toString();
+      }
+      // #endregion
+     // #region redes
+      let Stage01_group_Red= {
+        $group:
+          /**
+           * _id: The id of the group.
+           * fieldN: The first field name.
+           */
+          {
+            _id: '$redes_plataforma',
+            cantidad_Actividades: { $sum: 1 }
+          }
+      };
+      let query_agg_Red=[
+        // busquedas filtros
+        { $match:buscarMatch}   
+        ,
+        Stage01_group_Red                     
+      ];
+        console.log(query_agg_Red);      
+      try {
+        let requestQuery_IMred=await this.cntrl_actvcultMdl.aggregate(query_agg_Red);
+        m1['informacion_red'] = requestQuery_IMred;
+      } catch (error) {
+        return error.toString();
+      }
+      // #endregion
+     
+      return m1;
   }
   
   async update( updateControlActcultDto: Update_CActCult_Dto, traza: TrazasService):Promise<Control_ActividadCultural_Entity| string> {
