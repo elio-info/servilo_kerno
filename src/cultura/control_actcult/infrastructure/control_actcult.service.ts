@@ -431,7 +431,72 @@ export class Control_ActividadCultural_Service {
         return error.toString();
       } 
 // #endregion
-    
+    // #region programas priorizados
+    let Stage01_project_cogerPrograma1ro={
+          $project: {
+            _id: 1,
+            pr_ac: {
+              $arrayElemAt: ["$programas_tributa", 0],
+            }
+          }
+        }
+    let Stage02_lookup_relacionProgramaSocial={
+          $lookup: {
+          from: "programasocial",
+          let: {
+            psId: {
+              $toObjectId: "$pr_ac",
+            },
+          },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: ["$_id", "$$psId"],
+                },
+              },
+            },
+          ],
+          as: "prg"
+        }
+      }
+    let Stage03_unwind_romperArregloProSocial= {
+      $unwind: "$prg"
+    } 
+
+    let Stage04_group_AgruparProgPrio={
+      $group:
+        /**
+         * _id: The id of the group.
+         * fieldN: The first field name.
+         */
+        {
+          _id: {
+            pe: "$prg.priorizado",
+            //dd: "$prg.name",
+          },
+          cantidad_Actividades: {
+            $sum: 1,
+          },
+        },
+    }
+    let query_agg_ProgPrio=[
+        // busquedas filtros
+        { $match:buscarMatch}   
+        ,
+        Stage01_project_cogerPrograma1ro,
+        Stage02_lookup_relacionProgramaSocial,
+        Stage03_unwind_romperArregloProSocial,
+        Stage04_group_AgruparProgPrio                     
+      ];
+        console.log(query_agg_ProgPrio);      
+      try {
+        let requestQuery_IMPP=await this.cntrl_actvcultMdl.aggregate(query_agg_ProgPrio);
+        m1['informacion_programas'] = requestQuery_IMPP;
+      } catch (error) {
+        return error.toString();
+      } 
+      // #endregion
      return m1;
   }
   
