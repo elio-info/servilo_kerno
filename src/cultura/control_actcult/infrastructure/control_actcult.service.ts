@@ -253,8 +253,8 @@ export class Control_ActividadCultural_Service {
           estado_actividad: "$estados_actividad.estado_actividad",
           extraPlan: "$tipoActividad_extraPlan",
         },
-        cantAct: {$sum: 1},
-        cant_personas: { $sum: "$edad_asistencia"}
+        cant_Actividades: {$sum: 1},
+        cant_AsistenciaPersonas: { $sum: "$edad_asistencia"}
       }    
     let query_agg_ig=[
         // busquedas filtros
@@ -269,7 +269,7 @@ export class Control_ActividadCultural_Service {
       
       try {
         let requestQuery_IG=await this.cntrl_actvcultMdl.aggregate(query_agg_ig);
-        m1['informe_gral'] = requestQuery_IG;
+        m1['informacion_gral'] = requestQuery_IG;
       } catch (error) {
         return error.toString();
       }
@@ -282,8 +282,8 @@ export class Control_ActividadCultural_Service {
       // #region Etareo
       let camposBusqueda_InformeEtareo={
         _id: '$edad',
-        cantAct: {$sum: 1},
-        cant_personas: { $sum: "$edad_asistencia"}
+        cant_Actividades: {$sum: 1},
+        cant_AsistenciPersonas: { $sum: "$edad_asistencia"}
       }    
       let query_agg_edad=[
         // busquedas filtros
@@ -297,7 +297,7 @@ export class Control_ActividadCultural_Service {
       console.log(query_agg_edad);      
       try {
         let requestQuery_IE=await this.cntrl_actvcultMdl.aggregate(query_agg_edad);
-        m1['informe_edad'] = requestQuery_IE;
+        m1['informacion_grupoetareo'] = requestQuery_IE;
       } catch (error) {
         return error.toString();
       } 
