@@ -332,10 +332,10 @@ export class Control_ActividadCultural_Service {
     let Stage05_group_agruparPorManifestacionTalentoCategoria={
        '$group': {
       '_id': {
-        'fm': '$manifestacion', 
-        'ct': '$talento'
+        'idManifestacion': '$manifestacion', 
+        'contratoTalento': '$talento'
       }, 
-      'count': {
+      'cantidad_Talentos': {
         '$sum': 1
       }
       }
@@ -344,7 +344,7 @@ export class Control_ActividadCultural_Service {
       'from': 'nomenclacategorias_contmanifestacion', 
       'let': {
         'namId': {
-          '$toObjectId': '$_id.fm'
+          '$toObjectId': '$_id.idManifestacion'
         }
       }, 
       'pipeline': [
@@ -363,9 +363,9 @@ export class Control_ActividadCultural_Service {
           }
         }
       ], 
-      'as': 'manifest_name'
+      'as': 'manifestacion_nombre'
     }}
-    let Stage07_unwind_romperArreglo_ManifestacionNombre={ '$unwind': '$manifest_name' };
+    let Stage07_unwind_romperArreglo_ManifestacionNombre={ '$unwind': '$manifestacion_nombre' };
     let query_agg_ManifestacionTalento: any[]=[
         // busquedas filtros
         { $match:buscarMatch}   
@@ -386,7 +386,52 @@ export class Control_ActividadCultural_Service {
         return error.toString();
       } 
 // #endregion
-      
+  
+      //#region Apoyo de Manifes
+    let Stage01_unwind_romperArregloApoyos={'$unwind': '$apoyos'};
+    let Stage02_lookup_camposBusqueda_InformeApoyoNomenclador={
+      '$lookup': { 
+          'from': 'nomenclacategorias_contmanifestacion',
+          'let': { apoyoId: { $toObjectId: '$apoyos.manifest' } },
+          'pipeline': [
+            {
+              '$match': {
+                '$expr': { '$eq': ['$_id', '$$apoyoId'] } 
+              }
+            },
+            {
+              $project: { name: 1 }
+            }
+          ],
+          'as': 'apoyo_info'
+        }
+   }
+   let Stage03_unwind_romperArreglo_ApoyoInfo={ '$unwind': '$apoyo_info' };
+   let Stage04_group_agruparPorApoyoCategoria={
+       '$group': {
+      '_id': {apoyoId:'$apoyo_info._id', apoyoNombre:'$apoyo_info.name'}, 
+      'cantidad_ActividadesApoyo': {'$sum': 1  },
+      'cantidad_APagar': {$sum: "$apoyos.cantidad"}
+      }
+    }
+    let query_agg_Apoyo=[
+        // busquedas filtros
+        { $match:buscarMatch}   
+        ,
+        Stage01_unwind_romperArregloApoyos,
+        Stage02_lookup_camposBusqueda_InformeApoyoNomenclador,
+        Stage03_unwind_romperArreglo_ApoyoInfo,
+        Stage04_group_agruparPorApoyoCategoria                     
+      ]
+      console.log(query_agg_Apoyo);      
+      try {
+        let requestQuery_IMA=await this.cntrl_actvcultMdl.aggregate(query_agg_Apoyo);
+        m1['informacion_apoyomanifestacion'] = requestQuery_IMA;
+      } catch (error) {
+        return error.toString();
+      } 
+// #endregion
+    
      return m1;
   }
   
