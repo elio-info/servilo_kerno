@@ -472,7 +472,7 @@ export class Control_ActividadCultural_Service {
          */
         {
           _id: {
-            pe: "$prg.priorizado",
+            programapriorizado: "$prg.priorizado",
             //dd: "$prg.name",
           },
           cantidad_Actividades: {
