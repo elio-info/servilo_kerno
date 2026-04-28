@@ -27,7 +27,7 @@ export class CreateCategorieDto {
 }
 
 export class API_Struct_DTO{
-  @IsEnum(['G','P','D'])
+  @IsEnum(['Post', 'Delete' , 'Put', 'Get' , 'Patch'])
   nameAPI: string;//post,get,put,etc
 
   @IsString()

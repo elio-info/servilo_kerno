@@ -67,5 +67,6 @@ export enum Clasifica_Nivel_EntidadCultural{
     Prov = "Nivel Provincial" ,  
     Mnpl = "Nivel Municipal " ,   
     Ncnl = "Nivel Nacional " ,
+    Inst = "Nivel Institucion Municipal " ,
     Otra = "Otra Institución" //ejemplo Domicilio
 }
