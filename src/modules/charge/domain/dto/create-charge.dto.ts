@@ -20,8 +20,9 @@ export class CreateChargeDto {
   @IsNotEmpty({message:'no vacio'})
   access: Categorie_Entity[]
 
-  @IsArray({message:'no vacio'})
-  @IsNotEmpty({message:'no vacio'})
+  @IsArray()
+  @ApiProperty({default:[]})
+  // @IsNotEmpty({message:'no vacio'})
   @IsRelationShipWith(EntityModel)  
   subord: ObjectId[]
 }

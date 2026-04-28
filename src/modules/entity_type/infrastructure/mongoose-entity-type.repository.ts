@@ -111,7 +111,7 @@ export class MongooseEntityTypeRepository implements EntityTypeRepository {
       let error=new ObjectCanNotDeleted(this.MODULE,mnc) ;
       traza.trazaDTO.error= error ;
       traza.save();
-      return error.toString();
+      return traza.terror();
     } else {
       // no tienes hijos no te borras 
       traza.trazaDTO.filter= { isDeleted: true };    
@@ -133,7 +133,7 @@ export class MongooseEntityTypeRepository implements EntityTypeRepository {
         } catch (error) {
           traza.trazaDTO.error= error ;
           traza.save();
-          return traza.trazaDTO.error.toString();
+          return traza.terror();
         }// end try            
     }//end if check childs    
   } 

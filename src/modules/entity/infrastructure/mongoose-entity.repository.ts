@@ -75,7 +75,7 @@ private  cstvldt: IsRelationshipProvider;
 
     let crt_dual=await SearchDuplicate_KeysValue(this.MODULE,this.entityModel,['name','municipality'],[entity.name,entity.municipality],traza)
     if (crt_dual.trazaDTO.error!='Ok') {
-      return crt_dual.trazaDTO.error.toString();
+      return crt_dual.terror();
     }
     console.log('paso SearchKey');
     
@@ -87,7 +87,7 @@ private  cstvldt: IsRelationshipProvider;
       traza.save();
       console.log('save ',ent);
       
-      return extractEntity(ent);
+      return this.findOne(ent['_id'].toString());
     } catch (error) {
         console.log('error salva',error);          
         let err=new Error('Problema al crear '+entity.name)
@@ -129,7 +129,7 @@ private  cstvldt: IsRelationshipProvider;
       })
       .populate(this.POPULATE_PATH.municipality)
       .populate(this.POPULATE_PATH.entityType)
-      //.populate('parentId')
+      // .populate('parentId')
       .populate(this.POPULATE_PATH.consejo_p);
       traza.trazaDTO.update=upd;      
       traza.trazaDTO.error='Ok';

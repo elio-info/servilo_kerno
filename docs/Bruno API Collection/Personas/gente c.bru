@@ -1,0 +1,26 @@
+meta {
+  name: gente c
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3300/cult/talentos
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nombre_Talento_Artistico": "Aurelio Audio",
+    "manifest_esp": "69b7a80970c40a42b3f4482b",//audio
+    "persona_Talento_Artistico": false,
+    "contrato_talento": "TCP"
+    //,"entidad_talento": "666c39bd57d4be9254cb5741"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

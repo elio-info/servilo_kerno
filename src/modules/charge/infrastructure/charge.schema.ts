@@ -18,8 +18,8 @@ export class ChargeModel {
   @Prop({ required: true, type: [ Categorie_Entity ] })
   access: Categorie_Entity[];
 
-  @Prop({ required: true, type: [{type: Types.ObjectId, ref: EntityModel.name}] })
-  subord: string[];
+  @Prop({ required: false, type: [{type: Types.ObjectId, ref: EntityModel.name}] })
+  subord: string[]=[];
 
 
   @Prop({ default: false, select: false || true })
