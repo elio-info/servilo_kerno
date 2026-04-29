@@ -164,7 +164,7 @@ private IS_NOT_DELETED = { isDeleted: false };
   async byUserName(username: string): Promise<PersonAuth> {
     const document = await this.personModel
       .findOne({ username, ...this.IS_NOT_DELETED })
-      .select('_id username hashPassword salt isActive role')
+      .select('_id username hashPassword salt isActive role charge')
       .exec();
 
     if (!document) {

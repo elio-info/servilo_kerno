@@ -67,6 +67,11 @@ export class AuthController {
   @Post('change-pass')
   @ErrorHandler()
   changePassword(@CurrentUser() user, @Body() data: ChangePassDto) {
+    console.log('change pss');
+    
+    console.log('current', user);
+    console.log('data', data);
+        
     return this.authService.changePassword(
       user,
       data.oldPassword,

@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -9,6 +10,10 @@ import { compare } from '../common/helpers/password.hasher';
 import { hashPassword as hash } from 'src/modules/common/helpers/password.hasher';
 import { PersonAuth } from './domain/person-auth.entity';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { Person } from '../person/domain/entities/person.entity';
+import { UpdatePersonDto } from '../person/domain/dto/update-person.dto';
+import { PersonRepository } from '../person/domain/repository/person.repository';
+import { MongoosePersonRepository } from '../person/infrastructure/mongoose-person.repository';
 
 @Injectable()
 export class AuthService  {
@@ -17,6 +22,8 @@ export class AuthService  {
 
   constructor(
     private personService: PersonService,
+    @Inject(MongoosePersonRepository)
+        private personRepository: PersonRepository,
     private jwtService: JwtService,
     private traz:TrazasService
   ) {
@@ -60,7 +67,7 @@ export class AuthService  {
           this.traz.trazaDTO.error=nopasa
           this.traz.save();
           // this.traz.create(this.traz.trazaDTO);
-          throw nopasa
+          return nopasa.toString();
       }
     }
    else  //--------------------------------------------------
@@ -74,7 +81,7 @@ export class AuthService  {
        this.traz.traza_error('The user can not be found')
           this.traz.save();
           // this.traz.create(this.traz.trazaDTO);
-          throw nopasa
+          return nopasa.toString();
     }
     
     const isMatch = await compare(pass, user.hashPassword);
@@ -84,7 +91,7 @@ export class AuthService  {
       this.traz.traza_error(nopasa.name,nopasa.message,'Password no match')
       this.traz.save();
     //this.traz.create(this.traz.trazaDTO);
-      throw nopasa
+      return this.traz.terror();
     }
     this.traz.trazaDTO.user=user;// += ' ['+ user.rol+']';
     this.traz.save();
@@ -109,6 +116,7 @@ export class AuthService  {
           nivel_ent:data_ret.entity.entityType,//.hierarchy,
           name_ent:data_ret.entity.name
         },
+      charge:data_ret.charge  
      // tiempoExpiraToken:Date.now()+ 3600
     // const entidad_ertenece={id:user.entity_id}
 
@@ -134,6 +142,7 @@ export class AuthService  {
           nivel_ent:data_ret.entity.entityType,//.hierarchy
           name_ent:data_ret.entity.name
         },
+      charge:data_ret.charge
      // tiempoExpiraToken:Date.now()+ 3600
     // const entidad_ertenece={id:user.entity_id}
 
@@ -141,30 +150,42 @@ export class AuthService  {
     return prsn
   }
 
-  async changePassword(user, oldPassword, newPassword): Promise<void> {
+// , oldPassword
+  async changePassword(user, oldPassword,newPassword): Promise<Person|string> {
     console.log(`u:${user.username}`);
     this.traz.trazaDTO.user=user.username +' ['+ user.rol+']';
     this.traz.trazaDTO.error='ok';      
-    this.traz.trazaDTO.operation='changePassword'
-    let oldpss= new TextEncoder().encode (oldPassword),
-        newpss= new TextEncoder().encode (newPassword);
+    this.traz.trazaDTO.operation='changePassword';
+    
+    const userRec: PersonAuth = await this.personService.byUserName(   user.username    );
+    
+    let oldpss= userRec.hashPassword,
+        newTestpss=await hash(oldPassword) ,
+        newpss= await hash(newPassword);
+
     this.traz.trazaDTO.filter={'username': user.username, 'oldPsswrd': oldpss, 'nwPsswrd':newpss }   ;
 
-    const userRec: PersonAuth = await this.personService.byUserName(
-      user.username,
-    );
-    if (await compare(oldPassword, userRec.hashPassword)) {
-      let nw= await this.personService.update(userRec.sub, {
-        hashPassword: await hash(newPassword),
-      });
-      this.traz.trazaDTO.before=userRec;
-      this.traz.trazaDTO.update=nw;
+     if (! await compare(oldpss, newTestpss)) {//diferencia entre llaves vieja y residente
+      this.traz.trazaDTO.error=new Error('No se reconocen las llaves.');
+      this.traz.trazaDTO.before='';
+      this.traz.trazaDTO.update='';
       this.traz.save();
-    } else {
-      let nopasa=new BadRequestException('Password did not Match!!!');
-      this.traz.traza_error(nopasa.name,nopasa.message,nopasa.cause.toString())
-      throw nopasa
+      return this.traz.terror();
     }
+
+     if (! await compare(oldpss, newpss)) {//igualdad entre llaves residente y nueva
+      this.traz.trazaDTO.error=new Error('No se guradan las mismas llaves.');
+      this.traz.trazaDTO.before='';
+      this.traz.trazaDTO.update='';
+      this.traz.save();
+      return this.traz.terror();
+    }
+
+    let upd=new UpdatePersonDto();
+      upd.id=userRec.sub;
+      upd.hashPassword=newpss;
+      let nw= await this.personRepository.update(upd, this.traz);
+     return nw;
   }
 
   private async makeToken(user: PersonAuth) {

@@ -44,6 +44,7 @@ export class PersonService {
   async update( updatePersonDto: UpdatePersonDto, tkhds:string): Promise<Person|string> {
     if (updatePersonDto.password) {
       updatePersonDto.hashPassword = await hash(updatePersonDto.password);
+      delete updatePersonDto['password'];
     }
     this.traza.trazaDTO.user=getUserHTTP_JWTS (tkhds);
     this.traza.trazaDTO.operation='update';
