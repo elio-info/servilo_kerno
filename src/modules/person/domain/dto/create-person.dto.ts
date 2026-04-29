@@ -3,9 +3,11 @@ import {
   IsBoolean,
   IsDefined,
   IsEmail,
+  isEnum,
   IsEnum,
   IsNotEmpty,
   IsNumberString,
+  IsObject,
   IsOptional,
   IsPhoneNumber,
   IsString,
@@ -15,6 +17,8 @@ import {
   NotEquals,
   ValidateIf,
 } from 'class-validator';
+import { Charge_Entity } from 'src/modules/charge/domain/entities/charge.entity';
+import { ChargeModel } from 'src/modules/charge/infrastructure/charge.schema';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { EntityModel } from 'src/modules/entity/infrastructure/entity.schema';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
@@ -43,9 +47,9 @@ export class CreatePersonDto {
   @IsEmail()
   email: string;
 
-  @IsString()
+  @IsEnum(['Blanco', 'Negro', 'Mestizo', 'Amarillo'])
   @IsOptional()
-  skinColor: string;
+  skinColor: string='Mestizo';
 
   @IsPhoneNumber()
   @IsOptional()
@@ -75,19 +79,24 @@ export class CreatePersonDto {
   @IsStrongPassword()
   password: string;
 
-  
   @IsString()
   @IsRelationShipWith(MunicipalityModel)
   @IsNotEmpty()
   municipality: string;
 
+  @IsObject()
+  // @IsRelationShipWith(ChargeModel)
+  @IsNotEmpty()
+  charge: Charge_Entity;
+
   @IsOptional()
   @IsRelationShipWith(EntityModel)
   entity: string;
 
-  @IsEnum(['ADMIN'])
+  @IsEnum(['ADMIN','IM'])
   @IsNotEmpty()
   role: string;
+  
 
   @ApiHideProperty()
   hashPassword: string;

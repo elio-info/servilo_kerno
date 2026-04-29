@@ -11,6 +11,7 @@ import {
   UploadedFile,
   UseInterceptors,
   UsePipes,
+  Headers
 } from '@nestjs/common';
 import { ErrorHandler } from 'src/modules/common/errors/handler/error-handler.decorator';
 import { PersonService } from '../application/person.service';
@@ -42,6 +43,7 @@ import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchPersonDto } from '../domain/dto/seatch-person.dto';
 import { plainToClass } from 'class-transformer';
 import { SanitizePipe } from 'src/modules/common/pipes/Sanitize.pipe';
+import { RemovePersonDto } from '../domain/dto/remove-person.dto';
 
 @ApiTags(`person`)
 @ApiHeader({
@@ -64,8 +66,8 @@ export class PersonController {
   @ApiCustomErrorResponse()
   @Post()
   @ErrorHandler()
-  create(@Body() createPersonDto: CreatePersonDto) {
-    return this.service.create(createPersonDto);
+  create(@Body() createPersonDto: CreatePersonDto, @Headers('authorization') hds) {
+    return this.service.create(createPersonDto, hds);
   }
 
   @ApiQuery({
@@ -118,28 +120,28 @@ export class PersonController {
   @ApiNotFoundCustomErrorResponse('Person')
   @ApiBody({
     description: 'Send only the fields that you want to modify',
-    type: CreatePersonDto,
+    type: UpdatePersonDto,
   })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  @ApiBody({ type:UpdatePersonDto })
+  @Patch()
   @ErrorHandler()
   update(
-    @Param('id') id: string,
-    @Body(SanitizePipe) updatePersonDto: UpdatePersonDto,
+    @Body() updatePersonDto: UpdatePersonDto,
+    @Headers('authorization') hds
   ) {
-    const user = plainToClass(CreatePersonDto, updatePersonDto);
-    return this.service.update(id, user);
+    // const user = plainToClass(CreatePersonDto, updatePersonDto);
+    return this.service.update( updatePersonDto, hds);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Persons')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The person successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @ApiBody({ type: RemovePersonDto })
+  @Delete()
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.service.remove(id);
+  remove(@Body() user: RemovePersonDto,@Headers('authorization') hds) {
+    return this.service.remove(user, hds);
   }
 
   @ApiConsumes('multipart/form-data')

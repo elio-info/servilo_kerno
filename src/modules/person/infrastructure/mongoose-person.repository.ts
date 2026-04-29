@@ -10,12 +10,14 @@ import { PersonDocument, PersonModel } from './person.schema';
 import { CreatePersonDto } from '../domain/dto/create-person.dto';
 import { UpdatePersonDto } from '../domain/dto/update-person.dto';
 import { InactiveUser } from '../../domain/errors/user-no-active.error';
-import { DuplicatedValueError } from 'src/modules/common/errors/duplicated-value.error';
+import { DuplicatedValueError, SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import { extractEntity, extractMunicipality } from '../../common/extractors';
 import { PersonAuth } from 'src/modules/auth/domain/person-auth.entity';
 import { validateId } from 'src/modules/common/helpers/id-validator';
 import { UserNotFound } from 'src/modules/domain/errors/user-not-found.error';
 import { Entity_Entity } from 'src/modules/entity/domain/entities/entity.entity';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { RemovePersonDto } from '../domain/dto/remove-person.dto';
 
 @Injectable()
 export class MongoosePersonRepository implements PersonRepository {
@@ -62,15 +64,21 @@ private IS_NOT_DELETED = { isDeleted: false };
     return dataList;
   }
 
-  async create(person: CreatePersonDto): Promise<void> {
-    validateId(person.municipality, 'municipality');
+  async create(person: CreatePersonDto, traza:TrazasService): Promise<Person|string> {
+    let crt_p=await SearchDuplicate_KeysValue(this.MODULE,this.personModel,['username'],[person.username],traza);
+    if (crt_p.trazaDTO.error!='Ok') {
+      return crt_p.terror();
+    }
     try {
-      await new this.personModel(person).save();
+     let p= await new this.personModel(person).save();
+     
+      traza.trazaDTO.update=p;
+      traza.trazaDTO.before=''
+      traza.trazaDTO.error='Ok';
+      traza.save();      
+     return this.toEntity (p);
     } catch (error) {
-       if (error instanceof Error)
-          throw new DuplicatedValueError(error.message);
-
-        throw error;
+         return error.toString();      
     }
   }
 
@@ -90,15 +98,14 @@ private IS_NOT_DELETED = { isDeleted: false };
     return this.toEntity(person);
   }
 
-  async update(id: string, person: UpdatePersonDto): Promise<Person> {
-    validateId(id, this.MODULE);
-
-    if (person.municipality) {
-      validateId(person.municipality, 'municipality');
-    }
+  async update( person: UpdatePersonDto, traza:TrazasService): Promise<Person|string > {
+   
+    let bf=await this.findOne(person.id);
+    traza.trazaDTO.before=bf;
+    
     try {
       const document = await this.personModel
-        .findOneAndUpdate({ _id: id, ...this.IS_NOT_DELETED }, person, {
+        .findOneAndUpdate({ _id: person.id, ...this.IS_NOT_DELETED }, person, {
           new: true,
           populate: { path: 'municipality', populate: { path: 'province' } },
         })
@@ -106,32 +113,52 @@ private IS_NOT_DELETED = { isDeleted: false };
         .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
         .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
 
-      if (!document) {
-        throw new ObjectNotFound(this.MODULE);
-      }
-
-      return this.toEntity(document);
-    } catch (e) {
-       if (e instanceof Error)
-          throw new DuplicatedValueError(e.message);
         
-        throw e;
+              traza.trazaDTO.update=document;
+              traza.trazaDTO.error='Ok';
+              traza.save();      
+     
+      return this.toEntity(document);
+    } catch (e) {      
+        traza.trazaDTO.update='';
+        traza.trazaDTO.error=e;
+        traza.save();      
+        
+        return e.toString();
     }
   }
 
-  async remove(id: string): Promise<void> {
-    validateId(id, this.MODULE);
+  async remove(person: RemovePersonDto, traza:TrazasService): Promise<Person|string> {
+  
+    let bf=await this.findOne(person.id);
+    traza.trazaDTO.before=bf;
 
-    const document = await this.personModel.findOneAndUpdate(
-      { _id: id, isDeleted: false },
+    try {
+       const document = await this.personModel.findOneAndUpdate(
+      { _id: person.id, isDeleted: false },
       {
         isDeleted: true,
       },
-    );
+    )
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
+        .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
 
-    if (!document) {
-      throw new ObjectNotFound(this.MODULE);
-    }
+        
+              traza.trazaDTO.update=document;
+              traza.trazaDTO.error='Ok';
+              traza.save();      
+     
+      return this.toEntity(document);
+    
+    } catch (error) {
+       traza.trazaDTO.update='';
+        traza.trazaDTO.error=error;
+        traza.save();      
+        
+        return error.toString();
+    }   
+
   }
 
   async byUserName(username: string): Promise<PersonAuth> {

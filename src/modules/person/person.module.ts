@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PersonService } from './application/person.service';
 import { MongoosePersonRepository } from './infrastructure/mongoose-person.repository';
 import { PersonController } from './infrastructure/person.controller';
+import { TrazasModule } from 'src/cultura/trazas/trazas.module';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Module({
   imports: [
@@ -13,10 +15,11 @@ import { PersonController } from './infrastructure/person.controller';
       { name: PersonModel.name, schema: PersonSchema },
     ]),
     ErrorModule,
+    TrazasModule,
     MunicipalityModel,
   ],
   controllers: [PersonController],
-  providers: [PersonService, MongoosePersonRepository],
+  providers: [PersonService, MongoosePersonRepository, TrazasService],
   exports: [PersonService],
 })
 export class PersonModule {}
