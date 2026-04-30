@@ -9,6 +9,8 @@ import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { TrazasModule } from 'src/cultura/trazas/trazas.module';
+import { PersonService } from '../person/application/person.service';
+import { MongoosePersonRepository } from '../person/infrastructure/mongoose-person.repository';
 
 // Cargar certificados - REQUERIDOS
 // Usar process.cwd() para que funcione tanto en Docker como en desarrollo local
@@ -76,13 +78,13 @@ try {
       inject: [ConfigService],
     }),
     //mio
-    TrazasModule,
+    TrazasModule, 
    
   ],
   providers: [
     AuthService,
     // mio
-    TrazasService
+    TrazasService,
   ],
   controllers: [AuthController],
   exports: [AuthService],

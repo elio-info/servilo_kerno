@@ -5,18 +5,78 @@ meta {
 }
 
 post {
-  url: http://localhost:3300/cult/talentos
+  url: {{rqs}}
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "nombre_Talento_Artistico": "Aurelio Audio",
-    "manifest_esp": "69b7a80970c40a42b3f4482b",//audio
-    "persona_Talento_Artistico": false,
-    "contrato_talento": "TCP"
-    //,"entidad_talento": "666c39bd57d4be9254cb5741"
+       "name": "la perra de Perico ip1",
+        "ci": "12345678902",
+        "email": "p1@p.com",
+        "skinColor": "Amarillo",
+        "isActive": true,
+        "username": "ip1",     
+        "role": "IM",
+    "password":"Qwerty.123456",
+        "entity": "699d00588d37785b50b32fae",//inst cult munc pinar
+        "municipality": "67b8abc8d25b39fdef54409c",
+         "charge": {
+              "id": "69f141873a022ac51ce12337",
+              "name": "pinar 01",
+              "entity": "699d00588d37785b50b32fae",
+        "access": [
+          {
+            "id": "69f12fdff6789d87397733b5",
+            "name": "Actividad Cultural",
+            "nameTitle": "Controlar Actividades Culturales",
+            "link": "/control-actcult",
+            "access_point": [
+              {
+                "nameAPI": "Post",
+                "linkAPI": "/",
+                "nameMenuTitle": "Adicionar",
+                "isActive": true
+              },
+              {
+                "nameAPI": "Get",
+                "linkAPI": "/",
+                "nameMenuTitle": "Devolver todos",
+                "isActive": true
+              },
+              {
+                "nameAPI": "Get",
+                "linkAPI": "/id",
+                "nameMenuTitle": "Ver seleccionado",
+                "isActive": true
+              },
+              {
+                "nameAPI": "Patch",
+                "linkAPI": "/",
+                "nameMenuTitle": "Actualizar seleccionado",
+                "isActive": false
+              },
+              {
+                "nameAPI": "Delete",
+                "linkAPI": "/",
+                "nameMenuTitle": "Eliminar seleccionado",
+                "isActive": false
+              },
+              {
+                "nameAPI": "Put",
+                "linkAPI": "/",
+                "nameMenuTitle": "Buscar",
+                "isActive": true
+              }
+            ]
+          }
+        ],
+        "subord": [
+          "69f137c4ee33ae67f7ce411c",
+          "69f13cb63a022ac51ce12301"
+        ]
+      } 
   }
 }
 

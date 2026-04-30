@@ -14,6 +14,8 @@ import { Person } from '../person/domain/entities/person.entity';
 import { UpdatePersonDto } from '../person/domain/dto/update-person.dto';
 import { PersonRepository } from '../person/domain/repository/person.repository';
 import { MongoosePersonRepository } from '../person/infrastructure/mongoose-person.repository';
+import { exit } from 'process';
+import { getUserHTTP_JWTS } from '../common/extractors';
 
 @Injectable()
 export class AuthService  {
@@ -21,9 +23,7 @@ export class AuthService  {
   // private trazaDTO:CreateTrazaDto
 
   constructor(
-    private personService: PersonService,
-    @Inject(MongoosePersonRepository)
-        private personRepository: PersonRepository,
+    private personService: PersonService,    
     private jwtService: JwtService,
     private traz:TrazasService
   ) {
@@ -152,29 +152,43 @@ export class AuthService  {
 
 // , oldPassword
   async changePassword(user, oldPassword,newPassword): Promise<Person|string> {
-    console.log(`u:${user.username}`);
-    this.traz.trazaDTO.user=user.username +' ['+ user.rol+']';
-    this.traz.trazaDTO.error='ok';      
-    this.traz.trazaDTO.operation='changePassword';
+    console.log(`autho:${user}`);
+    let uss=getUserHTTP_JWTS(user);
+    console.log('uss',uss);
     
-    const userRec: PersonAuth = await this.personService.byUserName(   user.username    );
+    this.traz.trazaDTO.user=uss;
+    this.traz.trazaDTO.error='Ok';      
+    this.traz.trazaDTO.operation='Try change Password';
+    
+    const userRec = await this.personService.byUserName( uss['username'] );
+
+    console.log('rec',userRec);
+    
     
     let oldpss= userRec.hashPassword,
         newTestpss=await hash(oldPassword) ,
         newpss= await hash(newPassword);
+console.log(oldpss,newTestpss,newpss);
 
     this.traz.trazaDTO.filter={'username': user.username, 'oldPsswrd': oldpss, 'nwPsswrd':newpss }   ;
 
-     if (! await compare(oldpss, newTestpss)) {//diferencia entre llaves vieja y residente
-      this.traz.trazaDTO.error=new Error('No se reconocen las llaves.');
+    let validad_vieja_Residente=await compare(oldPassword, oldpss);
+    console.log('vieja y residente',validad_vieja_Residente);
+    
+     if (! validad_vieja_Residente) {//diferencia entre llaves vieja y residente
+      this.traz.trazaDTO.error='No se reconocen las llaves.';
       this.traz.trazaDTO.before='';
       this.traz.trazaDTO.update='';
       this.traz.save();
       return this.traz.terror();
     }
-
-     if (! await compare(oldpss, newpss)) {//igualdad entre llaves residente y nueva
-      this.traz.trazaDTO.error=new Error('No se guradan las mismas llaves.');
+    
+  let validad_vieja_new=await compare(newPassword, oldpss);
+      console.log('nueva y residente',validad_vieja_new);
+      
+    
+     if ( validad_vieja_new) {//igualdad entre llaves residente y nueva
+      this.traz.trazaDTO.error='No se guardan las mismas llaves.';
       this.traz.trazaDTO.before='';
       this.traz.trazaDTO.update='';
       this.traz.save();
@@ -184,7 +198,7 @@ export class AuthService  {
     let upd=new UpdatePersonDto();
       upd.id=userRec.sub;
       upd.hashPassword=newpss;
-      let nw= await this.personRepository.update(upd, this.traz);
+      let nw= await this.personService.update(upd, user);
      return nw;
   }
 

@@ -66,14 +66,14 @@ export class AuthController {
   @ApiBearerAuth()
   @Post('change-pass')
   @ErrorHandler()
-  changePassword(@CurrentUser() user, @Body() data: ChangePassDto) {
+  changePassword(@Headers('authorization') hds, @Body() data: ChangePassDto) {
     console.log('change pss');
     
-    console.log('current', user);
+    console.log('current', hds);
     console.log('data', data);
         
     return this.authService.changePassword(
-      user,
+      hds,
       data.oldPassword,
       data.newPassword,
     );
