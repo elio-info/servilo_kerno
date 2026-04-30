@@ -50,10 +50,12 @@ private IS_NOT_DELETED = { isDeleted: false };
         .populate(this.POPULATE_PATH)
         .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
         .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
-        .populate({ path: 'entity', populate: this.ENTITY_PATH.place })
+        // .populate({ path: 'entity', populate: this.ENTITY_PATH.place })
         .exec(),
       this.personModel.countDocuments(this.IS_NOT_DELETED).exec(),
     ]);
+    console.log(persons);
+    
     const personCollection = persons.map((person) => this.toEntity(person));
 
     const dataList: DataList<Person> = {
@@ -91,7 +93,7 @@ private IS_NOT_DELETED = { isDeleted: false };
       .populate(this.POPULATE_PATH)
       .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
       .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
-      .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
+    //  .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
     if (!person) {
       throw new ObjectNotFound(this.MODULE);
     }
@@ -111,7 +113,7 @@ private IS_NOT_DELETED = { isDeleted: false };
         })
         .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
         .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
-        .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
+      //  .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
 
         
               traza.trazaDTO.update=document;
@@ -142,7 +144,7 @@ private IS_NOT_DELETED = { isDeleted: false };
     )
         .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
         .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
-        .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
+      //  .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
 
         
               traza.trazaDTO.update=document;
@@ -188,7 +190,7 @@ private IS_NOT_DELETED = { isDeleted: false };
       .populate({ path: 'municipality', populate: { path: 'province' } })
       .populate({ path: 'entity', populate: this.ENTITY_PATH.entityType })
       .populate({ path: 'entity', populate: this.ENTITY_PATH.municipality })
-      .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
+    //  .populate({ path: 'entity', populate: this.ENTITY_PATH.place });
     const personCollection = persons.map((person) => this.toEntity(person));
     return personCollection;
   }

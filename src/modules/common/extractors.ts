@@ -74,7 +74,7 @@ export function extractPlace(place: PlaceModel): Place {
   
 }
 
-export function extractEntity(entityMdl: EntityModel): Entity_Entity {
+export function extractEntity(entityMdl: EntityModel): Entity_Entity| null {
   if (!entityMdl) return null;
   return {
     id: entityMdl._id.toString(),
