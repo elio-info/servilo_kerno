@@ -1,0 +1,109 @@
+name: Deploy to VPS
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch a deployar"
+        required: true
+        default: "main"
+      environment:
+        description: "Entorno destino"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    name: Build & Push imagen Docker
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
+      image_digest: ${{ steps.build.outputs.digest }}
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Login a GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extraer metadata de la imagen
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=sha-
+
+      - name: Build y push imagen
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          target: production
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          cache-to: type=inline
+
+  deploy:
+    name: Deploy en VPS
+    runs-on: ubuntu-latest
+    needs: build-and-push
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            set -e
+
+            PROJECT_DIR="${{ secrets.VPS_PROJECT_PATH }}"
+            echo "==> Navegando al proyecto: $PROJECT_DIR"
+            cd "$PROJECT_DIR"
+
+            echo "==> Actualizando docker-compose.yml..."
+            git fetch origin
+            git checkout ${{ github.event.inputs.branch }}
+            git pull origin ${{ github.event.inputs.branch }}
+
+            echo "==> Login a GitHub Container Registry..."
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            echo "==> Descargando imagen pre-construida..."
+            docker compose pull app
+
+            echo "==> Levantando servicios..."
+            docker compose up -d --no-build
+
+            echo "==> Limpiando imágenes antiguas..."
+            docker image prune -f
+
+            echo "==> Estado de contenedores:"
+            docker compose ps
+
+            echo "✓ Deploy completado exitosamente"

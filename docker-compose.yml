@@ -1,33 +1,45 @@
 services:
+  mongodb:
+    image: mongo:7.0
+    container_name: servilo_kerno_mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - servilo_kerno_network
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
   app:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-      target: production
+    image: ghcr.io/elio-info/servilo_kerno:latest
     container_name: servilo_kerno
     restart: unless-stopped
-    # Variables de entorno: se cargan desde el archivo .env en la raíz del proyecto
     env_file:
       - .env
     ports:
       - "${PORT:-3300}:3300"
+    depends_on:
+      mongodb:
+        condition: service_healthy
     networks:
       - servilo_kerno_network
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/cult/app/hell', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3300/cult/app/hell', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
-    # Volúmenes
     volumes:
-      # Logs (opcional)
       - ./logs:/app/logs
-      # Certificados JWT: monta la carpeta cert/ del host al contenedor
-      # Coloca tus archivos key.pem y public.pem en ./cert/ en tu máquina
-      # El volumen monta ./cert (host) -> /app/cert (contenedor)
       - ./cert:/app/cert:ro
-    # Límites de recursos (opcional)
     deploy:
       resources:
         limits:
@@ -36,6 +48,9 @@ services:
         reservations:
           cpus: '0.5'
           memory: 512M
+
+volumes:
+  mongo_data:
 
 networks:
   servilo_kerno_network:
