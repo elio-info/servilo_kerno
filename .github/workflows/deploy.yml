@@ -15,10 +15,15 @@ on:
         options:
           - production
           - staging
+      skip_build:
+        description: "Saltar build y usar imagen existente"
+        required: false
+        default: false
+        type: boolean
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: elio-info/servilo_kerno
 
 jobs:
   build-and-push:
@@ -27,10 +32,9 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     outputs:
-      image_tag: ${{ steps.meta.outputs.tags }}
-      image_digest: ${{ steps.build.outputs.digest }}
+      tag: ${{ steps.image-tag.outputs.tag }}
+      image: ${{ steps.image-tag.outputs.image }}
 
     steps:
       - name: Checkout código
@@ -43,8 +47,17 @@ jobs:
         run: |
           git sparse-checkout disable 2>/dev/null || true
           git checkout HEAD -- .
-          echo "Archivos en workspace:"
-          ls -la
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generar package-lock.json
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Login a GitHub Container Registry
         uses: docker/login-action@v3
@@ -53,7 +66,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extraer metadata de la imagen
+      - name: Extraer metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -62,19 +75,8 @@ jobs:
             type=raw,value=latest
             type=sha,prefix=sha-
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.12'
-
-      - name: Generar package-lock.json
-        run: npm install --package-lock-only --ignore-scripts
-
-      - name: Configurar Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Build y push imagen
-        id: build
+        if: ${{ !inputs.skip_build }}
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -83,8 +85,15 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          cache-to: type=inline
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+
+      - name: Set image tag output
+        id: image-tag
+        run: |
+          echo "tag=latest" >> $GITHUB_OUTPUT
+          echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_OUTPUT
 
   deploy:
     name: Deploy en VPS
@@ -92,38 +101,57 @@ jobs:
     needs: build-and-push
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.2.0
+      - name: Checkout código
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Agregar VPS a known_hosts
+        run: |
+          ssh-keyscan -p ${{ secrets.VPS_PORT || 22 }} ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Copiar archivos al VPS
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT || 22 }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          source: "docker-compose.yml,scripts/"
+          target: ${{ secrets.VPS_PROJECT_PATH }}
+          strip_components: 0
+          overwrite: true
+
+      - name: Deploy en VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
           port: ${{ secrets.VPS_PORT || 22 }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            set -e
+            cd ${{ secrets.VPS_PROJECT_PATH }}
+            export REGISTRY="${{ env.REGISTRY }}"
+            export IMAGE_NAME="${{ env.IMAGE_NAME }}"
+            export IMAGE_TAG="${{ needs.build-and-push.outputs.tag || 'latest' }}"
+            export GITHUB_ACTOR="${{ github.actor }}"
+            export GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+            chmod +x scripts/deploy-vps.sh
+            ./scripts/deploy-vps.sh
 
-            PROJECT_DIR="${{ secrets.VPS_PROJECT_PATH }}"
-            echo "==> Navegando al proyecto: $PROJECT_DIR"
-            cd "$PROJECT_DIR"
-
-            echo "==> Actualizando docker-compose.yml..."
-            git fetch origin
-            git checkout ${{ github.event.inputs.branch }}
-            git pull origin ${{ github.event.inputs.branch }}
-
-            echo "==> Login a GitHub Container Registry..."
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-            echo "==> Descargando imagen pre-construida..."
-            docker compose pull app
-
-            echo "==> Levantando servicios..."
-            docker compose up -d --no-build
-
-            echo "==> Limpiando imágenes antiguas..."
-            docker image prune -f
-
-            echo "==> Estado de contenedores:"
+      - name: Verificar deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd ${{ secrets.VPS_PROJECT_PATH }}
             docker compose ps
-
-            echo "✓ Deploy completado exitosamente"
+            docker compose logs --tail=30 app
