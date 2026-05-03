@@ -31,6 +31,7 @@ services:
         condition: service_healthy
     networks:
       - servilo_kerno_network
+      - cultura-network
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:3300/cult/app/hell', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
       interval: 30s
@@ -55,3 +56,5 @@ volumes:
 networks:
   servilo_kerno_network:
     driver: bridge
+  cultura-network:
+    external: true
