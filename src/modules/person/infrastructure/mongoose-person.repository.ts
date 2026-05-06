@@ -214,7 +214,7 @@ private IS_NOT_DELETED = { isDeleted: false };
       updatedAt: person.updatedAt,
       createdAt: person.createdAt,
       role: person.role,
-      entity: extractEntity(person.entity),
+      entity: {id: person.entity._id.toString(), name: person.entity.name, type: person.entity.entityType},//extractEntity(person.entity),
       municipality: extractMunicipality(person.municipality),
       charge:person.charge,
       isDeleted:person.isDeleted

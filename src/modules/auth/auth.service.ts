@@ -113,7 +113,7 @@ export class AuthService  {
       img_usr:data_ret.image,
       pertenece:{
           id_ent:data_ret.entity.id,
-          nivel_ent:data_ret.entity.entityType,//.hierarchy,
+          nivel_ent:data_ret.entity.type,//.hierarchy,
           name_ent:data_ret.entity.name
         },
       charge:data_ret.charge  
@@ -139,7 +139,7 @@ export class AuthService  {
       img_usr:data_ret.image,
       pertenece:{
           id_ent:data_ret.entity.id,
-          nivel_ent:data_ret.entity.entityType,//.hierarchy
+          nivel_ent:data_ret.entity.type,//.hierarchy
           name_ent:data_ret.entity.name
         },
       charge:data_ret.charge

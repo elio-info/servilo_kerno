@@ -18,7 +18,7 @@ export class Person {
   address: string;
   image: string;
   role: string;
-  entity: Entity_Entity;
+  entity: {id:string, name:string,type:string};//Entity_Entity;
   gender: string;
   updatedAt: Date;
   createdAt: Date;
