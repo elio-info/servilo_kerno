@@ -1,228 +1,5445 @@
 [{
   "_id": {
-    "$oid": "69b0b57cb431cd08336e1d3a"
+    "$oid": "69c69e04bbdbc87cd83cd6f4"
   },
-  "name": "es una la ratonera",
-  "dia_actcult": "2026-03-01",
-  "hora_actcult": "08:00",
-  "entidad_responsable": "699ca369160d18276202bb8a",
-  "lugar_planificado": "67be5509f2fddeb300b11ff6",
-  "edad": "l",
-  "edad_asistencia": 102,
+  "name": "Yucugh",
+  "datedAt": {
+    "$date": "2026-02-11T07:14:00.000Z"
+  },
+  "dia_actcult": "2026-02-11",
+  "hora_actcult": "02:14",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "lugar_planificado": "68f9550a7248fe8e8b063abc",
+  "edad": "Público General (PG)",
+  "edad_asistencia": 184,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Jgevwlq",
+      "justificacion": "por Rptofa"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaabf22af2ae403bceb0",
+    "69aafab2f22af2ae403bceb3",
+    "69aafac4f22af2ae403bceb6",
+    "69aafad8f22af2ae403bceba",
+    "69aafaa2f22af2ae403bcead",
+    "69aafb0bf22af2ae403bcebd",
+    "69a5188990707b297a3614b0"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654",
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Rgehrsxxh",
+      "numero_prefactura": "Jtaelzut",
+      "cantidad": 28
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Qlpgus",
+      "numero_prefactura": "Ennfutr",
+      "cantidad": 221
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Lmoeawu",
+      "numero_prefactura": "Hdnextg",
+      "cantidad": 809
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bccxp",
+      "numero_prefactura": "Lmyva",
+      "cantidad": 251
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:11:00.111Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:11:00.111Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e06bbdbc87cd83cd6f9"
+  },
+  "name": "Jdbztgu",
+  "datedAt": {
+    "$date": "2026-02-07T00:09:00.000Z"
+  },
+  "dia_actcult": "2026-02-06",
+  "hora_actcult": "19:09",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "cp_planificado": "6949cc99759b1fa6eace7523",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 265,
   "tipoActividad_extraPlan": false,
   "tipoActividad_Prov_Entidad": null,
   "estados_actividad": [
     {
       "estado_actividad": "R",
-      "responsable": "Pedro Sierra",
-      "justificacion": "hubo de todo"
+      "responsable": "Mkzivevu",
+      "justificacion": "por Foyywqna"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69aafad8f22af2ae403bceba"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Qzlyrj",
+      "numero_prefactura": "Syfprrxw",
+      "cantidad": 503
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Wxtvonxd",
+      "numero_prefactura": "Vuron",
+      "cantidad": 600
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Cltqseki",
+      "numero_prefactura": "Ewtiku",
+      "cantidad": 77
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Tmzvvtnpm",
+      "numero_prefactura": "Igvpldw",
+      "cantidad": 623
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Tswrpvu",
+      "numero_prefactura": "Nbqutxcq",
+      "cantidad": 836
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Mnmcx",
+      "numero_prefactura": "Ijtdqz",
+      "cantidad": 575
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Dzozdcql",
+      "numero_prefactura": "Fpdokck",
+      "cantidad": 403
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Riyljl",
+      "numero_prefactura": "Emfndgae",
+      "cantidad": 823
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:11:02.215Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:11:02.215Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e06bbdbc87cd83cd6fe"
+  },
+  "name": "Qqtgl",
+  "datedAt": {
+    "$date": "2026-03-13T15:43:00.000Z"
+  },
+  "dia_actcult": "2026-03-13",
+  "hora_actcult": "11:43",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "lugar_planificado": "68ee6928633f5771ff561607",
+  "edad": "l",
+  "edad_asistencia": 183,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Tujknlcfm",
+      "justificacion": "por Vnritb"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a5188990707b297a3614b0",
+    "69aafad8f22af2ae403bceba",
+    "69aafaabf22af2ae403bceb0",
+    "69aafab2f22af2ae403bceb3",
+    "69a518a390707b297a3614b4"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Lugfu",
+      "numero_prefactura": "Wvqieptbw",
+      "cantidad": 131
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Mzpaayx",
+      "numero_prefactura": "Naxrgd",
+      "cantidad": 90
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Yelknq",
+      "numero_prefactura": "Tsyhxeaxd",
+      "cantidad": 910
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Lbzyvaykt",
+      "numero_prefactura": "Cyjbres",
+      "cantidad": 552
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Ksrqnrrr",
+      "numero_prefactura": "Ecvidvdaw",
+      "cantidad": 691
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Eqbdzr",
+      "numero_prefactura": "Ksyhmrec",
+      "cantidad": 801
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Nyyyz",
+      "numero_prefactura": "Axbrfprpf",
+      "cantidad": 820
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:11:02.370Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:11:02.370Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e06bbdbc87cd83cd703"
+  },
+  "name": "Ktufwvvlm",
+  "datedAt": {
+    "$date": "2026-02-09T19:29:00.000Z"
+  },
+  "dia_actcult": "2026-02-09",
+  "hora_actcult": "14:29",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "lugar_planificado": "68f9550a7248fe8e8b063abc",
+  "edad": "l",
+  "edad_asistencia": 158,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Ggeqv",
+      "justificacion": "por Ctillyy"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69aafab2f22af2ae403bceb3",
+    "69a5188990707b297a3614b0",
+    "69a518a390707b297a3614b4",
+    "69aafb0bf22af2ae403bcebd"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Ztswt",
+      "numero_prefactura": "Kjuzlsux",
+      "cantidad": 533
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Behkffyo",
+      "numero_prefactura": "Aljvojj",
+      "cantidad": 914
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Zxvjxvbom",
+      "numero_prefactura": "Uvpnsvtp",
+      "cantidad": 43
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bzhqgek",
+      "numero_prefactura": "Dfpbzbwex",
+      "cantidad": 951
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Gdbtlfzi",
+      "numero_prefactura": "Lbffhj",
+      "cantidad": 156
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:11:02.545Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:11:02.545Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e06bbdbc87cd83cd708"
+  },
+  "name": "Eswcmc",
+  "datedAt": {
+    "$date": "2026-02-01T15:21:00.000Z"
+  },
+  "dia_actcult": "2026-02-01",
+  "hora_actcult": "10:21",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "Niño (N)",
+  "edad_asistencia": 81,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Xnacc",
+      "justificacion": "por Zrqqv"
     }
   ],
   "manifestaciones_artisticas": [
     "69a5188990707b297a3614b0"
   ],
   "programas_tributa": [
-    "69b049a684f8645c33ef53ee"
+    "69b035fce86ca01e39390654"
   ],
   "talentos": [
     {
-      "id": "69a59d9faa0720723afe3d26",
-      "name": "string",
-      "manifest": "string",
-      "numero_contrato": "string",
-      "numero_prefactura": "string",
-      "cantidad": 20.55
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Avertjsq",
+      "numero_prefactura": "Gdaantyf",
+      "cantidad": 30
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Wntdzbs",
+      "numero_prefactura": "Zeaqb",
+      "cantidad": 262
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Qsbnv",
+      "numero_prefactura": "Otecld",
+      "cantidad": 94
     }
   ],
   "apoyos": [
     {
-      "id": "69a59d9faa0720723afe3d26",
-      "name": "string",
-      "manifest": "string",
-      "numero_contrato": "string",
-      "numero_prefactura": "string",
-      "cantidad": 20.55
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ksdvhp",
+      "numero_prefactura": "Waxiaxmf",
+      "cantidad": 648
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Vdzgekuc",
+      "numero_prefactura": "Kbbjp",
+      "cantidad": 371
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:11:02.705Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:11:02.705Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e06bbdbc87cd83cd70d"
+  },
+  "name": "Wogljg",
+  "datedAt": {
+    "$date": "2026-02-25T05:08:00.000Z"
+  },
+  "dia_actcult": "2026-02-25",
+  "hora_actcult": "00:08",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "cp_planificado": "6949dcd57b3c543c9ca4d315",
+  "edad": "Público General (PG)",
+  "edad_asistencia": 298,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Inckllm",
+      "justificacion": "por Kujqorw"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafb0bf22af2ae403bcebd",
+    "69aafab2f22af2ae403bceb3",
+    "69aafaabf22af2ae403bceb0",
+    "69aafac4f22af2ae403bceb6",
+    "69aafad8f22af2ae403bceba",
+    "69aafaa2f22af2ae403bcead"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Sxuvgnr",
+      "numero_prefactura": "Vgjoiezfu",
+      "cantidad": 641
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Tdycevfh",
+      "numero_prefactura": "Wqjwz",
+      "cantidad": 610
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hfdrjg",
+      "numero_prefactura": "Dwrou",
+      "cantidad": 743
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ycashxkbc",
+      "numero_prefactura": "Yqfil",
+      "cantidad": 131
     }
   ],
   "TV": false,
   "redes_plataforma": false,
   "isDeleted": false,
   "createdAt": {
-    "$date": "2026-03-11T00:21:16.597Z"
+    "$date": "2026-03-27T15:11:02.849Z"
   },
   "updatedAt": {
-    "$date": "2026-03-11T00:21:16.597Z"
+    "$date": "2026-03-27T15:11:02.849Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "69b0b752d0372b2ae1a9c9b2"
+    "$oid": "69c69e07bbdbc87cd83cd712"
   },
-  "name": "la ratonera de cuco",
-  "dia_actcult": "2026-03-01",
-  "hora_actcult": "18:00",
-  "entidad_responsable": "699ca369160d18276202bb8a",
-  "lugar_planificado": "67be5509f2fddeb300b11ff6",
-  "edad": "l",
-  "edad_asistencia": 123,
+  "name": "Uhljgiuqu",
+  "datedAt": {
+    "$date": "2026-03-10T23:20:00.000Z"
+  },
+  "dia_actcult": "2026-03-10",
+  "hora_actcult": "19:20",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "68ee6928633f5771ff561607",
+  "edad": "Niño (N)",
+  "edad_asistencia": 210,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Daqip",
+      "justificacion": "por Udhlzwyv"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafb0bf22af2ae403bcebd",
+    "69a518a390707b297a3614b4",
+    "69aafac4f22af2ae403bceb6"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Mhldbnyhu",
+      "numero_prefactura": "Trclskpxl",
+      "cantidad": 172
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Erkwetow",
+      "numero_prefactura": "Gzjem",
+      "cantidad": 812
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Brzvtpce",
+      "numero_prefactura": "Xhyctzmp",
+      "cantidad": 867
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Otwkvb",
+      "numero_prefactura": "Ektsxqo",
+      "cantidad": 561
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hdwrywlz",
+      "numero_prefactura": "Buvgnnf",
+      "cantidad": 109
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Jcqaizjw",
+      "numero_prefactura": "Wccxsdm",
+      "cantidad": 283
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Qutpgfm",
+      "numero_prefactura": "Yxohmcbun",
+      "cantidad": 569
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:11:03.004Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:11:03.004Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e07bbdbc87cd83cd717"
+  },
+  "name": "Lbteydjt",
+  "datedAt": {
+    "$date": "2026-03-21T20:39:00.000Z"
+  },
+  "dia_actcult": "2026-03-21",
+  "hora_actcult": "16:39",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "Niño (N)",
+  "edad_asistencia": 146,
   "tipoActividad_extraPlan": false,
   "tipoActividad_Prov_Entidad": null,
   "estados_actividad": [
     {
-      "estado_actividad": "S",
-      "responsable": "Pedro Sierra",
-      "justificacion": "se fajaron y hubo de todo"
+      "estado_actividad": "R",
+      "responsable": "Fmptm",
+      "justificacion": "por Ptgir"
     }
   ],
   "manifestaciones_artisticas": [
-    "69a5188990707b297a3614b0",
-    "69a518a390707b297a3614b4"
+    "69aafaabf22af2ae403bceb0",
+    "69aafaa2f22af2ae403bcead",
+    "69aafac4f22af2ae403bceb6",
+    "69a518a390707b297a3614b4",
+    "69aafad8f22af2ae403bceba"
   ],
   "programas_tributa": [
-    "69b049a684f8645c33ef53ee"
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97"
   ],
   "talentos": [
     {
-      "id": "69a59d9faa0720723afe3d26",
-      "name": "string",
-      "manifest": "string",
-      "numero_contrato": "string",
-      "numero_prefactura": "string",
-      "cantidad": 2320.55
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Fnicd",
+      "numero_prefactura": "Xtnhzshoe",
+      "cantidad": 307
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Cucebjnrw",
+      "numero_prefactura": "Xyuevqbdk",
+      "cantidad": 517
     }
   ],
   "apoyos": [
     {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Wzgotegr",
+      "numero_prefactura": "Envvzutsj",
+      "cantidad": 196
+    },
+    {
       "id": "69a59d9faa0720723afe3d26",
-      "name": "string",
-      "manifest": "string",
-      "numero_contrato": "string",
-      "numero_prefactura": "string",
-      "cantidad": 2220.55
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bchcycho",
+      "numero_prefactura": "Wotwcw",
+      "cantidad": 491
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ezudb",
+      "numero_prefactura": "Zbimhwc",
+      "cantidad": 572
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Kmpmfdi",
+      "numero_prefactura": "Hvmpvbsi",
+      "cantidad": 402
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Fczxppu",
+      "numero_prefactura": "Qrwrib",
+      "cantidad": 510
     }
   ],
   "TV": false,
   "redes_plataforma": false,
   "isDeleted": false,
   "createdAt": {
-    "$date": "2026-03-11T00:29:06.301Z"
+    "$date": "2026-03-27T15:11:03.248Z"
   },
   "updatedAt": {
-    "$date": "2026-03-11T00:29:06.301Z"
+    "$date": "2026-03-27T15:11:03.248Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "69b3429e6b6477fed96042ec"
+    "$oid": "69c69e64bbdbc87cd83cd71c"
   },
-  "name": "ra de cuco",
-  "dia_actcult": "2026-03-02",
-  "hora_actcult": "18:00",
+  "name": "Frfdlzq",
+  "datedAt": {
+    "$date": "2026-01-31T13:02:00.000Z"
+  },
+  "dia_actcult": "2026-01-31",
+  "hora_actcult": "08:02",
   "entidad_responsable": "699ca369160d18276202bb8a",
-  "lugar_planificado": "67be5509f2fddeb300b11ff6",
-  "edad": "l",
-  "edad_asistencia": 12,
-  "tipoActividad_extraPlan": false,
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "Joven (J)",
+  "edad_asistencia": 185,
+  "tipoActividad_extraPlan": true,
   "tipoActividad_Prov_Entidad": null,
   "estados_actividad": [
     {
       "estado_actividad": "S",
-      "responsable": "Pedro Sierra",
-      "justificacion": "se fajaron y hubo de todo"
+      "responsable": "Cfozwaml",
+      "justificacion": "por Cdeye"
     }
   ],
   "manifestaciones_artisticas": [
-    "69a5188990707b297a3614b0",
-    "69a518a390707b297a3614b4"
+    "69aafb0bf22af2ae403bcebd",
+    "69aafab2f22af2ae403bceb3",
+    "69aafad8f22af2ae403bceba",
+    "69aafaabf22af2ae403bceb0",
+    "69a518a390707b297a3614b4",
+    "69aafaa2f22af2ae403bcead",
+    "69a5188990707b297a3614b0"
   ],
   "programas_tributa": [
-    "69b049a684f8645c33ef53ee"
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654",
+    "69b03662e86ca01e39390669"
   ],
   "talentos": [
     {
-      "id": "69a59d9faa0720723afe3d26",
-      "name": "string",
-      "manifest": "string",
-      "numero_contrato": "string",
-      "numero_prefactura": "string",
-      "cantidad": 2320.55
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Sqpvfei",
+      "numero_prefactura": "Ucycn",
+      "cantidad": 650
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Eosiyin",
+      "numero_prefactura": "Ytumomi",
+      "cantidad": 246
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Xkpaorjp",
+      "numero_prefactura": "Wlbfsrnp",
+      "cantidad": 846
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Fwrff",
+      "numero_prefactura": "Iiiiyjc",
+      "cantidad": 90
     }
   ],
   "apoyos": [
     {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bjxisfdrh",
+      "numero_prefactura": "Pmczbgfs",
+      "cantidad": 134
+    },
+    {
       "id": "69a59d9faa0720723afe3d26",
-      "name": "string",
-      "manifest": "string",
-      "numero_contrato": "string",
-      "numero_prefactura": "string",
-      "cantidad": 2220.55
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Mabvbws",
+      "numero_prefactura": "Xmfehtj",
+      "cantidad": 589
     }
   ],
-  "TV": false,
-  "redes_plataforma": false,
+  "TV": true,
+  "redes_plataforma": true,
   "isDeleted": false,
   "createdAt": {
-    "$date": "2026-03-12T22:47:58.361Z"
+    "$date": "2026-03-27T15:12:36.829Z"
   },
   "updatedAt": {
-    "$date": "2026-03-12T22:47:58.361Z"
+    "$date": "2026-03-27T15:12:36.829Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "69b344606b6477fed96042f5"
+    "$oid": "69c69e65bbdbc87cd83cd721"
   },
-  "name": "1ra de cuco",
-  "dia_actcult": "2026-03-02",
-  "hora_actcult": "16:00",
-  "entidad_responsable": "699ca369160d18276202bb8a",
-  "lugar_planificado": "67be5509f2fddeb300b11ff6",
+  "name": "Todimij",
+  "datedAt": {
+    "$date": "2026-02-08T23:25:00.000Z"
+  },
+  "dia_actcult": "2026-02-08",
+  "hora_actcult": "18:25",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "cp_planificado": "68f9559d7248fe8e8b063ad8",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 224,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Fqldyipom",
+      "justificacion": "por Nmfxtbro"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a5188990707b297a3614b0"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Lwgse",
+      "numero_prefactura": "Loioxv",
+      "cantidad": 787
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Xucch",
+      "numero_prefactura": "Ehspxoaxw",
+      "cantidad": 809
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Vqyans",
+      "numero_prefactura": "Awbch",
+      "cantidad": 104
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Shzuapkd",
+      "numero_prefactura": "Uiujuri",
+      "cantidad": 900
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Azgaaqv",
+      "numero_prefactura": "Zwxdm",
+      "cantidad": 221
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Uatimopzc",
+      "numero_prefactura": "Heutvfu",
+      "cantidad": 671
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:37.776Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:37.776Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e65bbdbc87cd83cd726"
+  },
+  "name": "Fqktdz",
+  "datedAt": {
+    "$date": "2026-01-26T00:15:00.000Z"
+  },
+  "dia_actcult": "2026-01-25",
+  "hora_actcult": "19:15",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "68f9550a7248fe8e8b063abc",
   "edad": "l",
-  "edad_asistencia": 232,
+  "edad_asistencia": 150,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Clhakzjoc",
+      "justificacion": "por Rjonoajcs"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaabf22af2ae403bceb0",
+    "69aafac4f22af2ae403bceb6",
+    "69a518a390707b297a3614b4",
+    "69a5188990707b297a3614b0"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Egdvygcc",
+      "numero_prefactura": "Jvfshk",
+      "cantidad": 799
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Nwlinqvcj",
+      "numero_prefactura": "Rbjhls",
+      "cantidad": 274
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Bvkkf",
+      "numero_prefactura": "Qjvsbnun",
+      "cantidad": 813
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Bkdiexon",
+      "numero_prefactura": "Fxggx",
+      "cantidad": 111
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ixbtzf",
+      "numero_prefactura": "Ohewyu",
+      "cantidad": 836
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Tkxcy",
+      "numero_prefactura": "Gdltneus",
+      "cantidad": 471
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:37.936Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:37.936Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e66bbdbc87cd83cd72b"
+  },
+  "name": "Ulasrmre",
+  "datedAt": {
+    "$date": "2026-02-26T22:15:00.000Z"
+  },
+  "dia_actcult": "2026-02-26",
+  "hora_actcult": "17:15",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "lugar_planificado": "68f9550a7248fe8e8b063abc",
+  "edad": "Público General (PG)",
+  "edad_asistencia": 225,
   "tipoActividad_extraPlan": false,
   "tipoActividad_Prov_Entidad": null,
   "estados_actividad": [
     {
       "estado_actividad": "D",
-      "responsable": "Pedro Sierra",
-      "justificacion": "se fajaron y hubo de todo"
+      "responsable": "Hciqdjsas",
+      "justificacion": "por Pjpsanv"
     }
   ],
   "manifestaciones_artisticas": [
-    "69a518a390707b297a3614b4"
+    "69aafac4f22af2ae403bceb6",
+    "69aafaabf22af2ae403bceb0",
+    "69aafad8f22af2ae403bceba",
+    "69aafaa2f22af2ae403bcead",
+    "69aafab2f22af2ae403bceb3",
+    "69aafb0bf22af2ae403bcebd",
+    "69a518a390707b297a3614b4",
+    "69a5188990707b297a3614b0"
   ],
-  "programas_tributa": [],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654",
+    "69b03662e86ca01e39390669"
+  ],
   "talentos": [
     {
-      "id": "69a59d9faa0720723afe3d26",
-      "name": "string",
-      "manifest": "string",
-      "numero_contrato": "string",
-      "numero_prefactura": "string",
-      "cantidad": 2320.55
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Taeyu",
+      "numero_prefactura": "Lppwnf",
+      "cantidad": 230
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Wnhqgax",
+      "numero_prefactura": "Gbisylg",
+      "cantidad": 601
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Tryeskjqs",
+      "numero_prefactura": "Rstoqdk",
+      "cantidad": 772
     }
   ],
   "apoyos": [
     {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Yhntowi",
+      "numero_prefactura": "Oxhynkb",
+      "cantidad": 139
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Rsddhfsj",
+      "numero_prefactura": "Gbfiv",
+      "cantidad": 77
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bnnqgsmwb",
+      "numero_prefactura": "Sjvyhca",
+      "cantidad": 931
+    },
+    {
       "id": "69a59d9faa0720723afe3d26",
-      "name": "string",
-      "manifest": "string",
-      "numero_contrato": "string",
-      "numero_prefactura": "string",
-      "cantidad": 2220.55
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Sgvomrtnb",
+      "numero_prefactura": "Qjstaqjo",
+      "cantidad": 164
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:38.104Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:38.104Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e66bbdbc87cd83cd730"
+  },
+  "name": "Erjtglwln",
+  "datedAt": {
+    "$date": "2026-01-25T11:24:00.000Z"
+  },
+  "dia_actcult": "2026-01-25",
+  "hora_actcult": "06:24",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "67be5509f2fddeb300b11ff6",
+  "edad": "Niño (N)",
+  "edad_asistencia": 231,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Owfei",
+      "justificacion": "por Yfofwkx"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafac4f22af2ae403bceb6",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Ursbmdza",
+      "numero_prefactura": "Pncgetca",
+      "cantidad": 509
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Fnvpky",
+      "numero_prefactura": "Bplwfduh",
+      "cantidad": 675
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:38.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:38.271Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e66bbdbc87cd83cd735"
+  },
+  "name": "Nyrhqedb",
+  "datedAt": {
+    "$date": "2026-03-02T05:04:00.000Z"
+  },
+  "dia_actcult": "2026-03-02",
+  "hora_actcult": "00:04",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699ca369160d18276202bb8a",
+  "edad": "Niño (N)",
+  "edad_asistencia": 88,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Cxrriqdj",
+      "justificacion": "por Sqtsls"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a518a390707b297a3614b4",
+    "69aafad8f22af2ae403bceba",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaa2f22af2ae403bcead",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Sftvsi",
+      "numero_prefactura": "Bszpcwnka",
+      "cantidad": 965
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Rspzwak",
+      "numero_prefactura": "Mvsba",
+      "cantidad": 92
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Ociee",
+      "numero_prefactura": "Ipxxf",
+      "cantidad": 291
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Rwargj",
+      "numero_prefactura": "Jxavzcs",
+      "cantidad": 876
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Kbxdwgn",
+      "numero_prefactura": "Evdsmidpu",
+      "cantidad": 233
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Czajjzv",
+      "numero_prefactura": "Ndsircxnl",
+      "cantidad": 230
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Oabjvvwha",
+      "numero_prefactura": "Lvsmdhz",
+      "cantidad": 258
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ivpojq",
+      "numero_prefactura": "Zcxkrcj",
+      "cantidad": 878
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:38.456Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:38.456Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e66bbdbc87cd83cd73a"
+  },
+  "name": "Cctxx",
+  "datedAt": {
+    "$date": "2026-02-10T10:17:00.000Z"
+  },
+  "dia_actcult": "2026-02-10",
+  "hora_actcult": "05:17",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "cp_planificado": "6949cc99759b1fa6eace7523",
+  "edad": "Público General (PG)",
+  "edad_asistencia": 77,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Lqirwy",
+      "justificacion": "por Orlhmncy"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafab2f22af2ae403bceb3",
+    "69a5188990707b297a3614b0",
+    "69aafac4f22af2ae403bceb6",
+    "69aafaa2f22af2ae403bcead",
+    "69a518a390707b297a3614b4"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Mgmvafxpo",
+      "numero_prefactura": "Tgtboj",
+      "cantidad": 460
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Mpgzkaxl",
+      "numero_prefactura": "Yonsxi",
+      "cantidad": 902
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Ggmbsfwi",
+      "numero_prefactura": "Kkdqo",
+      "cantidad": 682
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Isbado",
+      "numero_prefactura": "Nbufrli",
+      "cantidad": 103
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Zwgvpxhf",
+      "numero_prefactura": "Ejkogfdju",
+      "cantidad": 902
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Cwkwcfb",
+      "numero_prefactura": "Xiohsq",
+      "cantidad": 766
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Pkinxywfp",
+      "numero_prefactura": "Reptmq",
+      "cantidad": 761
     }
   ],
   "TV": false,
   "redes_plataforma": false,
   "isDeleted": false,
   "createdAt": {
-    "$date": "2026-03-12T22:55:28.087Z"
+    "$date": "2026-03-27T15:12:38.575Z"
   },
   "updatedAt": {
-    "$date": "2026-03-12T22:55:28.087Z"
+    "$date": "2026-03-27T15:12:38.575Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e66bbdbc87cd83cd73f"
+  },
+  "name": "Ggocqnzqp",
+  "datedAt": {
+    "$date": "2026-02-22T23:56:00.000Z"
+  },
+  "dia_actcult": "2026-02-22",
+  "hora_actcult": "18:56",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "cp_planificado": "6949cc99759b1fa6eace7523",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 185,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Vnpycxjy",
+      "justificacion": "por Vziodga"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaabf22af2ae403bceb0",
+    "69a518a390707b297a3614b4",
+    "69aafac4f22af2ae403bceb6",
+    "69aafab2f22af2ae403bceb3",
+    "69a5188990707b297a3614b0",
+    "69aafaa2f22af2ae403bcead",
+    "69aafb0bf22af2ae403bcebd"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Xeznd",
+      "numero_prefactura": "Bkcgxtmmf",
+      "cantidad": 540
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Bynwck",
+      "numero_prefactura": "Ayvlupv",
+      "cantidad": 944
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Wuwix",
+      "numero_prefactura": "Pncyxwyvq",
+      "cantidad": 522
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Rwaxmjq",
+      "numero_prefactura": "Rikbtyfew",
+      "cantidad": 691
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:38.735Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:38.735Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e66bbdbc87cd83cd744"
+  },
+  "name": "Gjybhlisc",
+  "datedAt": {
+    "$date": "2026-02-05T09:24:00.000Z"
+  },
+  "dia_actcult": "2026-02-05",
+  "hora_actcult": "04:24",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "cp_planificado": "68f03ee31c59f86602d853d4",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 271,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Nbwddc",
+      "justificacion": "por Plvwbwaqm"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafac4f22af2ae403bceb6",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaa2f22af2ae403bcead",
+    "69a518a390707b297a3614b4",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Rcaad",
+      "numero_prefactura": "Hpksc",
+      "cantidad": 361
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Joakttdf",
+      "numero_prefactura": "Oavifk",
+      "cantidad": 206
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Wqqokflcl",
+      "numero_prefactura": "Jncpsdtsu",
+      "cantidad": 552
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Zdpxglp",
+      "numero_prefactura": "Oucfuqgxf",
+      "cantidad": 362
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Yvown",
+      "numero_prefactura": "Vcuulfh",
+      "cantidad": 417
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Yuvkmhhcr",
+      "numero_prefactura": "Xwuyv",
+      "cantidad": 400
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Dipeaxlw",
+      "numero_prefactura": "Khzwxsdr",
+      "cantidad": 457
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:38.890Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:38.890Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e67bbdbc87cd83cd749"
+  },
+  "name": "Xbyudi",
+  "datedAt": {
+    "$date": "2026-01-23T05:30:00.000Z"
+  },
+  "dia_actcult": "2026-01-23",
+  "hora_actcult": "00:30",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "68f9550a7248fe8e8b063abc",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 85,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Speosgm",
+      "justificacion": "por Sgipohec"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a518a390707b297a3614b4",
+    "69aafaabf22af2ae403bceb0",
+    "69aafaa2f22af2ae403bcead"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Llasw",
+      "numero_prefactura": "Vriphqlru",
+      "cantidad": 981
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Hvphvqfoq",
+      "numero_prefactura": "Yiwzeg",
+      "cantidad": 473
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Ixmvby",
+      "numero_prefactura": "Rkstqxefq",
+      "cantidad": 499
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Wfznyqurc",
+      "numero_prefactura": "Kymukuxd",
+      "cantidad": 704
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Cgqrnobd",
+      "numero_prefactura": "Mukptiy",
+      "cantidad": 176
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Fhinlaf",
+      "numero_prefactura": "Xhxdsiyk",
+      "cantidad": 790
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Eogdd",
+      "numero_prefactura": "Phrith",
+      "cantidad": 52
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Vjjwaqaq",
+      "numero_prefactura": "Unqscqfe",
+      "cantidad": 515
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hyzxxqpsf",
+      "numero_prefactura": "Vclhyq",
+      "cantidad": 62
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:39.072Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:39.072Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e67bbdbc87cd83cd74e"
+  },
+  "name": "Tashenzgn",
+  "datedAt": {
+    "$date": "2026-01-29T05:47:00.000Z"
+  },
+  "dia_actcult": "2026-01-29",
+  "hora_actcult": "00:47",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "lugar_planificado": "68ee6928633f5771ff561607",
+  "edad": "Adulto Mayor (AM)",
+  "edad_asistencia": 295,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Ixwygq",
+      "justificacion": "por Kgbqr"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafac4f22af2ae403bceb6",
+    "69a518a390707b297a3614b4",
+    "69aafab2f22af2ae403bceb3",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaa2f22af2ae403bcead"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Bdqhgdrxh",
+      "numero_prefactura": "Nmrwwfbqs",
+      "cantidad": 314
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Uhuny",
+      "numero_prefactura": "Quslt",
+      "cantidad": 980
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Uhawnyiq",
+      "numero_prefactura": "Mrqdszfw",
+      "cantidad": 814
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Cwsdzya",
+      "numero_prefactura": "Kvnuncrci",
+      "cantidad": 594
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bskoowftg",
+      "numero_prefactura": "Nbkmijzjt",
+      "cantidad": 505
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:39.223Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:39.223Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e67bbdbc87cd83cd753"
+  },
+  "name": "Oveusnylk",
+  "datedAt": {
+    "$date": "2026-01-27T22:00:00.000Z"
+  },
+  "dia_actcult": "2026-01-27",
+  "hora_actcult": "17:00",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "lugar_planificado": "68ee6928633f5771ff561607",
+  "edad": "Niño (N)",
+  "edad_asistencia": 120,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Fqrsmsf",
+      "justificacion": "por Cgrus"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a518a390707b297a3614b4",
+    "69aafaa2f22af2ae403bcead",
+    "69aafaabf22af2ae403bceb0",
+    "69aafad8f22af2ae403bceba",
+    "69aafab2f22af2ae403bceb3",
+    "69a5188990707b297a3614b0",
+    "69aafb0bf22af2ae403bcebd"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Sqkpz",
+      "numero_prefactura": "Kcedq",
+      "cantidad": 943
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Wrvic",
+      "numero_prefactura": "Wyhmn",
+      "cantidad": 584
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Svzdqbgtn",
+      "numero_prefactura": "Aygbc",
+      "cantidad": 456
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Trdifxmh",
+      "numero_prefactura": "Jxtwhuz",
+      "cantidad": 741
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Qntmc",
+      "numero_prefactura": "Zypcdksji",
+      "cantidad": 56
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Qqhpdmaor",
+      "numero_prefactura": "Dxstu",
+      "cantidad": 559
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ixrzlqm",
+      "numero_prefactura": "Yyuzugaff",
+      "cantidad": 820
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Yubsy",
+      "numero_prefactura": "Pgjynne",
+      "cantidad": 753
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:39.411Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:39.411Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e67bbdbc87cd83cd758"
+  },
+  "name": "Lghsifz",
+  "datedAt": {
+    "$date": "2026-03-03T22:16:00.000Z"
+  },
+  "dia_actcult": "2026-03-03",
+  "hora_actcult": "17:16",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 251,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Qcith",
+      "justificacion": "por Yycmzamzf"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69a5188990707b297a3614b0",
+    "69aafb0bf22af2ae403bcebd",
+    "69a518a390707b297a3614b4",
+    "69aafad8f22af2ae403bceba",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Vvvcefyfj",
+      "numero_prefactura": "Nstcw",
+      "cantidad": 200
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Jezqif",
+      "numero_prefactura": "Sisfr",
+      "cantidad": 244
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Xvnahjwhu",
+      "numero_prefactura": "Nyyxfjp",
+      "cantidad": 452
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Zbshviymp",
+      "numero_prefactura": "Picrmny",
+      "cantidad": 662
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Tgfubsa",
+      "numero_prefactura": "Yyrqhq",
+      "cantidad": 53
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Yldeh",
+      "numero_prefactura": "Arvtnh",
+      "cantidad": 882
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Xpgwaehpj",
+      "numero_prefactura": "Fmaimr",
+      "cantidad": 342
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Raobgpf",
+      "numero_prefactura": "Ccwklrl",
+      "cantidad": 174
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Rzelnueh",
+      "numero_prefactura": "Xwltf",
+      "cantidad": 323
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:39.574Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:39.574Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e67bbdbc87cd83cd75d"
+  },
+  "name": "Ypsfsr",
+  "datedAt": {
+    "$date": "2026-02-25T20:56:00.000Z"
+  },
+  "dia_actcult": "2026-02-25",
+  "hora_actcult": "15:56",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "lugar_planificado": "68f9550a7248fe8e8b063abc",
+  "edad": "l",
+  "edad_asistencia": 211,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Mzndkpvcw",
+      "justificacion": "por Jsoaum"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafac4f22af2ae403bceb6",
+    "69a5188990707b297a3614b0"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654",
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Axujrf",
+      "numero_prefactura": "Wsthgqi",
+      "cantidad": 828
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Zbbmnyj",
+      "numero_prefactura": "Uvsdcud",
+      "cantidad": 291
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Ltjdlj",
+      "numero_prefactura": "Qbwsxpi",
+      "cantidad": 633
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Srmlgywm",
+      "numero_prefactura": "Ylccxln",
+      "cantidad": 476
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Rhfnumtoc",
+      "numero_prefactura": "Ulvti",
+      "cantidad": 612
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Srsscd",
+      "numero_prefactura": "Sdngakqdy",
+      "cantidad": 634
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:39.694Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:39.694Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e67bbdbc87cd83cd762"
+  },
+  "name": "Ieehy",
+  "datedAt": {
+    "$date": "2026-03-26T00:14:00.000Z"
+  },
+  "dia_actcult": "2026-03-25",
+  "hora_actcult": "20:14",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "cp_planificado": "68f03f6d1c59f86602d853f0",
+  "edad": "Adulto Mayor (AM)",
+  "edad_asistencia": 222,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Bcrtu",
+      "justificacion": "por Bcwgntlmv"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a5188990707b297a3614b0"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Azzqmzohp",
+      "numero_prefactura": "Vmrkk",
+      "cantidad": 249
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Ztozgtb",
+      "numero_prefactura": "Isjjxmnf",
+      "cantidad": 950
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Qpfjr",
+      "numero_prefactura": "Olmivwzsy",
+      "cantidad": 333
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Usqhhkylg",
+      "numero_prefactura": "Eozyhz",
+      "cantidad": 768
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Yqjuleoz",
+      "numero_prefactura": "Majdsc",
+      "cantidad": 505
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:39.854Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:39.854Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e68bbdbc87cd83cd767"
+  },
+  "name": "Vrwtlq",
+  "datedAt": {
+    "$date": "2026-02-03T15:50:00.000Z"
+  },
+  "dia_actcult": "2026-02-03",
+  "hora_actcult": "10:50",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "lugar_planificado": "67be5509f2fddeb300b11ff6",
+  "edad": "Público General (PG)",
+  "edad_asistencia": 261,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Gsroxl",
+      "justificacion": "por Ikhbap"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafb0bf22af2ae403bcebd",
+    "69a518a390707b297a3614b4",
+    "69aafab2f22af2ae403bceb3",
+    "69aafaabf22af2ae403bceb0",
+    "69aafac4f22af2ae403bceb6"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Hyhkn",
+      "numero_prefactura": "Fmpakllc",
+      "cantidad": 968
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Vfyaljhr",
+      "numero_prefactura": "Ulupiw",
+      "cantidad": 218
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Zuquerwgg",
+      "numero_prefactura": "Schxche",
+      "cantidad": 823
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hqsaw",
+      "numero_prefactura": "Oguck",
+      "cantidad": 237
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Osvsg",
+      "numero_prefactura": "Dfbeu",
+      "cantidad": 24
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Elgyfigeu",
+      "numero_prefactura": "Qvcxedv",
+      "cantidad": 995
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Vixfqffi",
+      "numero_prefactura": "Utfpnzxah",
+      "cantidad": 567
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:40.155Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:40.155Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e68bbdbc87cd83cd76c"
+  },
+  "name": "Yzjfb",
+  "datedAt": {
+    "$date": "2026-03-27T09:36:00.000Z"
+  },
+  "dia_actcult": "2026-03-27",
+  "hora_actcult": "05:36",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "cp_planificado": "68f9559d7248fe8e8b063ad8",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 17,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Thcdta",
+      "justificacion": "por Qdtlnyt"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaabf22af2ae403bceb0",
+    "69a518a390707b297a3614b4",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Uuhkkmih",
+      "numero_prefactura": "Pgqgwrc",
+      "cantidad": 849
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Exkgq",
+      "numero_prefactura": "Fwpzhyy",
+      "cantidad": 838
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Xbpflgzr",
+      "numero_prefactura": "Ipksauxsw",
+      "cantidad": 543
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Tbgxwf",
+      "numero_prefactura": "Kcdpsfpx",
+      "cantidad": 385
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Jpjql",
+      "numero_prefactura": "Dzfcjiw",
+      "cantidad": 628
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:40.322Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:40.322Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e68bbdbc87cd83cd771"
+  },
+  "name": "Gqnsvbh",
+  "datedAt": {
+    "$date": "2026-01-09T06:57:00.000Z"
+  },
+  "dia_actcult": "2026-01-09",
+  "hora_actcult": "01:57",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "cp_planificado": "68f03f6d1c59f86602d853f0",
+  "edad": "Joven (J)",
+  "edad_asistencia": 168,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Rdngrvk",
+      "justificacion": "por Umrhj"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaabf22af2ae403bceb0",
+    "69aafac4f22af2ae403bceb6",
+    "69aafad8f22af2ae403bceba",
+    "69aafb0bf22af2ae403bcebd",
+    "69a518a390707b297a3614b4",
+    "69aafaa2f22af2ae403bcead",
+    "69a5188990707b297a3614b0",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b035fce86ca01e39390654",
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Qrwmpxop",
+      "numero_prefactura": "Dbuhteo",
+      "cantidad": 150
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Jwohum",
+      "numero_prefactura": "Flrmd",
+      "cantidad": 656
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Puifd",
+      "numero_prefactura": "Netlpiqww",
+      "cantidad": 634
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Luvfvucyr",
+      "numero_prefactura": "Znlsmc",
+      "cantidad": 811
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Nlvkr",
+      "numero_prefactura": "Wopoz",
+      "cantidad": 325
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bxlajgij",
+      "numero_prefactura": "Dqjwqhqhw",
+      "cantidad": 902
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:40.479Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:40.479Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e68bbdbc87cd83cd776"
+  },
+  "name": "Koghat",
+  "datedAt": {
+    "$date": "2026-03-02T14:31:00.000Z"
+  },
+  "dia_actcult": "2026-03-02",
+  "hora_actcult": "09:31",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "Joven (J)",
+  "edad_asistencia": 76,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Inoipaqs",
+      "justificacion": "por Neiytado"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a5188990707b297a3614b0",
+    "69aafad8f22af2ae403bceba",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Ayfcqisl",
+      "numero_prefactura": "Psucpev",
+      "cantidad": 310
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Bbrmzq",
+      "numero_prefactura": "Lwiyguon",
+      "cantidad": 232
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Ygvhvpu",
+      "numero_prefactura": "Fpbzoezcs",
+      "cantidad": 163
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Hmygwiph",
+      "numero_prefactura": "Lappwas",
+      "cantidad": 923
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Eqngy",
+      "numero_prefactura": "Kbvksnc",
+      "cantidad": 902
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Crfvdd",
+      "numero_prefactura": "Cqjrghh",
+      "cantidad": 266
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:40.631Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:40.631Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e68bbdbc87cd83cd77b"
+  },
+  "name": "Syuiwebuh",
+  "datedAt": {
+    "$date": "2026-02-24T00:04:00.000Z"
+  },
+  "dia_actcult": "2026-02-23",
+  "hora_actcult": "19:04",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "68f9550a7248fe8e8b063abc",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 65,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Yjqom",
+      "justificacion": "por Wfilv"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Pylshuig",
+      "numero_prefactura": "Ywbxcy",
+      "cantidad": 664
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Vpnxh",
+      "numero_prefactura": "Xzvnzax",
+      "cantidad": 945
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Rmngyw",
+      "numero_prefactura": "Ezcjpnpuy",
+      "cantidad": 180
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Xbihxny",
+      "numero_prefactura": "Selapbtvp",
+      "cantidad": 320
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Afdarxj",
+      "numero_prefactura": "Jtwgmoiie",
+      "cantidad": 923
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Gqmgr",
+      "numero_prefactura": "Igdlhhfs",
+      "cantidad": 611
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:40.918Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:40.918Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e69bbdbc87cd83cd780"
+  },
+  "name": "Axhex",
+  "datedAt": {
+    "$date": "2026-02-23T02:35:00.000Z"
+  },
+  "dia_actcult": "2026-02-22",
+  "hora_actcult": "21:35",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 175,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Zwcjxlny",
+      "justificacion": "por Orftbv"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafab2f22af2ae403bceb3",
+    "69aafac4f22af2ae403bceb6"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Ntmckegby",
+      "numero_prefactura": "Yvayd",
+      "cantidad": 264
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Njfhd",
+      "numero_prefactura": "Xjxvefkwh",
+      "cantidad": 881
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Fbqyka",
+      "numero_prefactura": "Krcywio",
+      "cantidad": 844
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Xvgurolr",
+      "numero_prefactura": "Ybqycjm",
+      "cantidad": 308
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Phfjjfvfj",
+      "numero_prefactura": "Dldenxxuu",
+      "cantidad": 805
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:41.080Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:41.080Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e69bbdbc87cd83cd785"
+  },
+  "name": "Dxmmrkoa",
+  "datedAt": {
+    "$date": "2026-02-04T20:08:00.000Z"
+  },
+  "dia_actcult": "2026-02-04",
+  "hora_actcult": "15:08",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "67be5509f2fddeb300b11ff6",
+  "edad": "Adulto Mayor (AM)",
+  "edad_asistencia": 24,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Chkanqo",
+      "justificacion": "por Llzsonmr"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a518a390707b297a3614b4",
+    "69aafaabf22af2ae403bceb0",
+    "69a5188990707b297a3614b0",
+    "69aafaa2f22af2ae403bcead",
+    "69aafad8f22af2ae403bceba",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafac4f22af2ae403bceb6",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b035fce86ca01e39390654",
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Ghgxpeso",
+      "numero_prefactura": "Mzqsaxthz",
+      "cantidad": 307
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Vhtsbhfp",
+      "numero_prefactura": "Wprckvbss",
+      "cantidad": 215
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Okbazjf",
+      "numero_prefactura": "Dombi",
+      "cantidad": 39
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Lxqjv",
+      "numero_prefactura": "Inoerzt",
+      "cantidad": 889
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:41.390Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:41.390Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e69bbdbc87cd83cd78a"
+  },
+  "name": "Lslmo",
+  "datedAt": {
+    "$date": "2026-02-07T11:35:00.000Z"
+  },
+  "dia_actcult": "2026-02-07",
+  "hora_actcult": "06:35",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "cp_planificado": "6949dcd57b3c543c9ca4d315",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 231,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Pypdtuawt",
+      "justificacion": "por Iueyar"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaa2f22af2ae403bcead",
+    "69a5188990707b297a3614b0",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Cpjqgb",
+      "numero_prefactura": "Wxnactj",
+      "cantidad": 325
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Izibjbd",
+      "numero_prefactura": "Sbnlij",
+      "cantidad": 629
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Owuafcpzd",
+      "numero_prefactura": "Etzhk",
+      "cantidad": 209
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Lxlkj",
+      "numero_prefactura": "Vybdajxb",
+      "cantidad": 923
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:41.566Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:41.566Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e69bbdbc87cd83cd78f"
+  },
+  "name": "Hmxmpw",
+  "datedAt": {
+    "$date": "2026-02-26T11:44:00.000Z"
+  },
+  "dia_actcult": "2026-02-26",
+  "hora_actcult": "06:44",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "Adulto Mayor (AM)",
+  "edad_asistencia": 23,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Ifsgb",
+      "justificacion": "por Refbp"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69a518a390707b297a3614b4",
+    "69aafab2f22af2ae403bceb3",
+    "69a5188990707b297a3614b0",
+    "69aafac4f22af2ae403bceb6",
+    "69aafad8f22af2ae403bceba"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Ijzuvr",
+      "numero_prefactura": "Gaphouk",
+      "cantidad": 590
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Ltbbkm",
+      "numero_prefactura": "Tvywabwas",
+      "cantidad": 398
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Snfjltm",
+      "numero_prefactura": "Yhhkjsj",
+      "cantidad": 833
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Rcerupbug",
+      "numero_prefactura": "Nvfduvv",
+      "cantidad": 580
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Vribzwf",
+      "numero_prefactura": "Nbyucgc",
+      "cantidad": 583
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:41.726Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:41.726Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e69bbdbc87cd83cd794"
+  },
+  "name": "Rotzdcuvy",
+  "datedAt": {
+    "$date": "2026-01-06T10:57:00.000Z"
+  },
+  "dia_actcult": "2026-01-06",
+  "hora_actcult": "05:57",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "ic_planificado": "699ca369160d18276202bb8a",
+  "edad": "Niño (N)",
+  "edad_asistencia": 193,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Gdcbupw",
+      "justificacion": "por Waacdf"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaabf22af2ae403bceb0",
+    "69aafac4f22af2ae403bceb6"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Lzykf",
+      "numero_prefactura": "Zijrqraic",
+      "cantidad": 824
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ndspt",
+      "numero_prefactura": "Fndvyyrnk",
+      "cantidad": 876
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Lgtakehj",
+      "numero_prefactura": "Wlyalfe",
+      "cantidad": 477
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Dfklr",
+      "numero_prefactura": "Ocyshc",
+      "cantidad": 808
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:41.904Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:41.904Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6abbdbc87cd83cd799"
+  },
+  "name": "Dqcoy",
+  "datedAt": {
+    "$date": "2026-02-04T21:13:00.000Z"
+  },
+  "dia_actcult": "2026-02-04",
+  "hora_actcult": "16:13",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "Joven (J)",
+  "edad_asistencia": 211,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Hspayr",
+      "justificacion": "por Rotju"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaabf22af2ae403bceb0",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafac4f22af2ae403bceb6"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Qpqcebbqc",
+      "numero_prefactura": "Hcfmhry",
+      "cantidad": 893
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bsqmv",
+      "numero_prefactura": "Yrxgf",
+      "cantidad": 655
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Zgrbml",
+      "numero_prefactura": "Qbsrv",
+      "cantidad": 671
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Kyqiwnl",
+      "numero_prefactura": "Yohbdqulr",
+      "cantidad": 207
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:42.063Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:42.063Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6abbdbc87cd83cd79e"
+  },
+  "name": "Koxpmkd",
+  "datedAt": {
+    "$date": "2026-02-22T19:38:00.000Z"
+  },
+  "dia_actcult": "2026-02-22",
+  "hora_actcult": "14:38",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "cp_planificado": "68f03ee31c59f86602d853d4",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 277,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Zxnqke",
+      "justificacion": "por Guxrao"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafad8f22af2ae403bceba",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafab2f22af2ae403bceb3",
+    "69a5188990707b297a3614b0",
+    "69a518a390707b297a3614b4",
+    "69aafac4f22af2ae403bceb6"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Xjhapph",
+      "numero_prefactura": "Itmec",
+      "cantidad": 795
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Pnkyksa",
+      "numero_prefactura": "Hdhbgyhls",
+      "cantidad": 49
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:42.229Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:42.229Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6abbdbc87cd83cd7a3"
+  },
+  "name": "Lcvorqoh",
+  "datedAt": {
+    "$date": "2026-03-27T04:51:00.000Z"
+  },
+  "dia_actcult": "2026-03-27",
+  "hora_actcult": "00:51",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "lugar_planificado": "68ee6928633f5771ff561607",
+  "edad": "Adulto Mayor (AM)",
+  "edad_asistencia": 286,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Nbkua",
+      "justificacion": "por Oocldelia"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69a518a390707b297a3614b4",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654",
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Srigtucxh",
+      "numero_prefactura": "Tvwgigdft",
+      "cantidad": 719
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Byufqsg",
+      "numero_prefactura": "Zegfv",
+      "cantidad": 49
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Erwnlphwe",
+      "numero_prefactura": "Klmntdb",
+      "cantidad": 783
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Luqmf",
+      "numero_prefactura": "Rpomj",
+      "cantidad": 771
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ghhnoo",
+      "numero_prefactura": "Zqocxeby",
+      "cantidad": 681
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:42.406Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:42.406Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6abbdbc87cd83cd7a8"
+  },
+  "name": "Ctcdrdi",
+  "datedAt": {
+    "$date": "2026-03-18T11:04:00.000Z"
+  },
+  "dia_actcult": "2026-03-18",
+  "hora_actcult": "07:04",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "68f9550a7248fe8e8b063abc",
+  "edad": "l",
+  "edad_asistencia": 177,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Ujgfi",
+      "justificacion": "por Fknjvjin"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafac4f22af2ae403bceb6",
+    "69aafab2f22af2ae403bceb3",
+    "69aafaabf22af2ae403bceb0",
+    "69a518a390707b297a3614b4",
+    "69a5188990707b297a3614b0",
+    "69aafb0bf22af2ae403bcebd"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654",
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Bxpvlf",
+      "numero_prefactura": "Nzyuathwu",
+      "cantidad": 978
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Xmhbmex",
+      "numero_prefactura": "Mveoavly",
+      "cantidad": 971
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Pdqrdjjby",
+      "numero_prefactura": "Xtxgrax",
+      "cantidad": 567
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Hejsxfl",
+      "numero_prefactura": "Wasvurden",
+      "cantidad": 153
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Cqgqegtv",
+      "numero_prefactura": "Uchrtq",
+      "cantidad": 83
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ybgyhnza",
+      "numero_prefactura": "Divnrzfi",
+      "cantidad": 718
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Sltqti",
+      "numero_prefactura": "Nyyasb",
+      "cantidad": 164
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Jvfkxx",
+      "numero_prefactura": "Hmrwblpgm",
+      "cantidad": 700
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Tpgfn",
+      "numero_prefactura": "Okxxr",
+      "cantidad": 918
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Zfgmcgmqn",
+      "numero_prefactura": "Ouysmuqdd",
+      "cantidad": 898
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:42.551Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:42.551Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6abbdbc87cd83cd7ad"
+  },
+  "name": "Rvlrtyi",
+  "datedAt": {
+    "$date": "2026-01-14T04:22:00.000Z"
+  },
+  "dia_actcult": "2026-01-13",
+  "hora_actcult": "23:22",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "cp_planificado": "6949dcd57b3c543c9ca4d315",
+  "edad": "Adulto Mayor (AM)",
+  "edad_asistencia": 255,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Qeerrasw",
+      "justificacion": "por Qjwydxd"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafb0bf22af2ae403bcebd",
+    "69aafad8f22af2ae403bceba",
+    "69a5188990707b297a3614b0",
+    "69aafaabf22af2ae403bceb0",
+    "69aafab2f22af2ae403bceb3",
+    "69aafaa2f22af2ae403bcead",
+    "69a518a390707b297a3614b4",
+    "69aafac4f22af2ae403bceb6"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Lbewki",
+      "numero_prefactura": "Mpyufqlq",
+      "cantidad": 467
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Azlgnh",
+      "numero_prefactura": "Fgozssw",
+      "cantidad": 593
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Pnpmfl",
+      "numero_prefactura": "Zalli",
+      "cantidad": 332
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Oxufwed",
+      "numero_prefactura": "Uxxdf",
+      "cantidad": 765
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hkrcbza",
+      "numero_prefactura": "Spvscnmo",
+      "cantidad": 922
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:42.718Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:42.718Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6abbdbc87cd83cd7b2"
+  },
+  "name": "Raxdnh",
+  "datedAt": {
+    "$date": "2026-03-06T15:44:00.000Z"
+  },
+  "dia_actcult": "2026-03-06",
+  "hora_actcult": "10:44",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "l",
+  "edad_asistencia": 41,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Houtxrswc",
+      "justificacion": "por Eergqkv"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafab2f22af2ae403bceb3",
+    "69a518a390707b297a3614b4",
+    "69aafad8f22af2ae403bceba",
+    "69a5188990707b297a3614b0"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Isshq",
+      "numero_prefactura": "Lnhmg",
+      "cantidad": 301
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hcbcwdc",
+      "numero_prefactura": "Inligkcr",
+      "cantidad": 436
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Fsshstfz",
+      "numero_prefactura": "Tglzese",
+      "cantidad": 422
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Yxviuum",
+      "numero_prefactura": "Fwmwevdl",
+      "cantidad": 417
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Uqvrblr",
+      "numero_prefactura": "Nurjlni",
+      "cantidad": 69
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:42.880Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:42.880Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6bbbdbc87cd83cd7b7"
+  },
+  "name": "Jgltj",
+  "datedAt": {
+    "$date": "2026-02-16T15:13:00.000Z"
+  },
+  "dia_actcult": "2026-02-16",
+  "hora_actcult": "10:13",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "lugar_planificado": "68ee6928633f5771ff561607",
+  "edad": "Niño (N)",
+  "edad_asistencia": 16,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Iauco",
+      "justificacion": "por Oflkdaz"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafac4f22af2ae403bceb6",
+    "69aafaa2f22af2ae403bcead",
+    "69a518a390707b297a3614b4",
+    "69a5188990707b297a3614b0",
+    "69aafab2f22af2ae403bceb3",
+    "69aafaabf22af2ae403bceb0",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafad8f22af2ae403bceba"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Xefcx",
+      "numero_prefactura": "Pmqkcf",
+      "cantidad": 14
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Vbczlkfy",
+      "numero_prefactura": "Hfhcgpneu",
+      "cantidad": 592
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Xkcgz",
+      "numero_prefactura": "Ruolf",
+      "cantidad": 797
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Jpohmz",
+      "numero_prefactura": "Nnbbkq",
+      "cantidad": 326
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Nxnhcmv",
+      "numero_prefactura": "Eeyzrk",
+      "cantidad": 637
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ycpyqnazz",
+      "numero_prefactura": "Plbbpey",
+      "cantidad": 253
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Tozyyza",
+      "numero_prefactura": "Lgpjevfb",
+      "cantidad": 42
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hbxdpawe",
+      "numero_prefactura": "Wtstdmr",
+      "cantidad": 76
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Iwzivimw",
+      "numero_prefactura": "Atdzhw",
+      "cantidad": 142
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:43.045Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:43.045Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6bbbdbc87cd83cd7bc"
+  },
+  "name": "Ybfelw",
+  "datedAt": {
+    "$date": "2026-02-18T18:27:00.000Z"
+  },
+  "dia_actcult": "2026-02-18",
+  "hora_actcult": "13:27",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "l",
+  "edad_asistencia": 126,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Lwpfhhst",
+      "justificacion": "por Edyjd"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafad8f22af2ae403bceba",
+    "69aafac4f22af2ae403bceb6",
+    "69aafaabf22af2ae403bceb0",
+    "69aafb0bf22af2ae403bcebd",
+    "69a5188990707b297a3614b0",
+    "69aafaa2f22af2ae403bcead",
+    "69a518a390707b297a3614b4",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Swxoah",
+      "numero_prefactura": "Msgkhtpql",
+      "cantidad": 571
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Gsqbqzgl",
+      "numero_prefactura": "Wfmsvx",
+      "cantidad": 943
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ekzfkc",
+      "numero_prefactura": "Sbtueah",
+      "cantidad": 742
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:43.206Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:43.206Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6bbbdbc87cd83cd7c1"
+  },
+  "name": "Jyfiadf",
+  "datedAt": {
+    "$date": "2026-03-24T09:09:00.000Z"
+  },
+  "dia_actcult": "2026-03-24",
+  "hora_actcult": "05:09",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 258,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Vbjlkqk",
+      "justificacion": "por Izqtwket"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafad8f22af2ae403bceba",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaabf22af2ae403bceb0",
+    "69aafaa2f22af2ae403bcead",
+    "69a5188990707b297a3614b0",
+    "69aafac4f22af2ae403bceb6"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b0364be86ca01e39390661",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Rqxtxuxm",
+      "numero_prefactura": "Enkfwou",
+      "cantidad": 818
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Exzjc",
+      "numero_prefactura": "Sgnhppaz",
+      "cantidad": 411
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Arshoxid",
+      "numero_prefactura": "Pvuhxcrv",
+      "cantidad": 779
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Scuqx",
+      "numero_prefactura": "Tkfoxgyaw",
+      "cantidad": 31
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Gjcxxby",
+      "numero_prefactura": "Lwbuke",
+      "cantidad": 508
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Zznne",
+      "numero_prefactura": "Kppnmqh",
+      "cantidad": 238
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:43.382Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:43.382Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6bbbdbc87cd83cd7c6"
+  },
+  "name": "Zlhsglsq",
+  "datedAt": {
+    "$date": "2026-03-13T11:57:00.000Z"
+  },
+  "dia_actcult": "2026-03-13",
+  "hora_actcult": "07:57",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "Público General (PG)",
+  "edad_asistencia": 64,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Qpsfb",
+      "justificacion": "por Mrrmae"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafab2f22af2ae403bceb3",
+    "69a5188990707b297a3614b0",
+    "69aafac4f22af2ae403bceb6",
+    "69aafad8f22af2ae403bceba",
+    "69aafaa2f22af2ae403bcead"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661",
+    "69b03662e86ca01e39390669",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Vpygvngvq",
+      "numero_prefactura": "Mrblfbqb",
+      "cantidad": 215
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Nvvbb",
+      "numero_prefactura": "Neeeip",
+      "cantidad": 210
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Buwsonf",
+      "numero_prefactura": "Dcuctns",
+      "cantidad": 2
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Ivvla",
+      "numero_prefactura": "Vpitk",
+      "cantidad": 745
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Scumt",
+      "numero_prefactura": "Jvoddpaym",
+      "cantidad": 929
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hmtavx",
+      "numero_prefactura": "Nlprzvfk",
+      "cantidad": 278
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Zcicrguck",
+      "numero_prefactura": "Pyholpl",
+      "cantidad": 132
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:43.550Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:43.550Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6bbbdbc87cd83cd7cb"
+  },
+  "name": "Yyjsyymc",
+  "datedAt": {
+    "$date": "2026-01-14T17:35:00.000Z"
+  },
+  "dia_actcult": "2026-01-14",
+  "hora_actcult": "12:35",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "cp_planificado": "68f03f6d1c59f86602d853f0",
+  "edad": "l",
+  "edad_asistencia": 246,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Jpxygxbte",
+      "justificacion": "por Ycvaow"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a518a390707b297a3614b4",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafad8f22af2ae403bceba",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654",
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Icjtmr",
+      "numero_prefactura": "Xkhcm",
+      "cantidad": 5
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Bktvcbhy",
+      "numero_prefactura": "Wwheen",
+      "cantidad": 226
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Vqsmoahd",
+      "numero_prefactura": "Bvjhl",
+      "cantidad": 248
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:43.718Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:43.718Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6bbbdbc87cd83cd7d0"
+  },
+  "name": "Blyxp",
+  "datedAt": {
+    "$date": "2026-03-24T06:37:00.000Z"
+  },
+  "dia_actcult": "2026-03-24",
+  "hora_actcult": "02:37",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 245,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Nsajigef",
+      "justificacion": "por Stwkeyiz"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a5188990707b297a3614b0",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Mbiqzrblt",
+      "numero_prefactura": "Irkolns",
+      "cantidad": 304
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Wlbyhet",
+      "numero_prefactura": "Wipudhw",
+      "cantidad": 374
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Gpypsv",
+      "numero_prefactura": "Pycrg",
+      "cantidad": 864
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Cehmdmwv",
+      "numero_prefactura": "Ngqrzkb",
+      "cantidad": 835
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Ozjvku",
+      "numero_prefactura": "Ckhqyskd",
+      "cantidad": 183
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Kstknqftg",
+      "numero_prefactura": "Zxsnx",
+      "cantidad": 911
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:43.883Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:43.883Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6cbbdbc87cd83cd7d5"
+  },
+  "name": "Bzsukdmc",
+  "datedAt": {
+    "$date": "2026-01-27T15:30:00.000Z"
+  },
+  "dia_actcult": "2026-01-27",
+  "hora_actcult": "10:30",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "68ee6928633f5771ff561607",
+  "edad": "Niño (N)",
+  "edad_asistencia": 161,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Esalwy",
+      "justificacion": "por Jaritrwkd"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a5188990707b297a3614b0",
+    "69a518a390707b297a3614b4",
+    "69aafac4f22af2ae403bceb6",
+    "69aafaa2f22af2ae403bcead"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654",
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Wxkns",
+      "numero_prefactura": "Eikjk",
+      "cantidad": 560
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Obammmjrj",
+      "numero_prefactura": "Varkq",
+      "cantidad": 120
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Klfhe",
+      "numero_prefactura": "Kdgsyhgg",
+      "cantidad": 902
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Xritqqfid",
+      "numero_prefactura": "Laorxy",
+      "cantidad": 573
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Oykqcub",
+      "numero_prefactura": "Qysir",
+      "cantidad": 968
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Mztixlwdv",
+      "numero_prefactura": "Ojyfozt",
+      "cantidad": 126
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ucrzfcxh",
+      "numero_prefactura": "Acexgwiq",
+      "cantidad": 435
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Livcqvhg",
+      "numero_prefactura": "Fjrpmojub",
+      "cantidad": 313
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Gyxqv",
+      "numero_prefactura": "Mtynmeo",
+      "cantidad": 539
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Jafgk",
+      "numero_prefactura": "Iqjlhjlb",
+      "cantidad": 908
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:44.039Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:44.039Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6cbbdbc87cd83cd7da"
+  },
+  "name": "Veqfu",
+  "datedAt": {
+    "$date": "2026-02-17T18:28:00.000Z"
+  },
+  "dia_actcult": "2026-02-17",
+  "hora_actcult": "13:28",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "cp_planificado": "68f9559d7248fe8e8b063ad8",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 33,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Cqwgbhxyd",
+      "justificacion": "por Wvsomf"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaa2f22af2ae403bcead",
+    "69aafad8f22af2ae403bceba",
+    "69a5188990707b297a3614b0",
+    "69aafac4f22af2ae403bceb6",
+    "69aafaabf22af2ae403bceb0",
+    "69aafab2f22af2ae403bceb3",
+    "69a518a390707b297a3614b4"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Wwqcwx",
+      "numero_prefactura": "Extwpj",
+      "cantidad": 918
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Cxdqgf",
+      "numero_prefactura": "Vmcmsse",
+      "cantidad": 48
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Tvsizb",
+      "numero_prefactura": "Jmdicivsq",
+      "cantidad": 363
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Eudys",
+      "numero_prefactura": "Ehjznesbf",
+      "cantidad": 967
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Oknzr",
+      "numero_prefactura": "Fpwangww",
+      "cantidad": 20
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Cxweke",
+      "numero_prefactura": "Oxooz",
+      "cantidad": 224
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:44.214Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:44.214Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6cbbdbc87cd83cd7df"
+  },
+  "name": "Ikbtk",
+  "datedAt": {
+    "$date": "2026-02-02T10:22:00.000Z"
+  },
+  "dia_actcult": "2026-02-02",
+  "hora_actcult": "05:22",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "cp_planificado": "68f03f6d1c59f86602d853f0",
+  "edad": "Adulto Mayor (AM)",
+  "edad_asistencia": 285,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Pqxycvws",
+      "justificacion": "por Plfvg"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69aafac4f22af2ae403bceb6",
+    "69aafab2f22af2ae403bceb3",
+    "69a5188990707b297a3614b0",
+    "69aafad8f22af2ae403bceba",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654",
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Qruuqtowo",
+      "numero_prefactura": "Uaupuajqa",
+      "cantidad": 467
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Zoogc",
+      "numero_prefactura": "Vnwhkr",
+      "cantidad": 934
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Hspcm",
+      "numero_prefactura": "Omvuspuy",
+      "cantidad": 743
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Dpdqlj",
+      "numero_prefactura": "Mgtjdfeyg",
+      "cantidad": 242
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Gmwcptpq",
+      "numero_prefactura": "Yajqjprhf",
+      "cantidad": 76
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hnusihbpr",
+      "numero_prefactura": "Zhtjicj",
+      "cantidad": 960
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Whgwhco",
+      "numero_prefactura": "Llepwsuf",
+      "cantidad": 100
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:44.349Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:44.349Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6cbbdbc87cd83cd7e4"
+  },
+  "name": "Brsvk",
+  "datedAt": {
+    "$date": "2026-01-07T02:08:00.000Z"
+  },
+  "dia_actcult": "2026-01-06",
+  "hora_actcult": "21:08",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "l",
+  "edad_asistencia": 289,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Rqjvedd",
+      "justificacion": "por Bfgiawt"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafad8f22af2ae403bceba"
+  ],
+  "programas_tributa": [
+    "69b035fce86ca01e39390654",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Bcgzvygb",
+      "numero_prefactura": "Evwkbxug",
+      "cantidad": 895
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Efwml",
+      "numero_prefactura": "Racmdbebd",
+      "cantidad": 388
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Uqpuda",
+      "numero_prefactura": "Fhcezrtv",
+      "cantidad": 335
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Gxscxkgb",
+      "numero_prefactura": "Ddnvitr",
+      "cantidad": 159
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Nzerr",
+      "numero_prefactura": "Knnhclr",
+      "cantidad": 91
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:44.510Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:44.510Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6cbbdbc87cd83cd7e9"
+  },
+  "name": "Wnkydc",
+  "datedAt": {
+    "$date": "2026-02-21T05:11:00.000Z"
+  },
+  "dia_actcult": "2026-02-21",
+  "hora_actcult": "00:11",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "Adulto Mayor (AM)",
+  "edad_asistencia": 253,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Rqlmob",
+      "justificacion": "por Reqzxa"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafac4f22af2ae403bceb6",
+    "69aafaa2f22af2ae403bcead",
+    "69aafaabf22af2ae403bceb0",
+    "69aafab2f22af2ae403bceb3",
+    "69aafb0bf22af2ae403bcebd"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Ozkpdj",
+      "numero_prefactura": "Clxrlt",
+      "cantidad": 742
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Ouzeekju",
+      "numero_prefactura": "Eoxufwqiy",
+      "cantidad": 169
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Yuuqdua",
+      "numero_prefactura": "Iqbaprrr",
+      "cantidad": 295
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Jotyyv",
+      "numero_prefactura": "Gctplfz",
+      "cantidad": 656
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Peohypiz",
+      "numero_prefactura": "Crmfor",
+      "cantidad": 88
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:44.677Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:44.677Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6cbbdbc87cd83cd7ee"
+  },
+  "name": "Drepfjbkk",
+  "datedAt": {
+    "$date": "2026-01-12T20:37:00.000Z"
+  },
+  "dia_actcult": "2026-01-12",
+  "hora_actcult": "15:37",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "Público General (PG)",
+  "edad_asistencia": 186,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Bzolqw",
+      "justificacion": "por Eipdgmns"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69aafad8f22af2ae403bceba"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Qanjzmtdw",
+      "numero_prefactura": "Vhhnjpgoz",
+      "cantidad": 974
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Efglzfspn",
+      "numero_prefactura": "Gtrdldzr",
+      "cantidad": 245
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Clfhje",
+      "numero_prefactura": "Ggogdyue",
+      "cantidad": 283
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Btemnb",
+      "numero_prefactura": "Jocdsulp",
+      "cantidad": 375
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Xsbhur",
+      "numero_prefactura": "Acgbndzl",
+      "cantidad": 678
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:44.846Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:44.846Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6dbbdbc87cd83cd7f3"
+  },
+  "name": "Bnsok",
+  "datedAt": {
+    "$date": "2026-03-13T23:51:00.000Z"
+  },
+  "dia_actcult": "2026-03-13",
+  "hora_actcult": "19:51",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "lugar_planificado": "67be5509f2fddeb300b11ff6",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 117,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Tbdlemb",
+      "justificacion": "por Vzpwus"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a518a390707b297a3614b4",
+    "69a5188990707b297a3614b0",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaa2f22af2ae403bcead",
+    "69aafaabf22af2ae403bceb0",
+    "69aafad8f22af2ae403bceba",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97",
+    "69b0364be86ca01e39390661"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Mfzbml",
+      "numero_prefactura": "Gnjtusv",
+      "cantidad": 207
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Glkbwkpjz",
+      "numero_prefactura": "Jlgeffhr",
+      "cantidad": 119
+    },
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Lajsg",
+      "numero_prefactura": "Piqnx",
+      "cantidad": 437
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Xwmyyeoju",
+      "numero_prefactura": "Djctrf",
+      "cantidad": 926
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Sdnwgr",
+      "numero_prefactura": "Cfbsdn",
+      "cantidad": 596
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Kpertc",
+      "numero_prefactura": "Wqtwo",
+      "cantidad": 939
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:45.005Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:45.005Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6dbbdbc87cd83cd7f8"
+  },
+  "name": "Uqvhaxyoo",
+  "datedAt": {
+    "$date": "2026-02-15T05:18:00.000Z"
+  },
+  "dia_actcult": "2026-02-15",
+  "hora_actcult": "00:18",
+  "entidad_responsable": "699d1242d9fb9411b15b1f5c",
+  "ic_planificado": "699d00588d37785b50b32fae",
+  "edad": "Adulto (A)",
+  "edad_asistencia": 100,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Vxskyc",
+      "justificacion": "por Ggaqjwm"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a5188990707b297a3614b0",
+    "69aafaa2f22af2ae403bcead",
+    "69aafac4f22af2ae403bceb6",
+    "69aafb0bf22af2ae403bcebd",
+    "69aafaabf22af2ae403bceb0",
+    "69a518a390707b297a3614b4",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Zwlyp",
+      "numero_prefactura": "Axsyf",
+      "cantidad": 141
+    },
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Zxvxof",
+      "numero_prefactura": "Ykehuzvas",
+      "cantidad": 728
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Zrntt",
+      "numero_prefactura": "Xpcnex",
+      "cantidad": 137
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Hnlbyzty",
+      "numero_prefactura": "Hvvjcygt",
+      "cantidad": 364
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Qtgws",
+      "numero_prefactura": "Ypajfuq",
+      "cantidad": 336
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Xvmlo",
+      "numero_prefactura": "Deomomkp",
+      "cantidad": 773
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": true,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:45.294Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:45.294Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6dbbdbc87cd83cd7fd"
+  },
+  "name": "Eqmqg",
+  "datedAt": {
+    "$date": "2026-03-20T03:44:00.000Z"
+  },
+  "dia_actcult": "2026-03-19",
+  "hora_actcult": "23:44",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "ic_planificado": "699ca369160d18276202bb8a",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 118,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "S",
+      "responsable": "Dcxibse",
+      "justificacion": "por Dbidsj"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69a518a390707b297a3614b4",
+    "69aafaabf22af2ae403bceb0",
+    "69aafab2f22af2ae403bceb3",
+    "69aafb0bf22af2ae403bcebd",
+    "69a5188990707b297a3614b0",
+    "69aafac4f22af2ae403bceb6",
+    "69aafad8f22af2ae403bceba"
+  ],
+  "programas_tributa": [
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Kzxde",
+      "numero_prefactura": "Uhsypldx",
+      "cantidad": 546
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Epvcxxmuw",
+      "numero_prefactura": "Kubtes",
+      "cantidad": 136
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Edlkepqbm",
+      "numero_prefactura": "Suotaeuv",
+      "cantidad": 875
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ubzyhpwj",
+      "numero_prefactura": "Nvikhnn",
+      "cantidad": 98
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Xotlil",
+      "numero_prefactura": "Uxrqfnz",
+      "cantidad": 908
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Oyyxinyq",
+      "numero_prefactura": "Avwawgcio",
+      "cantidad": 299
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:45.455Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:45.455Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6dbbdbc87cd83cd802"
+  },
+  "name": "Fdbad",
+  "datedAt": {
+    "$date": "2026-03-20T11:27:00.000Z"
+  },
+  "dia_actcult": "2026-03-20",
+  "hora_actcult": "07:27",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "lugar_planificado": "67be5509f2fddeb300b11ff6",
+  "edad": "Adolescente (AD)",
+  "edad_asistencia": 135,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "P",
+      "responsable": "Sclgsxkgs",
+      "justificacion": "por Wydqkrhis"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69a5188990707b297a3614b0",
+    "69aafab2f22af2ae403bceb3"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Bxoio",
+      "numero_prefactura": "Gjomuodi",
+      "cantidad": 437
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Wwnuvt",
+      "numero_prefactura": "Wpeccvns",
+      "cantidad": 516
+    },
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Fpdcrr",
+      "numero_prefactura": "Iinmik",
+      "cantidad": 753
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Mbfbi",
+      "numero_prefactura": "Rjlhq",
+      "cantidad": 405
+    }
+  ],
+  "TV": false,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:45.622Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:45.622Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6dbbdbc87cd83cd807"
+  },
+  "name": "Nwddsfuim",
+  "datedAt": {
+    "$date": "2026-02-14T14:15:00.000Z"
+  },
+  "dia_actcult": "2026-02-14",
+  "hora_actcult": "09:15",
+  "entidad_responsable": "699d00588d37785b50b32fae",
+  "ic_planificado": "699d1242d9fb9411b15b1f5c",
+  "edad": "l",
+  "edad_asistencia": 86,
+  "tipoActividad_extraPlan": false,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "R",
+      "responsable": "Ujuqrt",
+      "justificacion": "por Jmenhf"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafaa2f22af2ae403bcead",
+    "69aafb0bf22af2ae403bcebd",
+    "69a518a390707b297a3614b4",
+    "69a5188990707b297a3614b0",
+    "69aafac4f22af2ae403bceb6",
+    "69aafaabf22af2ae403bceb0"
+  ],
+  "programas_tributa": [
+    "69b03662e86ca01e39390669",
+    "69b03bb2c00d346bc0affe97",
+    "69b035fce86ca01e39390654"
+  ],
+  "talentos": [
+    {
+      "id": "69a5c0ba43e6f9d79d08fc5e",
+      "name": "llCala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Rguxs",
+      "numero_prefactura": "Mcjius",
+      "cantidad": 948
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ehbjv",
+      "numero_prefactura": "Bvtkfxu",
+      "cantidad": 967
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:45.757Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:45.757Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69c69e6dbbdbc87cd83cd80c"
+  },
+  "name": "Auffw",
+  "datedAt": {
+    "$date": "2026-02-01T06:03:00.000Z"
+  },
+  "dia_actcult": "2026-02-01",
+  "hora_actcult": "01:03",
+  "entidad_responsable": "699ca369160d18276202bb8a",
+  "lugar_planificado": "67be5509f2fddeb300b11ff6",
+  "edad": "l",
+  "edad_asistencia": 26,
+  "tipoActividad_extraPlan": true,
+  "tipoActividad_Prov_Entidad": null,
+  "estados_actividad": [
+    {
+      "estado_actividad": "D",
+      "responsable": "Fgjujln",
+      "justificacion": "por Cwcth"
+    }
+  ],
+  "manifestaciones_artisticas": [
+    "69aafad8f22af2ae403bceba"
+  ],
+  "programas_tributa": [
+    "69b0364be86ca01e39390661",
+    "69b03bb2c00d346bc0affe97",
+    "69b03662e86ca01e39390669"
+  ],
+  "talentos": [
+    {
+      "id": "69bc6b62e13a3a25e010a105",
+      "name": "Zrkpxkol",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Ydjqn",
+      "numero_prefactura": "Reazxubt",
+      "cantidad": 706
+    },
+    {
+      "id": "69a5a164da5334286ac4f8b7",
+      "name": "Cala Danza",
+      "manifest": "69a518a390707b297a3614b4",
+      "numero_contrato": "Xpgsxah",
+      "numero_prefactura": "Urekbqz",
+      "cantidad": 626
+    },
+    {
+      "id": "69bc6b69e13a3a25e010a111",
+      "name": "Appnw",
+      "manifest": "69aafb0bf22af2ae403bcebd",
+      "numero_contrato": "Xqhxc",
+      "numero_prefactura": "Sqvmkvd",
+      "cantidad": 924
+    },
+    {
+      "id": "69bc6b64e13a3a25e010a10d",
+      "name": "Sycml",
+      "manifest": "69aafad8f22af2ae403bceba",
+      "numero_contrato": "Fuoxzuju",
+      "numero_prefactura": "Sprfwftj",
+      "cantidad": 862
+    }
+  ],
+  "apoyos": [
+    {
+      "id": "69a59e37aa0720723afe3d2e",
+      "name": "LucPedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ruxlkanrk",
+      "numero_prefactura": "Vyiqgel",
+      "cantidad": 196
+    },
+    {
+      "id": "69bc6de3e13a3a25e010a11e",
+      "name": "Wwbpjuxcw",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Lopzzgx",
+      "numero_prefactura": "Qqlopghgc",
+      "cantidad": 135
+    },
+    {
+      "id": "69a59d9faa0720723afe3d26",
+      "name": "Pedro UNE Prieto",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Zuuydirpe",
+      "numero_prefactura": "Fxphp",
+      "cantidad": 431
+    },
+    {
+      "id": "69bc6c7ee13a3a25e010a116",
+      "name": "Yomvt",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Dhricmnn",
+      "numero_prefactura": "Qnrpsszj",
+      "cantidad": 115
+    },
+    {
+      "id": "69bc6c87e13a3a25e010a11a",
+      "name": "Ucyvc",
+      "manifest": "69a518bb90707b297a3614b7",
+      "numero_contrato": "Ktkyotqv",
+      "numero_prefactura": "Kepeftps",
+      "cantidad": 477
+    }
+  ],
+  "TV": true,
+  "redes_plataforma": false,
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-03-27T15:12:45.919Z"
+  },
+  "updatedAt": {
+    "$date": "2026-03-27T15:12:45.919Z"
   },
   "__v": 0
 }]

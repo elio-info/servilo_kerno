@@ -1,27 +1,5 @@
 [{
   "_id": {
-    "$oid": "67be5467bc9c79983bba1dbf"
-  },
-  "name": "Direccion Provincial",
-  "hierarchy": 0,
-  "isDeleted": false,
-  "createdAt": "2024-06-12T21:57:05.083Z",
-  "updatedAt": "2024-06-12T21:57:05.083Z",
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67be5467bc9c79983bba1dc0"
-  },
-  "name": "Direccion Municipal",
-  "hierarchy": 1,
-  "isDeleted": false,
-  "createdAt": "2024-06-12T21:58:52.828Z",
-  "updatedAt": "2024-06-12T21:58:52.828Z",
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "67be5467bc9c79983bba1dc1"
   },
   "name": "Empresa Cultural",
@@ -69,7 +47,7 @@
     "$oid": "67be5467bc9c79983bba1dc5"
   },
   "name": "Institucion Cultural",
-  "hierarchy": 2,
+  "hierarchy": 3,
   "isDeleted": false,
   "createdAt": "2024-06-12T22:04:48.470Z",
   "updatedAt": "2024-06-12T22:04:48.470Z",
@@ -117,21 +95,6 @@
   },
   "updatedAt": {
     "$date": "2025-12-13T23:58:07.275Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "6957eb91aee8fee93f6cc67b"
-  },
-  "name": "Instituto",
-  "hierarchy": 1,
-  "isDeleted": false,
-  "createdAt": {
-    "$date": "2026-01-02T16:00:17.370Z"
-  },
-  "updatedAt": {
-    "$date": "2026-01-02T16:00:17.370Z"
   },
   "__v": 0
 },

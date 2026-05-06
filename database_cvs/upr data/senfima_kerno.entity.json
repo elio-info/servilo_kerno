@@ -74,4 +74,56 @@
     "$date": "2026-02-24T02:51:46.844Z"
   },
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69f137c4ee33ae67f7ce411c"
+  },
+  "entityType": "67be5467bc9c79983bba1dc5",
+  "parentId": "699d00588d37785b50b32fae",
+  "name": "ICM La Casa de Pedrito",
+  "nivel": "Inst",
+  "nitCode": "",
+  "abbreviation": "ICM Pepito",
+  "resolution": "",
+  "issuedBy": "",
+  "domicilie": "",
+  "municipality": "693d1aa033ba286eaf4c2777",
+  "consejo_p": "693e6bb7b267f8f6bb64a62c",
+  "reeup": "",
+  "commercialRegister": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-04-28T22:42:12.143Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-28T22:42:12.143Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69f13cb63a022ac51ce12301"
+  },
+  "entityType": "67be5467bc9c79983bba1dc5",
+  "parentId": "699d00588d37785b50b32fae",
+  "name": "ICM me perdi",
+  "nivel": "Inst",
+  "nitCode": "",
+  "abbreviation": "ICM lost",
+  "resolution": "",
+  "issuedBy": "",
+  "domicilie": "",
+  "municipality": "693d1aa033ba286eaf4c2777",
+  "consejo_p": "693e6bb7b267f8f6bb64a62c",
+  "reeup": "",
+  "commercialRegister": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-04-28T23:03:18.047Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-28T23:03:18.047Z"
+  },
+  "__v": 0
 }]

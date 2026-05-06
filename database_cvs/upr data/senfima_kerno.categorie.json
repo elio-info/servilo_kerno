@@ -1,0 +1,102 @@
+[{
+  "_id": {
+    "$oid": "69f12dcdf6789d87397733a7"
+  },
+  "name": "sdfsdfsdf",
+  "nameTitle": "strisdfsdfng",
+  "link": "strisdfng",
+  "access_point": [
+    {
+      "isActive": false,
+      "nameAPI": "Post",
+      "linkAPI": "strasdasding",
+      "nameMenuTitle": "strinasdasdg"
+    }
+  ],
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-04-28T21:59:41.849Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-28T21:59:41.849Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69f12e52f6789d87397733ae"
+  },
+  "name": "User Management",
+  "nameTitle": "Users",
+  "link": "/users",
+  "access_point": [
+    {
+      "isActive": true,
+      "nameAPI": "Get",
+      "linkAPI": "/id",
+      "nameMenuTitle": "Get One selected"
+    }
+  ],
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-04-28T22:01:54.543Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-28T22:01:54.543Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69f12fdff6789d87397733b5"
+  },
+  "name": "Municipios",
+  "nameTitle": "Gestion de Municipios",
+  "link": "/municipality",
+  "access_point": [
+    {
+      "isActive": true,
+      "nameAPI": "Post",
+      "linkAPI": "/",
+      "nameMenuTitle": "Adicionar"
+    },
+    {
+      "isActive": true,
+      "nameAPI": "Get",
+      "linkAPI": "/",
+      "nameMenuTitle": "Devolver todos"
+    },
+    {
+      "isActive": true,
+      "nameAPI": "Get",
+      "linkAPI": "/id",
+      "nameMenuTitle": "Ver seleccionado"
+    },
+    {
+      "isActive": true,
+      "nameAPI": "Patch",
+      "linkAPI": "/",
+      "nameMenuTitle": "Actualizar seleccionado"
+    },
+    {
+      "isActive": false,
+      "nameAPI": "Delete",
+      "linkAPI": "/",
+      "nameMenuTitle": "Eliminar seleccionado"
+    },
+    {
+      "isActive": true,
+      "nameAPI": "Put",
+      "linkAPI": "/",
+      "nameMenuTitle": "Buscar"
+    }
+  ],
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-04-28T22:08:31.159Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-28T22:08:31.159Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,65 @@
+[{
+  "_id": {
+    "$oid": "69f141873a022ac51ce12337"
+  },
+  "name": "pinar 01",
+  "entity": "699d00588d37785b50b32fae",
+  "access": [
+    {
+      "id": "69f12fdff6789d87397733b5",
+      "name": "Actividad Cultural",
+      "nameTitle": "Controlar Actividades Culturales",
+      "link": "/control-actcult",
+      "access_point": [
+        {
+          "nameAPI": "Post",
+          "linkAPI": "/",
+          "nameMenuTitle": "Adicionar",
+          "isActive": true
+        },
+        {
+          "nameAPI": "Get",
+          "linkAPI": "/",
+          "nameMenuTitle": "Devolver todos",
+          "isActive": true
+        },
+        {
+          "nameAPI": "Get",
+          "linkAPI": "/id",
+          "nameMenuTitle": "Ver seleccionado",
+          "isActive": true
+        },
+        {
+          "nameAPI": "Patch",
+          "linkAPI": "/",
+          "nameMenuTitle": "Actualizar seleccionado",
+          "isActive": true
+        },
+        {
+          "nameAPI": "Delete",
+          "linkAPI": "/",
+          "nameMenuTitle": "Eliminar seleccionado",
+          "isActive": false
+        },
+        {
+          "nameAPI": "Put",
+          "linkAPI": "/",
+          "nameMenuTitle": "Buscar",
+          "isActive": true
+        }
+      ]
+    }
+  ],
+  "subord": [
+    "69f137c4ee33ae67f7ce411c",
+    "69f13cb63a022ac51ce12301"
+  ],
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2026-04-28T23:23:51.200Z"
+  },
+  "updatedAt": {
+    "$date": "2026-04-28T23:23:51.200Z"
+  },
+  "__v": 0
+}]

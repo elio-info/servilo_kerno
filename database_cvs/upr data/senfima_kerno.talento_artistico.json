@@ -77,4 +77,43 @@
     "$date": "2026-03-02T16:54:18.472Z"
   },
   "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69bc6b62e13a3a25e010a105"
+  },
+  "name": "Zrkpxkol",
+  "manifest": [
+    "69aafad8f22af2ae403bceba"
+  ],
+  "contrato_talento": "Profesional",
+  "entidad_talento": null,
+  "isDeleted": false,
+  "persona_TalentoArtistico": true
+},
+{
+  "_id": {
+    "$oid": "69bc6b64e13a3a25e010a10d"
+  },
+  "name": "Sycml",
+  "manifest": [
+    "69aafad8f22af2ae403bceba"
+  ],
+  "contrato_talento": "Profesional",
+  "entidad_talento": null,
+  "isDeleted": false,
+  "persona_TalentoArtistico": true
+},
+{
+  "_id": {
+    "$oid": "69bc6b69e13a3a25e010a111"
+  },
+  "name": "Appnw",
+  "manifest": [
+    "69aafb0bf22af2ae403bcebd"
+  ],
+  "contrato_talento": "Aficionado",
+  "entidad_talento": null,
+  "persona_TalentoArtistico": true,
+  "isDeleted": false
 }]
