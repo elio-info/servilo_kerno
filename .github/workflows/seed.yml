@@ -1,0 +1,47 @@
+name: Seed Database
+
+on:
+  workflow_dispatch:
+    inputs:
+      drop:
+        description: "Eliminar colecciones existentes antes de importar (reset total)"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  seed:
+    name: Importar datos iniciales al VPS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Copiar datos y scripts al VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          source: "database_cvs/,scripts/"
+          target: ${{ secrets.VPS_PROJECT_PATH }}
+          strip_components: 0
+          overwrite: true
+
+      - name: Ejecutar seed en VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            cd ${{ secrets.VPS_PROJECT_PATH }}
+            chmod +x scripts/seed.sh
+            if [ "${{ github.event.inputs.drop }}" = "true" ]; then
+              bash scripts/seed.sh --drop
+            else
+              bash scripts/seed.sh
+            fi
