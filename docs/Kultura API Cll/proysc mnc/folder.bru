@@ -3,6 +3,14 @@ meta {
   seq: 14
 }
 
+headers {
+  ~rqs: {{lk}}/proy-soccult-munc
+}
+
 auth {
   mode: inherit
+}
+
+vars:pre-request {
+  rqs: {{lk}}/proy-soccult-com
 }
