@@ -32,7 +32,7 @@ export class ProgramaSocial_Service {
     
     if ( dep.trazaDTO.error!='Ok'  ) {
       dep.save();
-      return dep.trazaDTO.error.toString()  ; 
+      return dep.terror()  ; 
     }
     
     try {

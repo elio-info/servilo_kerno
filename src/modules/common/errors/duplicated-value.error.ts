@@ -12,6 +12,10 @@ export class DuplicatedValueError  {
     this.keys=key;
     this.message=`Duplicated key ${key} on ${module} colection`;
   }
+
+  errorMessage(){
+    return this.moduleScc+" -> "+this.message;
+  }
 }
 
 /**

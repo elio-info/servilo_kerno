@@ -8,6 +8,7 @@ import { DataList } from '../../common/data-list';
 import { Categorie_Entity } from '../domain/entities/categorie.entity';
 import { SearchCategorieDto } from '../domain/dto/search-categorie.dto';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { validatePagination } from 'src/modules/common/extractors';
 
 @Injectable()
 export class CategorieService {
@@ -21,10 +22,8 @@ export class CategorieService {
   }
 
   findAll(page = 1, pageSize = 15): Promise<DataList<Categorie_Entity>|string> {
-    if (page <= 0 || pageSize <= 0) {
-      throw new InvalidPaginationError();
-    }
-    return this.repository.findAll(page, pageSize);
+    
+    return this.repository.findAll(validatePagination (page,1), validatePagination(pageSize,15));
   }
 
   findOne(id: string): Promise<Categorie_Entity |string> {

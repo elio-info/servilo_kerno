@@ -6,4 +6,8 @@ export class WrongIdFormat extends Error {
         : 'The provided id does not have the correct format',
     );
   }
+
+  errorMessage(){
+    return "Error -> "+this.message;
+  }
 }

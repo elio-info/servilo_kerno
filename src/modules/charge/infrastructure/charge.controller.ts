@@ -1,13 +1,14 @@
 import {
   Controller,
   Get,
-  Post,
+  Post,Put,
   Body,
   Patch,
   Param,
   Delete,
   Query,
-  UsePipes,
+  Headers,
+  Inject,
 } from '@nestjs/common';
 import { ChargeService } from '../application/charge.service';
 import { CreateChargeDto } from '../domain/dto/create-charge.dto';
@@ -19,6 +20,7 @@ import {
   ApiCreatedResponse,
   ApiHeader,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiQuery,
   ApiTags,
@@ -31,17 +33,28 @@ import { ApiNotFoundCustomErrorResponse } from '../../common/doc/api-not-found-c
 import { CustomController } from 'src/modules/common/helpers/custom-controller';
 import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchChargeDto } from '../domain/dto/search-charge.dto';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
+import { privateDecrypt } from 'crypto';
+import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { FindChargeDto } from '../domain/dto/find-charge.dto';
+import { DeleteChargeDto } from '../domain/dto/delete-charge.dto';
 
-const MODULE = 'Charge Module';
-@ApiTags(`charge`)
+
+@Controller('charge')
+@ApiBearerAuth()
+// 
+@ApiTags(`Cargos de las personas`)
 @ApiHeader({
   name: 'Authorization',
   description: 'Bearer theJsonWebToken',
 })
-@ApiBearerAuth()
-@Controller('charge')
+
 export class ChargeController {
-  constructor(private readonly chargeService: ChargeService) {}
+  private MODULE = 'Charge Module';
+  constructor(
+    private readonly chargeService: ChargeService,
+    @Inject (TrazasService) private traza:TrazasService
+  ) { traza.trazaDTO.collection=this.MODULE;}
 
   @ApiBody({
     description: 'The charge object',
@@ -51,32 +64,39 @@ export class ChargeController {
   @ApiCreatedResponse({
     description: 'Returns 201 when charge is successfully created',
   })
+  @ApiOperation({summary:'Crear cargo'})
   @ApiCustomErrorResponse()
   @Post()
   @ErrorHandler()
-  create(@Body() createChargeDto: CreateChargeDto) {
-    return this.chargeService.create(createChargeDto);
+  create(@Body() createChargeDto: CreateChargeDto, @Headers('authorization') hds) {
+    this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
+    this.traza.trazaDTO.operation='save';
+    this.traza.trazaDTO.error='Ok';
+    this.traza.trazaDTO.before='';
+    this.traza.trazaDTO.filter=createChargeDto
+    return this.chargeService.create(createChargeDto, this.traza);
   }
 
-  @ApiQuery({
-    name: 'page',
-    description: 'The current page. 1 by default',
-    type: 'number',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'pageSize',
-    description: 'The amount of items in the current page. 15 by default',
-    type: 'number',
-    required: false,
+  @ApiBody({
+    type:FindChargeDto,
+    required:true
   })
   @ApiPaginatedResponse(Charge_Entity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
-  @Get()
+  @ApiOperation({
+    summary:'Todos los cargos',
+    description:'poner pagina en la que se busca y la cantidad por pagina'
+  })
+  @Put()
   @ErrorHandler()
-  findAll(@Query('page') page = 1, @Query('pageSize') pageSize = 15) {
-    return this.chargeService.findAll(page, pageSize);
+  findAll(@Body() pages :FindChargeDto) {
+    if (!!pages.id) {
+      return this.chargeService.findOne(pages.id);
+    } else {
+      return this.chargeService.findAll(pages.page, pages.pageSize);
+    }
+    
   }
 
   @ApiOkResponse({
@@ -86,11 +106,11 @@ export class ChargeController {
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Charge')
-  @ApiParam({ name: 'id' })
+  @ApiParam({ name: 'id',type:FindChargeDto })
   @Get(':id')
   @ErrorHandler()
-  findOne(@Param('id') id: string) {
-    return this.chargeService.findOne(id);
+  findOne(@Param('id') id: FindChargeDto) {
+    return this.chargeService.findOne(id.id);
   }
 
   @ApiOkResponse({
@@ -101,44 +121,46 @@ export class ChargeController {
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Charge')
   @ApiBody({
-    type: CreateChargeDto,
+    type: UpdateChargeDto,required:true
   })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  @ApiOperation({ summary: 'Update' })
+  @Patch()
   @ErrorHandler()
-  update(@Param('id') id: string, @Body() updateChargeDto: UpdateChargeDto) {
-    return this.chargeService.update(id, updateChargeDto);
+  update(@Body() updateChargeDto: UpdateChargeDto, @Headers('authorization') hds) {
+     this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
+    this.traza.trazaDTO.operation='update';
+    this.traza.trazaDTO.error='Ok';
+    // this.traza.trazaDTO.before='';
+    this.traza.trazaDTO.filter=updateChargeDto;
+    
+    return this.chargeService.update( updateChargeDto, this.traza);
   }
 
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Charge')
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The charge successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @ApiBody({ type: DeleteChargeDto, required:true })
+  @Delete()
   @ErrorHandler()
-  remove(@Param('id') id: string) {
-    return this.chargeService.remove(id);
+  remove(@Body() rid: DeleteChargeDto,@Headers('authorization') hds) {
+     this.traza.trazaDTO.user=getUserHTTP_JWTS(hds);
+    this.traza.trazaDTO.operation='remove';
+    this.traza.trazaDTO.error='Ok';
+    // this.traza.trazaDTO.before='';
+    this.traza.trazaDTO.filter=rid;
+    return this.chargeService.remove(rid.id,this.traza);
   }
+
+
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Charge')
-  @ApiQuery({
-    name: 'key',
-    description: 'The key name for the search',
-    type: 'string',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'value',
-    description: 'The value for the search',
-    type: 'string',
-    required: false,
-  })
+  @ApiBody({type:SearchChargeDto, required:true})
+  @ApiOperation({summary:'Busca algo'})
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchChargeDto))
-  @Get('api/search')
+  @Post('srch')
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query:SearchChargeDto) {
     return this.chargeService.search(query);
   }
 }

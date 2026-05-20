@@ -21,7 +21,10 @@ export class Proyecto_Sociocultural_Comunitario_Service {
 constructor(
     @InjectModel(Proyecto_Sociocultural_Comunitario_Model.name) private readonly pscc_Model:Model<Proyecto_Sociocultural_Comunitario_Document>,
     @Inject(TrazasService) private traza:TrazasService
-  ){ traza.trazaDTO.collection=this.MODULE}
+  ){ 
+    traza.trazaDTO.collection=this.MODULE;
+    this.cstvldt= new IsRelationshipProvider(pscc_Model.db);
+  }
 
   async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity |string> {
     
@@ -125,7 +128,7 @@ constructor(
       let error=new ObjectCanNotDeleted (this.MODULE,hijos );
       traza.trazaDTO.error= error ;
       traza.save();
-      throw traza.terror();
+      return traza.terror();
     }
     let bf=this.findOne(id);
     traza.trazaDTO.before=bf;      
@@ -141,7 +144,7 @@ constructor(
         traza.trazaDTO.error=err.name+' => '+err.message;
         traza.trazaDTO.update='';
         traza.save()
-        throw err;
+        return traza.terror();
     }
     traza.trazaDTO.update=document;    
     traza.trazaDTO.error='Ok';

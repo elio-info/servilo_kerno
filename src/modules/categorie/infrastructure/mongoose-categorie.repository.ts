@@ -96,7 +96,7 @@ export class MongooseCategorieRepository implements CategorieRepository {
       );
       return this.toEntity(document);
     } catch (e) {
-      throw new DuplicatedValueError(this.MODULE);
+      return (new DuplicatedValueError(this.MODULE)).errorMessage();
     }
   }
 

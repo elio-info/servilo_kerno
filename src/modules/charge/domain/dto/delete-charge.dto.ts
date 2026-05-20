@@ -9,34 +9,12 @@ import { EntityModel } from 'src/modules/entity/infrastructure/entity.schema';
 import { ChargeModel } from '../../infrastructure/charge.schema';
 import { Type } from 'class-transformer';
 
-export class UpdateChargeDto {
+export class DeleteChargeDto {
     @IsMongoId()
     @IsString({ message: 'The Id of a String' })
     @IsRelationShipWith(ChargeModel)
     @IsNotEmpty({ message: 'The ID cannot be empty' }) 
     @Type(()=>ChargeModel) 
     id:string;
-
-    @IsOptional()
-    @IsString()
-    @MinLength(3)
-    @IsNotEmpty()
-    name: string;
-
-    @IsOptional()
-    @IsRelationShipWith(EntityModel)
-    @IsMongoId()
-    entity:string
-
-    @IsOptional()
-    @IsArray({message:'no vacio'})
-    @IsNotEmpty({message:'no vacio'})
-    access: Categorie_Entity[]
-
-    @IsOptional()
-    @IsArray()
-    @ApiProperty({default:[]})
-    // @IsNotEmpty({message:'no vacio'})
-    @IsRelationShipWith(EntityModel)  
-    subord: ObjectId[]
+   
 }

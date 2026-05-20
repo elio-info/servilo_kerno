@@ -7,6 +7,8 @@ import { InvalidPaginationError } from '../../common/errors/invalid-pagination.e
 import { DataList } from '../../common/data-list';
 import { Charge_Entity } from '../domain/entities/charge.entity';
 import { SearchChargeDto } from '../domain/dto/search-charge.dto';
+import { validatePagination } from 'src/modules/common/extractors';
+import { TrazasService } from 'src/cultura/trazas/trazas.service';
 
 @Injectable()
 export class ChargeService {
@@ -15,27 +17,25 @@ export class ChargeService {
     private repository: ChargeRepository,
   ) {}
 
-  create(createChargeDto: CreateChargeDto): Promise<void> {
-    return this.repository.create(createChargeDto);
+  create(createChargeDto: CreateChargeDto,traza:TrazasService): Promise<Charge_Entity|string> {
+    return this.repository.create(createChargeDto, traza);
   }
 
-  findAll(page = 1, pageSize = 15): Promise<DataList<Charge_Entity>> {
-    if (page <= 0 || pageSize <= 0) {
-      throw new InvalidPaginationError();
-    }
-    return this.repository.findAll(page, pageSize);
+  findAll(page = 1, pageSize = 15): Promise<DataList<Charge_Entity>|string> {
+   
+    return this.repository.findAll(validatePagination (page,1), validatePagination(pageSize,15));
   }
 
-  findOne(id: string): Promise<Charge_Entity> {
+  findOne(id: string): Promise<Charge_Entity|string> {
     return this.repository.findOne(id);
   }
 
-  update(id: string, updateChargeDto: UpdateChargeDto): Promise<Charge_Entity> {
-    return this.repository.update(id, updateChargeDto);
+  update(updateChargeDto: UpdateChargeDto,traza:TrazasService): Promise<Charge_Entity|string> {
+    return this.repository.update(updateChargeDto,traza);
   }
 
-  remove(id: string): Promise<void> {
-    return this.repository.remove(id);
+  remove(id: string,traza:TrazasService): Promise<Charge_Entity|string> {
+    return this.repository.remove(id, traza);
   }
   search(query: SearchChargeDto): Promise<Charge_Entity[]> {
     return this.repository.search(query);

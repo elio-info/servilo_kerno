@@ -98,7 +98,7 @@ export class Comunidad_Transformacion_Service {
         let error=new ObjectCanNotDeleted (this.MODULE,hijos );
         traza.trazaDTO.error= error ;
         traza.save();
-        throw traza.terror();
+        return traza.terror();
       }
 
       let bf=this.findOne(id);
@@ -115,7 +115,7 @@ export class Comunidad_Transformacion_Service {
           traza.trazaDTO.error=err.name+' => '+err.message;
           traza.trazaDTO.update='';
           traza.save()
-          throw err;
+          return err;
       }
       traza.trazaDTO.update=document;    
       traza.trazaDTO.error='Ok';
