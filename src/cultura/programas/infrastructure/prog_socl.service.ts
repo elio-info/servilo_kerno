@@ -11,6 +11,7 @@ import { ProgramaSocial_Entity } from '../schemas/prog_socl.entity';
 import { Search_ProgramaSocial_Dto } from '../dto/search-prog_socl.dto';
 import { DataList } from 'src/modules/common/data-list';
 import { ObjectCanNotDeleted } from 'src/modules/common/errors/object-not-found.error';
+import { validateId_OnTable } from 'src/modules/common/helpers/id-validator';
  
 @Injectable()
 export class ProgramaSocial_Service {
@@ -102,19 +103,17 @@ export class ProgramaSocial_Service {
   async remove(id: string, traza:TrazasService): Promise<ProgramaSocial_Entity | string>  {
 
     // get all progsocl
-    const result_ps = await this.cnn.db.collection('programasocial')
-        .findOne({...this.IS_NOT_DELETED, $elemMatch:{programa:id}})
+    const result_ps = await this.progsocl_Model.find({...this.IS_NOT_DELETED, programa:id})
     console.log('progscl, con prog socl padre',result_ps);
     // get all ctrl_cult
-    const result = await this.cnn.db.collection('control_actividadcultural')
-        .findOne({...this.IS_NOT_DELETED, $elemMatch:{programas:id}})
+    const result = await this.cstvldt.validate_onTable('control_actividadcultural',{...this.IS_NOT_DELETED, programas:id})
     console.log('act cult, con prog socl',result);
     
-    if (!!result_ps._id || !!result._id) {
-      let err=new ObjectCanNotDeleted(this.MODULE,1)
-    traza.trazaDTO.error=err;
-    traza.trazaDTO.update='';
-    traza.save()
+    if (result_ps.length || result) { //tienes hijos no te borras
+      let err=new ObjectCanNotDeleted(this.MODULE, result_ps.length + result)
+      traza.trazaDTO.error=err;      
+      traza.trazaDTO.update='';
+      traza.save()
     return err.toString();
     }
     
@@ -126,18 +125,21 @@ export class ProgramaSocial_Service {
 
   async search(query:Search_ProgramaSocial_Dto) : Promise<ProgramaSocial_Entity[] | string> {
   
-      let buscar=[];
+      let buscar={};
       buscar['isDeleted']= query.isDeleted;
       if (!!query.name) {//existe nombre
         if (!!query.exactName) { buscar[' name']=query.name ; }
         else
-        {buscar ['name']= { $regex:query.name , $options:'i'};}
+        {
+          buscar ['name']= { $regex:query.name , $options:'i'};
+          delete query.exactName;      
+      }
       } 
       if (!!query.priorizado) {//existe tipo
         buscar['priorizado']=query.priorizado ; }
 
       if (!!query.programa) {//existe progrsoc padre
-        buscar['programa']= {$elemMatch:{programas:query.programa }} ;
+        buscar['programa']= query.programa  ;
       }
       console.log(buscar);
       
