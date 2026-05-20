@@ -1,10 +1,10 @@
 meta {
-  name: s-progsocl
+  name: D-progsocl
   type: http
-  seq: 2
+  seq: 5
 }
 
-post {
+put {
   url: {{rqs}}
   body: json
   auth: inherit
@@ -12,8 +12,9 @@ post {
 
 body:json {
   {
-  "name": "Educacion",
-  "priorizado": false//,
+  //"exactName":false,
+  //"name": "ITH"//,
+  "priorizado": true//false,
   //"programa":"69b02b678ebab4261adbb044" //id del suprior
   }
 }
