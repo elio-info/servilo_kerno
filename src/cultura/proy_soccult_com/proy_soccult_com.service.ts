@@ -119,7 +119,7 @@ constructor(
     traza.trazaDTO.filter= JSON.stringify ({_id:id}) ;
     traza.trazaDTO.operation='remove';
     //actividades culturales
-    let hijos=await this.cstvldt.validate_onTable('Consejo_Popular_Municipal',{'municipio':id},this.IS_NOT_DELETED);
+    let hijos=await this.cstvldt.validate_onTable('control_actividadcultural',{'ps_planificado':id},this.IS_NOT_DELETED);
     console.log('hijos',hijos);
     if (hijos!=0) { //tienes hijos no te borras  
       let error=new ObjectCanNotDeleted (this.MODULE,hijos );

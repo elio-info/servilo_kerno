@@ -8,6 +8,7 @@ import { ConsejoPopular_Municipality_Model } from "src/cultura/consejo_popular/d
 import { Comunidad_Transformacion_Model } from "src/cultura/comun_transf/schemas/comun_transf.schema"
 import { Estado_ActividadCultural } from "../schemas/control_actcult.entity"
 import { Nomenclador_GrupoEtareo } from "src/cultura/codificadores-cult/enums/codificadores"
+import { Proyecto_Sociocultural_Comunitario_Model } from "src/cultura/proy_soccult_com/schemas/proy_soccult_com.schema"
 
 export class Create_CActCult_Dto {
     @ApiProperty({
@@ -64,11 +65,16 @@ export class Create_CActCult_Dto {
     @IsRelationShipWith(ConsejoPopular_Municipality_Model)
     @IsMongoId()
     cp_planificado:string
-
+    
     @IsOptional()
     @IsRelationShipWith(Comunidad_Transformacion_Model)
     @IsMongoId()
     ct_planificado:string
+    
+    @IsOptional()
+    @IsRelationShipWith(Proyecto_Sociocultural_Comunitario_Model)
+    @IsMongoId()
+    ps_planificado:string
     
     @ApiProperty({required:false})
     @IsOptional()

@@ -10,6 +10,7 @@ import { PlaceModel } from "src/modules/place/infrastructure/place.schema";
 import { Control_ActividadCultural_Model } from "../schemas/control_actcult.schema";
 import { ProgramaSocial_Model } from "src/cultura/programas/schemas/prog_socl.schema";
 import { NomenclaCategorias_ContratacionManifestacion_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema";
+import { Proyecto_Sociocultural_Comunitario_Model } from "src/cultura/proy_soccult_com/schemas/proy_soccult_com.schema";
 export class ReportsBasic_CActCult_DTO {
 @IsOptional()
 @ApiProperty({ 
@@ -99,6 +100,12 @@ exactName?:boolean
     @IsRelationShipWith(Comunidad_Transformacion_Model)
     @IsMongoId()
     ct_planificado:string
+    
+    
+    @IsOptional()
+    @IsRelationShipWith(Proyecto_Sociocultural_Comunitario_Model)
+    @IsMongoId()
+    ps_planificado:string
     
     @ApiProperty({required:false})
     @IsRelationShipWith(ProgramaSocial_Model)

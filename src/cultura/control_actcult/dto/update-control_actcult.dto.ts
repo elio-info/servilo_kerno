@@ -11,6 +11,7 @@ import { ConsejoPopular_Municipality_Model } from 'src/cultura/consejo_popular/d
 import { Talento_Artistico_Contratado_Entity } from 'src/cultura/talentos/talento_contratado/talento_contratado.entity';
 import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
 import { Estado_ActividadCultural } from '../schemas/control_actcult.entity';
+import { Proyecto_Sociocultural_Comunitario_Model } from 'src/cultura/proy_soccult_com/schemas/proy_soccult_com.schema';
 
 export class Update_CActCult_Dto {
      @ApiProperty({ 
@@ -82,6 +83,11 @@ export class Update_CActCult_Dto {
     @IsRelationShipWith(Comunidad_Transformacion_Model)
     @IsMongoId()
     ct_planificado:string
+    
+    @IsOptional()
+    @IsRelationShipWith(Proyecto_Sociocultural_Comunitario_Model)
+    @IsMongoId()
+    ps_planificado:string
     
     @ApiProperty({required:false})
     // @IsRelationShipWith(ProgramaSocial_Model)

@@ -10,6 +10,7 @@ import { Estado_ActividadCultural } from "./control_actcult.entity";
 import { NomenclaCategorias_ContratacionManifestacion_Model } from "src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema";
 import { ConsejoPopular_Municipality_Model } from "src/cultura/consejo_popular/domain/schemas/consejo_popular.schema";
 import { Comunidad_Transformacion_Model } from "src/cultura/comun_transf/schemas/comun_transf.schema";
+import { Proyecto_Sociocultural_Comunitario_Model } from "src/cultura/proy_soccult_com/schemas/proy_soccult_com.schema";
 
 @Schema({ timestamps:true, collection:'control_actividadcultural'})
 export  class Control_ActividadCultural_Model{
@@ -49,6 +50,10 @@ export  class Control_ActividadCultural_Model{
     @Prop({type:Types.ObjectId,ref:Comunidad_Transformacion_Model.name, required:false})
     @Type(()=>Comunidad_Transformacion_Model)    
     ct_planificado?:String// ComnTransf
+
+    @Prop({type:Types.ObjectId,ref:Proyecto_Sociocultural_Comunitario_Model.name, required:false})
+    @Type(()=>Proyecto_Sociocultural_Comunitario_Model)    
+    ps_planificado?:String// ProySoccultCom
 
     @Prop({enum:Nomenclador_GrupoEtareo,default:Nomenclador_GrupoEtareo.N, type:String})
     edad:Nomenclador_GrupoEtareo //grupo etareo

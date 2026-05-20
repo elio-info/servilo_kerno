@@ -13,6 +13,7 @@ import { PlaceModel } from 'src/modules/place/infrastructure/place.schema';
 import { Estado_ActividadCultural } from '../schemas/control_actcult.entity';
 import { ProgramaSocial_Model } from 'src/cultura/programas/schemas/prog_socl.schema';
 import { NomenclaCategorias_ContratacionManifestacion_Model } from 'src/cultura/categorias-contrat-mancul/n_catgcont-m/schemas/n_catgcont-m.schema';
+import { Proyecto_Sociocultural_Comunitario_Model } from 'src/cultura/proy_soccult_com/schemas/proy_soccult_com.schema';
 
 export class Search_CActCult_Dto {
     @IsNumber()
@@ -113,6 +114,12 @@ export class Search_CActCult_Dto {
     @IsMongoId()
     ct_planificado:string
     
+    
+    @IsOptional()
+    @IsRelationShipWith(Proyecto_Sociocultural_Comunitario_Model)
+    @IsMongoId()
+    ps_planificado:string
+        
     @IsOptional()
     @ApiProperty({required:false})
     @IsRelationShipWith(ProgramaSocial_Model)

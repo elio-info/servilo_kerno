@@ -11,6 +11,7 @@ export class Control_ActividadCultural_Entity {
     ic_planificado?:String// InstCult
     cp_planificado?:String// ConsjPop
     ct_planificado?:String// ComnTransf
+    ps_planificado?:String// ProySoccultCom
     
     edad:Nomenclador_GrupoEtareo //grupo etareo
     edad_asistencia:Number //cantidad
