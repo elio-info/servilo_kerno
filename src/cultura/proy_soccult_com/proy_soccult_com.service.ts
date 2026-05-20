@@ -82,10 +82,34 @@ constructor(
     return this.toEntity(cpp);    
   }
 
-  update( updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto, tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity> {
+  async update( updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto, tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity | string> {
     console.log(updateProySoccultComDto);
     this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
-    return this.pscc_Model.findByIdAndUpdate(updateProySoccultComDto,{new :true })
+    this.traza.trazaDTO.operation='update';
+    this.traza.trazaDTO.filter=updateProySoccultComDto;
+    try {
+      let antes=await this.findOne( updateProySoccultComDto.id);
+       let rest= await this.pscc_Model.findOneAndUpdate( {_id:updateProySoccultComDto.id,...this.IS_NOT_DELETED},updateProySoccultComDto, { new: true});
+       
+       if (!rest) {
+        let err=new Error('Problema con actualizacion de '+this.MODULE)
+        this.traza.trazaDTO.error=err;
+        this.traza.trazaDTO.update='';
+        this.traza.save()
+        return err.toString();
+        }
+        this.traza.trazaDTO.before=antes;
+        this.traza.trazaDTO.update=rest;    
+        this.traza.save()       
+        return this.toEntity(rest)
+    } catch (error) {
+      let err=new Error('Problema con actualizacion Sistema '+this.MODULE)
+        this.traza.trazaDTO.error=error;
+        this.traza.trazaDTO.update='';
+        this.traza.save()
+        return error.toString();
+    }  
+   
   }
 
   async remove(id: string,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity | string> {
