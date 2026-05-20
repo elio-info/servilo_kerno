@@ -94,9 +94,9 @@ return traza;
 }
 
 export async function IsAtLeastOnePlace2Insert (validationArguments: Object): Promise<boolean> {
-  let val=validationArguments['lugar_planificado'] || validationArguments['ic_planificado'] ||validationArguments['cp_planificado'] ||validationArguments['ct_planificado'] ? true:false; 
+  let val=validationArguments['lugar_planificado'] || validationArguments['ic_planificado'] ||validationArguments['cp_planificado'] ||validationArguments['ct_planificado'] ||validationArguments['ps_planificado']? true:false; 
      console.log('val de algun lugar',val);
      
-  return   validationArguments['lugar_planificado'] || validationArguments['ic_planificado'] ||validationArguments['cp_planificado'] ||validationArguments['ct_planificado'];   
+  return  val;// validationArguments['lugar_planificado'] || validationArguments['ic_planificado'] ||validationArguments['cp_planificado'] ||validationArguments['ct_planificado'];   
     
 } 

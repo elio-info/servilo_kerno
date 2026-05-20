@@ -51,32 +51,37 @@ export class Create_CActCult_Dto {
     @IsMongoId()
     entidad_responsable:string
 
+    @ApiProperty({required:false,example:` '[IdPlace]' ` })
     @IsOptional()
     @IsRelationShipWith(PlaceModel)
     @IsMongoId()
     lugar_planificado:string
 
+    @ApiProperty({required:false,example:` '[IdEntidad]' ` })
     @IsOptional()
     @IsRelationShipWith(EntityModel)
     @IsMongoId()
     ic_planificado:string
 
+    @ApiProperty({required:false,example:` '[IdConsejoPopular]' ` })
     @IsOptional()
     @IsRelationShipWith(ConsejoPopular_Municipality_Model)
     @IsMongoId()
     cp_planificado:string
     
+    @ApiProperty({required:false,example:` '[IdComuidadTransformacion]' ` })
     @IsOptional()
     @IsRelationShipWith(Comunidad_Transformacion_Model)
     @IsMongoId()
     ct_planificado:string
     
+    @ApiProperty({required:false,example:` '[IdProgyectoSocioCultural]' ` })
     @IsOptional()
     @IsRelationShipWith(Proyecto_Sociocultural_Comunitario_Model)
     @IsMongoId()
     ps_planificado:string
     
-    @ApiProperty({required:false})
+    @ApiProperty({required:false,example:` '[IdProgramaSocial]' ` })
     @IsOptional()
     @IsArray()
     programas_tributa:string[]
