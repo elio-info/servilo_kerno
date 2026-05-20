@@ -115,7 +115,7 @@ export class Comunidad_Transformacion_Service {
           traza.trazaDTO.error=err.name+' => '+err.message;
           traza.trazaDTO.update='';
           traza.save()
-          return err;
+          return traza.terror();
       }
       traza.trazaDTO.update=document;    
       traza.trazaDTO.error='Ok';

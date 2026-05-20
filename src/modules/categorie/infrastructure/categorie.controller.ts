@@ -6,8 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  Query,
-  UsePipes,
+  Query,  
   Inject,Headers,
   Put
 } from '@nestjs/common';
@@ -35,6 +34,8 @@ import SearchValidate from 'src/modules/common/pipes/SearchValidate.pipe';
 import { SearchCategorieDto } from '../domain/dto/search-categorie.dto';
 import { TrazasService } from 'src/cultura/trazas/trazas.service';
 import { getUserHTTP_JWTS } from 'src/modules/common/extractors';
+import { FindCategorieDto } from '../domain/dto/find-categorie.dto';
+import { RemoveCategorieDto } from '../domain/dto/remove-categorie.dto';
 
 @Controller('categorie')
 @ApiHeader({
@@ -70,27 +71,28 @@ export class CategorieController {
     return this.categorieService.create(createCategorieDto, this.traza);
   }
 
-  @ApiQuery({
-    name: 'page',
-    description: 'The current page. 1 by default',
-    type: 'number',
-    required: false,
-  })
-  @ApiQuery({
-    name: 'pageSize',
-    description: 'The amount of items in the current page. 15 by default',
-    type: 'number',
-    required: false,
+  @ApiBody({type:FindCategorieDto,required:true})
+  @ApiOperation({
+    summary:'todas las categorias que se usaran en los cargos',
+    description: `
+    Se definen las plantillas para usar en los cargos
+    Buscar todos: {}. Se devuelve paginacion por defecto con page:1 y pageSize:15;
+    Buscar todos con limite: {page:X , pageSize:Y}. Se devuelve paginacion por defecto con page:1 y pageSize:15;
+    Buscar un id: {id:""} poner pagina en la que se busca y la cantidad por pagina.NO PONER ATRIBUTOS DE PAGINACION`,    
   })
   @ApiPaginatedResponse(Categorie_Entity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
-  @Get()
+  @Put()
   @ErrorHandler()
-  findAll(@Query('page') page = 1, @Query('pageSize') pageSize = 15) {
-    return this.categorieService.findAll(page, pageSize);
-  }
+  findAll(@Body() find:FindCategorieDto) {
 
+    return !!find.id? 
+      this.categorieService.findOne(find.id): 
+      this.categorieService.findAll(find.page, find.pageSize)
+      ;
+  }
+/*
   @ApiOkResponse({
     description: 'The categorie object',
     type: Categorie_Entity,
@@ -104,6 +106,7 @@ export class CategorieController {
   findOne(@Param('id') id: string) {
     return this.categorieService.findOne(id);
   }
+*/
 
   @ApiOkResponse({
     description: 'The updated Categorie Object',
@@ -113,10 +116,10 @@ export class CategorieController {
   @ApiCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Categorie')
   @ApiBody({
-    type: CreateCategorieDto,
+    type: UpdateCategorieDto,
   })
-  @ApiParam({ name: 'id' })
-  @Patch(':id')
+  @ApiOperation({summary:'Actuallizar la plantilla de una categoria'})
+  @Patch()
   @ErrorHandler()
   update(    
     @Body() updateCategorieDto: UpdateCategorieDto,
@@ -133,37 +136,37 @@ export class CategorieController {
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Categorie')
   @ApiCustomErrorResponse()
+  @ApiOperation({
+    summary: 'Eliminar categorias',
+    description: 'The id for the remove'    
+  })
   @ApiOkResponse({ description: 'The categorie successfully deleted' })
-  @ApiParam({ name: 'id' })
-  @Delete(':id')
+  @Delete()
   @ErrorHandler()
-  remove(@Param('id') id: string, @Headers('authorization') hds) {
+  remove(@Body() rid: RemoveCategorieDto, @Headers('authorization') hds) {
     this.traza.trazaDTO.operation='Crear categoria de acceso';
       this.traza.trazaDTO.user=getUserHTTP_JWTS (hds);
       this.traza.trazaDTO.error='Ok';
-      this.traza.trazaDTO.filter={id:id};
+      this.traza.trazaDTO.filter={id:rid};
       this.traza.trazaDTO.before={};
-    return this.categorieService.remove(id,this.traza);
+    return this.categorieService.remove(rid.id,this.traza);
   }
+
+  
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Place')
-  @ApiQuery({
-    name: 'key',
-    description: 'The key name for the search',
-    type: 'string',
-    required: false,
+  @ApiBody({
+    type: SearchCategorieDto,
+    required: true,
   })
-  @ApiQuery({
-    name: 'value',
-    description: 'The value for the search',
-    type: 'string',
-    required: false,
+  @ApiOperation({
+    summary: 'Buscar por motivos',
+    description: 'The values for the search'    
   })
   @ApiCustomErrorResponse()
-  @UsePipes(new SearchValidate(SearchCategorieDto))
-  @Put()
+  @Post('srch')
   @ErrorHandler()
-  search(@Query() query) {
+  search(@Body() query:SearchCategorieDto) {
     return this.categorieService.search(query);
   }
 }

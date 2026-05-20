@@ -13,7 +13,7 @@ export class FindChargeDto {
   @IsRelationShipWith(ChargeModel)
   @IsNotEmpty({ message: 'The ID cannot be empty' }) 
   @Type(()=>ChargeModel) 
-  id:string;
+  id?:string;
 
   @IsOptional()
   @IsNumber()  

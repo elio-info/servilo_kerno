@@ -86,7 +86,10 @@ export class ChargeController {
   @ApiUnauthorizedCustomErrorResponse()
   @ApiOperation({
     summary:'Todos los cargos',
-    description:'poner pagina en la que se busca y la cantidad por pagina'
+    description:`
+    Buscar todos: {}. Se devuelve paginacion por defecto con page:1 y pageSize:15;
+    Buscar todos con limite: {page:X , pageSize:Y}. Se devuelve paginacion por defecto con page:1 y pageSize:15;
+    Buscar un id: {id:""} poner pagina en la que se busca y la cantidad por pagina.NO PONER ATRIBUTOS DE PAGINACION`
   })
   @Put()
   @ErrorHandler()
@@ -98,7 +101,7 @@ export class ChargeController {
     }
     
   }
-
+/*
   @ApiOkResponse({
     description: 'The charge object',
     type: Charge_Entity,
@@ -112,6 +115,7 @@ export class ChargeController {
   findOne(@Param('id') id: FindChargeDto) {
     return this.chargeService.findOne(id.id);
   }
+  */
 
   @ApiOkResponse({
     description: 'The updated Charge Object',
@@ -123,7 +127,7 @@ export class ChargeController {
   @ApiBody({
     type: UpdateChargeDto,required:true
   })
-  @ApiOperation({ summary: 'Update' })
+  @ApiOperation({ summary: 'Update el cargo' })
   @Patch()
   @ErrorHandler()
   update(@Body() updateChargeDto: UpdateChargeDto, @Headers('authorization') hds) {
@@ -141,6 +145,10 @@ export class ChargeController {
   @ApiCustomErrorResponse()
   @ApiOkResponse({ description: 'The charge successfully deleted' })
   @ApiBody({ type: DeleteChargeDto, required:true })
+  @ApiOperation({
+    summary: 'Eliminar cargo',
+    description: 'The id for the remove'    
+  })
   @Delete()
   @ErrorHandler()
   remove(@Body() rid: DeleteChargeDto,@Headers('authorization') hds) {
