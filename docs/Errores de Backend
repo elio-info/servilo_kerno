@@ -16,7 +16,8 @@ Módulo: Comunidad en Transformación
 Problema: Datos legados de telefonos guardados como string no-JSON ("cell:...,fijo:...,trabajo:...")
 Qué corregir: Validar/normalizar el formato de telefonos al crear (hoy el DTO solo exige @IsString()); decidir si migrar los datos legados a
 JSON válido
-────────────────────────────────────────
+///──────────────────────────────────────── OK
+
 Módulo: Manifestación/Apoyo a la Manifestación
 Problema: Al fallar la validación (payload con campos inexistentes), el servicio revienta con 500 en vez de 400
 Qué corregir: En main.ts:34, skipMissingProperties: true hace que las validaciones se salten cuando la propiedad falta por completo; revisar
