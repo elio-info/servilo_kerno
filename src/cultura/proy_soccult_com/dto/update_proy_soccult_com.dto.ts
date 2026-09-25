@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsObject, IsOptional, IsString, Matches, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { MunicipalityModel } from 'src/modules/municipality/infrastructure/municipality.schema';
@@ -69,13 +69,15 @@ export class Update_Proyecto_Sociocultural_Comunitario_Dto {
 
     @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
     @IsOptional()
-    @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
-    @MinLength(3)
+     @Matches(/^\{Acuerdo#\d+_Acta#\d+,...\}$/)    
+    @IsString({ message: 'Debe seguir el patron dado' })
+    @MinLength(30)
     aprobado:string
 
     @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
     @IsOptional()
-    @IsString({ message: 'Mas de 3 letras por cada una de las cosas' })
-    @MinLength(3)
+     @Matches(/^\{Acuerdo#\d+_Acta#\d+,...\}$/)    
+    @IsString({ message: 'Debe seguir el patron dado' })
+    @MinLength(30)
     cancelado:string
 }
