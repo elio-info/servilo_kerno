@@ -1,11 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { Type } from "class-transformer"
-import { IsBoolean, IsMongoId, IsNotEmpty, IsObject, IsOptional, isString, IsString, MinLength } from "class-validator"
-import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
+import { IsBoolean, IsMongoId, IsNotEmpty, IsOptional, IsString, MinLength } from "class-validator"
 import { ConsejoPopular_Municipality_Model } from "../../consejo_popular/domain/schemas/consejo_popular.schema"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
 import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema"
-import { ProvinceModel } from "src/modules/province/infrastructure/province.schema"
 
 export class Search_Proyecto_Sociocultural_Comunitario_Dto {
     @ApiProperty({example:'completo nombre '})
@@ -50,7 +47,7 @@ export class Search_Proyecto_Sociocultural_Comunitario_Dto {
 
     @IsOptional()
     @ApiProperty({
-        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`
+        example:`cell:12345678,fijo:12345678,trabajo:12345678 uno o los 3`
     })
     // @Type()
     @IsString()

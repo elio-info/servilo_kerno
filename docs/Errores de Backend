@@ -4,12 +4,14 @@ Módulo: Proyecto Sociocultural
 Problema: PATCH /proy-soccult-com devuelve 400 al editar
 Qué corregir: update_proy_soccult_com.dto.ts:55 define gestor como string; debe ser array de objetos {name, titulos_profesiones, telefonos}
 igual que el DTO de creación y el schema real
-────────────────────────────────────────
+///────────────────────────────────────────    Ok
+
 Módulo: Proyecto Sociocultural
 Problema: Campo "Aprobado" sin formato forzado
 Qué corregir: Agregar @Matches(/^\{Acuerdo#\d+_Acta#\d+,...\}$/) (o el patrón que definan) en create_proy_soccult_com.dto.ts — el FE ya lo
 valida, falta el espejo en BE
-────────────────────────────────────────
+///──────────────────────────────────────── Ok
+
 Módulo: Comunidad en Transformación
 Problema: Datos legados de telefonos guardados como string no-JSON ("cell:...,fijo:...,trabajo:...")
 Qué corregir: Validar/normalizar el formato de telefonos al crear (hoy el DTO solo exige @IsString()); decidir si migrar los datos legados a

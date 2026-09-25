@@ -1,11 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { Type } from "class-transformer"
-import { IsArray, IsMongoId, IsNotEmpty, IsNotEmptyObject, IsObject, IsOptional, isString, IsString, Matches, MinLength } from "class-validator"
-import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
+import { IsArray, IsMongoId, IsNotEmpty, IsOptional, IsString, Matches, MinLength } from "class-validator"
 import { ConsejoPopular_Municipality_Model } from "../../consejo_popular/domain/schemas/consejo_popular.schema"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
 import { MunicipalityModel } from "src/modules/municipality/infrastructure/municipality.schema"
-import { ProvinceModel } from "src/modules/province/infrastructure/province.schema"
 import { Gestor_Entity } from "../schemas/proy_soccult_com.entity"
 
 export class Create_Proyecto_Sociocultural_Comunitario_Dto {
@@ -35,7 +32,7 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @MinLength(3)
     direccion:string
 
-    @ApiProperty({example:'[{name: Pedro Prieto, titulos_profesiones:Miembro de la UNEAC,telefonos:{cell:12345678,fijo:12345678,trabajo:12345678} uno o los 3},{name: Alejandro Perez, titulos_profesiones:Profesor de Arte,Miembro de la UNEAC,Repentista,telefonos:}]'})
+    @ApiProperty({example:'[{name: Pedro Prieto, titulos_profesiones:Miembro de la UNEAC,telefonos:cell:12345678,fijo:12345678,trabajo:12345678 uno o los 3},{name: Alejandro Perez, titulos_profesiones:Profesor de Arte,Miembro de la UNEAC,Repentista,telefonos:}]'})
     @IsArray({ message: '[{name,titulos_profesiones,telefonos}]' })
     // @MinLength(3)
     @IsNotEmpty()

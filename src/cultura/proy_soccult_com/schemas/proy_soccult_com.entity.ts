@@ -1,4 +1,3 @@
-import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
 
 export class Proyecto_Sociocultural_Comunitario_Entity {
     id:string;

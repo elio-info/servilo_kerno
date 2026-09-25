@@ -33,7 +33,7 @@ export class Create_Comunidad_Transformacion_Dto {
     responsable:string
 
     @ApiProperty({
-        example:`{"cell":12345678,"fijo":12345678,"trabajo":12345678} uno o los 3`
+        example:`cell:12345678,fijo:12345678,trabajo:12345678 uno o los 3`
     })
     @IsString()
     telefonos:string
