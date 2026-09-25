@@ -1,6 +1,6 @@
 import { Telefonos_Type_Dto } from "src/cultura/codificadores-cult/infrastructure/telefonos.dto"
 
-export class Proyecto_Socioculturale_Comunitario_Entity {
+export class Proyecto_Sociocultural_Comunitario_Entity {
     id:string;
     name:string;
     consejopopular_municipality:string;

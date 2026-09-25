@@ -1,0 +1,56 @@
+
+9[Spt]/7/26, 12:41
+Módulo: Proyecto Sociocultural
+Problema: PATCH /proy-soccult-com devuelve 400 al editar
+Qué corregir: update_proy_soccult_com.dto.ts:55 define gestor como string; debe ser array de objetos {name, titulos_profesiones, telefonos}
+igual que el DTO de creación y el schema real
+────────────────────────────────────────
+Módulo: Proyecto Sociocultural
+Problema: Campo "Aprobado" sin formato forzado
+Qué corregir: Agregar @Matches(/^\{Acuerdo#\d+_Acta#\d+,...\}$/) (o el patrón que definan) en create_proy_soccult_com.dto.ts — el FE ya lo
+valida, falta el espejo en BE
+────────────────────────────────────────
+Módulo: Comunidad en Transformación
+Problema: Datos legados de telefonos guardados como string no-JSON ("cell:...,fijo:...,trabajo:...")
+Qué corregir: Validar/normalizar el formato de telefonos al crear (hoy el DTO solo exige @IsString()); decidir si migrar los datos legados a
+JSON válido
+────────────────────────────────────────
+Módulo: Manifestación/Apoyo a la Manifestación
+Problema: Al fallar la validación (payload con campos inexistentes), el servicio revienta con 500 en vez de 400
+Qué corregir: En main.ts:34, skipMissingProperties: true hace que las validaciones se salten cuando la propiedad falta por completo; revisar
+si esa opción es realmente necesaria, o agregar guardas en el servicio antes de hacer .trim() sobre campos que podrían venir undefined
+────────────────────────────────────────
+Módulo: Organigrama → Nueva Entidad
+Problema: Nada que arreglar en datos — el campo nivel sí existe y es legítimo (enum Clasifica_Nivel_EntidadCultural, independiente del
+hierarchy de entityType); el FE ya lo consume vía GET /nomenclador/nivel-entidadcultural
+Qué corregir: Sin acción, salvo que quieran validar nivel contra el enum en el DTO (hoy es @IsOptional() nivel?: string sin @IsEnum)
+────────────────────────────────────────
+Módulo: Organigrama → Panel Organizativo
+Problema: DELETE /entity ejecuta el soft-delete correctamente en Mongo pero la respuesta HTTP es 500
+Qué corregir: Revisar el controlador/servicio de entity —ndo la respuesta después de que el borrado ya tuvo éxito
+
+
+
+El lun, 7 sept 2026 a la(s) 2:41 a.m., Eliomar Rodríguez (elio.ing.info@gmail.com) escribió:
+
+    Revisa esto antes, porque me salieron estas cosas. Si usas IA,verifica antes. Si son errores del bk,Revisa lo último que puse. Si soy yo,dímelo para subir entonces el que es.
+
+    Voy a dormir. Igual para ti 
+
+    El dom., 6 de septiembre de 2026 11:50 p. m., Esteban Avelino <esteban.avelino2004@gmail.com> escribió:
+
+        https://betacultura.ciber-tips.com/login
+        test y test  en user y pass para que pruebes y me digas mañana quiero ir a ver a la profe 
+
+        El El dom, sept 6, 2026 a la(s) 11:10 p.m., Eliomar Rodríguez <elio.ing.info@gmail.com> escribió:
+
+            Que fue lo que le pasaste a Telleria, la dirección del sitio web arreglado?cual es? 
+
+            El jue., 3 de septiembre de 2026 9:20 p. m., Esteban Avelino <esteban.avelino2004@gmail.com> escribió:
+
+                Buenas noches profe yo le pase eso a la profe para que lo fuera testeando ella también, es que he andabo en el papeleo de un traspaso en el limit para armas de fuego y por eso fui hoy a ver a el profe Richard que el me iba a hacer un papel que necesitaba hay que probar a fondo la app web para ver si es esta ya todo funcional sin problemas para ya luego ir allí seguros y darle acceso y que vallan testeandolo ellos y así van cogiendo técnica con el programa 
+
+                El El jue, sept 3, 2026 a la(s) 8:54 p.m., Eliomar Rodríguez <elio.ing.info@gmail.com> escribió:
+
+                    Buenas tardes. Pudiste ver o ir a Cultura? Ya se depuró como para que lo usen? Te fuiste y no pude hablar contigo. 
+

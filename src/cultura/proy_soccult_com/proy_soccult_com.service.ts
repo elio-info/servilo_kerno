@@ -6,7 +6,7 @@ import { Proyecto_Sociocultural_Comunitario_Document, Proyecto_Sociocultural_Com
 import { Model } from 'mongoose';
 import { IsRelationshipProvider } from 'src/modules/common/helpers/customIdValidation';
 import { TrazasService } from '../trazas/trazas.service';
-import { Gestor_Entity, Proyecto_Socioculturale_Comunitario_Entity } from './schemas/proy_soccult_com.entity';
+import { Gestor_Entity, Proyecto_Sociocultural_Comunitario_Entity } from './schemas/proy_soccult_com.entity';
 import { DataList } from 'src/modules/common/data-list';
 import { Search_Proyecto_Sociocultural_Comunitario_Dto } from './dto/search_proy_soccult_com.dto';
 import { ObjectCanNotDeleted, ObjectNotFound } from 'src/modules/common/errors/object-not-found.error';
@@ -26,7 +26,7 @@ constructor(
     this.cstvldt= new IsRelationshipProvider(pscc_Model.db);
   }
 
-  async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity |string> {
+  async create(createProySoccultComDto: Create_Proyecto_Sociocultural_Comunitario_Dto,tkhds:string):Promise<Proyecto_Sociocultural_Comunitario_Entity |string> {
     
     this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
     this.traza.trazaDTO.operation='save';
@@ -47,7 +47,7 @@ constructor(
    
   }
 
-  async findAll(page = 1, pageSize = 15):Promise<DataList<Proyecto_Socioculturale_Comunitario_Entity>| string> {
+  async findAll(page = 1, pageSize = 15):Promise<DataList<Proyecto_Sociocultural_Comunitario_Entity>| string> {
     const skipCount = (page - 1) * pageSize;
     console.log(page,pageSize,skipCount);
  
@@ -63,7 +63,7 @@ constructor(
       this.toEntity(cpp),
     );
 
-    const dataList: DataList<Proyecto_Socioculturale_Comunitario_Entity> = {
+    const dataList: DataList<Proyecto_Sociocultural_Comunitario_Entity> = {
       data: cpCollection,
       totalPages: Math.ceil(cpCollection.length / pageSize),
       currentPage: page,
@@ -72,7 +72,7 @@ constructor(
     
   }
 
-  async findOne(id: string) :Promise<Proyecto_Socioculturale_Comunitario_Entity | string>{
+  async findOne(id: string) :Promise<Proyecto_Sociocultural_Comunitario_Entity | string>{
     const cpp = await this.pscc_Model
       .findById(id)
       .where(this.IS_NOT_DELETED)
@@ -85,7 +85,7 @@ constructor(
     return this.toEntity(cpp);    
   }
 
-  async update( updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto, tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity | string> {
+  async update( updateProySoccultComDto: Update_Proyecto_Sociocultural_Comunitario_Dto, tkhds:string):Promise<Proyecto_Sociocultural_Comunitario_Entity | string> {
     console.log(updateProySoccultComDto);
     this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
     this.traza.trazaDTO.operation='update';
@@ -115,7 +115,7 @@ constructor(
    
   }
 
-  async remove(id: string,tkhds:string):Promise<Proyecto_Socioculturale_Comunitario_Entity | string> {
+  async remove(id: string,tkhds:string):Promise<Proyecto_Sociocultural_Comunitario_Entity | string> {
     this.traza.trazaDTO.user=getUserHTTP_JWTS(tkhds);
     let traza=this.traza;
 
@@ -152,7 +152,7 @@ constructor(
     return this.toEntity(document);
     // return this.toEntity(await this.pscc_Model.findByIdAndDelete(id))
   }
-  async search(query:Search_Proyecto_Sociocultural_Comunitario_Dto):Promise<Proyecto_Socioculturale_Comunitario_Entity[] | string> {
+  async search(query:Search_Proyecto_Sociocultural_Comunitario_Dto):Promise<Proyecto_Sociocultural_Comunitario_Entity[] | string> {
     if (query.exactName)  
       query.name=  "{ $regex:"+query.name+" , $options:'i'}";
     let srch= await this.pscc_Model.find().where(query);
@@ -160,7 +160,7 @@ constructor(
     return srchCll
   }
 
-  private toEntity(pry: Proyecto_Sociocultural_Comunitario_Document): Proyecto_Socioculturale_Comunitario_Entity {
+  private toEntity(pry: Proyecto_Sociocultural_Comunitario_Document): Proyecto_Sociocultural_Comunitario_Entity {
    
     return {
       id:pry._id.toString(),

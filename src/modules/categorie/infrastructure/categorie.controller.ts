@@ -107,7 +107,7 @@ export class CategorieController {
     return this.categorieService.findOne(id);
   }
 */
-
+// Update Categorie
   @ApiOkResponse({
     description: 'The updated Categorie Object',
     type: Categorie_Entity,
@@ -125,14 +125,15 @@ export class CategorieController {
     @Body() updateCategorieDto: UpdateCategorieDto,
     @Headers('authorization') hds
   ) {
-    this.traza.trazaDTO.operation='Crear categoria de acceso';
+    this.traza.trazaDTO.operation='Actualizar categoria de acceso';
       this.traza.trazaDTO.user=getUserHTTP_JWTS (hds);
       this.traza.trazaDTO.error='Ok';
       this.traza.trazaDTO.filter=updateCategorieDto;
       this.traza.trazaDTO.before={};
     return this.categorieService.update( updateCategorieDto,this.traza);
   }
-
+  
+// Delete Categorie
   @ApiUnauthorizedCustomErrorResponse()
   @ApiNotFoundCustomErrorResponse('Categorie')
   @ApiCustomErrorResponse()
@@ -144,7 +145,7 @@ export class CategorieController {
   @Delete()
   @ErrorHandler()
   remove(@Body() rid: RemoveCategorieDto, @Headers('authorization') hds) {
-    this.traza.trazaDTO.operation='Crear categoria de acceso';
+    this.traza.trazaDTO.operation='Eliminar categoria de acceso';
       this.traza.trazaDTO.user=getUserHTTP_JWTS (hds);
       this.traza.trazaDTO.error='Ok';
       this.traza.trazaDTO.filter={id:rid};
@@ -152,15 +153,15 @@ export class CategorieController {
     return this.categorieService.remove(rid.id,this.traza);
   }
 
-  
+  // Search Categorie
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiNotFoundCustomErrorResponse('Place')
+  @ApiNotFoundCustomErrorResponse('Categorie')
   @ApiBody({
     type: SearchCategorieDto,
     required: true,
   })
   @ApiOperation({
-    summary: 'Buscar por motivos',
+    summary: 'Buscar por categorias',
     description: 'The values for the search'    
   })
   @ApiCustomErrorResponse()
