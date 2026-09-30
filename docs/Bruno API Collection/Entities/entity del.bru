@@ -1,0 +1,22 @@
+meta {
+  name: entity del
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{rqs}}
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id":"6abd8578c6d5b603bf634748"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

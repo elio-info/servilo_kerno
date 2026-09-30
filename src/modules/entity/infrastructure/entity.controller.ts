@@ -138,7 +138,7 @@ export class EntityController {
     description:'Para buscar'
   })
   @ApiCustomErrorResponse()
-  @Put()
+  @Post('/srch')
   @ErrorHandler()
   search(@Body() query:SearchEntityDto) {
     return this.service.search(query);

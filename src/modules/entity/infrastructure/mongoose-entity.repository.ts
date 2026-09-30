@@ -156,24 +156,19 @@ private  cstvldt: IsRelationshipProvider;
           traza.save();
           return error.toString();
         }
-    traza.trazaDTO.before= await this.findOne(id);
+      let bfr= await this.findOne(id);
     const document = await this.entityModel.findOneAndUpdate(
       { _id: id, isDeleted: false },
       {
         isDeleted: true,
       },
     );
-
-    if (!document) {
-      let error=new ObjectNotFound(this.MODULE);
-      traza.trazaDTO.error= error ;
-      traza.save();
-      return error.toString();
-    }
+    traza.trazaDTO.before= bfr;
+    bfr['isDeleted']=true;
     traza.trazaDTO.filter={id:id} ;
     traza.trazaDTO.update='' ;
       traza.save();
-      return extractEntity(document);
+      return bfr  ;
   }
 
   async search(query:SearchEntityDto) :  Promise<Entity_Entity[]|string>{
