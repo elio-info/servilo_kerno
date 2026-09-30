@@ -37,7 +37,7 @@ export class UpdateEntityDto  {
    })
   @IsIn(Object.keys(Clasifica_Nivel_EntidadCultural))
   @IsOptional()
-  nivel?: keyof typeof Clasifica_Nivel_EntidadCultural; // string;
+  nivel: keyof typeof Clasifica_Nivel_EntidadCultural; // string;
 
 
   @IsString()

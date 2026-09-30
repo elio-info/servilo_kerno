@@ -55,8 +55,8 @@ export  class Control_ActividadCultural_Model{
     @Type(()=>Proyecto_Sociocultural_Comunitario_Model)    
     ps_planificado?:String// ProySoccultCom
 
-    @Prop({enum:Nomenclador_GrupoEtareo,default:Nomenclador_GrupoEtareo.N, type:String})
-    edad:Nomenclador_GrupoEtareo //grupo etareo
+    @Prop({enum:Object.keys(Nomenclador_GrupoEtareo),default:Nomenclador_GrupoEtareo.N, type:String})
+    edad:keyof typeof Nomenclador_GrupoEtareo //grupo etareo
         
     @Prop({type:Number,min:1, required:true})
     edad_asistencia:number //cantidad

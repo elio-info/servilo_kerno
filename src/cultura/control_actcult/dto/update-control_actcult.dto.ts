@@ -2,7 +2,7 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Create_CActCult_Dto } from './create-control_actcult.dto';
 import { Control_ActividadCultural_Model } from '../schemas/control_actcult.schema';
 import { Type } from 'class-transformer';
-import { IsArray, IsBoolean, IsDate, IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { IsArray, IsBoolean, IsDate, IsEnum, IsIn, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from 'class-validator';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { EntityModel } from 'src/modules/entity/infrastructure/entity.schema';
 import { Nomenclador_GrupoEtareo } from 'src/cultura/codificadores-cult/enums/codificadores';
@@ -96,9 +96,12 @@ export class Update_CActCult_Dto {
     @IsArray()
     programas_tributa:string[]
 
-    // @IsOptional()
-    @IsEnum(Nomenclador_GrupoEtareo)
-    edad:string
+   @IsOptional()//
+    @ApiProperty({required:true,
+        enum:Object.keys(Nomenclador_GrupoEtareo)})
+    @IsIn(Object.keys(Nomenclador_GrupoEtareo))
+    edad:keyof typeof Nomenclador_GrupoEtareo //string
+
 
     @IsNumber()
     @ApiProperty({required:true,type:Number})

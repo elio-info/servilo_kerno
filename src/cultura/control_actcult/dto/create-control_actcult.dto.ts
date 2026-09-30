@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsRelationShipWith } from "src/modules/common/decorators/validateIdExistence"
 import { EntityModel } from "src/modules/entity/infrastructure/entity.schema"
-import { IsArray, IsBoolean, IsDate, IsEnum, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from "class-validator"
+import { IsArray, IsBoolean, IsDate, IsEnum, IsIn, IsMongoId, IsNotEmpty, IsNumber, IsOptional, IsString, Min } from "class-validator"
 import { Talento_Artistico_Contratado_Entity } from "src/cultura/talentos/talento_contratado/talento_contratado.entity"
 import { PlaceModel } from "src/modules/place/infrastructure/place.schema"
 import { ConsejoPopular_Municipality_Model } from "src/cultura/consejo_popular/domain/schemas/consejo_popular.schema"
@@ -86,9 +86,10 @@ export class Create_CActCult_Dto {
     @IsArray()
     programas_tributa:string[]
 
-    // @IsOptional()
-    @IsEnum(Nomenclador_GrupoEtareo)
-    edad:string
+    @ApiProperty({required:true,
+        enum:Object.keys(Nomenclador_GrupoEtareo)})
+    @IsIn(Object.keys(Nomenclador_GrupoEtareo))
+    edad:keyof typeof Nomenclador_GrupoEtareo //string
 
     @IsNumber()
     @ApiProperty({required:true,type:Number})
