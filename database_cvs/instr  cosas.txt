@@ -2,7 +2,23 @@ ejemplos
 https://github.com/nestjs/nest/blob/master
 https://mongoplayground.net/
 
+/*****
+create a insert string to restore database on mongodb
 
+No necesitas Docker. Con MongoDB corriendo localmente y mongoimport instalado, ejecuta esto desde la raíz del proyecto para reemplazar las colecciones con los datos de respaldo:
+
+for file in "database_cvs/upr data"/senfima_kerno.*.json; do
+  collection="${file##*.kerno.}"
+  collection="${collection%.json}"
+  mongoimport --uri "mongodb://localhost:27017" \
+    --db senfima_kerno \
+    --collection "$collection" \
+    --jsonArray \
+    --drop \
+    --file "$file"
+done
+
+/******
 
 
 

@@ -44,18 +44,20 @@ export class Create_Proyecto_Sociocultural_Comunitario_Dto {
     @MinLength(3)
     actividades:string
 
-    @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
-    // @IsOptional()
-    @Matches(/^\{Acuerdo#\d+_Acta#\d+,...\}$/)
-    @IsString({ message: 'Debe seguir el patron dado' })
-    @MinLength(30)
+    @ApiProperty({example:'Contrato con que se creo: Acuerdo#<número> Acta#<número>, fecha '})
+    @IsString({ message: 'Debe ser una cadena' })
+    // @Matches(/^Acuerdo#\d+ Acta#\d+,\w$/,{ message: 'Debe seguir el patron dado' })
+     @Matches(/^Acuerdo#\d+ Acta#\d+,.+$/, {
+        message: 'Debe seguir el formato Acuerdo#<número> Acta#<número>, fecha',
+    })
+    // @MinLength(30)
     aprobado:string
 
-    @ApiProperty({example:'Contrato con que se creo: Acuerdo - Acta - Fecha '})
+    @ApiProperty({example:'Contrato con que se creo: Acuerdo#<número> Acta#<número>, fecha '})
+    @IsString({ message: 'Debe ser una cadena' })
     @IsOptional()
-    @Matches(/^\{Acuerdo#\d+_Acta#\d+,...\}$/)    
-    @IsString({ message: 'Debe seguir el patron dado' })
-    @MinLength(30)
+    @Matches(/^Acuerdo#\d+ Acta#\d+,.+$/, { message: 'Debe seguir el formato Acuerdo#<número> Acta#<número>, fecha' })
+    // @MinLength(30)
     cancelado:string
 
 }

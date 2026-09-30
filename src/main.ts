@@ -56,8 +56,8 @@ async function bootstrap() {
    */
   const config = new DocumentBuilder()
     
-    .setTitle('Cultura: Gestión Empresarial')
-    .setDescription('La API de Cultura patra trabajar.')
+    .setTitle('Cultura: Gestión Empresarial '+configService.get<string>('NODE_ENV'))
+    .setDescription('La API de Cultura para trabajar '+configService.get<string>('NODE_ENV')+'.')
     .setVersion('0.1')
     .addBearerAuth()
     .build();
