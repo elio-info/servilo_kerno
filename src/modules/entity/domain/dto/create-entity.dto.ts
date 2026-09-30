@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDate,
   IsDateString,
+  IsIn,
   IsMongoId,
   IsNotEmpty,
   IsOptional,
@@ -32,13 +33,13 @@ export class CreateEntityDto {
   name: string;
 
   @ApiProperty({ 
-    type: String, 
+    //type: String, 
     enum:Object.keys(Clasifica_Nivel_EntidadCultural),
     default:Clasifica_Nivel_EntidadCultural.Mnpl,
     example: 'Mnpl'
    })
-  @IsOptional()
-  nivel?: string;
+  @IsIn(Object.keys(Clasifica_Nivel_EntidadCultural))
+  nivel:keyof typeof Clasifica_Nivel_EntidadCultural; // string;
 
 
   @IsString()

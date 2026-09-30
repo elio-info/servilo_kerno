@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateEntityDto } from './create-entity.dto';
-import { IsDateString, IsMongoId, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsDateString, IsIn, IsMongoId, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { IsRelationShipWith } from 'src/modules/common/decorators/validateIdExistence';
 import { EntityTypeModel } from 'src/modules/entity_type/infrastructure/entity-type.schema';
 import { EntityModel } from '../../infrastructure/entity.schema';
@@ -30,13 +30,14 @@ export class UpdateEntityDto  {
   name?: string;
 
   @ApiProperty({ 
-    type: String, 
+    // type: String, 
     enum:Object.keys(Clasifica_Nivel_EntidadCultural),
     default:Clasifica_Nivel_EntidadCultural.Mnpl,
     example: 'Mnpl'
    })
+  @IsIn(Object.keys(Clasifica_Nivel_EntidadCultural))
   @IsOptional()
-  nivel?: string;
+  nivel?: keyof typeof Clasifica_Nivel_EntidadCultural; // string;
 
 
   @IsString()

@@ -27,7 +27,7 @@ export class EntityModel {
   @Prop({ type: String,
     enum: Object.keys(Clasifica_Nivel_EntidadCultural), 
     default: Clasifica_Nivel_EntidadCultural.Mnpl})
-  nivel: string;
+  nivel: keyof typeof Clasifica_Nivel_EntidadCultural; //string;
   
   @Prop({ default: '' })
   nitCode: string;

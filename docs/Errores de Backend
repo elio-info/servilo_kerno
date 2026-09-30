@@ -22,12 +22,16 @@ Módulo: Manifestación/Apoyo a la Manifestación
 Problema: Al fallar la validación (payload con campos inexistentes), el servicio revienta con 500 en vez de 400
 Qué corregir: En main.ts:34, skipMissingProperties: true hace que las validaciones se salten cuando la propiedad falta por completo; revisar
 si esa opción es realmente necesaria, o agregar guardas en el servicio antes de hacer .trim() sobre campos que podrían venir undefined
-────────────────────────────────────────
+─///─────────────────────────────────────── Ok
+
+
 Módulo: Organigrama → Nueva Entidad
 Problema: Nada que arreglar en datos — el campo nivel sí existe y es legítimo (enum Clasifica_Nivel_EntidadCultural, independiente del
 hierarchy de entityType); el FE ya lo consume vía GET /nomenclador/nivel-entidadcultural
 Qué corregir: Sin acción, salvo que quieran validar nivel contra el enum en el DTO (hoy es @IsOptional() nivel?: string sin @IsEnum)
-────────────────────────────────────────
+///───────────────────────────────────────  OK
+
+
 Módulo: Organigrama → Panel Organizativo
 Problema: DELETE /entity ejecuta el soft-delete correctamente en Mongo pero la respuesta HTTP es 500
 Qué corregir: Revisar el controlador/servicio de entity —ndo la respuesta después de que el borrado ya tuvo éxito

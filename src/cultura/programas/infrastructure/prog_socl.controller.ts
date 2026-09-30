@@ -22,7 +22,7 @@ import { TrazasService } from 'src/cultura/trazas/trazas.service';
   description: 'Bearer theJsonWebToken',
 })
 @ApiBearerAuth()
-@ApiTags( 'Programa Social de Manifestacion Artistica')
+@ApiTags( 'Programa Social ')
 export class ProgramaSocial_Controller {
   constructor(private readonly ps: 
     ProgramaSocial_Priorizado_Service,
@@ -30,15 +30,15 @@ export class ProgramaSocial_Controller {
   )  { traza.trazaDTO.collection='Programa Social'}
 
    @ApiBody({
-    description: 'The Manifestacion Cultural object',
+    description: 'Programa Social object',
     type: Create_ProgramaSocial_Dto,
   })
   @ApiUnauthorizedCustomErrorResponse()
   @ApiCreatedResponse({
-    description: 'Returns 201 when PS is successfully created',
+    description: 'Returns 201 when Programa Social is successfully created',
   })
   @ApiCustomErrorResponse()
-  @ApiOperation({ summary:'Crear PS Especial'})
+  @ApiOperation({ summary:'Crear Programa Social'})
   @Post()      
    @ErrorHandler()
        create(@Body() createProgramaSocial_Dto: Create_ProgramaSocial_Dto, @Headers('authorization') hds) {
@@ -65,7 +65,7 @@ export class ProgramaSocial_Controller {
   @ApiPaginatedResponse(ProgramaSocial_Entity)
   @ApiCustomErrorResponse('Invalid page or pageSize')
   @ApiUnauthorizedCustomErrorResponse()
-  @ApiOperation({ summary:'Recuperar todas las categorias'})
+  @ApiOperation({ summary:'Recuperar todos los programas sociales'})
   @Get()
   @ErrorHandler()    
   findAll(@Query('page') page:number,@Query('pageSize') pageSize:number) {
@@ -73,7 +73,7 @@ export class ProgramaSocial_Controller {
   }
 
   @ApiOkResponse({
-    description: 'The municipality object',
+    description: 'The Programa Social object',
     type: ProgramaSocial_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
@@ -87,7 +87,7 @@ export class ProgramaSocial_Controller {
   }
 
   @ApiOkResponse({
-    description: 'The updated Municipality Object',
+    description: 'The updated Programa Social Object',
     type: ProgramaSocial_Entity,
   })
   @ApiUnauthorizedCustomErrorResponse()
@@ -127,14 +127,14 @@ export class ProgramaSocial_Controller {
 
   //TODO Making Search Endpoint By Query
     @ApiUnauthorizedCustomErrorResponse()
-    @ApiNotFoundCustomErrorResponse('ProgramaSocial_Priorizado')
+    @ApiNotFoundCustomErrorResponse('ProgramaSocial')
     @ApiBody({
       description: 'The key name for the search',
       type: Search_ProgramaSocial_Dto,
       required: true,
     })  
     @ApiCustomErrorResponse()
-    @Put()
+    @Post('/srch')
     @ErrorHandler()
     search(@Body() query:Search_ProgramaSocial_Dto) {
       console.log(query);    
