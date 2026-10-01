@@ -606,7 +606,7 @@ export class Control_ActividadCultural_Service {
         lugar_planificado:ps.lugar_planificado,
         ic_planificado:ps.ic_planificado,//_id.toString(),
         cp_planificado:ps.cp_planificado,
-        ct_planificado:ps.cp_planificado,
+        ct_planificado:ps.ct_planificado,
         edad:ps.edad,
         edad_asistencia:ps.edad_asistencia,
         estados_actividad:ps.estados_actividad,

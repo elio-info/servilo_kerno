@@ -13,7 +13,7 @@ export class Control_ActividadCultural_Entity {
     ct_planificado?:String// ComnTransf
     ps_planificado?:String// ProySoccultCom
     
-    edad:Nomenclador_GrupoEtareo //grupo etareo
+    edad:keyof typeof Nomenclador_GrupoEtareo //grupo etareo
     edad_asistencia:Number //cantidad
     tipoActividad_extraPlan?:boolean //no 
     tipoActividad_Prov_Entidad?:string //Entity_Entity //null o entidad prov only
