@@ -1,4 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Inject, Injectable } from '@nestjs/common';
+import { dbErrorToHttp } from 'src/modules/common/errors/db-error';
 import { Create_Proyecto_Sociocultural_Comunitario_Dto } from './dto/create_proy_soccult_com.dto';
 import { Update_Proyecto_Sociocultural_Comunitario_Dto } from './dto/update_proy_soccult_com.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -42,7 +43,11 @@ constructor(
     } catch (error) {      
       this.traza.trazaDTO.error=error;
       this.traza.save()
-      return error.toString();  
+      const err = error as { code?: number; message?: string };
+      if (err?.code === 11000) {
+        throw new ConflictException('Ya existe un proyecto con ese nombre');
+      }
+      throw new BadRequestException(err?.message ?? 'No se pudo crear el proyecto');
     }           
    
   }
@@ -53,19 +58,20 @@ constructor(
  
     let cp= await  this.pscc_Model
         .find(this.IS_NOT_DELETED)
-        // .skip(skipCount)
+        .skip(skipCount)
         .limit(pageSize)
        .populate('consejopopular_municipality')
         .exec();
     console.log(cp);
     
+    const total = await this.pscc_Model.countDocuments(this.IS_NOT_DELETED);
     const cpCollection = cp.map((cpp) =>
       this.toEntity(cpp),
     );
 
     const dataList: DataList<Proyecto_Sociocultural_Comunitario_Entity> = {
       data: cpCollection,
-      totalPages: Math.ceil(cpCollection.length / pageSize),
+      totalPages: Math.ceil(total / pageSize),
       currentPage: page,
     };
     return dataList;
@@ -110,7 +116,7 @@ constructor(
         this.traza.trazaDTO.error=error;
         this.traza.trazaDTO.update='';
         this.traza.save()
-        return error.toString();
+        throw dbErrorToHttp(error, 'Ya existe un proyecto con ese nombre', 'No se pudo actualizar el proyecto');
     }  
    
   }

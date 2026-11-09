@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -10,6 +10,7 @@ import { PersonDocument, PersonModel } from './person.schema';
 import { CreatePersonDto } from '../domain/dto/create-person.dto';
 import { UpdatePersonDto } from '../domain/dto/update-person.dto';
 import { InactiveUser } from '../../domain/errors/user-no-active.error';
+import { dbErrorToHttp } from 'src/modules/common/errors/db-error';
 import { DuplicatedValueError, SearchDuplicate_KeysValue } from 'src/modules/common/errors/duplicated-value.error';
 import { extractEntity, extractMunicipality } from '../../common/extractors';
 import { PersonAuth } from 'src/modules/auth/domain/person-auth.entity';
@@ -69,10 +70,12 @@ private IS_NOT_DELETED = { isDeleted: false };
   async create(person: CreatePersonDto, traza:TrazasService): Promise<Person|string> {
     let crt_p=await SearchDuplicate_KeysValue(this.MODULE,this.personModel,['username'],[person.username],traza);
     if (crt_p.trazaDTO.error!='Ok') {
-      return crt_p.terror();
+      throw new ConflictException('Ya existe un usuario con ese nombre de usuario');
     }
     try {
      let p= await new this.personModel(person).save();
+     // toEntity necesita municipio (con provincia) y entidad poblados, como en las lecturas
+     await p.populate([this.POPULATE_PATH, { path: 'entity', populate: this.ENTITY_PATH.entityType }]);
      
       traza.trazaDTO.update=p;
       traza.trazaDTO.before=''
@@ -80,7 +83,7 @@ private IS_NOT_DELETED = { isDeleted: false };
       traza.save();      
      return this.toEntity (p);
     } catch (error) {
-         return error.toString();      
+         throw dbErrorToHttp(error, 'Ya existe un usuario con ese CI, email o nombre de usuario', 'No se pudo crear el usuario');
     }
   }
 
@@ -126,7 +129,7 @@ private IS_NOT_DELETED = { isDeleted: false };
         traza.trazaDTO.error=e;
         traza.save();      
         
-        return e.toString();
+        throw dbErrorToHttp(e, 'Ya existe un usuario con ese CI, email o nombre de usuario', 'No se pudo actualizar el usuario');
     }
   }
 
@@ -214,7 +217,10 @@ private IS_NOT_DELETED = { isDeleted: false };
       updatedAt: person.updatedAt,
       createdAt: person.createdAt,
       role: person.role,
-      entity: {id: person.entity._id.toString(), name: person.entity.name, type: person.entity.entityType},//extractEntity(person.entity),
+      // Tras un save() la entidad llega como ObjectId sin poblar; sin entidad queda undefined
+      entity: person.entity
+        ? {id: (person.entity._id ?? person.entity).toString(), name: person.entity.name, type: person.entity.entityType}
+        : undefined,
       municipality: extractMunicipality(person.municipality),
       charge:person.charge,
       isDeleted:person.isDeleted

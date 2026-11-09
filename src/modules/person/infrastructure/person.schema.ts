@@ -81,7 +81,7 @@ export class PersonModel {
   @Type(() => MunicipalityModel)
   municipality: MunicipalityModel;
 
-  @Prop({ required: true,type: Charge_Entity })
+  @Prop({ required: false, type: Charge_Entity })
   charge: Charge_Entity;
   
 }

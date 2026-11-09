@@ -93,7 +93,7 @@ export class CreatePersonDto {
   @IsRelationShipWith(EntityModel)
   entity: string;
 
-  @IsEnum(['ADMIN','IM'])
+  @IsEnum(['ADMIN','IM','Gestor de la aplicación','Programador cultural','Director cultural','Director','Jefe Programación DPC','Económico','Gestor del talento artístico','Gestor de especialistas','Gestor de TCP'])
   @IsNotEmpty()
   role: string;
   
